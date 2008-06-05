@@ -1,0 +1,17 @@
+# NOTE: i think this stuff is obsoleted by the neoip_apache2.conf which handle it
+# all at the root level
+
+RewriteEngine On
+# ok the absolute path seems needed here... which is rather ugly
+RewriteBase	/~jerome/neoip_html/player/play
+
+# if nothing, play the normal one with no playlist_id
+RewriteRule	^$			../direct_play/neoip_player.php [L]
+
+# to avoid infinite recursion
+RewriteRule	^neoip_player.php$	../direct_play/neoip_player.php [L]
+
+# if there is a path, put it in playlist_id uri variable
+RewriteRule	^(.+)$			../direct_play/neoip_player.php?playlist_id=$1
+
+

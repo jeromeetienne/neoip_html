@@ -1,0 +1,23 @@
+{	"playlist_title": "Conference",
+	"playlist_id"	: "conference",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "bliptv",
+					"desc"	: {
+						"base_uri"	: "http://tedtalks.blip.tv/rss"
+						}
+				}
+		},
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "users",
+							"username"	: "googletechtalks",
+							"subtype"	: "uploads"
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

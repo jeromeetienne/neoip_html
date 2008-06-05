@@ -1,0 +1,24 @@
+{"playlist": {
+	"title"		: "Sample Stream",
+	"date"		: "Fri, 17 Aug 2007 20:07:25 GMT",
+	"identifier"	: "sample_stream",
+	"extension"	: {	"external_dep"	: { "casto"	: { "required"	: true	}
+					}
+			},
+	"track"	: [
+		{
+		"title"		: "example of live stream",
+		"location"	: "http://example.com/dummy",
+		"duration"	: 8852000,
+		"meta"		: { "content_type"	: "stream"
+				},
+		"extension"	: {
+			"casto"	: {
+				"cast_privhash"	: "1f71e0f4",
+				"cast_name"	: "superstream.flv",
+				"mdata_srv_uri"	: "http://jmehost1/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi"
+				}
+			}	
+		}
+	]
+}}

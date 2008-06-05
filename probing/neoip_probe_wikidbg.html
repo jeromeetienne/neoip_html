@@ -1,0 +1,62 @@
+<html>
+<head><title>neoip apps_detect_t probe</title></head>
+<body onload="start_probing()">
+<script src="../base/firebug/firebug.js"></script> 
+<script src="../base/javascript/neoip_core.js"></script> 
+<script src="../base/javascript/neoip_xdomrpc_t.js"></script>
+
+This page just probes all the local port usual designed for neoip wikidbg 
+layer. and if an neoip application is found, it display them below.
+This is done to ease the finding of those applications as the ports
+binding is dynamic (inside a range).
+
+<h1>List of running neoip apps with wikidbg</h1>
+<ul id="neoip_apps_list"></ul>
+
+<script>
+function start_probing()
+{
+	for(var probe_port = 9080; probe_port < 9090; probe_port++){ 
+		var rpc_uri	= "http://127.0.0.1:" + probe_port + "/neoip_apps_info_jsrest.js";
+		var callback	= neoip.xdomrpc_cb_t(xdomrpc_cb, window, probe_port)
+		var xdomrpc	= new neoip.xdomrpc_t(rpc_uri, callback, "probe_apps");
+	}
+}
+
+/** \brief xdomrpc_t callback
+ */
+function xdomrpc_cb(notifier_obj, userptr, fault, returned_val)
+{
+	var probe_port	= userptr;
+	var xdomrpc	= notifier_obj;
+	// log to debug
+	console.info("enter fault=" + fault + " returned_val=" + returned_val + " port=" + probe_port);
+	
+	// delete the xdomrpc_t
+	xdomrpc.destructor();
+	xdomrpc	= null;
+
+	// if there is a fault, return now
+	if( fault != null )	return;
+
+	// get data from the returned_val
+	var canon_name	= returned_val['canon_name'];
+	var summary	= returned_val['summary'];
+	// append this string in the neoip_apps_list element
+	var elem_a	= document.createElement('a');
+	elem_a.setAttribute("href", "http://127.0.0.1:"+probe_port);
+	elem_a.appendChild(document.createTextNode(canon_name));
+	
+	var elem_line	= document.createElement('li');
+	elem_line.appendChild(elem_a);
+	elem_line.appendChild(document.createTextNode(' - ' + summary));
+	
+	var elem_list	= document.getElementById('neoip_apps_list');
+	elem_list.appendChild(elem_line);
+	
+}
+</script>
+
+
+</body>
+</html>

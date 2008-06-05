@@ -1,0 +1,87 @@
+#!/usr/bin/ruby
+#
+# \par Brief Description
+# to handle a track_pool on confreaks.com
+
+# the 'require' for the library i use
+require 'impl/base/neoip_track_item_base_t'
+
+module	Neoip
+module	Track_item_t
+class	Confreaks_t
+
+# include the base of Neoip::Track_item_t
+include Neoip::Track_item_t::Base_t
+
+################################################################################
+################################################################################
+#			constructor
+################################################################################
+################################################################################
+def initialize(p_item_data)
+	@item_data	= p_item_data
+end
+
+################################################################################
+################################################################################
+#			Query function
+################################################################################
+################################################################################
+
+# Return the title of this Track_item_t
+# - return nil, if cant be found 
+def track_title
+	# get the title from the @item_item
+	track_title	= @item_data['track_title']
+	# return the found track_title
+	return track_title
+end
+
+# Return the flv_uri of this Track_item_t 
+# - return nil, if cant be found 
+def flv_uri
+	# get the flv_uri
+	flv_uri		= @item_data['flv_uri']
+	
+	# if failed to retrieved the flv_uri, log the event and goto the next
+	if( flv_uri == nil )
+		$stderr.puts "unable to find flv_uri for track title #{title}";
+		return nil
+	end
+	
+	# return the found flv_uri	
+	return flv_uri
+end
+
+################################################################################
+################################################################################
+#			Convertion to_jspf function
+################################################################################
+################################################################################
+
+# convert this item into a track_jspf format
+def to_jspf
+	# build a base track_jspf from the flv_uri and the track_title
+	track_jspf	= Neoip::Flv_uri_t.to_track_jspf(flv_uri, track_title);
+	# if an error occured, return nil now
+	if( track_jspf == nil )
+		return nil;
+	end
+	
+	# add some specific to confreaks
+	
+	# all video are 640x240. the left being the slide and the right being the talker
+	# - this is a nice thing but doesnt work well with the default "filled" aspect
+	# - so set video_aspect to "fitted" instead
+	track_jspf['meta']['video_aspect']	= "fitted";
+
+	# return the just-build track_jspf
+	return track_jspf
+end
+
+end	# end of class	Confreaks_t
+end	# end of module Track_item_t
+end	# end of module Neoip
+
+
+

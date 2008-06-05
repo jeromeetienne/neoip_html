@@ -1,0 +1,15 @@
+{	"playlist_title": "car onboard",
+	"playlist_id"	: "car_onboard",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "videos",
+							"query_param"	: { "vq" : "onboard formula race"	}
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

@@ -1,0 +1,15 @@
+{	"playlist_title": "Demo Channel",
+	"playlist_id"	: "demo_channel",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "bliptv",
+					"desc"	: {
+						"base_uri"	: "http://thesmartshow.blip.tv/rss"
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

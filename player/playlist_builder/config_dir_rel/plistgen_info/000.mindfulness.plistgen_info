@@ -1,0 +1,16 @@
+{	"playlist_title": "Mindfulness",
+	"playlist_id"	: "mindfulness",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "users",
+							"username"	: "DharmaFountain",
+							"subtype"	: "uploads"
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

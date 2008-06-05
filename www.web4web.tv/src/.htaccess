@@ -1,0 +1,11 @@
+# \file htaccess for web4web.tv website
+
+
+# backward compatibility for http://web4web.tv/play
+# - now only http://player.web4web.tv/play should be used
+RewriteEngine on
+RewriteRule ^play$ http://player.web4web.tv/play [R]
+
+# to handle the /download link
+RewriteBase	/~jerome/public_html
+RewriteRule	^(download.*)$	$1	[L]

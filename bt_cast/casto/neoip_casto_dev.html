@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>Web4Web.tv (beta) Live Player</title></head>
+<script src="../../base/firebug/firebug.js"></script> 
+<script src="../../base/javascript/neoip_core.js"></script>
+<script src="../../base/javascript/neoip_objembed_initmon_t.js"></script>
+<script src="../../base/javascript/neoip_base64_safe.js"></script>
+<script src="../../base/javascript/neoip_nested_uri_builder_t.js"></script> 
+<script src="../../base/javascript/swfobject.js"></script>
+<script src="../../base/javascript/neoip_xdomrpc_t.js"></script>
+<script src="../../base/javascript/neoip_apps_detect_t.js"></script> 
+<script src="../../base/javascript/neoip_apps_detect_wikidbg_t.js"></script> 
+<script src="../../base/javascript/neoip_wikidbg_t.js"></script>
+<script src="../../player/jsplayer/neoip_playlist_t.js"></script>
+<script src="../../player/jsplayer/neoip_playlist_track_t.js"></script>
+<script src="../../player/jsplayer/neoip_playlist_loader_t.js"></script>
+<script src="../../player/jsplayer/neoip_plistarr_t.js"></script>
+<script src="../../player/jsplayer/neoip_plistarr_item_t.js"></script>
+<script src="../../player/jsplayer/neoip_subplayer_cb_t.js"></script>
+<script src="../../player/jsplayer/neoip_subplayer_vlc_t.js"></script>
+<script src="../../player/jsplayer/neoip_subplayer_asplayer_t.js"></script>
+<script src="../../player/jsplayer/neoip_player_t.js"></script>
+<script src="../../player/jsplayer/neoip_player_wikidbg_t.js"></script>
+<script src="../../player/jsplayer/neoip_prefetcher_t.js"></script>
+<script src="../../player/jsplayer/neoip_ezplayer_t.js"></script>
+<script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
+<style type="text/css">	
+	/* body style for the video fullpage mode - hardcoded for now */
+	body_not_now {	height	: 100%;
+		width	: 100%;
+		margin	: 0px;
+		overflow: hidden;
+		background-color: transparent;
+	}
+</style>
+
+<body>
+
+<!-- <div id="neoip_player_container_id">Place to put player container</div> -->
+
+
+<!-- <center><h3>NeoIP web player demo</h3></center> -->
+
+<table>
+<tr><td><!-- PLAYER CONTAINER	-->
+	<div id="neoip_player_container_id">Place to put player container</div>
+</td><td><table><tr><td ><!-- ADMIN INFO	-->
+	<div id="player_info_container_id"></div>
+</td></tr><tr><td><!-- APPS DETECT	-->
+	<div id="apps_detect_container_id"></div>
+</td></tr></table>
+</table>
+
+
+<div id="debug_info_container_id"></div>
+
+</script>
+<script>
+//	var cast_name		= "superstream.flv"
+//	var cast_privhash	= "1f71e0f4";
+	var cast_name		= ""
+	var cast_privhash	= "";
+
+
+	// build the neoip.ezplayer_t
+	var ezplayer	= new neoip.ezplayer_t();
+	// set the server_date in ezplayer
+	ezplayer.set_server_date( parseFloat(neoip.core.download_file_insync("../../cgi-bin/server_date.php", true))*1000 );
+
+	// if the uri contains a cast_name and cast_privhash variable, use it to load this playlist
+	// - additionnaly dont put a playlist_arr, so impossible to change channel
+	if( cast_name != "" && cast_privhash != "" ){
+		// set the playlist_url in the ezplayer_t
+		var	playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";
+		ezplayer.change_playlist(playlist_url);
+	}else{
+		ezplayer.load_plistarr("../mdata_echo_server/data/ezplayer_playlist_arr.json");
+	}
+	// start the ezplayer_t
+	ezplayer.start();
+</script>
+
+</body>
+</html>

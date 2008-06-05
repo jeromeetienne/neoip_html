@@ -1,0 +1,16 @@
+{	"playlist_title": "Quit Smoking",
+	"playlist_id"	: "quit_smoking",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "videos",
+							"query_param"	: { "vq" : "quit smoking"	},
+							"select_first"	: 100
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

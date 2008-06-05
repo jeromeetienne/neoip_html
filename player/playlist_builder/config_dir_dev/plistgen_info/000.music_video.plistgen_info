@@ -1,0 +1,15 @@
+{	"playlist_title": "Music Video",
+	"playlist_id"	: "music_video",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		:	"videos",
+							"category_tag"	:	["Music"]
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

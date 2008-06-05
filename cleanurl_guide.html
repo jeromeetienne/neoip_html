@@ -1,0 +1,55 @@
+<html>
+<head>
+	<title>NeoIP webpack cleanurl page</title>
+</head>
+
+<body>
+
+<center><h1>NeoIP webpack cleanurl</h1></center>
+
+<ul id="link_list_id"></ul>
+
+<script>
+// NOTE: dunamically generated to get the url pointing to the same host as this page
+// - this allow to get it working on several host without change
+// - this only requires the host to be a neoip server
+
+function build_uri(uri_pathquery)
+{
+	return "http://" + window.location.host + uri_pathquery;
+}
+function add_link(uri_pathquery, a_text, summary)
+{
+	var a_elem	= document.createElement('a');
+	a_elem.setAttribute('href', build_uri(uri_pathquery));
+	a_elem.appendChild(document.createTextNode(a_text));
+	
+	
+	var line_elem	= document.createElement('li');
+	line_elem.appendChild(a_elem);
+	line_elem.appendChild(document.createTextNode(' - ' + summary));
+	
+	var list_elem	= document.getElementById('link_list_id');
+	list_elem.appendChild(line_elem);
+}
+add_link("/play"		, "generic player"
+				, "a channel selector without any specific channel");
+add_link("/play/linux"		, "generic player on linux"
+				, "no channel selector with specific channel. in this case 'linux'");
+add_link("/record"		, "generic record"
+				, "");
+add_link("/live"		, "generic player on stream"
+				, "");
+add_link("/1f71e0f4/live/superstream.flv", "generic player on a given stream"
+				, "no channel selector with a specific stream in this case cast_name='superstream' and cast_privhash='1f71e0f4'");
+add_link("/redir/http://ftp.lip6.fr/pub/linux/distributions/Ubuntu/gutsy/ubuntu-7.10-desktop-i386.iso"
+				, "redir function"
+				, "with an example on ubuntu iso. NOTE: this function is beta.");
+</script>
+
+<!-- // attempts to get jsplayer into a iframe  -->
+<iframe width="320" height ="240" frameborder="no" src="http://jmeserv.podzone.net/play/linux"> 
+</iframe>
+
+</body>
+</html>

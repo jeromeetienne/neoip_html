@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>NeoIP oload automatic redirector</title></head>
+<script src="../base/firebug/firebug.js"></script> 
+<script src="../base/javascript/neoip_core.js"></script>
+<script src="../base/javascript/neoip_base64_safe.js"></script>
+<script src="../base/javascript/neoip_nested_uri_builder_t.js"></script> 
+<script src="../base/javascript/neoip_xdomrpc_t.js"></script>
+<script src="../base/javascript/neoip_apps_detect_t.js"></script> 
+<script src="neoip_oload_redir_t.js"></script>
+<body>
+<h1>NeoIP automatic redirector</h1>
+
+<script>
+	var inner_uri	= neoip.core.doc_urivar_get("inner_uri");
+	// if inner_uri start with "http:/" and not "http://", then add the missing "/"
+	// - If the inner_uri has been considered as a path, then the double "/" has
+	//   been removed as redondant. as it is supposed to happen.
+	// - this happen in the case of 'clean uri' where the inner_uri is coded as 
+	//   part of the whole uri. instead of a uri variable	
+	if( /^http:\//.test(this.m_inner_uri) && ! /^http:\/\//.test(this.m_inner_uri) ){
+		this.m_inner_uri= this.m_inner_uri.replace(/^http:\//, "http://");
+	}
+
+	// build the neoip.oload_redir_t IIF inner_uri is not null
+	if( inner_uri ){
+		var oload_redir	= new neoip.oload_redir_t();
+		oload_redir.start(inner_uri);
+	}
+</script>
+
+
+<h2>TODO</h2>
+<ul>
+	<li>if the browser has no javascript, it should redirect... i dunno how to do that</li>
+	<li>pause before redirection ? to let people see advertizement or something
+		Or more find a way to make the browser download the file automatically
+		while keeping the page open. this is possible as sourceforge does
+		it. download.com etc... some say to use iframe + weirdo mimetype</li>
+	<li>DONE minify the js</li>
+	<li>DONE do a url rewrite with appache to make the original uri more beautifull.
+		done but issue to get all the .js would be easier once js is packmin</li>
+</ul>
+
+<h1>Brief Description</h1>
+This page is made to allow web designers to easily integrate neoip-oload
+download into their pages.
+Suppose there is a url toward a file and they want to download thru neoip-oload
+if possible in order to save bandwidth on their servers.
+<ul>
+	<li>The inner_uri is http://example.com/onefile.ext</li>
+	<li>The web designers just prepend the uri to this page to the link.
+		e.g. http://neoip-oload.org?s=</li>
+	<li>The resulting link is http://neoip-oload.org?s=http://example.com/onefile.ext</li>
+	<li>If the client got neoip-oload installed, the neoip-oload automatic redirector
+		will use it, else it will simply use the original inner uri.</li>
+</ul>
+<h1>Possible Improvement</h1>
+Some stuff to tune the behavior of this page. Where to put the line between this
+way to handle neoip-oload and direct access from the web-designer page, is unclear.
+<ul>
+	<li>Have an even simpler access, with no url variable. e.g.
+		http://neoip-oload.org/http://example.com/onefile.ext</li>
+	<li>Have a different link if neoip-oload is detected. e.g. download thru torrent
+		if neoip-oload is detected. else download thru http.</li>
+	<li>Handle the mirror for the site itself ? e.g. if the client is in germany,
+		use .de etc... how to code it is unclear</li>
+	<li>Handle how to insite to the neoip-oload installation: immediat redirection
+		timeout with a display 'install neoip-oload', display 'install neoip-oload'
+		until click from the user</li>
+	<li>Have a button 'install neoip-oload'</li>
+</ul>
+<h1>Ideas</h1>
+Vague ideas. some studied and gave up, so dropped here.
+<ul>
+	<li>This version is in javascript. So assume the 'caller' is able to 
+		run javascript. is it possible to remove this dependancy ? 
+		Very unclear as neoip-oload need to be detected on the caller host,
+		so it requires to be able to run code on the caller host. and 
+		only javascript is able to do that</li>
+</ul>
+
+
+</body>
+</html>

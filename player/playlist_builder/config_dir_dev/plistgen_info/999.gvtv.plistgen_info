@@ -1,0 +1,15 @@
+{	"playlist_title": "gvtv",
+	"playlist_id"	: "gvtv",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "bliptv",
+					"desc"	: {
+						"base_uri"	: "http://gvtv.blip.tv/rss"
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

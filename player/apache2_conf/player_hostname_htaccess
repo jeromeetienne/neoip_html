@@ -1,0 +1,53 @@
+# \brief This file is the apache2 .htaccess to put in the vhost directory
+#        in order to get all the clean url relative to the player
+
+# IIF no path in the url, then do a http redir to /play
+RewriteRule ^$ /play [R]
+
+# create url rewrite rule at the root of the player hostname http://player.example.com/play
+RewriteEngine on
+RewriteBase	/~jerome/neoip_html
+
+# TODO to remove - ultra dirty crap to get neoip_asplayer in stream function 
+RewriteRule	^.*neoip_asplayer.swf$	player/jsplayer/neoip_asplayer_rel.swf	[L]
+
+# rewriting for 'clean url' for the play function
+# - http://example.com/play for playing without specifying a playlist
+# - http://example.com/play/playlist_id for playing a specific playlist
+# - TODO should i rename this play ? to mychannel ?
+RewriteRule	^play$		player/direct_play/neoip_player.php [L]
+RewriteRule	^play/(.+)$	player/direct_play/neoip_player.php?playlist_id=$1 [L]
+
+# rewrite for 'clean url' for the oload_redir function
+RewriteRule	^redir/(.+)$	oload_redir/neoip_oload_redir_rel.php?inner_uri=$1 [L]
+RewriteRule	^boost/(.+)$	oload_redir/neoip_oload_redir_rel.php?inner_uri=$1 [L]
+
+# rewrite for 'clean url' for the url_guide function
+RewriteRule	^url_guide$	cleanurl_guide.html [L]
+
+# rewrite for all the jspackmin
+RewriteRule	^(jspackmin/.+)$	$1	[L]
+
+# rewrite for 'clean url' for the stream function
+RewriteRule	^live$			bt_cast/casto/neoip_casto_rel.php	[L]
+RewriteRule	^([^/]+)/live/([^/]+)$	bt_cast/casto/neoip_casto_rel.php?cast_privhash=$1&cast_name=$2	[L]
+RewriteRule	^(mdata_echo_server/data/.*)$	bt_cast/$1	[L]
+	
+
+# rewrite for 'clean url' for the record function
+# http://example.com/record
+# - TODO should it http://record.web4web.tv ?
+RewriteRule	^record$	bt_cast/casti/casti_recording_rel.html	[L]
+
+# some cheap way to allow neoip_player.php to load the other files it needs
+# - TODO to clean up. this is due to some relation with absolute path
+RewriteRule	^(cache/ezplayer_playlist_arr.json)$	player/$1	[L]
+#RewriteRule	^(neoip_asplayer.swf)$			player/$1	[L]
+# special rewrite rules to get the release version of asplayer
+RewriteRule	^(neoip_asplayer.swf)$			player/jsplayer/neoip_asplayer_rel.swf	[L]
+
+# some cheap way to allow neoip_player.php to load
+RewriteRule	^(cgi-bin/cast_get_playlist.fcgi)$	$1		[L]
+RewriteRule	^(cgi-bin/get_playlist.fcgi)$		$1		[L]
+RewriteRule	^(cgi-bin/server_date.php)$		$1		[L]
+

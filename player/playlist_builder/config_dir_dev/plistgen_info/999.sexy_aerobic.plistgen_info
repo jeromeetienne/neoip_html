@@ -1,0 +1,15 @@
+{	"playlist_title": "sexy aerobic",
+	"playlist_id"	: "sexy_aerobic",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "videos",
+							"query_param"	: { "vq" : "sexy aerobic"	}
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

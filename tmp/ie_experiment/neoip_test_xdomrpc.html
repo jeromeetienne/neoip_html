@@ -1,0 +1,33 @@
+<html debug=true>
+<head><title>neoip apps_detect_t probe</title></head>
+<body onload="start_probing()">
+<script src="../../base/firebug/firebug.js"></script> 
+<script src="../../base/javascript/neoip_core.js"></script> 
+<script src="../../base/javascript/neoip_xdomrpc_t.js"></script>
+
+
+<h1>rpoutpout</h1>
+<ul id="neoip_apps_list"></ul>
+
+<script>
+function loaded_cb()
+{
+	console.info("script loaded canon_name=" + canon_name);
+}
+function start_probing()
+{
+	var head	= document.getElementsByTagName('head')[0];
+	var script	= document.createElement('script');
+	script.type	= 'text/javascript';
+	script.src	= 'http://127.0.0.1:9080/apps_info.js';
+	script.onreadystatechange= function () {
+		if(this.readyState == 'loaded') loaded_cb();
+	}
+	script.onload	= loaded_cb;
+	head.appendChild(script);
+}
+</script>
+
+
+</body>
+</html>

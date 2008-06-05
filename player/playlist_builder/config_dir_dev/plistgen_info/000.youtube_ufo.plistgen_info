@@ -1,0 +1,15 @@
+{	"playlist_title": "youtube UFO",
+	"playlist_id"	: "youtube_ufo",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "videos",
+							"query_param"	: { "vq" : "ufo alien"	}
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

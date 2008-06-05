@@ -1,0 +1,15 @@
+{	"playlist_title": "Soccer",
+	"playlist_id"	: "soccer",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "youtube",
+					"desc"	: {	"type"		: "videos",
+							"query_param"	: { "vq" : "soccer"	}
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

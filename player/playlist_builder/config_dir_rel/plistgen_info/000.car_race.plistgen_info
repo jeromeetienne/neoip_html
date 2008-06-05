@@ -1,0 +1,31 @@
+{	"playlist_title"	: "Car race",
+	"playlist_id"		: "car_race",
+	"trackgen_info"	: [
+		{	"cmd"	: "pick_one_randomly",
+			"arg"	: [
+				{	"precedence"	: 50,
+					"trackgen_info"	: [{	"cmd"	: "concat",
+								"arg"	: {	"space"	: "youtube",
+										"desc"	: {	"type"		: "videos",
+												"query_param"	: { "vq" : "stock car"	}
+											}
+									}
+							}]
+				},
+				{	"precedence"	: 50,
+					"trackgen_info"	: [{	"cmd"	: "concat",
+								"arg"	: {	"space"	: "youtube",
+										"desc"	: {	"type"		: "videos",
+												"query_param"	: { "vq" : "car race"	}
+											}
+									}
+							}]
+				}
+				]
+				
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

@@ -1,0 +1,48 @@
+{	"playlist_title": "Ruby Conf",
+	"playlist_id"	: "ruby_conf",
+	"trackgen_info"	: [
+		{	"cmd"	: "pick_one_randomly",
+			"arg"	: [
+				{	"precedence"	: 50,
+					"trackgen_info"	: [{	"cmd"	: "concat",
+								"arg"	: {	"space"	: "confreaks",
+										"desc"	: {
+												"base_uri"	: "http://rubyconf2007.confreaks.com/"
+											}
+									}
+						}]
+				},
+				{	"precedence"	: 50,
+					"trackgen_info"	: [{	"cmd"	: "concat",
+								"arg"	: {	"space"	: "confreaks",
+										"desc"	: {
+												"base_uri"	: "http://rubyhoedown2007.confreaks.com/"
+											}
+									}
+						}]
+				},
+				{	"precedence"	: 50,
+					"trackgen_info"	: [{	"cmd"	: "concat",
+								"arg"	: {	"space"	: "confreaks",
+										"desc"	: {
+												"base_uri"	: "http://rejectconf4.confreaks.com/"
+											}
+									}
+						}]
+				},
+				{	"precedence"	: 50,
+					"trackgen_info"	: [{	"cmd"	: "concat",
+								"arg"	: {	"space"	: "confreaks",
+										"desc"	: {
+												"base_uri"	: "http://mtnwestrubyconf2007.confreaks.com/"
+											}
+									}
+						}]
+				}
+				]
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

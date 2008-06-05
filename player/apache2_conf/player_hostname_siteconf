@@ -1,0 +1,9 @@
+NameVirtualHost *
+<VirtualHost *>
+        DocumentRoot /var/www/player.web4web.tv
+        ServerName player.web4web.tv
+        <Directory /var/www/player.web4web.tv>
+        	# disable the ability to see file directory content
+                Options -Indexes
+        </Directory>
+</VirtualHost>
