@@ -329,17 +329,114 @@ def self.playlist_filename(cast_name, cast_privhash)
 	return fullname;
 end
 
+
+
+# BARCAMP KLUDGE BEG - listen on sd-14474.dedibox.fr public ip addr to allow direct read
+def self.cast_name_to_location(cast_name)
+	# init the channel_arr - an array of predefined channels
+	channel_arr	= [];
+	channel_arr	<< {	"channel_name"	=> "france24_fr",
+				"vlc_orig_uri"	=> "mms://live.france24.com/france24_fr.wsx",
+				"cast_name"	=> "france24_fr.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "france24_en",
+				"vlc_orig_uri"	=> "mms://live.france24.com/france24_en.wsx",
+				"cast_name"	=> "france24_en.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "weather",
+				"vlc_orig_uri"	=> "mms://a860.l2233258859.c22332.g.lm.akamaistream.net/D/860/22332/v0001/reflector:58859",
+				"cast_name"	=> "weather.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "fox8",
+				"vlc_orig_uri"	=> "mms://a1090.l1814050135.c18140.g.lm.akamaistream.net/D/1090/18140/v0001/reflector:50135",
+				"cast_name"	=> "fox8.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "perpignantv",
+				"vlc_orig_uri"	=> "mms://88.191.39.73/perpignantvstream",
+				"cast_name"	=> "perpignantv.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "labelletv",
+				"vlc_orig_uri"	=> "http://www.labelletv.net/labelletv.asx",
+				"cast_name"	=> "labelletv.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "tva",
+				"vlc_orig_uri"	=> "http://207.253.121.82/TVAStream",
+				"cast_name"	=> "tva.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "andore_tv",
+				"vlc_orig_uri"	=> "mms://194.158.91.91/Atv",
+				"cast_name"	=> "andore_tv.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "boardriderstv",
+				"vlc_orig_uri"	=> "mms://quik4.impek.tv/brtv",
+				"cast_name"	=> "boardriderstv.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "bfm",
+				"vlc_orig_uri"	=> "mms://vipmms9.yacast.net/bfm_bfmtv",
+				"cast_name"	=> "BFMtv.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "lcn",
+				"vlc_orig_uri"	=> "http://207.253.121.82/LCN",
+				"cast_name"	=> "LCN.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "visjonnorg",
+				"vlc_orig_uri"	=> "mms://wm-live.crossnet.net/Visjonnorge",
+				"cast_name"	=> "visjonnorg.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "wmty",
+				"vlc_orig_uri"	=> "http://prog.videorelay.com/wmty35570/live.asx",
+				"cast_name"	=> "WMTY.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "krnv",
+				"vlc_orig_uri"	=> "mms://a305.l1621143063.c16211.g.lm.akamaistream.net/D/305/16211/v0001/reflector:43063",
+				"cast_name"	=> "krnv.flv",
+			};			
+	channel_arr	<< {	"channel_name"	=> "bonobotv",
+				"vlc_orig_uri"	=> "mms://stream00.prostream.co.uk/bonobotv",
+				"cast_name"	=> "bonoboTV.flv",
+			};
+	channel_arr	<< {	"channel_name"	=> "channel5",
+				"vlc_orig_uri"	=> "mms://200.32.198.94/channel5",
+				"cast_name"	=> "channel5.flv",
+			};
+	
+	# find in channel_arr the first item with a 'channel_name' equal to ARGV[0]
+	for i in 0...channel_arr.length
+		if channel_arr[i]['cast_name'] == cast_name
+			channel_idx	= i;
+			break
+		end
+	end
+	# if this channel cant be found,  display an error message and abort
+	if channel_idx.nil?
+		return "http://example.com/dummy/#{cast_name}";
+	end
+	
+	# set some variable
+	httpi_uri_port	= 8080 + channel_idx;
+	httpi_uri_ipaddr= "88.191.76.230";
+	
+	return "http://#{httpi_uri_ipaddr}:#{httpi_uri_port}/stream.flv";
+end
+# BARCAMP KLUDGE END
+
 # build a Neoip.Playlist_t for this cast_name/cast_privhash
 def self.playlist_build(cast_name, cast_privhash)
 	playlist	= Neoip::Playlist_t.new
 	playlist.jspf['date']		= Time.now.gmtime.to_s;
 	playlist.jspf['title']		= cast_name;
 	playlist.jspf['identifier']	= "#{cast_name}_#{cast_privhash}";
-	playlist.jspf['extension']	= { "external_dep"	=> { "casto"	=> { "required"	=> true	}}};
-					
+# BARCAMP KLUDGE BEG - to make casto not mandatory
+# orig-	playlist.jspf['extension']	= { "external_dep"	=> { "casto"	=> { "required"	=> true	}}};
+	playlist.jspf['extension']	= { "external_dep"	=> { "casto"	=> { "required"	=> false	}}};
+# BARCAMP KLUDGE END
+
 	track_jspf	= {}
 	track_jspf['title']	= cast_name;
-	track_jspf['location']	= "http://example.com/dummy";
+# BARCAMP KLUDGE BEG - listen on sd-14474.dedibox.fr public ip addr to allow direct read
+# orig-	track_jspf['location']	= "http://example.com/dummy";
+	track_jspf['location']	= self.cast_name_to_location(cast_name);
+# BARCAMP KLUDGE END
 	track_jspf['duration']	= 8852000;
 	track_jspf['meta']	= { "content_type"	=> "stream" };
 	track_jspf['extension']			= {};
