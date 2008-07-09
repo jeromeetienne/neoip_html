@@ -5,7 +5,7 @@
 # - usage example: ./neoip-casti-recording.rb --cast_name superstream.flv --cast_privtext bonjour 
 #          --httpi_mod flv 
 #          --httpi_uri http://jmehost2:8080/stream.flv
-#          --mdata_srv_uri http://jmehost1/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb
+#          --mdata_srv_uri http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb
 
 # the 'require' for the library i use
 require 'optparse'

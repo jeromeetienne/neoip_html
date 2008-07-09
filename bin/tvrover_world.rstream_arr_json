@@ -1,0 +1,10 @@
+./vlc_restreamer_t.rb:127:in `eof?': Interrupt
+	from ./vlc_restreamer_t.rb:127:in `is_streaming?'
+	from ./vlc_restreamer_t.rb:123:in `popen'
+	from ./vlc_restreamer_t.rb:123:in `is_streaming?'
+	from ./vlc_restreamer_t.rb:168:in `may_restream?'
+	from ./vlc_restreamer_t.rb:164:in `each'
+	from ./vlc_restreamer_t.rb:164:in `may_restream?'
+	from ./tvrover_to_rstream_arr.rb:31
+	from ./tvrover_to_rstream_arr.rb:27:in `delete_if'
+	from ./tvrover_to_rstream_arr.rb:27

@@ -1,0 +1,70 @@
+[
+  {
+    "cast_name": "france24_fr.flv",
+    "stream_uri": "mms:\/\/live.france24.com\/france24_fr.wsx"
+  },
+  {
+    "cast_name": "france24_en.flv",
+    "stream_uri": "mms:\/\/live.france24.com\/france24_en.wsx"
+  },
+  {
+    "cast_name": "weather.flv",
+    "stream_uri": "mms:\/\/a860.l2233258859.c22332.g.lm.akamaistream.net\/D\/860\/22332\/v0001\/reflector:58859"
+  },
+  {
+    "cast_name": "fox8.flv",
+    "stream_uri": "mms:\/\/a1090.l1814050135.c18140.g.lm.akamaistream.net\/D\/1090\/18140\/v0001\/reflector:50135"
+  },
+  {
+    "cast_name": "perpignantv.flv",
+    "stream_uri": "mms:\/\/88.191.39.73\/perpignantvstream"
+  },
+  {
+    "cast_name": "labelletv.flv",
+    "stream_uri": "http:\/\/www.labelletv.net\/labelletv.asx"
+  },
+  {
+    "cast_name": "tva.flv",
+    "stream_uri": "http:\/\/207.253.121.82\/TVAStream"
+  },
+  {
+    "cast_name": "andore_tv.flv",
+    "stream_uri": "mms:\/\/194.158.91.91\/Atv"
+  },
+  {
+    "cast_name": "boardriderstv.flv",
+    "stream_uri": "mms:\/\/quik4.impek.tv\/brtv"
+  },
+  {
+    "cast_name": "BFMtv.flv",
+    "stream_uri": "mms:\/\/vipmms9.yacast.net\/bfm_bfmtv"
+  },
+  {
+    "cast_name": "LCN.flv",
+    "stream_uri": "http:\/\/207.253.121.82\/LCN"
+  },
+  {
+    "cast_name": "visjonnorg.flv",
+    "stream_uri": "mms:\/\/wm-live.crossnet.net\/Visjonnorge"
+  },
+  {
+    "cast_name": "WMTY.flv",
+    "stream_uri": "http:\/\/prog.videorelay.com\/wmty35570\/live.asx"
+  },
+  {
+    "cast_name": "krnv.flv",
+    "stream_uri": "mms:\/\/a305.l1621143063.c16211.g.lm.akamaistream.net\/D\/305\/16211\/v0001\/reflector:43063"
+  },
+  {
+    "cast_name": "bonoboTV.flv",
+    "stream_uri": "mms:\/\/stream00.prostream.co.uk\/bonobotv"
+  },
+  {
+    "cast_name": "channel5.flv",
+    "stream_uri": "mms:\/\/200.32.198.94\/channel5"
+  },
+  {
+    "cast_name": "0demotrax.flv",
+    "stream_uri": "mms:\/\/streams01.hosting.nob.nl\/z"
+  }
+]
