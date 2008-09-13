@@ -139,11 +139,12 @@ neoip.ezplayer_t.prototype.fullpage_state = function(value)
 }
 
 /** \brief Allow to set the 'plistarr' - used to build the playlist in ezplayer_embedui_t
- * 
+ *
+ * - if prev_playlist_uri function param is specified, use this one.else use the cookie
  * - TODO make this plistarr read asynchronous
  *   - this plistarr is read in sync, which increase the latency of the start
  */
-neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri)
+neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri, prev_playlist_uri)
 {
 	// log to debug
 	console.info("enter");
@@ -153,9 +154,10 @@ neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri)
 	this.m_plistarr		= new neoip.plistarr_t(plistarr_str);
 
 	// change the playlist
+	// - if prev_playlist_uri function param is specified, use this one.
 	// - if there is a "ezplayer_playlist_uri" cookie, use this one
 	// - else pick the first of the this.m_plistarr
-	var prev_playlist_uri	= neoip.core.cookie_read("ezplayer_playlist_uri");
+	if( !prev_playlist_uri )	prev_playlist_uri = neoip.core.cookie_read("ezplayer_playlist_uri");
 	// if prev_playlist_uri != null, check if it is contained in this.m_plistarr
 	if( prev_playlist_uri ){
 		var not_found	= true;
@@ -270,7 +272,10 @@ neoip.ezplayer_t.prototype._objembed_initmon_cb	= function(notifier_obj, userptr
 
 	// call _player_post_init now
 	this._player_post_init();
-	
+
+	// get the player plugin
+	var plugin	= document.getElementById(this.m_subplayer_html_id)
+
 	// if plugin support embedui, create this.m_embedui
 	var plugin	= document.getElementById(this.m_subplayer_html_id)
 	if( typeof(plugin.embedui_create) == "function" )
@@ -372,7 +377,7 @@ neoip.ezplayer_t.prototype._neoip_playlist_loader_cb = function(notified_obj, us
 	
 	// if this.m_player is not yet set, do nothing
 	if( !this.m_player )	return;
-	
+		
 	// sanity check - arg['playlist'] MUST exist
 	console.assert( arg['playlist'] );
 	// set the playlist in this.m_player
@@ -408,7 +413,7 @@ neoip.ezplayer_t.prototype._neoip_player_cb = function(notified_obj, userptr
 	//   - it SHOULD be a tunable one. typically thru embedui
 	// - it is coded dirty in asplayer itself
 	if( event_type == "asmenu_item_select" ){
-		var	home_uri	= "http://web4web.tv";
+		var	home_uri	= "http://urfastr.net/video";
 		window.top.location.href= home_uri;
 		return;
 	}
@@ -499,6 +504,9 @@ neoip.ezplayer_t.prototype.change_playlist	= function(p_playlist_uri)
 	this._playlist_loader_dtor();
 	// update the local playlist_uri
 	this.m_playlist_uri	= p_playlist_uri;
+	// EXPERIMENTAL track the playlist_uri change with googe analytic
+	// TODO to test... not sure it works, or that it is symply at the proper place
+	if( typeof(pageTracker) != "undefined" )	pageTracker._trackPageview('/' + this.m_playlist_uri);
 	// if this.m_player is not yet initialized, return now
 	if( !this.m_player )	return; 
 	// init the playlist_loader for this playlist_uri

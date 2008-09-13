@@ -32,13 +32,7 @@ httpi_uri_port	= 8080 + channel_idx;
 
 # Some parameters
 cast_privtext	= "bonjour77";
-# BARCAMP KLUDGE - listen on sd-14474.dedibox.fr public ip addr to allow direct read
-#httpi_uri_ipaddr= "127.0.0.1";
-if `hostname`.chomp == "sd-14474"
-	httpi_uri_ipaddr= IPSocket::getaddress('sd-14474.dedibox.fr');
-else
-	httpi_uri_ipaddr= "127.0.0.1";
-end
+httpi_uri_ipaddr= "127.0.0.1";
 
 ################################################################################
 #		Launch vlc in background

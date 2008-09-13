@@ -163,10 +163,10 @@ end
 
 # return the extmdata_uri base 
 # - change depending on the host it is running on
-# - if hostname == "jmehost1", get the local developement value, else get the production value
+# - if hostname == "jmehost2", get the local developement value, else get the production value
 def self.global_extmdata_uri_base
-	if `hostname`.chomp == "jmehost1"
-		return "http://jmehost1/~jerome/neoip_html/player/cache/flv_mdata_xml";
+	if `hostname`.chomp == "jmehost2"
+		return "http://jmehost2/~jerome/neoip_html/player/cache/flv_mdata_xml";
 	else
 		return "http://jmeserv/~jerome/neoip_html/player/cache/flv_mdata_xml";
 	end
@@ -174,10 +174,10 @@ end
 
 # \brief return the http_peersrc_uri 
 # - change depending on the host it is running on
-# - if hostname == "jmehost1", get the local developement value, else get the production value
+# - if hostname == "jmehost2", get the local developement value, else get the production value
 def self.global_http_peersrc_uri
 	# TODO hardcoded change this
-	if `hostname`.chomp == "jmehost1"
+	if `hostname`.chomp == "jmehost2"
 		return "http://jmehost2.podzone.net:55001/announce";
 	else
 		return "http://jmeserv.podzone.net:55001/announce";

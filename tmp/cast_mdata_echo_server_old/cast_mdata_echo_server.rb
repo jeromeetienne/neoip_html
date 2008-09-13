@@ -9,7 +9,7 @@
 #   - this is prototype only
 # - TEST in ruby
 #   - require 'xmlrpc/client'
-#   - server = XMLRPC::Client.new2("http://jmehost1/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb")
+#   - server = XMLRPC::Client.new2("http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb")
 #   - server.call("set_cast_mdata_push", "superstream.flv", "bonjour", { :slota => 'bip', :goup => 'slsdfadfsl' })
 #   - server.call("get_cast_mdata", "superstream.flv", "1f71e0f4")
 #   - begin; server.call("get_cast_mdata", "superstream.flv", "1f71e0f4"); rescue => e; puts "Received fault code #{e.faultCode} String #{e.faultString}"; end

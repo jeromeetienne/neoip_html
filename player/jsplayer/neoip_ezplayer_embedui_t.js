@@ -209,9 +209,18 @@ neoip.ezplayer_embedui_t.prototype._sound_init_from_cookie	= function()
 {
 	// get directly the plugin
 	var plugin	= this._get_plugin()
-	// set the current plugin.set_sound_mute according to the value saved in cookie
-	var ezplayer_sound_mute	= neoip.core.cookie_read("ezplayer_sound_mute");
-	if( ezplayer_sound_mute )	plugin.set_sound_mute(Number(ezplayer_sound_mute));
+
+	// set the plugin to mute by default - dont honor the cookie value
+	// - this avoid to get a loud webpage when being loaded
+	// - TODO may not be a good thing when accessed directly full page
+	// - in fact this should be a option on the page
+	if( false ){
+		plugin.set_sound_mute(true);
+	}else{
+		// set the current plugin.set_sound_mute according to the value saved in cookie
+		var ezplayer_sound_mute	= neoip.core.cookie_read("ezplayer_sound_mute");
+		if( ezplayer_sound_mute )	plugin.set_sound_mute(Number(ezplayer_sound_mute));
+	}
 	// set the current plugin.set_sound_vol according to the value saved in cookie
 	var ezplayer_sound_vol	= neoip.core.cookie_read("ezplayer_sound_vol");
 	if( ezplayer_sound_vol )	plugin.set_sound_vol(ezplayer_sound_vol);
@@ -530,7 +539,7 @@ neoip.ezplayer_embedui_t.prototype.apps_detect_completed_cb	= function()
  */
 neoip.ezplayer_embedui_t.prototype._embedui_nopack_button_cb	= function(event_type, arg)
 {
-	var	install_uri	= "http://web4web.tv/download";
+	var	install_uri	= "http://urfastr.net/webpack/download";
 
 	// if the event_type is not "click", do nothing
 	if( event_type != "click" )	return;

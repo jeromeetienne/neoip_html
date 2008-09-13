@@ -149,8 +149,8 @@ end
 
 	################ get the length/final_uri of the file	################
 	info['end_location']	= flv_uri
-	cmdline		 = "curl -IL \"#{flv_uri}\" 2>/dev/null";
-	stdin, stdout, stderr = Open3::popen3(cmdline)
+	cmdline			= "curl -IL \"#{flv_uri}\" 2>/dev/null";
+	stdin, stdout, stderr	= Open3::popen3(cmdline)
 	stdin.close
 	begin
 		while(line = stdout.readline)
@@ -225,26 +225,26 @@ def self.cache_rootdir=(val)    @@cache_rootdir = val;  end
 
 # define the extmdata_uri base 
 # - change depending on the host it is running on
-# - if hostname == "jmehost1", get the local developement value, else get the production value
+# - if hostname == "jmehost2", get the local developement value, else get the production value
 def self.extmdata_uri_base;         @@extmdata_uri_base;        end
 def self.extmdata_uri_base=(val)    @@extmdata_uri_base = val;  end
-if `hostname`.chomp == "jmehost1"
-	@@extmdata_uri_base	= "http://jmehost1/~jerome/neoip_html/player/cache/flv_mdata_xml";
+if `hostname`.chomp == "jmehost2"
+	@@extmdata_uri_base	= "http://jmehost2/~jerome/neoip_html/player/cache/flv_mdata_xml";
 else
-	# jmeserv.podzone.net ip address is 88.191.65.231
-	@@extmdata_uri_base	= "http://88.191.65.231/~jerome/neoip_html/player/cache/flv_mdata_xml";
+	@@extmdata_uri_host	= IPSocket::getaddress('api-static.web4web.tv');
+	@@extmdata_uri_base	= "http://#{@@extmdata_uri_host}/~jerome/neoip_html/player/cache/flv_mdata_xml";
 end
 
 # define the http_peersrc_uri 
 # - change depending on the host it is running on
-# - if hostname == "jmehost1", get the local developement value, else get the production value
+# - if hostname == "jmehost2", get the local developement value, else get the production value
 def self.http_peersrc_uri;         @@http_peersrc_uri;        end
 def self.http_peersrc_uri=(val)    @@http_peersrc_uri = val;  end
-if `hostname`.chomp == "jmehost1"
+if `hostname`.chomp == "jmehost2"
 	@@http_peersrc_uri	= "http://jmehost2.podzone.net:55001/announce";
 else
-	# jmeserv.podzone.net ip address is 88.191.65.231
-	@@http_peersrc_uri	= "http://88.191.65.231:55001/announce";
+	@@http_peersrc_host	= IPSocket::getaddress('bootstrap.web4web.tv');
+	@@http_peersrc_uri	= "http://#{@@http_peersrc_host}:55001/announce";
 end
 
 ################################################################################

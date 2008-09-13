@@ -13,7 +13,9 @@ neoip.vlc_plugin_present	= function() {
 	var	nb_plugin	= navigator.plugins.length;
 	// go thru every installed plugin
 	for(var i=0; i < nb_plugin; i++) {
-		if( navigator.plugins[i].name == "VLC Multimedia Plugin")
+		// log to debug
+		console.info("plugin["+i+"]="+navigator.plugins[i].name);
+		if( navigator.plugins[i].name == "VLC Multimedia Plug-in")
 			return true;
 	}
 	// if no plugin name matches, return false
@@ -31,7 +33,6 @@ neoip.vlc_object = function(object_id, width, height){
 	this.width	= width;
 	this.height	= height;
 	this.object_id	= object_id;
-	
 	// if vlc plugin is not present, throw an exception
 	if( neoip.vlc_plugin_present() == false )
 		throw("VLC Multimedia Plugin Not available on your browser.")

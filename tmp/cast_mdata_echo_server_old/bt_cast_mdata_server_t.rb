@@ -328,7 +328,7 @@ def self.playlist_build(cast_name, cast_privhash)
 	extcasto_jspf	= {};
 	extcasto_jspf['cast_name']	= cast_name;
 	extcasto_jspf['cast_privhash']	= cast_privhash;
-	extcasto_jspf['mdata_srv_uri']	= "http://jmehost1/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb";
+	extcasto_jspf['mdata_srv_uri']	= "http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb";
 	track_jspf['extension']['casto']	= extcasto_jspf;
 
 	playlist.jspf['track']	= [track_jspf];

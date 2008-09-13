@@ -1,9 +1,22 @@
 NameVirtualHost *
 <VirtualHost *>
-        DocumentRoot /var/www/player.web4web.tv
-        ServerName player.web4web.tv
-        <Directory /var/www/player.web4web.tv>
+        DocumentRoot /var/www/player.urfastr.tv
+        ServerName player.urfastr.tv
+        <Directory /var/www/player.urfastr.tv>
         	# disable the ability to see file directory content
                 Options -Indexes
         </Directory>
+	
+	# BARCAMP KLUDGE BEG
+	# - to allow direct access to ANY neoip-casto stream without neoip-webpack
+	# - additionnaly it is done ok on normal web ports, so web-proxy friendly
+	ProxyRequests Off
+        <Proxy *>
+                Order deny,allow
+                Allow from all
+        </Proxy>
+
+        ProxyPass               /direct_stream/ http://127.0.0.1:4560/
+        ProxyPassReverse        /direct_stream/ http://127.0.0.1:4560/
+        # BARCAMP KLUDGE END
 </VirtualHost>

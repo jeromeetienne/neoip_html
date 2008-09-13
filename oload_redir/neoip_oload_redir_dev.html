@@ -24,8 +24,18 @@
 
 	// build the neoip.oload_redir_t IIF inner_uri is not null
 	if( inner_uri ){
+		var outter_vars	= {};
+
+		// start configuring the nested_uri_builder_t, it has all but outter_uri
+		// - it is up to neoip.oload_redir_t to complete it
+		var preconfig_nested_uri	= new neoip.nested_uri_builder_t();
+		// set all the nested_uri outter_vars from the caller
+		for( key in outter_vars)
+			preconfig_nested_uri.set_var(key, outter_vars[key]);
+
+		// start neoip.oload_redir_t
 		var oload_redir	= new neoip.oload_redir_t();
-		oload_redir.start(inner_uri);
+		oload_redir.start(inner_uri, preconfig_nested_uri);
 	}
 </script>
 

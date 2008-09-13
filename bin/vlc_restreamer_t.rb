@@ -121,6 +121,7 @@ def is_streaming?(timeout_sec=2.0)
 
 	begin
 		IO.popen(cmdline, "r+") { |io|
+			tagaudio_counter	= 0
 			while true
 				# if it is the end of the file, return false now
 				#puts "io.eof?=#{io.eof?}"
@@ -128,8 +129,13 @@ def is_streaming?(timeout_sec=2.0)
 				line	= io.gets
 				# log to debug
 				#puts "line=#{line}"
+				
 				# if a keyframe has been read, return it is streaming
 				return true if line =~ /keyframe/
+				# if at least 20 taghd_audio has been see, return true
+				# - in case of pure audio, there is no keyframe
+				tagaudio_counter += 1 if line =~ /<taghd_audio>/
+				return true if tagaudio_counter > 20
 			end
 		}
 	rescue => e

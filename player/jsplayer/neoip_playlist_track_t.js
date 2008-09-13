@@ -239,21 +239,32 @@ neoip.playlist_t.prototype.track_t.prototype.outter_uri = function()
 neoip.playlist_t.prototype.track_t.prototype.cooked_uri = function(outter_var)
 {
 	var outter_uri_arr	= this.m_playlist.m_outter_uri_arr;
+	var result_uri		= null;
 	// handle it according to its content_type
 	if( this.is_static() ){
 		// if neoip-oload is not present, return the raw track_t.location() 
-		if( !outter_uri_arr.oload )	return this.location();
 		// if neoip-oload is present, return the cooked_uri
-		return this._cooked_uri_static(outter_uri_arr.oload, outter_var);
+		if( !outter_uri_arr.oload )	result_uri	= this.location();
+		else				result_uri	= this._cooked_uri_static(outter_uri_arr.oload, outter_var);
 	}else if( this.is_stream() ){
 		// if neoip-casto is not present, return the raw track_t.location() 
-		if( !outter_uri_arr.casto )	return this.location();
 		// if neoip-casto is present, return the cooked_uri
-		return this._cooked_uri_stream(outter_uri_arr.casto, outter_var);
+		if( !outter_uri_arr.casto )	result_uri	= this.location();
+		else				result_uri	= this._cooked_uri_stream(outter_uri_arr.casto, outter_var);
 	}
-	// NOTE: this point SHOULD NEVER be reached
-	console.assert( 0 );	
-	return null;
+	// Introduce a dummy random variable into the URI - for static and stream
+	// - NOTE: it is done for uri with or without casto/oload. in case of without...
+	//   - it may cause conflict with the http server 
+	// - it is made to make the browser believes this file is unique
+	// - firefox has an optimisation which say "if firefox already download a file, dont start downloading
+	//   it again". it is an optimisation not to download it twice.
+	//   - unfortunatly it is invalid when this file is a video which is player as it is downloaded :)
+	//   - so when a single firefox got several players on the same playlist, only one was played
+	// add the variable separator + the key+value
+	result_uri	+= result_uri.indexOf('?') == -1 ? "?" : "&";
+	result_uri	+= "uri_unifier_workaround=" + Math.floor(Math.random()*999999);
+	// return the result_uri
+	return result_uri;
 }
 
 /** \brief Return the location cooked to be used for static playlist_track
@@ -273,8 +284,6 @@ neoip.playlist_t.prototype.track_t.prototype._cooked_uri_static= function(outter
 	var	tmp_var		= {};
 	for(var key in this.extension().oload )	tmp_var[key] = this.extension().oload[key];
 	for(var key in outter_var )		tmp_var[key] = outter_var[key];
-	// TODO experiment with 'cache_buster' 
-	//tmp_var['cache_buster']	= Math.floor(Math.random()*999999);
 	// set all the outter_var in the nested_uri
 	nested_uri.set_var_arr(tmp_var);
 	// return the result

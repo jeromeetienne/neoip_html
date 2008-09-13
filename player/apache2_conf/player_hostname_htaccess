@@ -2,7 +2,7 @@
 #        in order to get all the clean url relative to the player
 
 # IIF no path in the url, then do a http redir to /play
-RewriteRule ^$ /play [R]
+RewriteRule ^$ /live [R]
 
 # create url rewrite rule at the root of the player hostname http://player.example.com/play
 RewriteEngine on

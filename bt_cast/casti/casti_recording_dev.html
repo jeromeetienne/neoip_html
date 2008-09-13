@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html debug=true>
 <head><title>NeoIP casti recording page</title></head>
 
@@ -20,26 +21,6 @@ namely currently only svn for the proper mrl parsing...
 <input type=button value="Start recording" onClick='start_record();'>
 <input type=button value="Stop recording" onClick='stop_record();'>
 
-<!--  TODO to remove only to debug neoip-casti publishing -->
-<input type=button value="test start/stop DEBUG" onClick='test_start();'>
-<script>
-function test_start()
-{
-	// start the recording
-	start_record();
-	// launch test_stop after a delay
-	setTimeout("test_stop()", 4000);
-}
-function test_stop()
-{
-	// stop the recording
-	stop_record();
-	// launch test_start() after a delay
-	setTimeout("test_start()", 4000);
-}
-</script>
-
-
 
 <h1>Current status</h1>
 <ul>
@@ -54,14 +35,15 @@ function	vlc_player_build(){
 }
 function vlc_init()
 {
-	var vlc = document.getElementById("vlc_player");
-	var opt = new Array();
+	var vlc		= document.getElementById("vlc_player");
+	var opt		= new Array();
+	var driver	= document.getElementById("vlc_driver").value;
 	// build the options from the webcam parameter
-	opt.push(":v4l-vdev="	+ document.getElementById("vlc_vdev").value);
-	opt.push(":v4l-adev="	+ document.getElementById("vlc_adev").value)
-	opt.push(":v4l-width="	+ document.getElementById("vlc_width").value)
-	opt.push(":v4l-height=" + document.getElementById("vlc_height").value)
-	opt.push(":v4l-fps="	+ document.getElementById("vlc_fps").value)
+	opt.push(":"+driver+"-vdev="	+ document.getElementById("vlc_vdev").value);
+	opt.push(":"+driver+"-adev="	+ document.getElementById("vlc_adev").value)
+	opt.push(":"+driver+"-width="	+ document.getElementById("vlc_width").value)
+	opt.push(":"+driver+"-height="	+ document.getElementById("vlc_height").value)
+	opt.push(":"+driver+"-fps="	+ document.getElementById("vlc_fps").value)
 
 	// build the transcode line from the streaming parameters
 	var	str= ":sout=#transcode{"
@@ -86,10 +68,15 @@ function vlc_init()
 	// to not show the video title on the video
 	opt.push(":no-video-title-show")
 
+	// if vlc_mute is checked, disable the sound sout audio
+	if( document.getElementById("vlc_mute").value == "yes" ){
+		opt.push(":no-sout-audio")
+	}
+
 	// clear the playlist
 	vlc.playlist.clear();
 	// put this element in the playlist
-	vlc.playlist.add("v4l://", null, opt);
+	vlc.playlist.add(driver+"://", null, opt);
 }
 
 function start_record()
@@ -113,12 +100,11 @@ function stop_record()
 }
 </script>
 
-<script>
-</script>
 
 <script>
 function webcam_param_reset_linux()
 {
+	document.getElementById("vlc_driver").value	= "v4l";
 	document.getElementById("vlc_vdev").value	= "/dev/video0";
 	document.getElementById("vlc_adev").value	= "/dev/dsp";
 	document.getElementById("vlc_width").value	= "320";
@@ -130,6 +116,7 @@ function stream_param_reset_mp4()
 	document.getElementById("vlc_vcodec").value	= "mp4v";
 	document.getElementById("vlc_acodec").value	= "mpga";
 	document.getElementById("vlc_samplerate").value	= "";
+	document.getElementById("vlc_mute").value	= "yes";
 	document.getElementById("vlc_vb").value		= "32";
 	document.getElementById("vlc_ab").value		= "8";
 	document.getElementById("vlc_mux").value	= "ps";
@@ -140,6 +127,7 @@ function stream_param_reset_flv()
 	document.getElementById("vlc_vcodec").value	= "FLV1";
 	document.getElementById("vlc_acodec").value	= "mp3";
 	document.getElementById("vlc_samplerate").value	= "22050";
+	document.getElementById("vlc_mute").value	= "yes";
 	document.getElementById("vlc_vb").value		= "16";
 	document.getElementById("vlc_ab").value		= "4";
 	document.getElementById("vlc_mux").value	= "";
@@ -167,15 +155,18 @@ function stream_param_reset_bw_60k()
 function casti_param_init()
 {
 	// vlc streaming parameters
+	casti_param['vlc_driver']	= null;
 	casti_param['vlc_vcodec']	= null;
 	casti_param['vlc_acodec']	= null;
 	casti_param['vlc_samplerate']	= null;
+	casti_param['vlc_mute']		= null;
 	casti_param['vlc_vb']		= null;
 	casti_param['vlc_ab']		= null;
 	casti_param['vlc_mux']		= null;
 	casti_param['vlc_url']		= null;
 
 	// vlc input parameter
+	casti_param['vlc_driver']	= null;
 	casti_param['vlc_vdev']		= null;
 	casti_param['vlc_adev']		= null;
 	casti_param['vlc_width']	= null;
@@ -206,12 +197,12 @@ function casti_param_reset_flv()
 }
 function casti_param_reset_debug()
 {
-	document.getElementById("mdata_srv_uri").value	= "http://jmehost1/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+	document.getElementById("mdata_srv_uri").value	= "http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
 }
 
 function casti_param_reset_production()
 {
-	document.getElementById("mdata_srv_uri").value	= "http://jmeserv.podzone.net/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+	document.getElementById("mdata_srv_uri").value	= "http://www.web4web.tv/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
 }
 
 // copy all the casti_param to the html field
@@ -308,8 +299,11 @@ function	display_casti_state()
 		str	= state;
 	}else if( state == 'started' ){
 		var mdata_srv_uri	= casti_param['mdata_srv_uri'];
-		var player_live_host	= "jmeserv.podzone.net";
+		var player_live_host	= "player.web4web.tv";
 		if( mdata_srv_uri )	player_live_host	= /.*:\/\/(.*?)\//(mdata_srv_uri)[1];
+		if( player_live_host == "www.web4web.tv"){
+			player_live_host = "player.web4web.tv";
+		}
 		str	= "<font color='green'>" + state + "</font>";
 		str	+= ". The passwd_hash is " + casti_ctrl.passwd_hash();
 		str	+= ". to see only <a href='http://"+player_live_host+"/" + casti_ctrl.passwd_hash() + "/live/" + casti_param['cast_name'] + "'>" + casti_param['cast_name']+ "</a>";  
@@ -332,6 +326,19 @@ casti_param_init();
 <input type=button value="Save Parameter" onClick='casti_param_to_cookie()'>
 <input type=button value="Load Parameter" onClick='casti_param_from_cookie()'>
 
+<!-- TODO this button should be placed elsewhere -->
+<input type=button value="Reset ALL to default" onClick='all_param_reset_default()'>
+<script>
+function all_param_reset_default()
+{
+	stream_param_reset_flv();
+	casti_param_reset_flv();
+	casti_param_reset_passwd();
+	casti_param_reset_production();
+	webcam_param_reset_linux();
+}
+</script>
+
 <h3>Streaming parameters</h3>
 <input type=button value="Reset for mp4" onClick='stream_param_reset_mp4()'>
 <input type=button value="Reset for flv" onClick='stream_param_reset_flv()'>
@@ -341,7 +348,8 @@ casti_param_init();
 <table>
 	<tr><td>Video Codec</td><td>: <input type="text" id="vlc_vcodec"	/></td></tr>
 	<tr><td>Audio Codec</td><td>: <input type="text" id="vlc_acodec"	/></td></tr>
-	<tr><td>Audio sample rate</td><td>: <input type="text" id="vlc_samplerate"/></td></tr>
+	<tr><td>Audio sample rate</td><td>: <input type="text" id="vlc_samplerate"		/></td></tr>
+	<tr><td>Audio mute</td><td>: <input type="text" id="vlc_mute"				/></td></tr>
 	<tr><td>Video Bitrate (in kbyte/s)</td><td>: <input type="text" id="vlc_vb"		/></td></tr>
 	<tr><td>Audio Bitrate (in kbyte/s)</td><td>: <input type="text" id="vlc_ab"		/></td></tr>
 	<tr><td>Muxer</td><td>: <input type="text" id="vlc_mux"			/></td></tr>
@@ -365,6 +373,7 @@ casti_param_init();
 <h3>Webcam parameters</h3>
 <input type=button value="Reset for linux" onClick='webcam_param_reset_linux();'>
 <table>
+	<tr><td>Video Driver</td><td>: <input type="text" id="vlc_driver"	/></td></tr>
 	<tr><td>Video Device</td><td>: <input type="text" id="vlc_vdev"		/></td></tr>
 	<tr><td>Audio Device</td><td>: <input type="text" id="vlc_adev"		/></td></tr>
 	<tr><td>Video Width</td><td>: <input type="text" id="vlc_width"		/></td></tr>

@@ -1,6 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head><title>Web4Web.tv player (beta)</title></head>
+<head>
+	<title>UrFastR.tv player (beta)</title>
+	<meta name="description" content="UrFastR video player for live and prerecorded video">
+	<meta name="keywords" content="video, web2.0, p2p, stream, live, player">
+</head>
 <script src="../../jspackmin/data/neoip_jsplayer_packmin.js"></script>
 <style type="text/css">	
 	/* body style for the video fullpage mode - hardcoded for now */
@@ -44,13 +48,19 @@
 
 <!-- BEGIN google analytic script -->
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-4037844-5");
-pageTracker._initData();
-pageTracker._trackPageview();
+	var pageTracker = _gat._getTracker("UA-4037844-5");
+	pageTracker._initData();
+	pageTracker._trackPageview();
+
+	// jme- Set a user-defined value as a segmentation to collect data on the widget_src
+	// - if no variable 'neoip_widget_src' is found in the URI, assume "direct_access" else copy the value.
+	// - currently "mozilla_prism" and "igoogle_gadget" are defined
+	var widget_src	= "<?php echo $_GET['neoip_widget_src'] ? $_GET['neoip_widget_src'] : "direct_access" ?>";
+	pageTracker._setVar(widget_src);
 </script>
 <!-- END   google analytic script -->
 

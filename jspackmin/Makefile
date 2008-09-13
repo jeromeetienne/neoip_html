@@ -12,7 +12,7 @@ casti_recording_packmin:
 	./neoip-jspackmin-build.rb ../bt_cast/casti/casti_recording_dev.html data/neoip_casti_recording_packmin.js
 
 webpack_badge_packmin:
-	./neoip-jspackmin-build.rb ../webpack_badge/neoip_webpack_badge.html data/neoip_webpack_badge_packmin.js
+	./neoip-jspackmin-build.rb ../www/widget/webpack_badge/neoip_webpack_badge.html data/neoip_webpack_badge_packmin.js
 
 #
 

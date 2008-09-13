@@ -28,24 +28,31 @@ def self.build(query_arg)
 	track_list	= [];
 
 	# init the WWW::mechanize agent
-	agent		= WWW::Mechanize.new
+	agent		= WWW::Mechanize.new{ |a| a.log = Logger.new("/tmp/mechanize.log") }
 	agent.user_agent_alias = 'Mac Safari'
 	# get passed the 'age confirmation' page to reach the initial page
 	page_ageconfirm	= agent.get('http://youporn.com/')
 	form		= page_ageconfirm.forms[0]
 	page_init	= agent.submit(form, form.buttons.first)
-	
 	# get the number of page from the initial page
 	page_idxmax	= page_init.links.with.href(%r{\?page=}).collect{ |link| 
 				link.href.split("=")[1]
 			}.max
-	
-	# pick a page at random		
+	# this page contains a cookie added in javascript, so it is manually added here
+	cookie_str	= "age_check=1; expires=#{Time.now + (10 * 86400)};"
+	url		= URI.parse('http://youporn.com/')
+	WWW::Mechanize::Cookie.parse(url, cookie_str) { |cookie|
+		agent.cookie_jar.add(url, cookie)
+	}
+	# pick a page at random	
 	page_idx	= rand(page_idxmax);
 	page_front	= agent.get("/?page=#{page_idx}")
 
 	# all the links toward the videos watch page
-	video_arr	= page_front.links.with.href(%r{watch}).with.text("")
+	video_arr	= page_front.links.with.href(%r{watch}).with.text("\n\t\n")
+
+	# log to debug
+	#puts "video_arr=#{video_arr.length}"
 
 	# iterate over the rss item to get the track_jspf
 	nb_contiguous	= [3, video_arr.length].min;
@@ -54,7 +61,6 @@ def self.build(query_arg)
 		page_video	= agent.click video_arr[base_idx+i];
 		track_title	= page_video.title.scan(/.*?- (.*)/)[0][0]
 		flv_uri		= page_video.links.with.href(%r{/flv/}).href
-
 		# put this track in the track_list	
 		track_item	= Neoip::Track_item_t::Youporn_t.new(
 					{ 	"flv_uri"	=> flv_uri,

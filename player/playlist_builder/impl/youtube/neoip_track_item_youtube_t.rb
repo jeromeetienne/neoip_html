@@ -49,7 +49,7 @@ def flv_uri
 		return nil
 	end
 	
-	# return the found flv_uri	
+	# return the found flv_uri
 	return flv_uri
 end
 

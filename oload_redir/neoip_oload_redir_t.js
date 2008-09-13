@@ -29,6 +29,11 @@ neoip.oload_redir_t	= function()
  */
 neoip.oload_redir_t.prototype.destructor	= function()
 {
+	// delete the neoip.nested_uri_builder_t
+	if( this.m_preconfig_nested_uri ){
+		this.m_preconfig_nested_uri.destructor();
+		this.m_preconfig_nested_uri	= null;
+	}
 	// delete the oload apps_detect_t
 	if( this.m_oload_detect ){
 		this.m_oload_detect.destructor();
@@ -44,10 +49,11 @@ neoip.oload_redir_t.prototype.destructor	= function()
 
 /** \brief start the operation
  */
-neoip.oload_redir_t.prototype.start = function(inner_uri)
+neoip.oload_redir_t.prototype.start = function(inner_uri, preconfig_nested_uri)
 {
 	// copy the parameters
-	this.m_inner_uri	= inner_uri;
+	this.m_inner_uri		= inner_uri;
+	this.m_preconfig_nested_uri	= preconfig_nested_uri;
 	
 	// start probing neoip-apps
 	var cb_fct		= neoip.apps_detect_cb_t(this._apps_detect_cb, this);
@@ -72,14 +78,14 @@ neoip.oload_redir_t.prototype._apps_detect_cb	= function(apps_detect, userptr, r
 		return;
 	}
 
-	// build the nested_uri
-	// - httpo_content_attach = true is needed to force the browser to download the file 
-	//   and not try to display it
-	var nested_uri	= new neoip.nested_uri_builder_t();
-	nested_uri.outter_uri	(neoip.outter_uri("oload"));
-	nested_uri.inner_uri	(this.m_inner_uri);
-	nested_uri.set_var	("httpo_content_attach", "true");
-	var final_uri	= nested_uri.to_string();
+	// add the outter_uri to the neoip.nested_uri_builder_t
+	// - after that, the configuration is complete
+	this.m_preconfig_nested_uri.inner_uri	(this.m_inner_uri);
+	this.m_preconfig_nested_uri.outter_uri	(neoip.outter_uri("oload"));
+	this.m_preconfig_nested_uri.set_var	("httpo_content_attach", "true");
+	
+	// build the final_uri from the nested_uri
+	var final_uri	= this.m_preconfig_nested_uri.to_string();
 	
 
 	// log to debug
@@ -89,6 +95,7 @@ neoip.oload_redir_t.prototype._apps_detect_cb	= function(apps_detect, userptr, r
 	var iframe_elem	= document.createElement('iframe');
 	iframe_elem.setAttribute('height'	, "0");
 	iframe_elem.setAttribute('width'	, "0");
+	iframe_elem.setAttribute('style'	, "display: none");
 	iframe_elem.setAttribute('src'		, final_uri);
 	document.body.appendChild(iframe_elem);
 }
