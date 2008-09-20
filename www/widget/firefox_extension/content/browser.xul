@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<overlay id="sample" 
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+
+	<script src="browser.js"/> 
+
+	<statusbar id="status-bar">
+		<panel id="thepanel" noautohide="true" border='0'>
+			<browser id="urfastr_iframe" src="http://player.urfastr.tv/live"
+				width="240" height="180"
+				type="content-targetable">
+			</browser>
+		</panel>
+		<popupset>
+			<menupopup id="urfastr_menupopup" oncommand="urfastr_doCMD(event.target)">
+				<menuseparator/>
+				<menuitem label="Cut"		accesskey="t"/>
+				<menuitem label="Copy"		accesskey="c"/>
+				<menuitem label="Paste"		accesskey="p" disabled="true"/>
+				<menuitem label="Full Page"	value="fullpage" />
+				<menuseparator/>
+			        <menuitem label="Large"		value="large"	type="radio" name="urfastr_size"	/>				
+			        <menuitem label="Normal"	value="normal"	type="radio" name="urfastr_size"	/>
+			        <menuitem label="Small"		value="small"	type="radio" name="urfastr_size"	/>
+			</menupopup>
+		</popupset>
+
+		<statusbarpanel>
+			<image src="chrome://urfastrplayer/content/urfastrplayer.png" width="16" height="16"
+				id="urfastr_icon"
+				onclick="urfastr_statusbar_click(event); event.stopPropagation();">
+			</image>
+		</statusbarpanel>
+	</statusbar>
+</overlay>
+
+

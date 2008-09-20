@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="d304a511-5441-4477-93ba-6b3387e11a79" kpf_version="4" name="urfasterplayer_ffext.kpf">
+<preference-set idref="d304a511-5441-4477-93ba-6b3387e11a79">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>

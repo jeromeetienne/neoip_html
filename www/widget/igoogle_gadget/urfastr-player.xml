@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs
+title="UrFastR Player (beta)" 
+title_url="http://urfastr.net/video/player" 
+width="320"
+height="240"
+description="UrFastR Player - your tv just a click away!"
+thumbnail="http://urfastr.net/static/player/widget/igoogle_gadget/thumbnail.png"
+screenshot="http://urfastr.net/static/player/widget/igoogle_gadget/screenshot.jpg"
+author="Jerome Etienne"
+author_email="jerome.etienne@urfastr.net"
+author_link="http://urfastr.net"
+/>
+<Content 
+type="url"
+href="http://player.web4web.tv/live?neoip_widget_src=igoogle_gadget" />
+</Module>
+
+  

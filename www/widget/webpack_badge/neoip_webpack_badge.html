@@ -1,0 +1,42 @@
+<html>
+<head><title>neoip WebPack Badge experimentation</title></head>
+<body>
+
+
+
+<script src="../../../base/firebug/firebug.js"></script> 
+<script src="../../../base/javascript/neoip_core.js"></script> 
+<script src="../../../base/javascript/neoip_xdomrpc_t.js"></script> 
+<script src="../../../base/javascript/neoip_apps_detect_t.js"></script> 
+<script src="../../../base/javascript/neoip_webpack_detect_t.js"></script> 
+
+<script src="neoip_webpack_badge.js">
+{
+	"size":		"180x33",		// if no provided, default to 180x33
+}
+</script>
+
+
+<!--
+- this tech got MANY trouble
+- BUG: it is running the javascript, directly on script load, instead of a body onload
+- BUG: it requires to give a htmlid... why not build the div my self?
+- BUG: why this function call ?
+  - to get teh parameters ? well it is not required
+  - see http://kentbrewster.com/badges/ for good badge tutorial
+  - http://kentbrewster.com/identica-badge/ for another example from the same person
+
+The following would be nicer
+<sscript src="http://www.urfastr.com/webpack_badge.js">
+{
+	"size":		"180x33",		// if no provided, default to 180x33
+	"htmlid":	"htmlid_webpack_badge",	// if no provided, put something just before the script
+}
+</script>
+
+-->
+
+
+ 
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NS1="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Seq RDF:about="rdf:#$oBV.S3">
+    <RDF:li RDF:resource="rdf:#$pBV.S3"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="urn:mozilla:extension:urfastrplayer@jerome.etienne"
+                   NS1:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAKTABVA50JM+HSDcGTruon0V0LKu9y6sVS5IopS8/G5GKycKa/kLX9aPNwReDIycZVNlNdO1wzJ+DjHNuYcqxTz5iUxkjUr8/jpJQUOSuCEArpsnZtDhp2Kt72Hx1rX2rO1LYsrP6SZ141W1y8jNDHzE6nZEztsG26+UeplGTeq7">
+    <NS1:updates RDF:resource="rdf:#$oBV.S3"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$sBV.S3"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.0"
+                   NS1:maxVersion="3.0.*"
+                   NS1:updateLink="http://www.urfastr.tv/static/player/widget/firefox_extension/urfastrplayer.xpi"
+                   NS1:updateHash="sha1:4d703258a3d0cf890678b2309e055efeb01eaea6" />
+  <RDF:Description RDF:about="rdf:#$pBV.S3"
+                   NS1:version="1.5">
+    <NS1:targetApplication RDF:resource="rdf:#$sBV.S3"/>
+  </RDF:Description>
+</RDF:RDF>

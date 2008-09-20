@@ -1,0 +1,2 @@
+# jme- add the mime type for the webapps
+AddType application/x-webapp .webapp
