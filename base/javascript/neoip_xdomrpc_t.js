@@ -75,6 +75,13 @@ neoip.xdomrpc_t = function(p_rpc_url, p_callback, method_name, arg0, arg1, arg2,
 	// - NOTE: needed because opera and IE evaluate the <script> *IMMEDIATLY*
 	//   after insertion. while firefox does it at the next event loop iteration.
 	this.m_zerotimer_init	= setTimeout(neoip.basic_cb_t(this._zerotimer_init_cb, this), 0);
+
+	// define the script to use
+	// - IE + WebKit seem to require the mode "monitor"
+	// - firefox seem to support both "monitor" and "default" but "default" seems faster
+	this.m_script_monitor	= neoip.core.isIE || neoip.core.isWebKit;
+	//this.m_script_monitor	= true;
+	//console.info("this.m_script_monitor=" + this.m_script_monitor);
 }
 
 /** \brief destructor of the object
@@ -92,8 +99,9 @@ neoip.xdomrpc_t.prototype.destructor = function()
 
 	// delete the elements for this xdomrpc
 	var htmlid_root	= "neoip_xdomrpc_script_" + this.m_obj_id;
-	if( neoip.core.isIE )	this._dtor_all_script_4ie(htmlid_root);
-	else			this._dtor_all_script_dfl(htmlid_root);
+	
+	if( this.m_script_monitor )	this._dtor_all_script_monitor(htmlid_root);
+	else				this._dtor_all_script_default(htmlid_root);
 	// log to debug
 	//console.info("leave");
 }
@@ -134,10 +142,10 @@ neoip.xdomrpc_t.prototype._zerotimer_init_cb	= function()
 	intern_elem.setAttribute('src', call_uri);
 	intern_elem.setAttribute('id', htmlid_root + "_call");
 	root_elem.appendChild(intern_elem);
-
+	
 	/*************** post script	***************************************/
-	if( neoip.core.isIE )	this._ctor_post_script_4ie(intern_elem, htmlid_root);
-	else			this._ctor_post_script_dfl(intern_elem, htmlid_root);
+	if( this.m_script_monitor )	this._ctor_post_script_monitor(intern_elem, htmlid_root);
+	else				this._ctor_post_script_default(intern_elem, htmlid_root);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -174,7 +182,7 @@ if(0){	// Get the  in which to store the iframe
 
 /** \brief Build the post script in the default case
  */
-neoip.xdomrpc_t.prototype._ctor_post_script_dfl	= function(callscript_elem, htmlid_root)
+neoip.xdomrpc_t.prototype._ctor_post_script_default	= function(callscript_elem, htmlid_root)
 {
 	var root_elem	= this._get_root_elem();
 	// build an script element POST-call to detect if the call <script> failed
@@ -190,7 +198,7 @@ neoip.xdomrpc_t.prototype._ctor_post_script_dfl	= function(callscript_elem, html
 
 /** \brief Destroy all the scripts in the default case
  */
-neoip.xdomrpc_t.prototype._dtor_all_script_dfl	= function(htmlid_root)
+neoip.xdomrpc_t.prototype._dtor_all_script_default	= function(htmlid_root)
 {
 	var root_elem	= this._get_root_elem();
 	try {	root_elem.removeChild(document.getElementById(htmlid_root + "_pre"));
@@ -209,7 +217,7 @@ neoip.xdomrpc_t.prototype._dtor_all_script_dfl	= function(htmlid_root)
 
 /** \brief Build the post script in the case of IE
  */
-neoip.xdomrpc_t.prototype._ctor_post_script_4ie	= function(callscript_elem, htmlid_root)
+neoip.xdomrpc_t.prototype._ctor_post_script_monitor	= function(callscript_elem, htmlid_root)
 {
 	/*************** post script	***************************************/
 	// - IE executes the multiple <script> in parallele, so this script is done
@@ -220,7 +228,10 @@ neoip.xdomrpc_t.prototype._ctor_post_script_4ie	= function(callscript_elem, html
 	var script_state_cb	= function(p_obj_id){
 		var obj_id		= p_obj_id;
 		return	function() {
-			// on FF this.readyState is null
+			// log to debug
+			//console.info("readystate=" + this.readyState );
+
+			// on FF/Safari this.readyState is undefined
 			// on IE6sp, the readyState is 'loaded'
 			// TODO to test on IE7
 			if( this.readyState == null || this.readyState == 'loaded'
@@ -233,11 +244,13 @@ neoip.xdomrpc_t.prototype._ctor_post_script_4ie	= function(callscript_elem, html
 	callscript_elem.onreadystatechange	= script_state_cb(this.m_obj_id);
 	// register the script_state_cb - for most browser
 	callscript_elem.onload			= script_state_cb(this.m_obj_id);
+	// register onerror - incase it is not found
+	callscript_elem.onerror			= script_state_cb(this.m_obj_id);
 }
 
 /** \brief Destroy all the scripts in the case of IE
  */
-neoip.xdomrpc_t.prototype._dtor_all_script_4ie	= function(htmlid_root)
+neoip.xdomrpc_t.prototype._dtor_all_script_monitor	= function(htmlid_root)
 {
 	var root_elem	= this._get_root_elem();
 

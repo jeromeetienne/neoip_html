@@ -30,6 +30,7 @@ the javascript apps_detect_t class, than anything else.
 		console.info("vlc plugin desc=" + browser_plugin_get_desc("VLC Multimedia Plugin"));
 		console.info("flash plugin desc=" + browser_plugin_get_desc("Shockwave Flash"));
 		console.info("You are running " + BrowserDetect.browser + BrowserDetect.version + " on " + BrowserDetect.OS);
+		console.info("your useragent string="+ navigator.userAgent);
 	}
 
 	function apps_detect_cb(apps_detect, userptr, result_str)

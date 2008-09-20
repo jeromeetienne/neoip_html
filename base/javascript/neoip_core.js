@@ -23,9 +23,11 @@ neoip.core_t	= function(){}
 neoip.core	= new neoip.core_t();
 
 // set a special variable which is true if the browser is IE, false otherwise
-neoip.core.isIE	= (navigator.appName.indexOf("Microsoft") != -1);
+// - taken from http://code.google.com/p/doctype/wiki/ArticleUserAgent
+neoip.core.isIE		= (navigator.appName.indexOf("Microsoft") != -1);
+neoip.core.isWebKit	= (navigator.userAgent.indexOf('WebKit') != -1);
 
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 //			object_clone
 ////////////////////////////////////////////////////////////////////////////////
