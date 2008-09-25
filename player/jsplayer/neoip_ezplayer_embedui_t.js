@@ -210,11 +210,10 @@ neoip.ezplayer_embedui_t.prototype._sound_init_from_cookie	= function()
 	// get directly the plugin
 	var plugin	= this._get_plugin()
 
-	// set the plugin to mute by default - dont honor the cookie value
-	// - this avoid to get a loud webpage when being loaded
-	// - TODO may not be a good thing when accessed directly full page
-	// - in fact this should be a option on the page
-	if( false ){
+	// if ezplayer.cfgvar_arr.onload_force_mute is true, set the plugin to mute now
+	// else try to get the default volume from the cookie
+	var cfgvar_arr	= this.m_ezplayer.cfgvar_arr();
+	if( cfgvar_arr.onload_force_mute == "1"){
 		plugin.set_sound_mute(true);
 	}else{
 		// set the current plugin.set_sound_mute according to the value saved in cookie

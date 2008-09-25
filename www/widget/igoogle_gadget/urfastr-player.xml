@@ -14,7 +14,7 @@ author_link="http://urfastr.net"
 />
 <Content 
 type="url"
-href="http://player.web4web.tv/live?neoip_widget_src=igoogle_gadget" />
+href="http://player.urfastr.tv/live?neoip_var_widget_src=igoogle_gadget&neoip_var_onload_force_mute=1" />
 </Module>
 
   

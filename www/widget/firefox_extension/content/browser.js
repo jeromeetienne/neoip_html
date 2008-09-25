@@ -56,7 +56,7 @@ function urfastr_statusbar_click(aEvent)
 	var panel_elem 	= document.getElementById("thepanel");
 	if( panel_elem.state == "closed" ){
 		var iframe_elem	= document.getElementById("urfastr_iframe");
-		iframe_elem.setAttribute("src", "http://player.urfastr.tv/live?neoip_widget_src=firefox_extension");
+		iframe_elem.setAttribute("src", "http://player.urfastr.tv/live?neoip_var_widget_src=firefox_extension");
 		
 		var status_elem	= document.getElementById("status-bar");
 		panel_elem.openPopup(status_elem, "before_end", 0, 0, false, false);

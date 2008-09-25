@@ -21,7 +21,20 @@
 
 
 <script>
-	var ezplayer	= new neoip.ezplayer_t();
+	// extract all configuration options from the document URI
+	// - this is ok as it is suppposed to be used as iframe
+	var urivar_arr	= neoip.core.doc_urivar_arr();
+	var cfgvar_arr	= {}
+	for(var key in urivar_arr){
+		// goto the next if not prefixed by "neoip_var_"
+		if( /^neoip_var_/.test(key) == false )	continue;
+		// remove the prefix from the key
+		stripped_key	= /^neoip_var_(.*)/(key)[1]
+		// copy the value in cfgvar_arr
+		cfgvar_arr[stripped_key]	= urivar_arr[key];
+	}
+
+	var ezplayer	= new neoip.ezplayer_t(cfgvar_arr);
 	ezplayer.play_post_playlist(true);
 	ezplayer.fullpage_state("maximized");
 	
@@ -59,7 +72,7 @@
 	// jme- Set a user-defined value as a segmentation to collect data on the widget_src
 	// - if no variable 'neoip_widget_src' is found in the URI, assume "direct_access" else copy the value.
 	// - currently "mozilla_prism" and "igoogle_gadget" are defined
-	var widget_src	= "<?php echo $_GET['neoip_widget_src'] ? $_GET['neoip_widget_src'] : "direct_access" ?>";
+	var widget_src	= "<?php echo $_GET['neoip_var_widget_src'] ? $_GET['neoip_var_widget_src'] : "direct_access" ?>";
 	pageTracker._setVar(widget_src);
 </script>
 <!-- END   google analytic script -->

@@ -231,7 +231,7 @@ neoip.core_t.prototype.cookie_delete	= function(name)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief function to extract the variable from the page location url
+/** \brief function to extract a given variable from the page location url
  */
 neoip.core_t.prototype.doc_urivar_get	= function(varname)
 {
@@ -245,6 +245,27 @@ neoip.core_t.prototype.doc_urivar_get	= function(varname)
 	}
 	// if no variable matches, return null
 	return null;
+}
+
+/** \brief function to extract an array of variables from the page location url
+ */
+neoip.core_t.prototype.doc_urivar_arr	= function()
+{
+	// init a blank urivar_arr
+	var urivar_arr	= {}
+	// get the variable part of the uri
+	var searchstr	= document.location.search.substring(1);
+	var keyval_arr	= searchstr.split("&");
+	// go thru each variable
+	for(var i = 0; i < keyval_arr.length; i++ ){
+		var keyval	= keyval_arr[i].split("=");
+		var key		= keyval[0];
+		var val		= keyval[1];
+		// set this variable in urivar_arr
+		urivar_arr[key]	= val;
+	}
+	// return the just built uri_varr
+	return urivar_arr;
 }
 
 /** \brief Return true if uri_str is an absolute_uri, false otherwise

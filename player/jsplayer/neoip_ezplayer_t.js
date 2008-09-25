@@ -4,6 +4,14 @@
 \par Brief Description
 A bunch of function on top of neoip.player_t to really simplify the usage of it
 
+\par List of cfgvar_arr
+- onload_force_mute=boolean
+  - if true force mute when loaded, no matter what previously saved preferences
+  - if false, dont do anything
+  - typical usage: this avoid to get a loud webpage when being loaded.
+    - especially when the user doesnt explicitly asks for a player
+    - typically when the player is included in a larger page
+
 */
 
 // defined the namespace if not yet done
@@ -17,9 +25,15 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 ////////////////////////////////////////////////////////////////////////////////
 
 /** \brief Constructor
+ *
+ * @param p_cfgvar_arr	array of all the configuration variable for this ezplayer_t
  */
-neoip.ezplayer_t	= function()
+neoip.ezplayer_t	= function(p_cfgvar_arr)
 {
+	// copy the parameters
+	this.m_cfgvar_arr		= p_cfgvar_arr;
+	
+	// determine the html_id where to put the subplayer
 	this.m_subplayer_html_id	= "subplayer_plugin_html_id";
 	// determine the type of subplayer to init. "vlc"|"asplayer" are the valid one
 	this.m_subplayer_type		= "asplayer";
@@ -91,6 +105,7 @@ neoip.ezplayer_t.prototype.destructor	= function()
 	// delete the neoip.playlist_loader_t if needed
 	this._playlist_loader_dtor();
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -492,6 +507,14 @@ neoip.ezplayer_t.prototype.apps_detect_running	= function()
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+//			Query function
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+neoip.ezplayer_t.prototype.cfgvar_arr	= function()	{ return this.m_cfgvar_arr;	}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //			public function
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -537,3 +560,4 @@ neoip.ezplayer_t.prototype.playing_stop	= function()
 	// notify the embedui if supported
 	if( this.m_embedui )	this.m_embedui.playing_stop();
 }
+
