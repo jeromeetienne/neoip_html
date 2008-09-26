@@ -17,7 +17,7 @@
 </style>
 
 <body>
-<div id="neoip_player_container_id"></div>
+<div id="neoip_player_container_id">Place to put player container</div>
 
 
 <script>
@@ -49,7 +49,7 @@
 	// if the uri contains a 'playlist_id' variable, use it to load this playlist
 	// - additionnaly dont put a playlist_arr, so impossible to change channel
 	var	playlist_id	= "<?php echo $_GET['playlist_id']; ?>";
-	if( playlist_id != ""){
+	if( playlist_id != "" ){
 		var	playlist_url	= "../../cgi-bin/get_playlist.fcgi?playlist_id=" + playlist_id;
 		ezplayer.change_playlist(playlist_url);
 	}else{

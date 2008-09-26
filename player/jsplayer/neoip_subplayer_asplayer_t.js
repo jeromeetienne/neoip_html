@@ -112,7 +112,7 @@ neoip.subplayer_asplayer_t.prototype.build_objembed = function(p_container_id, p
 	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
 	var so		= new SWFObject("neoip_asplayer.swf", this.m_plugin_htmlid
 					, p_width.toString(), p_height.toString()
-					, "7", "#000000", true);
+					, "9", "#000000", true);
 	// put the parameter to the flash plugin itself
 	so.addParam("allowScriptAccess"	, "always");
 
@@ -125,7 +125,16 @@ neoip.subplayer_asplayer_t.prototype.build_objembed = function(p_container_id, p
 	so.addVariable("jscallback_str"	, "neoip_subplayer_asplayer_plugin_cb");
 	so.addVariable("jscallback_key"	, neoip_subplayer_asplayer_cb_build_key(this));
 	// write the result in the html
-      	so.write(p_container_id);
+	var succeed	= so.write(p_container_id);
+	if( succeed )	return;
+	
+	// NOTE: at this point,  SWFObject failed to detect flash, so display something to warn the user
+	var innerhtml	= "<table width='100%' height='100%' align='center'>"
+				+ "<tr><td valign='middle' align='center'>"
+					+ "<span style='color:red; font-size: larger;'>Flash 9 required</span>"
+				+ "</td></tr>"
+			+ "</table>";
+	document.getElementById(p_container_id).innerHTML = innerhtml;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
