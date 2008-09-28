@@ -1,0 +1,219 @@
+process location world/France
+[
+  {
+    "stream_uri": "mms:\/\/streaming.i2i-technology.com\/artChannelBB",
+    "human_name": "Art Channel",
+    "comment": "Art",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.viewontv.com\/astrocenter\/live.wmx",
+    "human_name": "Astro Center",
+    "comment": "Astrology Channel",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/213.251.186.202:81\/ASTV",
+    "human_name": "ASTV",
+    "comment": "Local TV broadcasting from Grande-Synthe",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/vipmms9.yacast.net\/bfm_bfmtv",
+    "human_name": "BFM TV",
+    "comment": "News and entertainment",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/quik4.impek.tv\/brtv",
+    "human_name": "Boardriders TV",
+    "comment": "Boardriding Programmes",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/live.c9television.fr\/Live.c9television.fr",
+    "human_name": "C9",
+    "comment": "Local TV broadcasting from Lille",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/91.121.2.60\/calaistv",
+    "human_name": "Calais TV",
+    "comment": "Local TV broadcasting from Calais",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.impek.tv\/go\/soul\/wm",
+    "human_name": "Canalmoza",
+    "comment": "African Music",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/a1555.l2856539880.c28565.e.lm.akamaistream.net\/D\/1555\/28565\/v0001\/reflector:39880",
+    "human_name": "Clermont1ere",
+    "comment": "Local TV broadcasting from Clermont Ferrand",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/stream1.cybertika.com\/tropical",
+    "human_name": "Cybertika Tropical",
+    "comment": "African\/Mid East Music",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/212.3.240.67\/ffnet\/212.3.240.70_0.0.115.1",
+    "human_name": "Direct 8",
+    "comment": "News and Entertainment",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/stream1.webaxys.net\/dominotv",
+    "human_name": "Domino TV",
+    "comment": "Local TV broadcasting from Clermont Rouen",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net\/D\/1729\/21686\/v0001\/reflector:35667",
+    "human_name": "Eurosport",
+    "comment": "Sports",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/live.france24.com\/france24_fr.wsx",
+    "human_name": "France 24",
+    "comment": "24 Hours news in French",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/live.france24.com\/france24_en.wsx",
+    "human_name": "France 24",
+    "comment": "24 Hours news in English",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.impek.com\/go\/srap\/wm",
+    "human_name": "Hip Hop TV",
+    "comment": "Hip Hop Music",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/tf1.yacast.net\/tf1_live13",
+    "human_name": "Jet TV",
+    "comment": "Entertainment",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.labelletv.net\/labelletv.asx",
+    "human_name": "Labelle TV",
+    "comment": "Music Channel",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/viptf1.yacast.net\/tf1webcast\/jtlci\/JTLCI.wmv",
+    "human_name": "LCI",
+    "comment": "News",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/tf1.yacast.net\/tf1_live22",
+    "human_name": "LCI II",
+    "comment": "News",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.lcpan.fr\/data\/lcp.wvx",
+    "human_name": "Assemblee National",
+    "comment": "National Assembley",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/live01.eepad.dz\/st_eqoon_demo_2",
+    "human_name": "M6",
+    "comment": "News and Entertainment",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/88.191.23.167\/mboatv",
+    "human_name": "MBOA TV",
+    "comment": "African Music",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.tv-radio.com\/station\/normandie_tv\/normandie_tv-300k.asx",
+    "human_name": "Normandie TV",
+    "comment": "Local programming from Normandie",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/paradisefm.net\/pvision\/paradisetv.asx",
+    "human_name": "Paradise FM",
+    "comment": "Music Channel",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net\/D\/1729\/21686\/v0001\/reflector:55505",
+    "human_name": "Paris Cap",
+    "comment": "Local programming from Paris",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/88.191.39.73\/perpignantvstream",
+    "human_name": "Perpignan TV",
+    "comment": "Local programming from Perpignan",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.tv-radio.com\/station\/public_senat\/public_senat-150k.asx",
+    "human_name": "Senat",
+    "comment": "News Channel",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/www.impek.tv\/go\/stele\/wm",
+    "human_name": "Seven TV",
+    "comment": "Music TV",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/www.tele102.net\/tele102",
+    "human_name": "Tele 102",
+    "comment": "utf8 bugged",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/a1991.l2229962829.c22299.n.lm.akamaistream.net\/D\/1991\/22299\/v0001\/reflector:36557",
+    "human_name": "Tele Alsac",
+    "comment": "Local programming from Alsace",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/213.251.181.150\/tlm",
+    "human_name": "TLM",
+    "comment": "Local programming from Lyon",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/www.tumbuktoo.com:8080",
+    "human_name": "Tumbuktoo",
+    "comment": "Music Channel",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/213.251.181.150\/tlm",
+    "human_name": "TLM",
+    "comment": "Local programming from Lyon",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "mms:\/\/88.191.38.160:1440\/",
+    "human_name": "TV 8 Mont Blanc",
+    "comment": "Local programming from Mont Blanc",
+    "location": "world\/France"
+  },
+  {
+    "stream_uri": "http:\/\/movix.sdv.fr:8080\/teleg1.asf",
+    "human_name": "TV Grenoble",
+    "comment": "Local programming from Grenoble\/td>\r\n  ",
+    "location": "world\/France"
+  }
+]

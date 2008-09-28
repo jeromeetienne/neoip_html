@@ -1,0 +1,150 @@
+[
+    {
+        "cast_name": "AB_Moteur.flv", 
+        "stream_uri": "mms:\/\/live3.ipercast.net\/abgroupe.fr\/abmoteurs\/live"
+    }, 
+    {
+        "cast_name": "Alibi_TV.flv", 
+        "stream_uri": "http:\/\/www.alibitivi.com\/start.asx"
+    }, 
+    {
+        "cast_name": "Argent_Tv.flv", 
+        "stream_uri": "http:\/\/207.253.121.82\/tvaargent"
+    }, 
+    {
+        "cast_name": "Art_Channel.flv", 
+        "stream_uri": "mms:\/\/streaming.i2i-technology.com\/artChannelbb"
+    }, 
+    {
+        "cast_name": "ArtPla_TV.flv", 
+        "stream_uri": "http:\/\/artplatv.dyndns.org:2677"
+    }, 
+    {
+        "cast_name": "Astro_Center.flv", 
+        "stream_uri": "http:\/\/www.tv-radio.com\/station\/astrocenter_tv\/astrocenter_tv-270k.asx"
+    }, 
+    {
+        "cast_name": "ASTV_.flv", 
+        "stream_uri": "mms:\/\/213.251.186.202:81\/ASTV"
+    }, 
+    {
+        "cast_name": "Bamboch_TV.flv", 
+        "stream_uri": "http:\/\/www.bambochtv.com\/bamboch47.asx"
+    }, 
+    {
+        "cast_name": "Bastille_TV.flv", 
+        "stream_uri": "http:\/\/bastilletv.diffusepro.com\/index.asx"
+    }, 
+    {
+        "cast_name": "BFM_TV.flv", 
+        "stream_uri": "mms:\/\/vipmms9.yacast.net\/bfm_bfmtv"
+    }, 
+    {
+        "cast_name": "Biosph?re_.flv", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/biosphere\/wm"
+    }, 
+    {
+        "cast_name": "Bloomberg__French.flv", 
+        "stream_uri": "http:\/\/www.bloomberg.com\/streams\/video\/LiveFR_nb.asx"
+    }, 
+    {
+        "cast_name": "Boardriders_TV_.flv", 
+        "stream_uri": "http:\/\/www.impek.tv\/brtv\/brtv.asx"
+    }, 
+    {
+        "cast_name": "C9_Television.flv", 
+        "stream_uri": "mms:\/\/live.c9television.fr\/Live.c9television.fr"
+    }, 
+    {
+        "cast_name": "Calais_TV.flv", 
+        "stream_uri": "mms:\/\/91.121.2.60\/calaistv"
+    }, 
+    {
+        "cast_name": "Canal_Savoir.flv", 
+        "stream_uri": "http:\/\/stream2.canal.qc.ca\/enOndes_bas_debit"
+    }, 
+    {
+        "cast_name": "Cap_24_TV.flv", 
+        "stream_uri": "mms:\/\/wm.live.tv-radio.com\/cap24_360k"
+    }, 
+    {
+        "cast_name": "CityZen_TV.flv", 
+        "stream_uri": "http:\/\/movix.sdv.fr:8086\/cityzen.asf"
+    }, 
+    {
+        "cast_name": "CLAP_TV.flv", 
+        "stream_uri": "http:\/\/rr93.diffusepro.com\/index.asx"
+    }, 
+    {
+        "cast_name": "Corr?ze_Tv.flv", 
+        "stream_uri": "mms:\/\/213.246.42.27:8080"
+    }, 
+    {
+        "cast_name": "CPAC_French.flv", 
+        "stream_uri": "http:\/\/www.cpac.ca\/asx\/cpac1flh.asx"
+    }, 
+    {
+        "cast_name": "CT2E__-_ex_Ciel_Tv.flv", 
+        "stream_uri": "http:\/\/www.ct2e.com\/live.wmv"
+    }, 
+    {
+        "cast_name": "Cybertika_Urban.flv", 
+        "stream_uri": "http:\/\/www.cybertika.com\/urban.cybertika.asx"
+    }, 
+    {
+        "cast_name": "Direct_8.flv", 
+        "stream_uri": "http:\/\/direct8.directmedia.fr\/liveasx.php"
+    }, 
+    {
+        "cast_name": "Domino_TV.flv", 
+        "stream_uri": "mms:\/\/stream1.webaxys.net\/dominotv"
+    }, 
+    {
+        "cast_name": "Euronews.flv", 
+        "stream_uri": "mms:\/\/skinkers-livestation-euronews-fr.wm.llnwd.net\/skinkers_livestation_euronews_fr"
+    }, 
+    {
+        "cast_name": "Eurosport_Audio.flv", 
+        "stream_uri": "mms:\/\/livestream.eurosport.com\/nogeo\/Eurosport_France_Console_Audio.wsx?MSWMExt=.asf"
+    }, 
+    {
+        "cast_name": "Fashion_TV.flv", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/fashion.asx"
+    }, 
+    {
+        "cast_name": "France_2_-_La_M?t?o.flv", 
+        "stream_uri": "mms:\/\/a988.v101995.c10199.e.vm.akamaistream.net\/7\/988\/10199\/3f97c7e6\/ftvigrp.download.akamai.com\/10199\/horsgv\/regions\/siege\/france2\/meteo\/meteo_GT.wmv"
+    }, 
+    {
+        "cast_name": "France_2_-_Le_journal_de_20h.flv", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/france2.asx"
+    }, 
+    {
+        "cast_name": "France_2_-_Revue_de_presse.flv", 
+        "stream_uri": "mms:\/\/a988.v101995.c10199.e.vm.akamaistream.net\/7\/988\/10199\/3f97c7e6\/ftvigrp.download.akamai.com\/10199\/horsgv\/regions\/siege\/france2\/revuepresse\/revuedepresse.wmv"
+    }, 
+    {
+        "cast_name": "France_24_French.flv", 
+        "stream_uri": "mms:\/\/stream1.france24.yacast.net\/f24_livefr"
+    }, 
+    {
+        "cast_name": "Grosse_Caisse_TV.flv", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/groosecaissetv.asx"
+    }, 
+    {
+        "cast_name": "i>T?L?.flv", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/reydddd\/watch_i_t__e____le___.asx"
+    }, 
+    {
+        "cast_name": "InraciTV.flv", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/inraci\/wm"
+    }, 
+    {
+        "cast_name": "Ivoirian_TV.flv", 
+        "stream_uri": "http:\/\/www.ivoriantv.net\/LIVE.asx"
+    }, 
+    {
+        "cast_name": "JC_Faignond_Web_TV.flv", 
+        "stream_uri": "http:\/\/yookast.com:8080\/jcfWebTv "
+    }
+]
