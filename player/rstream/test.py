@@ -10,7 +10,8 @@ import simplejson
 #print "url_stream=%s" % url_stream
 
 
-scrapper    = freeetv_parser_t()
+freeetv     = freeetv_parser_t()
+url_dirpage = freeetv.build_uri_dirpage(location='france');
 
 url_page    = "http://www.freeetv.com/mod.php?Video_Stream&________________________orderby-4-categoryby-8-newcategoryby-0-presel-moz"
 html_page   = urllib2.urlopen(url_page).read()
