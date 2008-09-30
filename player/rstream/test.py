@@ -2,13 +2,45 @@
 from BeautifulSoup import BeautifulSoup
 import urllib2
 import re, sys
-from freeetv_parser_t import *
+from freeetv_t import *
 import simplejson
 
 #url_page     = "http://www.freeetv.com/modules.php?name=Video_Stream&page=watch&id=2216"
 #url_stream   = streamurl_from_watchurl(url)
 #print "url_stream=%s" % url_stream
 
+freeetv     = freeetv_t()
+channels    = freeetv.channels_from_criteria()
+channels    = freeetv.channels_hydrate_stream_uri(channels)
+
+sys.stderr.write(simplejson.dumps(channels, sort_keys=True, indent=4))
+
+
+freeetv     = freeetv_t()
+pageidx     = 1
+pagemax     = None
+channels    = []
+while True:
+    print "pageidx=" + pageidx.__str__()
+    # build the url for the dirpage
+    url_dirpage = freeetv.build_uri_dirpage(pageidx=pageidx);
+    print "url_dirpage=" + url_dirpage
+    # read and parse the dirpage
+    page_html   = urllib2.urlopen(url_dirpage).read()
+    page_soup   = BeautifulSoup(page_html)
+    # extract the channels from this directory
+    new_channels= freeetv.channels_from_dirmoz_page_soup(page_soup)
+    channels    += new_channels
+    # if pagemax is not yet known, get it
+    if pagemax == None :
+        pagemax     = freeetv.pagemax_from_dirmoz_page_soup(page_soup)
+        print "pagemax=" + pagemax
+    # if this was the last page, leave the loop
+    if pageidx == pagemax:  break
+    # goto the next page
+    pageidx += 1
+
+sys.exit(0)
 
 freeetv     = freeetv_parser_t()
 url_dirpage = freeetv.build_uri_dirpage(location='france');

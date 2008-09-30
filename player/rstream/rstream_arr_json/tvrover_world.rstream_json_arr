@@ -1,0 +1,3012 @@
+[
+  {
+    "cast_name": "Vision_Plus.flv",
+    "stream_uri": "mms:\/\/80.78.70.243:1221\/",
+    "human_name": "Vision Plus",
+    "comment": "News",
+    "location": "world\/Albania"
+  },
+  {
+    "cast_name": "ATV.flv",
+    "stream_uri": "mms:\/\/194.158.91.91\/Atv",
+    "human_name": "ATV",
+    "comment": "News and Entertainment",
+    "location": "world\/Andorra"
+  },
+  {
+    "cast_name": "Canal_10.flv",
+    "stream_uri": "mms:\/\/tucumantv.interrogacaodigital.net\/tucumantv",
+    "human_name": "Canal 10",
+    "comment": "News and Entertainment from Tucuman",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "utf8_bugged.flv",
+    "stream_uri": "http:\/\/www.eloncedigital.com.ar\/extras\/envivo\/envivo.asx",
+    "human_name": "utf8 bugged",
+    "comment": "utf8 bugged",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_13.flv",
+    "stream_uri": "mms:\/\/wmedia03.uigc.net\/TelenocheOnDemand",
+    "human_name": "Canal 13",
+    "comment": "News from Buenos Aires",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_13_TD.flv",
+    "stream_uri": "http:\/\/www.telediariodigital.com.ar\/video_\/td.wmv",
+    "human_name": "Canal 13 TD",
+    "comment": "News from Rio IV City",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_26.flv",
+    "stream_uri": "mms:\/\/200.115.192.52:1162\/Canal_26.wvx",
+    "human_name": "Canal 26",
+    "comment": "News",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_4.flv",
+    "stream_uri": "mms:\/\/streammax.alsolnet.com\/canal4",
+    "human_name": "Canal 4",
+    "comment": "TV chanel broadcasting from Chubut",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_5.flv",
+    "stream_uri": "http:\/\/stream1.interrogacaodigital.net\/tucumantv2",
+    "human_name": "Canal 5",
+    "comment": "News and entertainment from Tucuman",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_9.flv",
+    "stream_uri": "mms:\/\/200.73.177.44\/alta",
+    "human_name": "Canal 9",
+    "comment": "News and Sport",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Canal_Luz.flv",
+    "stream_uri": "http:\/\/www.vilaluz.com\/vivo.asx",
+    "human_name": "Canal Luz",
+    "comment": "Christian Channel",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "CBA_TV.flv",
+    "stream_uri": "mms:\/\/24.232.1.75\/CbaTV",
+    "human_name": "CBA TV",
+    "comment": "Broadcasting from Cordoba.",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Gran_Hermano.flv",
+    "stream_uri": "mms:\/\/us-stream-csc01.terra.com\/mib_bbarg1?p1=20070122003210&p2=ar&h1=q3Lh30vBYGv\/8w51qt5Ygg==&h2=1==",
+    "human_name": "Gran Hermano",
+    "comment": "Reality TV",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "PPIX.flv",
+    "stream_uri": "mms:\/\/stream.grandiyasociados.net\/ppixdocumental",
+    "human_name": "PPIX",
+    "comment": "Documentaries",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "TN24Horas.flv",
+    "stream_uri": "mms:\/\/wmedia01.uigc.net\/TN",
+    "human_name": "TN24Horas",
+    "comment": "24 Hours News",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "PPIX.flv",
+    "stream_uri": "mms:\/\/stream.grandiyasociados.net\/ppixdocumental",
+    "human_name": "PPIX",
+    "comment": "Documentaries",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "TV_Uno.flv",
+    "stream_uri": "mms:\/\/streammax.alsolnet.com\/mdqteleweb",
+    "human_name": "TV Uno",
+    "comment": "News and entertainment from Mar del Plata",
+    "location": "world\/Argentina"
+  },
+  {
+    "cast_name": "Aragova_TV.flv",
+    "stream_uri": "mms:\/\/66.118.185.106\/PP2",
+    "human_name": "Aragova TV",
+    "comment": "Music and Entertainment",
+    "location": "world\/Armenia"
+  },
+  {
+    "cast_name": "Horizon_TV.flv",
+    "stream_uri": "mms:\/\/38.98.3.59\/HorizonTVLive",
+    "human_name": "Horizon TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Armenia"
+  },
+  {
+    "cast_name": "Yekir_TV.flv",
+    "stream_uri": "http:\/\/38.98.3.59\/HorizonTVLive",
+    "human_name": "Yekir TV",
+    "comment": "News",
+    "location": "world\/Armenia"
+  },
+  {
+    "cast_name": "ABC_News.flv",
+    "stream_uri": "http:\/\/www.abc.net.au\/broadbandnews\/20070416_2002\/meta\/hq1.asx",
+    "human_name": "ABC News",
+    "comment": "Australian and International News",
+    "location": "world\/Australia"
+  },
+  {
+    "cast_name": "Dig_TV.flv",
+    "stream_uri": "http:\/\/www.abc.net.au\/dig\/tv\/video\/20070416_2100\/meta\/hq1.asx",
+    "human_name": "Dig TV",
+    "comment": "Music",
+    "location": "world\/Australia"
+  },
+  {
+    "cast_name": "ABC_Sports.flv",
+    "stream_uri": "http:\/\/www.abc.net.au\/sport\/video\/20070416_1611\/wmhq.htm",
+    "human_name": "ABC Sports",
+    "comment": "Sports News",
+    "location": "world\/Australia"
+  },
+  {
+    "cast_name": "Beat_One.flv",
+    "stream_uri": "http:\/\/mediahaus.netro.ca\/mediahaus",
+    "human_name": "Beat One",
+    "comment": "Music",
+    "location": "world\/Austria"
+  },
+  {
+    "cast_name": "KTV.flv",
+    "stream_uri": "mms:\/\/212.12.127.212:8080\/",
+    "human_name": "KTV",
+    "comment": "Catholic Television",
+    "location": "world\/Austria"
+  },
+  {
+    "cast_name": "Ictimai_TV.flv",
+    "stream_uri": "mms:\/\/81.30.145.36:1044",
+    "human_name": "Ictimai TV",
+    "comment": "Public TV",
+    "location": "world\/Azerbaijan"
+  },
+  {
+    "cast_name": "GunAz_TV.flv",
+    "stream_uri": "mms:\/\/pointers.audiovideoweb.com\/asxfiles-live\/il81winlive2115.asx",
+    "human_name": "GunAz TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Azerbaijan"
+  },
+  {
+    "cast_name": "Lider_TV.flv",
+    "stream_uri": "mms:\/\/81.30.145.36:1044",
+    "human_name": "Lider TV",
+    "comment": "News",
+    "location": "world\/Azerbaijan"
+  },
+  {
+    "cast_name": "CBC.flv",
+    "stream_uri": "http:\/\/www.cbc.bb\/images\/stories\/eveningnews\/EveningNewsLg.wmv",
+    "human_name": "CBC",
+    "comment": "News",
+    "location": "world\/Barbados"
+  },
+  {
+    "cast_name": "Belarus_TV.flv",
+    "stream_uri": "http:\/\/www.tvr.by\/liveradio\/btv.asx",
+    "human_name": "Belarus TV",
+    "comment": "National TV",
+    "location": "world\/Belarus"
+  },
+  {
+    "cast_name": "ATV.flv",
+    "stream_uri": "http:\/\/www.atv.be\/v3\/",
+    "human_name": "ATV",
+    "comment": "News",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_1.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/maandag.asx",
+    "human_name": "AVS 1",
+    "comment": "Regional News (Maandag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_2.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/dinsdag.asx",
+    "human_name": "AVS 2",
+    "comment": "News (Dinsdag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_3.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/woensdag.asx",
+    "human_name": "AVS 3",
+    "comment": "Regional News (Woensdag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_4.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/donderdag.asx",
+    "human_name": "AVS 4",
+    "comment": "News (Donderdag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_5.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/vrijdag.asx",
+    "human_name": "AVS 5",
+    "comment": "Regional News (Vrijdag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_6.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/zondag.asx",
+    "human_name": "AVS 6",
+    "comment": "News (Donderdag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "AVS_6.flv",
+    "stream_uri": "http:\/\/www.avs.be\/documenten\/video\/zondag.asx",
+    "human_name": "AVS 6",
+    "comment": "News (Donderdag)",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "Liberty_TV.flv",
+    "stream_uri": "mms:\/\/www.libertytv.com:1234\/livebefr",
+    "human_name": "Liberty TV",
+    "comment": "Travel Channel",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "RTV_French.flv",
+    "stream_uri": "http:\/\/video.rtc.be\/jt_du_jour.wmv",
+    "human_name": "RTV French",
+    "comment": "News in French",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "RTV.flv",
+    "stream_uri": "http:\/\/www.rtv-media.be\/nieuws\/nieuwskempen.wmv",
+    "human_name": "RTV",
+    "comment": "News in Flemish",
+    "location": "world\/Belgium"
+  },
+  {
+    "cast_name": "7_News.flv",
+    "stream_uri": "mms:\/\/200.32.198.90\/7news",
+    "human_name": "7 News",
+    "comment": "News",
+    "location": "world\/Belize"
+  },
+  {
+    "cast_name": "Channel_5.flv",
+    "stream_uri": "mms:\/\/200.32.198.94\/channel5",
+    "human_name": "Channel 5",
+    "comment": "News",
+    "location": "world\/Belize"
+  },
+  {
+    "cast_name": "LC2_International.flv",
+    "stream_uri": "http:\/\/www.lc2international.tv\/",
+    "human_name": "LC2 International",
+    "comment": "News and Entertainment",
+    "location": "world\/Benin"
+  },
+  {
+    "cast_name": "Full_Television.flv",
+    "stream_uri": "mms:\/\/201.222.92.238:3939",
+    "human_name": "Full Television",
+    "comment": "Broadcasting from Santa Cruz de la Sierra",
+    "location": "world\/Bolivia"
+  },
+  {
+    "cast_name": "Megavision_Canal_18.flv",
+    "stream_uri": "mms:\/\/200.58.160.36\/Megavision",
+    "human_name": "Megavision Canal 18",
+    "comment": "News and Entertainment",
+    "location": "world\/Bolivia"
+  },
+  {
+    "cast_name": "Gigavision.flv",
+    "stream_uri": "mms:\/\/200.58.160.36\/Gigavision",
+    "human_name": "Gigavision",
+    "comment": "News and Entertainment",
+    "location": "world\/Bolivia"
+  },
+  {
+    "cast_name": "Redadvenir.flv",
+    "stream_uri": "mms:\/\/eleden.com\/redadvenir",
+    "human_name": "Redadvenir",
+    "comment": "Christian programming",
+    "location": "world\/Bolivia"
+  },
+  {
+    "cast_name": "Unitel.flv",
+    "stream_uri": "mms:\/\/ecor-unitel.wm.llnwd.net\/ecor_unitel",
+    "human_name": "Unitel",
+    "comment": "News and Entertainment",
+    "location": "world\/Bolivia"
+  },
+  {
+    "cast_name": "Vijesti_u_7.flv",
+    "stream_uri": "http:\/\/video.ntvhayat.com\/dnevnik.rm",
+    "human_name": "Vijesti u 7",
+    "comment": "News",
+    "location": "world\/Bosnia"
+  },
+  {
+    "cast_name": "Alce.flv",
+    "stream_uri": "mms:\/\/200.253.37.16:8080",
+    "human_name": "Alce",
+    "comment": "utf8 bugged",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "AllTV.flv",
+    "stream_uri": "mms:\/\/media.brturbo.com\/turbotv.wmv",
+    "human_name": "AllTV",
+    "comment": "Live News",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Amaury_JR.flv",
+    "stream_uri": "mms:\/\/galileo.netpoint.com.br\/_amauryjr150",
+    "human_name": "Amaury JR",
+    "comment": "News and Entertainment from Sao Paulo",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "AtalaiaNet.flv",
+    "stream_uri": "http:\/\/67.15.0.93\/~tvatalai\/studiopalmas.asx",
+    "human_name": "AtalaiaNet",
+    "comment": "Christian Channel",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Band_News.flv",
+    "stream_uri": "mms:\/\/media01.brturbo.com.br\/bandnews_secure.wmv?url=17632616183115",
+    "human_name": "Band News",
+    "comment": "News",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Canal_21.flv",
+    "stream_uri": "mms:\/\/201.14.17.131:8080",
+    "human_name": "Canal 21",
+    "comment": "Moviee from Cascavel.",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Band_News.flv",
+    "stream_uri": "mms:\/\/media01.brturbo.com.br\/bandnews_secure.wmv?url=17632616183115",
+    "human_name": "Band News",
+    "comment": "News",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Cancau_Nova.flv",
+    "stream_uri": "http:\/\/www.cancaonova.com\/tvcn.asx",
+    "human_name": "Cancau Nova",
+    "comment": "News and Entertainment from Sao Paulo",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Embratel_21.flv",
+    "stream_uri": "mms:\/\/mediafarm21.cdn.embratel.net.br\/embratel21-v",
+    "human_name": "Embratel 21",
+    "comment": "Broadcasting from the Embratel Institute",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Faap_TV.flv",
+    "stream_uri": "mms:\/\/video.faap.br\/tvfaap",
+    "human_name": "Faap TV",
+    "comment": "Educational programmes from Sao Paulo",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "IEQ.flv",
+    "stream_uri": "mms:\/\/mediaserver.ieqlimeira.com.br\/tv",
+    "human_name": "IEQ",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Igreja_Evangelica.flv",
+    "stream_uri": "mms:\/\/overserver3000.com\/tvcristovive3",
+    "human_name": "Igreja Evangelica",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Novo_Tempo.flv",
+    "stream_uri": "mms:\/\/strm02.novotempo.org.br\/TVNovoTempo-Vivo",
+    "human_name": "Novo Tempo",
+    "comment": "Entertainment, Educational and documentaires",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Ongrace.flv",
+    "stream_uri": "mms:\/\/streaming.ongrace.com\/tv",
+    "human_name": "Ongrace",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Paz_e_Vida.flv",
+    "stream_uri": "mms:\/\/201.28.44.234\/radionet",
+    "human_name": "Paz e Vida",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Rede_Gospel.flv",
+    "stream_uri": "mms:\/\/media2.igospel.com.br\/tv_gospel",
+    "human_name": "Rede Gospel",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Rede_Super.flv",
+    "stream_uri": "http:\/\/www.lagoinha.com\/tv\/rs100.asx",
+    "human_name": "Rede Super",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "Rede_TV_Viana.flv",
+    "stream_uri": "mms:\/\/galileo.netpoint.com.br\/redetvviana",
+    "human_name": "Rede TV Viana",
+    "comment": "News and Entertainment",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Assembleia_Legislativa.flv",
+    "stream_uri": "mms:\/\/tval.alesc.sc.gov.br\/tval",
+    "human_name": "TV Assembleia Legislativa",
+    "comment": "The National Legislative Assembly",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Brasilia.flv",
+    "stream_uri": "mms:\/\/webtv.tvbrasilia.com.br\/tvbsb",
+    "human_name": "TV Brasilia",
+    "comment": "News and Entertainment",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Camara.flv",
+    "stream_uri": "mms:\/\/theon.camara.gov.br\/TV",
+    "human_name": "TV Camara",
+    "comment": "Government Channel",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Cambury.flv",
+    "stream_uri": "http:\/\/stream1.interrogacaodigital.net\/cambury?MSWMExt=.asf",
+    "human_name": "TV Cambury",
+    "comment": "News and Entertainment",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Capital.flv",
+    "stream_uri": "mms:\/\/200.101.192.237:4633",
+    "human_name": "TV Capital",
+    "comment": "News and Entertainment from Florianopolis SC",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_CBC.flv",
+    "stream_uri": "mms:\/\/67.106.205.44\/248",
+    "human_name": "TV CBC",
+    "comment": "Music Channel",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Cidade.flv",
+    "stream_uri": "mms:\/\/aovivo.tvcidade.com:8000\/tvcidade",
+    "human_name": "TV Cidade",
+    "comment": "News and Entertainment from Aracaju",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Climatempo.flv",
+    "stream_uri": "http:\/\/www.tvcanalinternet.com\/videos\/aovivo.asx",
+    "human_name": "TV Climatempo",
+    "comment": "Weather Channel",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Espiritualista.flv",
+    "stream_uri": "mms:\/\/streaming.medialux.com.br\/tvespiritualista",
+    "human_name": "TV Espiritualista",
+    "comment": "Spiritual Broadcasting",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Fortaleza.flv",
+    "stream_uri": "mms:\/\/200.164.68.67\/tvfortaleza",
+    "human_name": "TV Fortaleza",
+    "comment": "Broadcasting from Fortaleza.",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Justica.flv",
+    "stream_uri": "mms:\/\/mediaserver.stf.gov.br\/tvjustica",
+    "human_name": "TV Justica",
+    "comment": "Justice related programmes",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Pocos.flv",
+    "stream_uri": "mms:\/\/rs1.redeupx.net\/225",
+    "human_name": "TV Pocos",
+    "comment": "utf8 bugged",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Ponta_Negra.flv",
+    "stream_uri": "mms:\/\/200.208.175.198:1060",
+    "human_name": "TV Ponta Negra",
+    "comment": "Santarem  Local Station",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Primeira.flv",
+    "stream_uri": "http:\/\/pibvitoria.org.br\/upload\/tvprimeira.asx",
+    "human_name": "TV Primeira",
+    "comment": "Christian TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Rock.flv",
+    "stream_uri": "mms:\/\/galileo.netpoint.com.br\/_TVROCK__QUARTA",
+    "human_name": "TV Rock",
+    "comment": "Sau Paulo Music Channel",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Seculo_21.flv",
+    "stream_uri": "mms:\/\/200.186.96.90:8080",
+    "human_name": "TV Seculo 21",
+    "comment": "Educational TV",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Taroba.flv",
+    "stream_uri": "mms:\/\/taroba.sercomtel.com.br\/taroba\/",
+    "human_name": "TV Taroba",
+    "comment": "Broadcasting from Cascave",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "TV_Terra.flv",
+    "stream_uri": "mms:\/\/us-stream-csc04.terra.com\/mibtvterra-a",
+    "human_name": "TV Terra",
+    "comment": "Broadcasting from Sao Paulo",
+    "location": "world\/Brazil"
+  },
+  {
+    "cast_name": "BTK.flv",
+    "stream_uri": "mms:\/\/213.248.79.174\/vtk_direct_q1.wmv",
+    "human_name": "BTK",
+    "comment": "Military channel.",
+    "location": "world\/Bulgaria"
+  },
+  {
+    "cast_name": "Eurofolk.flv",
+    "stream_uri": "mms:\/\/206.225.90.39:8080\/",
+    "human_name": "Eurofolk",
+    "comment": "European Folklore channel",
+    "location": "world\/Bulgaria"
+  },
+  {
+    "cast_name": "Skat_TV.flv",
+    "stream_uri": "http:\/\/itvbulgaria.com:8082",
+    "human_name": "Skat TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Bulgaria"
+  },
+  {
+    "cast_name": "TV_Rodina.flv",
+    "stream_uri": "mms:\/\/tvrodina.com:9999",
+    "human_name": "TV Rodina",
+    "comment": "Music TV",
+    "location": "world\/Bulgaria"
+  },
+  {
+    "cast_name": "TV_Estate.flv",
+    "stream_uri": "mms:\/\/206.225.90.39:8081\/",
+    "human_name": "TV Estate",
+    "comment": "Real Estate and Tourism Information",
+    "location": "world\/Bulgaria"
+  },
+  {
+    "cast_name": "Argent.flv",
+    "stream_uri": "http:\/\/207.253.121.82\/tvaargent",
+    "human_name": "Argent",
+    "comment": "Financial News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Canal_Savoir.flv",
+    "stream_uri": "http:\/\/209.226.95.138\/CanalSavoir_enDirect",
+    "human_name": "Canal Savoir",
+    "comment": "French Language talk show",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Canal_Savoir.flv",
+    "stream_uri": "http:\/\/209.226.95.138\/CanalSavoir_enDirect",
+    "human_name": "Canal Savoir",
+    "comment": "French Language talk show",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Edmonton.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/edmonton.wmv",
+    "human_name": "CBC Edmonton",
+    "comment": "Edmonton News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Edmonton.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/edmonton.wmv",
+    "human_name": "CBC Edmonton",
+    "comment": "Edmonton News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Igalaaq.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/igalaaq.wmv",
+    "human_name": "CBC Igalaaq",
+    "comment": "Igalaaq News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Manitoba.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/winnipeg.wmv",
+    "human_name": "CBC Manitoba",
+    "comment": "Manitoba News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Montreal.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/montreal.wmv",
+    "human_name": "CBC Montreal",
+    "comment": "Montreal News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_National.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/14635\/thenational\/thenational.wmv",
+    "human_name": "CBC National",
+    "comment": "Canadian National News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_News_Hourly.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/fredericton.wmv",
+    "human_name": "CBC News Hourly",
+    "comment": "News on the Hour",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Nova_Scotia.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/halifax.wmv",
+    "human_name": "CBC Nova Scotia",
+    "comment": "Nova Scotia News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Ottawa.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/ottawa.wmv",
+    "human_name": "CBC Ottawa",
+    "comment": "Ottawa News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Ottawa.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/ottawa.wmv",
+    "human_name": "CBC Ottawa",
+    "comment": "Ottawa News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_P.E.I.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/charlottetown.wmv",
+    "human_name": "CBC P.E.I",
+    "comment": "Prince Edward Island News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Saskatchewan.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/regina.wmv",
+    "human_name": "CBC Saskatchewan",
+    "comment": "Saskatchewan News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CBC_Vancouver.flv",
+    "stream_uri": "http:\/\/www.cbc.ca\/mrl3\/8752\/newsatsix\/vancouver.wmv",
+    "human_name": "CBC Vancouver",
+    "comment": "Vancouver News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CPC_English.flv",
+    "stream_uri": "http:\/\/www.cpac.ca\/asx\/cpac1e.asx",
+    "human_name": "CPC English",
+    "comment": "Canadian Parliment Broadcasting",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CPC_French.flv",
+    "stream_uri": "http:\/\/www.cpac.ca\/asx\/cpac1f.asx",
+    "human_name": "CPC French",
+    "comment": "Canadian Parliment Broadcasting",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "CTV.flv",
+    "stream_uri": "http:\/\/www4.mediaontap.com\/players\/ctvbc\/player.html",
+    "human_name": "CTV",
+    "comment": "Vancouver News",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Didar_TV.flv",
+    "stream_uri": "http:\/\/didartv.packdeal.com\/Didar-Cable.asx",
+    "human_name": "Didar TV",
+    "comment": "Hamilton station Broadcasting in Persian",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "LCN.flv",
+    "stream_uri": "http:\/\/207.253.121.82\/LCN",
+    "human_name": "LCN",
+    "comment": "News in French",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Legislative_Assembley.flv",
+    "stream_uri": "http:\/\/142.139.25.225\/encoder_5.wmv",
+    "human_name": "Legislative Assembley",
+    "comment": "New Brunswick Legislative Assembley",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Mirracle.flv",
+    "stream_uri": "mms:\/\/70.87.8.31\/miracle-sat",
+    "human_name": "Mirracle",
+    "comment": "Christian TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Radio_Canada.flv",
+    "stream_uri": "http:\/\/www.radio-canada.ca\/util\/endirect\/rdidirect.asx",
+    "human_name": "Radio Canada",
+    "comment": "News and Entertainment in French",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Shop_TV_Canada.flv",
+    "stream_uri": "mms:\/\/ss1.tsw.ca\/shoptv1",
+    "human_name": "Shop TV Canada",
+    "comment": "Shopping TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Shopping_TVA.flv",
+    "stream_uri": "http:\/\/shoptvcanada.com\/shoptvlive.asx",
+    "human_name": "Shopping TVA",
+    "comment": "Shopping TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Shop_TV_Canada.flv",
+    "stream_uri": "mms:\/\/ss1.tsw.ca\/shoptv1",
+    "human_name": "Shop TV Canada",
+    "comment": "Shopping TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "The_Beat.flv",
+    "stream_uri": "http:\/\/www.thebeat.com\/asxfiles\/beattv.asx",
+    "human_name": "The Beat",
+    "comment": "Vancouver based Music Channel",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "The_Stream.flv",
+    "stream_uri": "http:\/\/viewers.streamingfaith.com\/asx_files\/streamtv548.asx",
+    "human_name": "The Stream",
+    "comment": "Christian TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Toronto_Channel_1.flv",
+    "stream_uri": "mms:\/\/74.122.28.66:8090\/",
+    "human_name": "Toronto Channel 1",
+    "comment": "Toronto Web TV in Chinese",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Toronto_Channel_2.flv",
+    "stream_uri": "mms:\/\/74.122.28.66:8095\/",
+    "human_name": "Toronto Channel 2",
+    "comment": "Toronto Web TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Toronto_Channel_3.flv",
+    "stream_uri": "mms:\/\/74.122.28.66:8085\/",
+    "human_name": "Toronto Channel 3",
+    "comment": "Toronto Web TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Toronto_Channel_4.flv",
+    "stream_uri": "mms:\/\/74.122.28.66:8080\/",
+    "human_name": "Toronto Channel 4",
+    "comment": "Toronto Web TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Toronto_Channel_5.flv",
+    "stream_uri": "mms:\/\/74.122.28.66:8088\/",
+    "human_name": "Toronto Channel 5",
+    "comment": "Toronto Web TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "TSN.flv",
+    "stream_uri": "http:\/\/media.tsn.ca\/av\/update_hi.wmv",
+    "human_name": "TSN",
+    "comment": "Sports TV",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "TVA.flv",
+    "stream_uri": "http:\/\/207.253.121.82\/TVAStream",
+    "human_name": "TVA",
+    "comment": "Quebec channel in French",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "TVC_9.flv",
+    "stream_uri": "mms:\/\/24.212.0.123\/tvc9",
+    "human_name": "TVC 9",
+    "comment": "News and Entertainment",
+    "location": "world\/Canada"
+  },
+  {
+    "cast_name": "Canal_13.flv",
+    "stream_uri": "mms:\/\/streaming.entelchile.net\/canal13",
+    "human_name": "Canal 13",
+    "comment": "Catholic TV",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Canal_2.flv",
+    "stream_uri": "http:\/\/streaming.entelchile.net\/canal13_cable",
+    "human_name": "Canal 2",
+    "comment": "University TV station from Temuco",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Canal_54.flv",
+    "stream_uri": "http:\/\/streaming.entelchile.net\/canal54",
+    "human_name": "Canal 54",
+    "comment": "News and Entertainment",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "CDTV.flv",
+    "stream_uri": "mms:\/\/200.14.66.100\/canal_internet",
+    "human_name": "CDTV",
+    "comment": "News and topical factual programing",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Chile_Television.flv",
+    "stream_uri": "mms:\/\/201.238.232.211\/chv",
+    "human_name": "Chile Television",
+    "comment": "Broadcasting from Santiago",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "CDTV.flv",
+    "stream_uri": "mms:\/\/200.75.21.216:8080",
+    "human_name": "CDTV",
+    "comment": "News and topical factual programing",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Iquique_Canal_10.flv",
+    "stream_uri": "mms:\/\/201.238.232.211\/chv",
+    "human_name": "Iquique Canal 10",
+    "comment": "News and Entertainment",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Nuvo_Tiempo.flv",
+    "stream_uri": "mms:\/\/www.novotempo.org.br\/TVNuevoTiempo-Vivo",
+    "human_name": "Nuvo Tiempo",
+    "comment": "Christian TV",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Telecanal.flv",
+    "stream_uri": "http:\/\/wmedia3.ifxnw.cl\/telecanal",
+    "human_name": "Telecanal",
+    "comment": "News and Entertainment from Santiago",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "TV_Chile.flv",
+    "stream_uri": "mms:\/\/wmserver1.tvn.cl\/tvchile",
+    "human_name": "TV Chile",
+    "comment": "News and Entertainment",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "TV_mas_Canal_22.flv",
+    "stream_uri": "http:\/\/www.mas22.cl\/canalmas22.asx",
+    "human_name": "TV mas Canal 22",
+    "comment": "News and Entertainment",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "UCVTV.flv",
+    "stream_uri": "http:\/\/200.29.92.21\/ucvtv",
+    "human_name": "UCVTV",
+    "comment": "News and Entertainment",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "Universidad_del_Mar.flv",
+    "stream_uri": "http:\/\/www.antofagastaudelmar.cl\/videos\/canal\/externo.asx",
+    "human_name": "Universidad del Mar",
+    "comment": "University channel from Antofagasta",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "VTV2.flv",
+    "stream_uri": "mms:\/\/atanua.broadcastchile.cl\/canal2",
+    "human_name": "VTV2",
+    "comment": "News and Entertainment",
+    "location": "world\/Chile"
+  },
+  {
+    "cast_name": "BJIPTV.flv",
+    "stream_uri": "mms:\/\/media.bjiptv.com\/present",
+    "human_name": "BJIPTV",
+    "comment": "Movie Channel",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "CCQTV.flv",
+    "stream_uri": "mms:\/\/218.201.44.232\/ccqtv",
+    "human_name": "CCQTV",
+    "comment": "News and Entertainment from Chongqing",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "CCTV_E&F.flv",
+    "stream_uri": "mms:\/\/live.cctv.com\/live5",
+    "human_name": "CCTV E&F",
+    "comment": "CCTV Spanish and French",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "CCTV_1.flv",
+    "stream_uri": "mms:\/\/61.177.180.147\/cctv1",
+    "human_name": "CCTV 1",
+    "comment": "Entertainment channel",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "CCTV_5.flv",
+    "stream_uri": "http:\/\/202.102.188.43\/zhtv",
+    "human_name": "CCTV 5",
+    "comment": "Sports TV",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "CCTV_9.flv",
+    "stream_uri": "mms:\/\/72.166.136.132\/cctv9-300",
+    "human_name": "CCTV 9",
+    "comment": "English language channel",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "XIN_TV.flv",
+    "stream_uri": "mms:\/\/202.109.80.136\/channel3",
+    "human_name": "XIN TV",
+    "comment": "Sports TV",
+    "location": "world\/China"
+  },
+  {
+    "cast_name": "Canal_41_ABH.flv",
+    "stream_uri": "mms:\/\/markoni.netpatio.com\/avivamiento\/avivamiento128",
+    "human_name": "Canal 41 ABH",
+    "comment": "News and Entertainment from Bogota",
+    "location": "world\/Columbia"
+  },
+  {
+    "cast_name": "CMB.flv",
+    "stream_uri": "mms:\/\/markoni.netpatio.com\/cmb\/cmb100",
+    "human_name": "CMB",
+    "comment": "Christian TV",
+    "location": "world\/Columbia"
+  },
+  {
+    "cast_name": "Nova_TV.flv",
+    "stream_uri": "mms:\/\/enriquer.naaggeas.net\/video",
+    "human_name": "Nova TV",
+    "comment": "Bogota channel",
+    "location": "world\/Columbia"
+  },
+  {
+    "cast_name": "Canal_23.flv",
+    "stream_uri": "http:\/\/nstream.trinetsolutions.com\/wmedia-live\/tbn\/8033\/300_tbn-enlace_050222.asx?endtime=02:00:00",
+    "human_name": "Canal 23",
+    "comment": "Christian TV",
+    "location": "world\/Costa Rica"
+  },
+  {
+    "cast_name": "Megahits.flv",
+    "stream_uri": "mms:\/\/200.122.132.216\/Megahits",
+    "human_name": "Megahits",
+    "comment": "Music Channel",
+    "location": "world\/Costa Rica"
+  },
+  {
+    "cast_name": "Extra_Canal_24.flv",
+    "stream_uri": "mms:\/\/extratv42.interhand.net\/extratv42-interhand-net--hosting-services",
+    "human_name": "Extra Canal 24",
+    "comment": "Entertainment Channel",
+    "location": "world\/Costa Rica"
+  },
+  {
+    "cast_name": "FCN_TV.flv",
+    "stream_uri": "mms:\/\/196.40.46.209\/fcntv",
+    "human_name": "FCN TV",
+    "comment": "Christian TV",
+    "location": "world\/Costa Rica"
+  },
+  {
+    "cast_name": "HTV_1.flv",
+    "stream_uri": "http:\/\/www.hrt.hr\/streams\/htv1.ram",
+    "human_name": "HTV 1",
+    "comment": "News and Entertainment",
+    "location": "world\/Croatia"
+  },
+  {
+    "cast_name": "Smart_TV.flv",
+    "stream_uri": "mms:\/\/wms.mojsite.com:8001\/smartidea",
+    "human_name": "Smart TV",
+    "comment": "Internet TV",
+    "location": "world\/Croatia"
+  },
+  {
+    "cast_name": "CubaVision.flv",
+    "stream_uri": "mms:\/\/multimedia.cubasi.cu\/Files\/Multimedia\/cubavision.asx",
+    "human_name": "CubaVision",
+    "comment": "News",
+    "location": "world\/Cuba"
+  },
+  {
+    "cast_name": "BRT-1_TV.flv",
+    "stream_uri": "mms:\/\/bms.brtk.net\/brttv",
+    "human_name": "BRT-1 TV",
+    "comment": "Turkish Channel",
+    "location": "world\/Cyprus"
+  },
+  {
+    "cast_name": "BRT-2_TV.flv",
+    "stream_uri": "mms:\/\/bms.brtk.net\/brt2",
+    "human_name": "BRT-2 TV",
+    "comment": "Turkish Channel",
+    "location": "world\/Cyprus"
+  },
+  {
+    "cast_name": "24.cz.flv",
+    "stream_uri": "http:\/\/www.24cz-tv.cz\/400.asx",
+    "human_name": "24.cz",
+    "comment": "Parliment TV",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "Top_TV.flv",
+    "stream_uri": "mms:\/\/bcastd.livebox.cz\/tv_toptv?WMBitRate=512000",
+    "human_name": "Top TV",
+    "comment": "Shopping Channel",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "CT24.flv",
+    "stream_uri": "http:\/\/ct1streaming.visual.cz\/asx\/ct24liveWH.asx",
+    "human_name": "CT24",
+    "comment": "News",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "Meteo_TV.flv",
+    "stream_uri": "http:\/\/netshow.atlas.cz\/meteotv",
+    "human_name": "Meteo TV",
+    "comment": "Weather Channel",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "OCKO_TV.flv",
+    "stream_uri": "http:\/\/stream.idnes.cz\/ocko-tv",
+    "human_name": "OCKO TV",
+    "comment": "Music Channel",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "PG_24.flv",
+    "stream_uri": "mms:\/\/82.99.173.140\/PG24-1024",
+    "human_name": "PG 24",
+    "comment": "Dedicated to PC Games",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "TV_Noe.flv",
+    "stream_uri": "http:\/\/www.play.cz\/video\/noetv128.asx",
+    "human_name": "TV Noe",
+    "comment": "Christian Channel",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "TVB1.flv",
+    "stream_uri": "mms:\/\/213.211.43.210:49999",
+    "human_name": "TVB1",
+    "comment": "Broadcasting from BRNO",
+    "location": "world\/Czech&nbsp;Republic"
+  },
+  {
+    "cast_name": "Folketinget.flv",
+    "stream_uri": "http:\/\/www.direktetv.ft.dk\/dyn\/extasx.asp?source=media01.webpartner.dk\/folketinget03",
+    "human_name": "Folketinget",
+    "comment": "Parliment TV",
+    "location": "world\/Denmark"
+  },
+  {
+    "cast_name": "TV2_News.flv",
+    "stream_uri": "mms:\/\/wms.jay.net\/tv2live8?Se+Sputnik+Live",
+    "human_name": "TV2 News",
+    "comment": "News TV",
+    "location": "world\/Denmark"
+  },
+  {
+    "cast_name": "Canal_10_Yuna_Vision.flv",
+    "stream_uri": "http:\/\/www.yunavision.com\/Yuna10.asx",
+    "human_name": "Canal 10 Yuna Vision",
+    "comment": "News and Entertainment from Bonao",
+    "location": "world\/Dominican Republic"
+  },
+  {
+    "cast_name": "TV_Plata.flv",
+    "stream_uri": "http:\/\/tvplata.com\/envivo.asx",
+    "human_name": "TV Plata",
+    "comment": "News and Entertainment from Puerto Plata",
+    "location": "world\/Dominican Republic"
+  },
+  {
+    "cast_name": "Sat_7.flv",
+    "stream_uri": "mms:\/\/eu02.egihosting.com\/989626",
+    "human_name": "Sat 7",
+    "comment": "Christian TV",
+    "location": "world\/Egypt"
+  },
+  {
+    "cast_name": "Agape_TV.flv",
+    "stream_uri": "mms:\/\/200.85.10.136\/agapetv8",
+    "human_name": "Agape TV",
+    "comment": "News and Entertainment",
+    "location": "world\/El Salvador"
+  },
+  {
+    "cast_name": "Canal_17.flv",
+    "stream_uri": "mms:\/\/www.siscompnetwork.com\/tabernaculo1",
+    "human_name": "Canal 17",
+    "comment": "Christian TV",
+    "location": "world\/El Salvador"
+  },
+  {
+    "cast_name": "Pueblo_de_Israel_T.V..flv",
+    "stream_uri": "mms:\/\/www.siscompnetwork1.com\/tabernaculo3",
+    "human_name": "Pueblo de Israel T.V.",
+    "comment": "Christian TV",
+    "location": "world\/El Salvador"
+  },
+  {
+    "cast_name": "Canal_17.flv",
+    "stream_uri": "mms:\/\/videoserver.tilde.ee\/lifetv3",
+    "human_name": "Canal 17",
+    "comment": "Christian TV",
+    "location": "world\/Estonia"
+  },
+  {
+    "cast_name": "Riigikogu.flv",
+    "stream_uri": "mms:\/\/media.riigikogu.ee\/otse",
+    "human_name": "Riigikogu",
+    "comment": "Parliment TV",
+    "location": "world\/Estonia"
+  },
+  {
+    "cast_name": "YLE_24.flv",
+    "stream_uri": "http:\/\/ra.yle.fi\/ramgen\/yle24\/video\/uusin_rk.rm",
+    "human_name": "YLE 24",
+    "comment": "News and Entertainment",
+    "location": "world\/Finland"
+  },
+  {
+    "cast_name": "Art_Channel.flv",
+    "stream_uri": "mms:\/\/streaming.i2i-technology.com\/artChannelBB",
+    "human_name": "Art Channel",
+    "comment": "Art",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Astro_Center.flv",
+    "stream_uri": "http:\/\/www.viewontv.com\/astrocenter\/live.wmx",
+    "human_name": "Astro Center",
+    "comment": "Astrology Channel",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "ASTV.flv",
+    "stream_uri": "mms:\/\/213.251.186.202:81\/ASTV",
+    "human_name": "ASTV",
+    "comment": "Local TV broadcasting from Grande-Synthe",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "BFM_TV.flv",
+    "stream_uri": "mms:\/\/vipmms9.yacast.net\/bfm_bfmtv",
+    "human_name": "BFM TV",
+    "comment": "News and entertainment",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Boardriders_TV.flv",
+    "stream_uri": "mms:\/\/quik4.impek.tv\/brtv",
+    "human_name": "Boardriders TV",
+    "comment": "Boardriding Programmes",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "C9.flv",
+    "stream_uri": "mms:\/\/live.c9television.fr\/Live.c9television.fr",
+    "human_name": "C9",
+    "comment": "Local TV broadcasting from Lille",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Calais_TV.flv",
+    "stream_uri": "mms:\/\/91.121.2.60\/calaistv",
+    "human_name": "Calais TV",
+    "comment": "Local TV broadcasting from Calais",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Canalmoza.flv",
+    "stream_uri": "http:\/\/www.impek.tv\/go\/soul\/wm",
+    "human_name": "Canalmoza",
+    "comment": "African Music",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Clermont1ere.flv",
+    "stream_uri": "mms:\/\/a1555.l2856539880.c28565.e.lm.akamaistream.net\/D\/1555\/28565\/v0001\/reflector:39880",
+    "human_name": "Clermont1ere",
+    "comment": "Local TV broadcasting from Clermont Ferrand",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Cybertika_Tropical.flv",
+    "stream_uri": "mms:\/\/stream1.cybertika.com\/tropical",
+    "human_name": "Cybertika Tropical",
+    "comment": "African\/Mid East Music",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Direct_8.flv",
+    "stream_uri": "mms:\/\/212.3.240.67\/ffnet\/212.3.240.70_0.0.115.1",
+    "human_name": "Direct 8",
+    "comment": "News and Entertainment",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Domino_TV.flv",
+    "stream_uri": "mms:\/\/stream1.webaxys.net\/dominotv",
+    "human_name": "Domino TV",
+    "comment": "Local TV broadcasting from Clermont Rouen",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Eurosport.flv",
+    "stream_uri": "mms:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net\/D\/1729\/21686\/v0001\/reflector:35667",
+    "human_name": "Eurosport",
+    "comment": "Sports",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "France_24.flv",
+    "stream_uri": "mms:\/\/live.france24.com\/france24_fr.wsx",
+    "human_name": "France 24",
+    "comment": "24 Hours news in French",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "France_24.flv",
+    "stream_uri": "mms:\/\/live.france24.com\/france24_en.wsx",
+    "human_name": "France 24",
+    "comment": "24 Hours news in English",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Hip_Hop_TV.flv",
+    "stream_uri": "http:\/\/www.impek.com\/go\/srap\/wm",
+    "human_name": "Hip Hop TV",
+    "comment": "Hip Hop Music",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Jet_TV.flv",
+    "stream_uri": "mms:\/\/tf1.yacast.net\/tf1_live13",
+    "human_name": "Jet TV",
+    "comment": "Entertainment",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Labelle_TV.flv",
+    "stream_uri": "http:\/\/www.labelletv.net\/labelletv.asx",
+    "human_name": "Labelle TV",
+    "comment": "Music Channel",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "LCI.flv",
+    "stream_uri": "http:\/\/viptf1.yacast.net\/tf1webcast\/jtlci\/JTLCI.wmv",
+    "human_name": "LCI",
+    "comment": "News",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "LCI_II.flv",
+    "stream_uri": "mms:\/\/tf1.yacast.net\/tf1_live22",
+    "human_name": "LCI II",
+    "comment": "News",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Assemblee_National.flv",
+    "stream_uri": "http:\/\/www.lcpan.fr\/data\/lcp.wvx",
+    "human_name": "Assemblee National",
+    "comment": "National Assembley",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "M6.flv",
+    "stream_uri": "mms:\/\/live01.eepad.dz\/st_eqoon_demo_2",
+    "human_name": "M6",
+    "comment": "News and Entertainment",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "MBOA_TV.flv",
+    "stream_uri": "mms:\/\/88.191.23.167\/mboatv",
+    "human_name": "MBOA TV",
+    "comment": "African Music",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Normandie_TV.flv",
+    "stream_uri": "http:\/\/www.tv-radio.com\/station\/normandie_tv\/normandie_tv-300k.asx",
+    "human_name": "Normandie TV",
+    "comment": "Local programming from Normandie",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Paradise_FM.flv",
+    "stream_uri": "http:\/\/paradisefm.net\/pvision\/paradisetv.asx",
+    "human_name": "Paradise FM",
+    "comment": "Music Channel",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Paris_Cap.flv",
+    "stream_uri": "mms:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net\/D\/1729\/21686\/v0001\/reflector:55505",
+    "human_name": "Paris Cap",
+    "comment": "Local programming from Paris",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Perpignan_TV.flv",
+    "stream_uri": "mms:\/\/88.191.39.73\/perpignantvstream",
+    "human_name": "Perpignan TV",
+    "comment": "Local programming from Perpignan",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Senat.flv",
+    "stream_uri": "http:\/\/www.tv-radio.com\/station\/public_senat\/public_senat-150k.asx",
+    "human_name": "Senat",
+    "comment": "News Channel",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Seven_TV.flv",
+    "stream_uri": "http:\/\/www.impek.tv\/go\/stele\/wm",
+    "human_name": "Seven TV",
+    "comment": "Music TV",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Tele_102.flv",
+    "stream_uri": "mms:\/\/www.tele102.net\/tele102",
+    "human_name": "Tele 102",
+    "comment": "utf8 bugged",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Tele_Alsac.flv",
+    "stream_uri": "mms:\/\/a1991.l2229962829.c22299.n.lm.akamaistream.net\/D\/1991\/22299\/v0001\/reflector:36557",
+    "human_name": "Tele Alsac",
+    "comment": "Local programming from Alsace",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "TLM.flv",
+    "stream_uri": "mms:\/\/213.251.181.150\/tlm",
+    "human_name": "TLM",
+    "comment": "Local programming from Lyon",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "Tumbuktoo.flv",
+    "stream_uri": "mms:\/\/www.tumbuktoo.com:8080",
+    "human_name": "Tumbuktoo",
+    "comment": "Music Channel",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "TLM.flv",
+    "stream_uri": "mms:\/\/213.251.181.150\/tlm",
+    "human_name": "TLM",
+    "comment": "Local programming from Lyon",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "TV_8_Mont_Blanc.flv",
+    "stream_uri": "mms:\/\/88.191.38.160:1440\/",
+    "human_name": "TV 8 Mont Blanc",
+    "comment": "Local programming from Mont Blanc",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "TV_Grenoble.flv",
+    "stream_uri": "http:\/\/movix.sdv.fr:8080\/teleg1.asf",
+    "human_name": "TV Grenoble",
+    "comment": "Local programming from Grenoble\/td>\r\n  ",
+    "location": "world\/France"
+  },
+  {
+    "cast_name": "GPB.flv",
+    "stream_uri": "mms:\/\/wma2.viastreaming.net\/gpb",
+    "human_name": "GPB",
+    "comment": "Public Broadcasting",
+    "location": "world\/Georgia"
+  },
+  {
+    "cast_name": "Imedi.flv",
+    "stream_uri": "mms:\/\/wmlive.vitalstreamcdn.com\/live_imedi_vitalstream_com_imeditv-wm",
+    "human_name": "Imedi",
+    "comment": "News and Entertainment",
+    "location": "world\/Georgia"
+  },
+  {
+    "cast_name": "Rustavi_2.flv",
+    "stream_uri": "mms:\/\/rustavi.avstream.com\/rustavilb",
+    "human_name": "Rustavi 2",
+    "comment": "News and Entertainment",
+    "location": "world\/Georgia"
+  },
+  {
+    "cast_name": "123_TV.flv",
+    "stream_uri": "http:\/\/www.tv1.de\/tv1\/cms\/_vm300\/57787\/asx.asx",
+    "human_name": "123 TV",
+    "comment": "Shopping Channel",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "3_Sat.flv",
+    "stream_uri": "http:\/\/wstreaming.zdf.de\/encoder\/3sat_h.asx",
+    "human_name": "3 Sat",
+    "comment": "News and Entertainment",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "9_Live.flv",
+    "stream_uri": "http:\/\/redirect.streaming.szm.de\/redirect\/redirect.php?type=live&codec=ms&stream=9live_wmt_mid",
+    "human_name": "9 Live",
+    "comment": "Telephone Quiz",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Antenne_West.flv",
+    "stream_uri": "http:\/\/85.25.53.146\/antennewest.asx",
+    "human_name": "Antenne West",
+    "comment": "West German Channel",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Astro_TV.flv",
+    "stream_uri": "mms:\/\/wm.broadcast.tneg.de\/AstroTV",
+    "human_name": "Astro TV",
+    "comment": "Astrology",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Bahn_TV.flv",
+    "stream_uri": "http:\/\/www.bahntv-online.de\/btvo\/nocontentasx\/llnw_btvo_live_high.asx",
+    "human_name": "Bahn TV",
+    "comment": "Traffic and Travel",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Center_TV.flv",
+    "stream_uri": "http:\/\/www.tv1.de\/cms\/_vm300\/rebroadcast\/tv\/azmedia_tv1.asx?referer=",
+    "human_name": "Center TV",
+    "comment": "News and Entertainment from Koln",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Daf_TV.flv",
+    "stream_uri": "http:\/\/www.tv1.de\/cms\/_vm300\/broadcast\/tv\/daf_tv1.asx",
+    "human_name": "Daf TV",
+    "comment": "Financial News",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Del_TV.flv",
+    "stream_uri": "mms:\/\/213.155.85.154\/del-tv_dsl_broad",
+    "human_name": "Del TV",
+    "comment": "Ice Hockey Channel",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Deluxe_Music_TV.flv",
+    "stream_uri": "mms:\/\/evisco.net\/deluxemusictv",
+    "human_name": "Deluxe Music TV",
+    "comment": "Music",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Donau_TV.flv",
+    "stream_uri": "http:\/\/www.tv1.de\/tv1\/cms\/_vm300\/_vv_1153607157968\/60535\/asx.asx",
+    "human_name": "Donau TV",
+    "comment": "News and Entertainment from Deggendorf\/td>\r\n  ",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Elbekanal.flv",
+    "stream_uri": "http:\/\/www.elbekanal.de\/ek\/sendung.wmv",
+    "human_name": "Elbekanal",
+    "comment": "utf8 bugged",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Euro_3.flv",
+    "stream_uri": "mms:\/\/87.106.17.25\/EURO 3 Livestream Region Ost",
+    "human_name": "Euro 3",
+    "comment": "News and Entertainment from Bodensee\/td>\r\n  ",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Flott-TV.flv",
+    "stream_uri": "http:\/\/www.flott-tv.de\/reginalfernsehen\/FLOTT_DSL.wmv",
+    "human_name": "Flott-TV",
+    "comment": "News and Entertainment from Guenzburg",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Franken_TV.flv",
+    "stream_uri": "http:\/\/www.tv1.de\/tv1\/cms\/_vm300\/60751\/asx.asx",
+    "human_name": "Franken TV",
+    "comment": "utf8 bugged",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "PETN_Sportschannel.flv",
+    "stream_uri": "http:\/\/80.237.157.98\/sportschannel",
+    "human_name": "PETN Sportschannel",
+    "comment": "Sports",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "PETN_Moviechannel.flv",
+    "stream_uri": "mms:\/\/80.237.157.98\/moviechannel",
+    "human_name": "PETN Moviechannel",
+    "comment": "Movie Channel",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "PETN_Citychannel.flv",
+    "stream_uri": "http:\/\/80.237.157.98\/citychannel",
+    "human_name": "PETN Citychannel",
+    "comment": "News from Leipzig",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "Hamburg_24.flv",
+    "stream_uri": "http:\/\/boss.streamos.com\/wmedia\/sportal\/hh1\/hh24_news.wvx",
+    "human_name": "Hamburg 24",
+    "comment": "News from Hamburg",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "TV_Halle.flv",
+    "stream_uri": "mms:\/\/217.69.225.138:1113",
+    "human_name": "TV Halle",
+    "comment": "News from Halle",
+    "location": "world\/Germany"
+  },
+  {
+    "cast_name": "GTV.flv",
+    "stream_uri": "mms:\/\/stream1.telediaspora.net\/3gtvnews\/",
+    "human_name": "GTV",
+    "comment": "News",
+    "location": "world\/Ghana"
+  },
+  {
+    "cast_name": "Bible_Live.flv",
+    "stream_uri": "mms:\/\/wm12.spacialnet.com\/nikaia-gr",
+    "human_name": "Bible Live",
+    "comment": "Christian Channel",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "INET.flv",
+    "stream_uri": "mms:\/\/194.177.200.37\/TV",
+    "human_name": "INET",
+    "comment": "News and entertainment",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Mad_TV.flv",
+    "stream_uri": "mms:\/\/media.mad.gr\/madtv",
+    "human_name": "Mad TV",
+    "comment": "Music Channel",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Nikaia_Church.flv",
+    "stream_uri": "http:\/\/www.nikaia-church.gr\/media\/greek.asx",
+    "human_name": "Nikaia Church",
+    "comment": "Christian Channel",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Omega_TV.flv",
+    "stream_uri": "http:\/\/www.omegatv.net\/live.asx",
+    "human_name": "Omega TV",
+    "comment": "News and Entertainment from Rhodes Island",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Greek_Parliament.flv",
+    "stream_uri": "mms:\/\/mediaserver.otenet.gr\/parliament",
+    "human_name": "Greek Parliament",
+    "comment": "Greek Parliament",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Thraki_TV.flv",
+    "stream_uri": "http:\/\/listen.onestreaming.com\/asx\/thrakinet.asx",
+    "human_name": "Thraki TV",
+    "comment": "TV from Alexandroupolis",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Word_of_God.flv",
+    "stream_uri": "http:\/\/www.wordofgod.gr\/streams\/FACPHighGR.asx",
+    "human_name": "Word of God",
+    "comment": "Christian TV",
+    "location": "world\/Greece"
+  },
+  {
+    "cast_name": "Canal_6.flv",
+    "stream_uri": "mms:\/\/201.220.137.139:8080\/",
+    "human_name": "Canal 6",
+    "comment": "News channel",
+    "location": "world\/Honduras"
+  },
+  {
+    "cast_name": "Maya_TV.flv",
+    "stream_uri": "mms:\/\/67.15.216.196\/mayatv",
+    "human_name": "Maya TV",
+    "comment": "News channel",
+    "location": "world\/Honduras"
+  },
+  {
+    "cast_name": "BP_13.flv",
+    "stream_uri": "mms:\/\/media.bp13.hu\/TV13",
+    "human_name": "BP 13",
+    "comment": "News and Entertainment from Budapest",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Duna_II_Autonomia.flv",
+    "stream_uri": "mms:\/\/wms1.hungary.com\/autonomia\/live",
+    "human_name": "Duna II Autonomia",
+    "comment": "News and Entertainment",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Hotspot_TV.flv",
+    "stream_uri": "mms:\/\/hotspot-tv.net:90\/hotspotlive",
+    "human_name": "Hotspot TV",
+    "comment": "24 hours Music channel",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "M1_Mateszalka.flv",
+    "stream_uri": "mms:\/\/www.podcasting.gtk.hu:90\/m1tv",
+    "human_name": "M1 Mateszalka",
+    "comment": "Mateszalka local Channel ",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "M1.flv",
+    "stream_uri": "http:\/\/www.hirado.hu\/download\/m1.asx",
+    "human_name": "M1",
+    "comment": "National TV News",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "NY_TV.flv",
+    "stream_uri": "mms:\/\/stream.giganet.hu\/nytvonline?MSWMExt=.asf",
+    "human_name": "NY TV",
+    "comment": "Nyireghaza local TV station",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Sopron_TV.flv",
+    "stream_uri": "mms:\/\/89.132.163.82:8090",
+    "human_name": "Sopron TV",
+    "comment": "News and Entertainment from Sopron",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Supernet_Piros.flv",
+    "stream_uri": "mms:\/\/live1.szupernet.tv\/piros",
+    "human_name": "Supernet Piros",
+    "comment": "News and Entertainment",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "SZTV.flv",
+    "stream_uri": "mms:\/\/www.sztarnet.hu:90\/sztv",
+    "human_name": "SZTV",
+    "comment": "Szombathely Local TV station",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Varosi_TV.flv",
+    "stream_uri": "mms:\/\/213.163.4.195:8080\/",
+    "human_name": "Varosi TV",
+    "comment": "Szeged Local TV station",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Zuglo_TV.flv",
+    "stream_uri": "mms:\/\/www.sztarnet.hu:90\/zuglotv_live",
+    "human_name": "Zuglo TV",
+    "comment": "Budapest local station",
+    "location": "world\/Hungary"
+  },
+  {
+    "cast_name": "Althingi.flv",
+    "stream_uri": "mms:\/\/fjalar.althingi.is\/beint",
+    "human_name": "Althingi",
+    "comment": "Iceland Parliament TV",
+    "location": "world\/Iceland"
+  },
+  {
+    "cast_name": "CNBC_TV_18.flv",
+    "stream_uri": "mms:\/\/a1873.l2639649579.c26396.g.lm.akamaistream.net\/D\/1873\/26396\/v0001\/reflector:49579",
+    "human_name": "CNBC TV 18",
+    "comment": "Business Channel",
+    "location": "world\/India"
+  },
+  {
+    "cast_name": "IBN_Live.flv",
+    "stream_uri": "mms:\/\/a150.l2584248272.c25842.g.lm.akamaistream.net\/D\/150\/25842\/v0001\/reflector:48272",
+    "human_name": "IBN Live",
+    "comment": "News",
+    "location": "world\/India"
+  },
+  {
+    "cast_name": "CNBC_TV18.flv",
+    "stream_uri": "mms:\/\/a1873.l2639649579.c26396.g.lm.akamaistream.net\/D\/1873\/26396\/v0001\/reflector:49579",
+    "human_name": "CNBC TV18",
+    "comment": "Business Channel",
+    "location": "world\/India"
+  },
+  {
+    "cast_name": "Jesus_Calls.flv",
+    "stream_uri": "mms:\/\/38.119.36.227\/JC English_300k",
+    "human_name": "Jesus Calls",
+    "comment": "Christian Channel",
+    "location": "world\/India"
+  },
+  {
+    "cast_name": "Star_One.flv",
+    "stream_uri": "http:\/\/wm15.bestmediahost.com\/cl-idesitv.com(starone-s2)sdkk3kks22a",
+    "human_name": "Star One",
+    "comment": "Entertainment",
+    "location": "world\/India"
+  },
+  {
+    "cast_name": "TRI_TV.flv",
+    "stream_uri": "mms:\/\/68.178.205.217\/broadcast",
+    "human_name": "TRI TV",
+    "comment": "Internet TV Station",
+    "location": "world\/Indonesia"
+  },
+  {
+    "cast_name": "News_TV.flv",
+    "stream_uri": "http:\/\/www.irib.ir\/live\/khabar.asx",
+    "human_name": "News TV",
+    "comment": "News",
+    "location": "world\/Iran"
+  },
+  {
+    "cast_name": "Alforat_TV.flv",
+    "stream_uri": "http:\/\/alforattv.net\/alforattv.asx",
+    "human_name": "Alforat TV",
+    "comment": "News",
+    "location": "world\/Iraq"
+  },
+  {
+    "cast_name": "Oireachtas_Live.flv",
+    "stream_uri": "mms:\/\/live1.heanet.ie\/dail_Broadband",
+    "human_name": "Oireachtas Live",
+    "comment": "Parliment TV",
+    "location": "world\/Ireland"
+  },
+  {
+    "cast_name": "Arutz_TV.flv",
+    "stream_uri": "mms:\/\/s96wm.castup.net\/991810001-52.wmv?s=&rid=611262050526987&ct=NL&rg=WE&aid=181&st=0&cu=DC646929-7A3E-4196-B15B-0ACFA2EB9A75",
+    "human_name": "Arutz TV",
+    "comment": "Shopping Channel",
+    "location": "world\/Israel"
+  },
+  {
+    "cast_name": "Clip_TV.flv",
+    "stream_uri": "mms:\/\/s07wm.castup.net\/993620003-52.wmv",
+    "human_name": "Clip TV",
+    "comment": "Music",
+    "location": "world\/Israel"
+  },
+  {
+    "cast_name": "Israel_Plus_TV.flv",
+    "stream_uri": "mms:\/\/213.8.138.42\/zahavru",
+    "human_name": "Israel Plus TV",
+    "comment": "News and Entertainment in Russian",
+    "location": "world\/Israel"
+  },
+  {
+    "cast_name": "Layla.flv",
+    "stream_uri": "http:\/\/s06wm.castup.net\/server12\/84924161-61.wmv?s=&rid=702101733461523&ct=NL&rg=WE&aid=288&st=0&cu=753969ED-78B8-43F0-AE4A-598958DB1E4B",
+    "human_name": "Layla",
+    "comment": "Entertainment",
+    "location": "world\/Israel"
+  },
+  {
+    "cast_name": "Sports_5.flv",
+    "stream_uri": "http:\/\/www.sport5.co.il",
+    "human_name": "Sports 5",
+    "comment": "Israeli Sports inc Football",
+    "location": "world\/Israel"
+  },
+  {
+    "cast_name": "3_Channel.flv",
+    "stream_uri": "mms:\/\/84.233.254.2\/3Channel",
+    "human_name": "3 Channel",
+    "comment": "Satelite TV",
+    "location": "world\/Italy"
+  },
+  {
+    "cast_name": "Class_News.flv",
+    "stream_uri": "mms:\/\/classnews1.alice.cdn.interbusiness.it\/uns__uns\/classnews1.alice.cdn.interbusiness.it\/classnews1",
+    "human_name": "Class News",
+    "comment": "News",
+    "location": "world\/Italy"
+  },
+  {
+    "cast_name": "EMY_TV.flv",
+    "stream_uri": "mms:\/\/88.50.188.66:1609",
+    "human_name": "EMY TV",
+    "comment": "TV Channel from Sarzana",
+    "location": "world\/Italy"
+  },
+  {
+    "cast_name": "Exformat.flv",
+    "stream_uri": "mms:\/\/85.18.94.61:8080\/",
+    "human_name": "Exformat",
+    "comment": "Entertainment",
+    "location": "world\/Italy"
+  },
+  {
+    "cast_name": "Video_Lina.flv",
+    "stream_uri": "http:\/\/212.131.249.134\/Videolina",
+    "human_name": "Video Lina",
+    "comment": "Cagliari local TV",
+    "location": "world\/Italy"
+  },
+  {
+    "cast_name": "TV_Ogi.flv",
+    "stream_uri": "http:\/\/85.18.170.70:8080",
+    "human_name": "TV Ogi",
+    "comment": "News and Entertainment",
+    "location": "world\/Italy"
+  },
+  {
+    "cast_name": "FNN_News.flv",
+    "stream_uri": "mms:\/\/wmt-od.stream.ne.jp\/fujitv\/fnn\/news\/bs200704041401_300.wmv",
+    "human_name": "FNN News",
+    "comment": "News",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "IIV_Internet_Interactive_TV_.flv",
+    "stream_uri": "mms:\/\/tfmi-wmt.gekimedia.net\/tfmi-channelb",
+    "human_name": "IIV Internet Interactive TV ",
+    "comment": "News",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "Jal_TV.flv",
+    "stream_uri": "http:\/\/www.jal.co.jp\/cgi-bin\/jal\/jaltv\/bbtv_asx.cgi?chno=1",
+    "human_name": "Jal TV",
+    "comment": "Japan Airline Channel",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "Odoroku.flv",
+    "stream_uri": "http:\/\/asx.pod.tv\/tandm\/odoroku\/live\/nama500.asx",
+    "human_name": "Odoroku",
+    "comment": "Entertainment",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "Oh!sama_TV.flv",
+    "stream_uri": "mms:\/\/wms9live.pod.tv\/king_ch01\/video",
+    "human_name": "Oh!sama TV",
+    "comment": "Entertainment",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "QVC.flv",
+    "stream_uri": "mms:\/\/ecst.qvc.jp\/Live",
+    "human_name": "QVC",
+    "comment": "Shopping Channel",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "Sony_Music.flv",
+    "stream_uri": "mms:\/\/morrich.gekimedia.net\/MainStream500",
+    "human_name": "Sony Music",
+    "comment": "Music",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "TBS_News.flv",
+    "stream_uri": "mms:\/\/www.tbs.co.jp\/news_mainprogram\/asf\/1_23.asf",
+    "human_name": "TBS News",
+    "comment": "News",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "TFMI.flv",
+    "stream_uri": "mms:\/\/tfmi-wmt.gekimedia.net\/tfmi-channel",
+    "human_name": "TFMI",
+    "comment": "Entertainment",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "Yomuri_News.flv",
+    "stream_uri": "http:\/\/www.yomiuri.co.jp\/stream\/vnews\/vnews-w.asx",
+    "human_name": "Yomuri News",
+    "comment": "News",
+    "location": "world\/Japan"
+  },
+  {
+    "cast_name": "Jordan_TV.flv",
+    "stream_uri": "mms:\/\/213.139.61.14\/tv",
+    "human_name": "Jordan TV",
+    "comment": "News Sports Entertainment",
+    "location": "world\/Jordan"
+  },
+  {
+    "cast_name": "CNL.flv",
+    "stream_uri": "mms:\/\/193.40.0.77\/cnl",
+    "human_name": "CNL",
+    "comment": "Christian TV",
+    "location": "world\/Kazakhstan"
+  },
+  {
+    "cast_name": "GTB.flv",
+    "stream_uri": "mms:\/\/211.218.111.165\/GTBLive824",
+    "human_name": "GTB",
+    "comment": "News and Entertainment",
+    "location": "world\/South Korea"
+  },
+  {
+    "cast_name": "MBN.flv",
+    "stream_uri": "mms:\/\/mbnlive.dreamxlive.net\/mkimbn200",
+    "human_name": "MBN",
+    "comment": "News",
+    "location": "world\/South Korea"
+  },
+  {
+    "cast_name": "Kurdistan_TV.flv",
+    "stream_uri": "mms:\/\/stream.crossmediaventures.com\/KTV_High?MSWMExt=.asf",
+    "human_name": "Kurdistan TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Kurdistan"
+  },
+  {
+    "cast_name": "MMC.flv",
+    "stream_uri": "mms:\/\/wm.streampower.be\/Mesopotamiatv",
+    "human_name": "MMC",
+    "comment": "Kurdish Music",
+    "location": "world\/Kurdistan"
+  },
+  {
+    "cast_name": "TV_24.flv",
+    "stream_uri": "mms:\/\/217.198.224.70:8888",
+    "human_name": "TV 24",
+    "comment": "News Channel",
+    "location": "world\/Latvia"
+  },
+  {
+    "cast_name": "Future_TV.flv",
+    "stream_uri": "http:\/\/www.futuretvnetwork.com\/videos\/news4.asx",
+    "human_name": "Future TV",
+    "comment": "News Channel",
+    "location": "world\/Lebanon"
+  },
+  {
+    "cast_name": "Nadi_TV.flv",
+    "stream_uri": "http:\/\/www.ljbc.net\/live-streaming\/NADITV-LIVE.asx",
+    "human_name": "Nadi TV",
+    "comment": "News and Sports",
+    "location": "world\/Libya"
+  },
+  {
+    "cast_name": "ZBTV.flv",
+    "stream_uri": "http:\/\/www.tv.lt\/playasx.asp?id=A3FADED4-AE27-4CD8-8B31-6DEC2C9C2049",
+    "human_name": "ZBTV",
+    "comment": "News and entertainment",
+    "location": "world\/Lithuania"
+  },
+  {
+    "cast_name": "RTL.flv",
+    "stream_uri": "mms:\/\/www.rtl.lu\/modules\/asxwrapper.asx?clip=\/telehighres&ext=.asx",
+    "human_name": "RTL",
+    "comment": "News and entertainment",
+    "location": "world\/Luxembourg"
+  },
+  {
+    "cast_name": "Kanal_5.flv",
+    "stream_uri": "http:\/\/217.16.69.22\/12.wmv",
+    "human_name": "Kanal 5",
+    "comment": "News and entertainment",
+    "location": "world\/Macedonia"
+  },
+  {
+    "cast_name": "RTM_TV2.flv",
+    "stream_uri": "mms:\/\/61.6.163.26\/rtm2",
+    "human_name": "RTM TV2",
+    "comment": "News and entertainment",
+    "location": "world\/Malaysia"
+  },
+  {
+    "cast_name": "Net_TV.flv",
+    "stream_uri": "mms:\/\/194.158.37.77\/encoder_e22",
+    "human_name": "Net TV",
+    "comment": "Entertainment",
+    "location": "world\/Malta"
+  },
+  {
+    "cast_name": "Canal_del_Congreso.flv",
+    "stream_uri": "mms:\/\/stream2.terra.es\/wm2live1",
+    "human_name": "Canal del Congreso",
+    "comment": "Congress TV",
+    "location": "world\/Mexico"
+  },
+  {
+    "cast_name": "Grupo_FM_TV.flv",
+    "stream_uri": "mms:\/\/70.85.59.52\/grupofm",
+    "human_name": "Grupo FM TV",
+    "comment": "Veracruz local TV",
+    "location": "world\/Mexico"
+  },
+  {
+    "cast_name": "Inter_TV.flv",
+    "stream_uri": "http:\/\/www.unored.com\/intertv.asx",
+    "human_name": "Inter TV",
+    "comment": "Christian TV",
+    "location": "world\/Mexico"
+  },
+  {
+    "cast_name": "Ocho_TV.flv",
+    "stream_uri": "mms:\/\/201.130.192.49:8000\/",
+    "human_name": "Ocho TV",
+    "comment": "News and Entertainment from Guadalajara Jalisco",
+    "location": "world\/Mexico"
+  },
+  {
+    "cast_name": "PSN.flv",
+    "stream_uri": "mms:\/\/streaming.tusuperestacion.com:8080\/",
+    "human_name": "PSN",
+    "comment": "Pacific Spanish Network",
+    "location": "world\/Mexico"
+  },
+  {
+    "cast_name": "SNRT.flv",
+    "stream_uri": "mms:\/\/wma2.globcos.ch\/MANASATEU32",
+    "human_name": "SNRT",
+    "comment": "News and Entertainment from Maputo",
+    "location": "world\/Mozambique"
+  },
+  {
+    "cast_name": "2E_Kamer.flv",
+    "stream_uri": "http:\/\/streams.planet.nl\/cgi-bin\/reflector.cgi?source=195.121.7.100&stream=TKStream3&title=Tweede%20Kamer%20der%20Staten-Generaal",
+    "human_name": "2E Kamer",
+    "comment": "Live from the 2E Kamer Assembley",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "AT5.flv",
+    "stream_uri": "mms:\/\/at5.streamonline.nl\/at5",
+    "human_name": "AT5",
+    "comment": "News from Amsterdam",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Business_Class.flv",
+    "stream_uri": "mms:\/\/82.201.41.3\/businessclass\/laatste_uitzending.wmv",
+    "human_name": "Business Class",
+    "comment": "Business News",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Consumenten_TV.flv",
+    "stream_uri": "http:\/\/cgi.omroep.nl\/cgi-bin\/wmlive?varaconsument-bb.asx",
+    "human_name": "Consumenten TV",
+    "comment": "Consumer Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Fesival_TV.flv",
+    "stream_uri": "http:\/\/www.maxx-xs.nl\/festivaltv\/aaplaylist.asx",
+    "human_name": "Fesival TV",
+    "comment": "Music and Entertainment",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Hilversum_Best.flv",
+    "stream_uri": "http:\/\/www.omroep.nl\/live\/nos_hilversumbest-bb.asx",
+    "human_name": "Hilversum Best",
+    "comment": "Entertainment Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Hollanddoc.flv",
+    "stream_uri": "http:\/\/www.omroep.nl\/live\/vprohollanddoc-sb.asx",
+    "human_name": "Hollanddoc",
+    "comment": "Documentary Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "KRO_-_Kindertijd.flv",
+    "stream_uri": "http:\/\/cgi.omroep.nl\/cgi-bin\/wmlive?krokindertijd-sb.asx",
+    "human_name": "KRO - Kindertijd",
+    "comment": "Childrens Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Nickelodeon.flv",
+    "stream_uri": "http:\/\/streams.mtvnetworks.nl\/cgi-bin\/reflector.cgi?stream=nick_high",
+    "human_name": "Nickelodeon",
+    "comment": "Childrens Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "NOS_Journaal.flv",
+    "stream_uri": "mms:\/\/livemedia2.omroep.nl\/nosjournaal24-bb",
+    "human_name": "NOS Journaal",
+    "comment": "News Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Omroep_Zeeland.flv",
+    "stream_uri": "http:\/\/www.omroepzeeland.nl\/stream.asx",
+    "human_name": "Omroep Zeeland",
+    "comment": "Regional Programming",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Politiek_24.flv",
+    "stream_uri": "http:\/\/livemedia2.omroep.nl\/nospolitiek24-bb",
+    "human_name": "Politiek 24",
+    "comment": "Political Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "RTLZ.flv",
+    "stream_uri": "http:\/\/rtlztv.rtl.nl\/rtlzbroad?MSWMExt=.asf",
+    "human_name": "RTLZ",
+    "comment": "Financial News",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Slam_TV.flv",
+    "stream_uri": "http:\/\/true.nl\/streams\/dynamic\/slamtv.asx",
+    "human_name": "Slam TV",
+    "comment": "Music Channel",
+    "location": "world\/Netherlands"
+  },
+  {
+    "cast_name": "Shine_TV.flv",
+    "stream_uri": "http:\/\/www.r2.co.nz\/meta\/shinetv-384.asx",
+    "human_name": "Shine TV",
+    "comment": "Christian TV",
+    "location": "world\/New Zealand"
+  },
+  {
+    "cast_name": "One_News.flv",
+    "stream_uri": "mms:\/\/media.tvnz.co.nz\/news\/2006\/flyby1_128k.wmv?http:\/\/images.tvnz.co.nz\/tvnz_video\/windows\/weather\/flyby1_128k.asx",
+    "human_name": "One News",
+    "comment": "Weather Channel",
+    "location": "world\/New Zealand"
+  },
+  {
+    "cast_name": "Emmanuel_TV.flv",
+    "stream_uri": "mms:\/\/a1987.l2277457968.c22774.g.lm.akamaistream.net\/D\/1987\/22774\/v0001\/reflector:57968?KLI_D=3000937&asx=7363&entry=1&item=1&attempt=1&net=3000570&LI_Network=300057",
+    "human_name": "Emmanuel TV",
+    "comment": "Christian TV",
+    "location": "world\/Nigeria"
+  },
+  {
+    "cast_name": "Loveworld.flv",
+    "stream_uri": "mms:\/\/win45nj.audiovideoweb.com\/nj45winlive9823",
+    "human_name": "Loveworld",
+    "comment": "Christian TV",
+    "location": "world\/Nigeria"
+  },
+  {
+    "cast_name": "Visjon_Norge.flv",
+    "stream_uri": "mms:\/\/wm-live.crossnet.net\/Visjonnorge",
+    "human_name": "Visjon Norge",
+    "comment": "Christian TV",
+    "location": "world\/Norway"
+  },
+  {
+    "cast_name": "TV_Oman.flv",
+    "stream_uri": "mms:\/\/82.178.28.24\/MOIvideo",
+    "human_name": "TV Oman",
+    "comment": "National TV Station",
+    "location": "world\/Oman"
+  },
+  {
+    "cast_name": "IIPC_TV.flv",
+    "stream_uri": "mms:\/\/202.69.56.46\/test",
+    "human_name": "IIPC TV",
+    "comment": "IIPC TV",
+    "location": "world\/Pakistan"
+  },
+  {
+    "cast_name": "LA_95_Uno.flv",
+    "stream_uri": "mms:\/\/201.224.82.20\/95uno_live",
+    "human_name": "LA 95 Uno",
+    "comment": "IIPC TV",
+    "location": "world\/Panama"
+  },
+  {
+    "cast_name": "Telemetro.flv",
+    "stream_uri": "mms:\/\/200.75.231.142\/Telemetro",
+    "human_name": "Telemetro",
+    "comment": "News",
+    "location": "world\/Panama"
+  },
+  {
+    "cast_name": "The_Old_Path.flv",
+    "stream_uri": "http:\/\/www.theoldpath.tv\/livecontent\/s2n1.asx",
+    "human_name": "The Old Path",
+    "comment": "Christian TV",
+    "location": "world\/Philippines"
+  },
+  {
+    "cast_name": "Interia.flv",
+    "stream_uri": "rtsp:\/\/streamlive.interia.pl\/interiatv400",
+    "human_name": "Interia",
+    "comment": "News and Entertainment Channel",
+    "location": "world\/Poland"
+  },
+  {
+    "cast_name": "ITV.flv",
+    "stream_uri": "mms:\/\/stream.mni.pl\/ITV",
+    "human_name": "ITV",
+    "comment": "Live TV Broadcasting from Warsaw",
+    "location": "world\/Poland"
+  },
+  {
+    "cast_name": "Podroze_TV.flv",
+    "stream_uri": "mms:\/\/stream3.radiopol.com\/podrozetv",
+    "human_name": "Podroze TV",
+    "comment": "Travel Channel",
+    "location": "world\/Poland"
+  },
+  {
+    "cast_name": "Toya_TV.flv",
+    "stream_uri": "mms:\/\/217.113.224.22\/TVToya",
+    "human_name": "Toya TV",
+    "comment": "Broadcasting from Lodz",
+    "location": "world\/Poland"
+  },
+  {
+    "cast_name": "WPTV_Biznes.flv",
+    "stream_uri": "http:\/\/i.wp.pl\/a\/f\/asx\/11426\/wptv_biznes.asx",
+    "human_name": "WPTV Biznes",
+    "comment": "Business Channel",
+    "location": "world\/Poland"
+  },
+  {
+    "cast_name": "WPTV_News.flv",
+    "stream_uri": "http:\/\/i.wp.pl\/a\/f\/asx\/11426\/wptv_news.asx",
+    "human_name": "WPTV News",
+    "comment": "News",
+    "location": "world\/Poland"
+  },
+  {
+    "cast_name": "TV_Ciencia.flv",
+    "stream_uri": "mms:\/\/video-wm.tvciencia.pt\/video\/tvcnews_256.wmv",
+    "human_name": "TV Ciencia",
+    "comment": "News",
+    "location": "world\/Portugal"
+  },
+  {
+    "cast_name": "Mana_Sat.flv",
+    "stream_uri": "mms:\/\/wma2.globcos.ch\/MANASATEU128",
+    "human_name": "Mana Sat",
+    "comment": "Christian Channel",
+    "location": "world\/Portugal"
+  },
+  {
+    "cast_name": "CDM.flv",
+    "stream_uri": "mms:\/\/38.114.38.10:80\/cdminternacional?MSWMExt=.asf",
+    "human_name": "CDM",
+    "comment": "Entertainment Channel",
+    "location": "world\/Puerto Rico"
+  },
+  {
+    "cast_name": "Motivando_TV.flv",
+    "stream_uri": "http:\/\/st7.unored.com\/motivandotv",
+    "human_name": "Motivando TV",
+    "comment": "San Juan TV Channel",
+    "location": "world\/Puerto Rico"
+  },
+  {
+    "cast_name": "Al_Jazeera.flv",
+    "stream_uri": "mms:\/\/91.121.26.71\/jazeerapo",
+    "human_name": "Al Jazeera",
+    "comment": "News",
+    "location": "world\/Qatar"
+  },
+  {
+    "cast_name": "Antena_1.flv",
+    "stream_uri": "mms:\/\/82.76.253.22\/Antena1Live",
+    "human_name": "Antena 1",
+    "comment": "News",
+    "location": "world\/Romania"
+  },
+  {
+    "cast_name": "Antena_2.flv",
+    "stream_uri": "mms:\/\/82.76.221.49\/ant2",
+    "human_name": "Antena 2",
+    "comment": "News",
+    "location": "world\/Romania"
+  },
+  {
+    "cast_name": "OTV.flv",
+    "stream_uri": "mms:\/\/82.76.12.224:8080\/",
+    "human_name": "OTV",
+    "comment": "National TV",
+    "location": "world\/Romania"
+  },
+  {
+    "cast_name": "Romusic.flv",
+    "stream_uri": "mms:\/\/194.126.179.252:8086",
+    "human_name": "Romusic",
+    "comment": "Music Channel",
+    "location": "world\/Romania"
+  },
+  {
+    "cast_name": "TeleM.flv",
+    "stream_uri": "mms:\/\/82.208.151.75:1755\/telem_live",
+    "human_name": "TeleM",
+    "comment": "News",
+    "location": "world\/Romania"
+  },
+  {
+    "cast_name": "Eurosport.flv",
+    "stream_uri": "http:\/\/www.rambler-audio.ru\/asx\/video\/special\/eurosportnews\/eurosport.asx",
+    "human_name": "Eurosport",
+    "comment": "Sports Channel",
+    "location": "world\/Russia"
+  },
+  {
+    "cast_name": "TV_+.flv",
+    "stream_uri": "mms:\/\/217.174.250.209\/TV+",
+    "human_name": "TV +",
+    "comment": "News and Entertainment",
+    "location": "world\/Russia"
+  },
+  {
+    "cast_name": "RBC_TV.flv",
+    "stream_uri": "mms:\/\/tv.gldn.net\/rbc",
+    "human_name": "RBC TV",
+    "comment": "Russian Business News",
+    "location": "world\/Russia"
+  },
+  {
+    "cast_name": "TV_SME.flv",
+    "stream_uri": "http:\/\/tvsme.ru\/channels\/high_r_1.asx",
+    "human_name": "TV SME",
+    "comment": "News from Moscow",
+    "location": "world\/Russia"
+  },
+  {
+    "cast_name": "Zahav_TV.flv",
+    "stream_uri": "mms:\/\/213.8.138.42\/zahavru",
+    "human_name": "Zahav TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Russia"
+  },
+  {
+    "cast_name": "RTV_Pink.flv",
+    "stream_uri": "mms:\/\/beotelmedia.beotel.net\/rtvpink",
+    "human_name": "RTV Pink",
+    "comment": "News and Entertainment",
+    "location": "world\/Serbia"
+  },
+  {
+    "cast_name": "TA3.flv",
+    "stream_uri": "mms:\/\/wmv.the.sk\/ta3live",
+    "human_name": "TA3",
+    "comment": "News",
+    "location": "world\/Slovakia"
+  },
+  {
+    "cast_name": "Valencia_TV.flv",
+    "stream_uri": "mms:\/\/video.ono.com\/valencia?WMBitrate=512000",
+    "human_name": "Valencia TV",
+    "comment": "TV from Valencia",
+    "location": "world\/Spain"
+  },
+  {
+    "cast_name": "TVE.flv",
+    "stream_uri": "http:\/\/www.rtve.es\/tve\/directo\/s_tve_w.asx",
+    "human_name": "TVE",
+    "comment": "News",
+    "location": "world\/Spain"
+  },
+  {
+    "cast_name": "LaOtra.flv",
+    "stream_uri": "http:\/\/mfile.akamai.com\/19048\/live\/reflector:23125.asx?bkup=31280&prop=e",
+    "human_name": "LaOtra",
+    "comment": "Live TV from Madrid",
+    "location": "world\/Spain"
+  },
+  {
+    "cast_name": "Swarnavahini.flv",
+    "stream_uri": "mms:\/\/220.247.224.106\/eap",
+    "human_name": "Swarnavahini",
+    "comment": "Music and Entertainment",
+    "location": "world\/Sri Lanka"
+  },
+  {
+    "cast_name": "TV_TTN.flv",
+    "stream_uri": "http:\/\/www.lankasritv.com\/ntt.wmv",
+    "human_name": "TV TTN",
+    "comment": "News",
+    "location": "world\/Sri Lanka"
+  },
+  {
+    "cast_name": "Dorotea_TV.flv",
+    "stream_uri": "mms:\/\/dorotea.tv\/live",
+    "human_name": "Dorotea TV",
+    "comment": "News and Entertainment from Lappand",
+    "location": "world\/Sweden"
+  },
+  {
+    "cast_name": "ZTV.flv",
+    "stream_uri": "mms:\/\/www.ztv.se\/live\/ztvlive.asx",
+    "human_name": "ZTV",
+    "comment": "Music",
+    "location": "world\/Sweden"
+  },
+  {
+    "cast_name": "Telebasel.flv",
+    "stream_uri": "mms:\/\/livestream.telebasel.ch\/telebasel",
+    "human_name": "Telebasel",
+    "comment": "News",
+    "location": "world\/Switzerland"
+  },
+  {
+    "cast_name": "TRS_Info.flv",
+    "stream_uri": "mms:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net\/D\/1729\/21686\/v0001\/reflector:55556?.wma",
+    "human_name": "TRS Info",
+    "comment": "Information Channel",
+    "location": "world\/Switzerland"
+  },
+  {
+    "cast_name": "Mac_TV.flv",
+    "stream_uri": "http:\/\/play.rbn.com\/play.asx?url=mactv\/mactv\/secure\/wmlive\/mactv300klive.asf",
+    "human_name": "Mac TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Taiwan"
+  },
+  {
+    "cast_name": "ASTV_News_1.flv",
+    "stream_uri": "mms:\/\/broadcast.manager.co.th\/11news1?wmcontentbitrate=550000",
+    "human_name": "ASTV News 1",
+    "comment": "News",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "Faikham_TV.flv",
+    "stream_uri": "mms:\/\/media.ru.ac.th\/Faikham_TV",
+    "human_name": "Faikham TV",
+    "comment": "TV from Bangkok",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "TV.flv",
+    "stream_uri": "mms:\/\/61.19.242.115\/itv_live",
+    "human_name": "TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "KETV.flv",
+    "stream_uri": "mms:\/\/202.57.163.14\/kimeng1",
+    "human_name": "KETV",
+    "comment": "Business and Finance News",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "MCOT_1.flv",
+    "stream_uri": "http:\/\/www.mcot.net\/live\/mcot1_live1MB.asx",
+    "human_name": "MCOT 1",
+    "comment": "News and Entertainment",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "Thai_Army_TV.flv",
+    "stream_uri": "mms:\/\/202.57.163.14\/kimeng1",
+    "human_name": "Thai Army TV",
+    "comment": "Business and Finance News",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "TV9.flv",
+    "stream_uri": "mms:\/\/video.tv5.co.th\/tv5?WMContentBitrate=512000",
+    "human_name": "TV9",
+    "comment": "Thai News Agency",
+    "location": "world\/Thailand"
+  },
+  {
+    "cast_name": "Bahane_TV.flv",
+    "stream_uri": "mms:\/\/81.169.135.42\/bahanetv1",
+    "human_name": "Bahane TV",
+    "comment": "Music TV",
+    "location": "world\/Turkey"
+  },
+  {
+    "cast_name": "Samanyolu_Haber_TV.flv",
+    "stream_uri": "mms:\/\/canli.samanyoluhaber.tv\/shaber",
+    "human_name": "Samanyolu Haber TV",
+    "comment": "National TV",
+    "location": "world\/Turkey"
+  },
+  {
+    "cast_name": "Kanal_Avrupa.flv",
+    "stream_uri": "mms:\/\/yayinakimi.kusto.com\/canli",
+    "human_name": "Kanal Avrupa",
+    "comment": "News and Entertainment",
+    "location": "world\/Turkey"
+  },
+  {
+    "cast_name": "Bid_TV.flv",
+    "stream_uri": "http:\/\/play.www.situptv.servecast.net\/biduptv\/stream.asp?bw=250&s1=1",
+    "human_name": "Bid TV",
+    "comment": "On Line Auction Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Bonobo_TV.flv",
+    "stream_uri": "mms:\/\/stream00.prostream.co.uk\/bonobotv",
+    "human_name": "Bonobo TV",
+    "comment": "Alternative TV channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Channel_M.flv",
+    "stream_uri": "mms:\/\/asf.narrowstep.tv\/mcp?psid=9669676&ref=0&chid=448&pid=1105&vid=8198952&br=400&tid=2&brid=498",
+    "human_name": "Channel M",
+    "comment": "Broadcasting from Manchester",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Chat_Show.flv",
+    "stream_uri": "mms:\/\/streaming.chatshow.net\/chatshowPlayList\/",
+    "human_name": "Chat Show",
+    "comment": "Chat TV",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Classic_FM.flv",
+    "stream_uri": "mms:\/\/s-lon-01a.global-mix.net\/classicfmtv",
+    "human_name": "Classic FM",
+    "comment": "Classic Music Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Cycling_TV.flv",
+    "stream_uri": "mms:\/\/asf.narrowstep.tv\/mcp?psid=9730606&ref=0&chid=350&pid=796&vid=5694929&br=1800&tid=2&brid=389",
+    "human_name": "Cycling TV",
+    "comment": "Cycling programmes",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "E_Music.flv",
+    "stream_uri": "mms:\/\/s-lon-01a.global-mix.net\/e-music",
+    "human_name": "E Music",
+    "comment": "Music Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "God_TV.flv",
+    "stream_uri": "http:\/\/www.god.tv\/Media\/GODTV-High.asx",
+    "human_name": "God TV",
+    "comment": "Christian TV",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "House_of_Commons.flv",
+    "stream_uri": "http:\/\/www.parliamentlive.tv\/Player\/Asx.aspx?content=live&en=parliament$004",
+    "human_name": "House of Commons",
+    "comment": "UK Government",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "House_of_Lords.flv",
+    "stream_uri": "http:\/\/www.parliamentlive.tv\/Player\/Asx.aspx?content=live&en=parliament$005",
+    "human_name": "House of Lords",
+    "comment": "House of Lords",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Information_TV.flv",
+    "stream_uri": "mms:\/\/s-lon-b.global-mix.net\/informationtv",
+    "human_name": "Information TV",
+    "comment": "Entertainment and Shopping Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Invincible_TV.flv",
+    "stream_uri": "mms:\/\/wm.Astream.net\/urban",
+    "human_name": "Invincible TV",
+    "comment": "Music Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Ministry_of_Sound.flv",
+    "stream_uri": "mms:\/\/a745.l2645830502.c26458.g.lm.akamaistream.net\/D\/745\/26458\/v0001\/reflector:30502",
+    "human_name": "Ministry of Sound",
+    "comment": "Music Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Real_Estate_TV.flv",
+    "stream_uri": "mms:\/\/asf.narrowstep.tv\/mcp?psid=12387386&ref=0&chid=253&pid=1084&vid=5694929&br=1800&tid=2&brid=295&st=20060903102213",
+    "human_name": "Real Estate TV",
+    "comment": "Real estate programmes",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Revalation_TV.flv",
+    "stream_uri": "mms:\/\/s-lon-01b.global-mix.net\/revelationtv",
+    "human_name": "Revalation TV",
+    "comment": "Christian Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Sky_News.flv",
+    "stream_uri": "mms:\/\/live1.wm.skynews.servecast.net\/skynews_wmlz_live300k",
+    "human_name": "Sky News",
+    "comment": "News Channel",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "STV.flv",
+    "stream_uri": "http:\/\/wm.stv.tv\/easttoday.wmv",
+    "human_name": "STV",
+    "comment": "Scottish News",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "Globetrecker.flv",
+    "stream_uri": "mms:\/\/asf.narrowstep.tv\/mcp?psid=14916889&ref=0&chid=425&pid=1110&vid=10386443&br=1800&tid=2&brid=506",
+    "human_name": "Globetrecker",
+    "comment": "Travel News",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "BBC_News_24.flv",
+    "stream_uri": "http:\/\/www.bbc.co.uk\/newsa\/n5ctrl\/tvseq\/n24\/bb\/wm\/video\/news24_bb.asx",
+    "human_name": "BBC News 24",
+    "comment": "24 Hour News",
+    "location": "world\/UK"
+  },
+  {
+    "cast_name": "24_TV.flv",
+    "stream_uri": "http:\/\/media.wnet.ua\/lists\/24.asx",
+    "human_name": "24 TV",
+    "comment": "News",
+    "location": "world\/Ukraine"
+  },
+  {
+    "cast_name": "UTR.flv",
+    "stream_uri": "http:\/\/www.utr.kiev.ua\/UTR-EU.asx",
+    "human_name": "UTR",
+    "comment": "Kiev Channel",
+    "location": "world\/Ukraine"
+  },
+  {
+    "cast_name": "BCAT_TV_ch._2.flv",
+    "stream_uri": "mms:\/\/141.155.201.61\/channel2",
+    "human_name": "BCAT TV ch. 2",
+    "comment": "Public access New York",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "WMTY.flv",
+    "stream_uri": "http:\/\/prog.videorelay.com\/wmty35570\/live.asx",
+    "human_name": "WMTY",
+    "comment": "Christian TV",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "TV4_Bullhead.flv",
+    "stream_uri": "http:\/\/www.bullheadcity.com\/media\/dragontv4.wvx",
+    "human_name": "TV4 Bullhead",
+    "comment": "Bullhead City News",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "Yuma_77.flv",
+    "stream_uri": "http:\/\/www.yuma77.tv\/meta\/live\/live.asx",
+    "human_name": "Yuma 77",
+    "comment": "Yuma County TV",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "BETV_Ch._28.flv",
+    "stream_uri": "http:\/\/206.110.32.30:8080\/btvstream.asf",
+    "human_name": "BETV Ch. 28",
+    "comment": "Public Access TV frmo Berkley",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "Beach_TV.flv",
+    "stream_uri": "http:\/\/www.tripsmarter.com\/multimedia\/tv_flash\/tv_des_player.swf",
+    "human_name": "Beach TV",
+    "comment": "Local Information",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "Tele_Miami.flv",
+    "stream_uri": "mms:\/\/80.84.129.169\/telemiamidsl%20",
+    "human_name": "Tele Miami",
+    "comment": "Miami TV",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "ETV.flv",
+    "stream_uri": "mms:\/\/66.44.210.247:8080\/ellijay.wmv",
+    "human_name": "ETV",
+    "comment": "North Georgia Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "Atlanta_Channel.flv",
+    "stream_uri": "http:\/\/www.tripsmarter.com\/multimedia\/tv_flash\/tv_atl_player.swf",
+    "human_name": "Atlanta Channel",
+    "comment": "Info. TV",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "Focus_Channel_49.flv",
+    "stream_uri": "http:\/\/wmserver.netenterprise.net\/olelo-leg2?MSWMExt=.asf",
+    "human_name": "Focus Channel 49",
+    "comment": "Local TV Station from Honolulu",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "Views_Channel_54.flv",
+    "stream_uri": "http:\/\/wmserver.netenterprise.net\/olelo-views?MSWMExt=.asf",
+    "human_name": "Views Channel 54",
+    "comment": "Local TV Station from Honolulu",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "WHTV.flv",
+    "stream_uri": "mms:\/\/media2.leseanet.net\/wht",
+    "human_name": "WHTV",
+    "comment": "Christian TV",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "WHO.flv",
+    "stream_uri": "http:\/\/www.whotv.com\/",
+    "human_name": "WHO",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "KCTU.flv",
+    "stream_uri": "mms:\/\/radio.ivnet.tv\/ivnetlive",
+    "human_name": "KCTU",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "KDCG.flv",
+    "stream_uri": "mms:\/\/68.191.81.108:8080\/",
+    "human_name": "KDCG",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "FOX_8.flv",
+    "stream_uri": "http:\/\/www.fox8live.com\/www\/Video\/wvuehigh.asx",
+    "human_name": "FOX 8",
+    "comment": "Local News",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "County_Cable_Montgomery.flv",
+    "stream_uri": "http:\/\/stream01.montgomerycountymd.gov\/ondemand\/PlayVideolive.asp",
+    "human_name": "County Cable Montgomery",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "The_Rockville_Channel.flv",
+    "stream_uri": "mms:\/\/rockmedia.ci.rockville.md.us\/Modem",
+    "human_name": "The Rockville Channel",
+    "comment": "Local News",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "CN8.flv",
+    "stream_uri": "http:\/\/ne.cn8.tv\/videoplayer\/player\/player.asp",
+    "human_name": "CN8",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "PCTV.flv",
+    "stream_uri": "mms:\/\/www.pittsfieldtv.net:8081\/",
+    "human_name": "PCTV",
+    "comment": "Community Access TV",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "G1NBC.flv",
+    "stream_uri": "mms:\/\/wms.partner-streaming.com\/g1nbc1",
+    "human_name": "G1NBC",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "WJRT.flv",
+    "stream_uri": "http:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net:80\/D\/1729\/21686\/v0001\/reflector:52304;stream.nsv?MSWMExt=.asf",
+    "human_name": "WJRT",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "WKFK.flv",
+    "stream_uri": "mms:\/\/70.159.56.190:8080",
+    "human_name": "WKFK",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "KRNV.flv",
+    "stream_uri": "mms:\/\/a305.l1621143063.c16211.g.lm.akamaistream.net\/D\/305\/16211\/v0001\/reflector:43063",
+    "human_name": "KRNV",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "EBRU_TV.flv",
+    "stream_uri": "mms:\/\/live.ebru.tv\/ebru01",
+    "human_name": "EBRU TV",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "KRQE.flv",
+    "stream_uri": "mms:\/\/216.139.229.126\/frontpage.wmv",
+    "human_name": "KRQE",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "WVVH.flv",
+    "stream_uri": "mms:\/\/24.189.166.235:1098",
+    "human_name": "WVVH",
+    "comment": "Local TV Channel",
+    "location": "world\/USA"
+  },
+  {
+    "cast_name": "TV_Uzbekistan.flv",
+    "stream_uri": "mms:\/\/195.158.8.205:8010\/",
+    "human_name": "TV Uzbekistan",
+    "comment": "News and Entertainment from Hanoi",
+    "location": "world\/Uzbekistan"
+  },
+  {
+    "cast_name": "TV_Yoshlar.flv",
+    "stream_uri": "mms:\/\/195.158.8.206:8010\/",
+    "human_name": "TV Yoshlar",
+    "comment": "News and entertainment",
+    "location": "world\/Uzbekistan"
+  },
+  {
+    "cast_name": "Telesure_TV.flv",
+    "stream_uri": "mms:\/\/streaming2.arcoiris.tv\/adsl",
+    "human_name": "Telesure TV",
+    "comment": "News and Entertainment",
+    "location": "world\/Venezuela"
+  }
+]

@@ -6,7 +6,7 @@ from BeautifulSoup import BeautifulSoup
 import urllib2
 import re
 
-class freeetv_parser_t:
+class freeetv_t:
     """
     Note about the freeetv.com url format for directory:
     - presel is view mode for the directory
@@ -76,10 +76,10 @@ class freeetv_parser_t:
                         'oldest': 1     }
 
     def _parse_options(self, attr_name):
-        url_page    = "http://www.freeetv.com/mod.php?Video_Stream&________________________orderby-4-categoryby-8-newcategoryby-0-presel-moz"
+        url_page    = self.build_uri_dirpage()
         html_page   = urllib2.urlopen(url_page).read()
-        soup_page   = BeautifulSoup(html_page)
-        options     = soup_page.find('select', {'name': attr_name}).findAll('option')
+        page_soup   = BeautifulSoup(html_page)
+        options     = page_soup.find('select', {'name': attr_name}).findAll('option')
         result      = {}
         for option in options:
             print option
@@ -100,12 +100,13 @@ class freeetv_parser_t:
         'extract the code for the newcategoryby variable in directory uri'
         return self._parse_options("newcategoryby")
 
-    def build_uri_dirpage(self, order='alphabetically', location='all', category='all'):
+    def build_uri_dirpage(self, order='alphabetically', location='all', category='all', pageidx=1):
         url_page     ="http://www.freeetv.com/mod.php?Video_Stream&________________________"
         url_page    +="orderby-"        + str(self.orderby_arr[order])
         url_page    +='-categoryby-'    + str(self.categoryby_arr[location])
         url_page    +='-newcategoryby-' + str(self.newcategoryby_arr[category])
         url_page    +='-presel-moz'
+        url_page    +='-d-'             + str(pageidx)
         return url_page
 
     def streamurl_from_watchurl(self, url):
@@ -115,11 +116,38 @@ class freeetv_parser_t:
         streamurl   = soup.find('object').findNext('object').findAll('param', attrs={"name":"URL"})[0]['value']
         # return the just-scrapped url
         return streamurl
+
+    def channels_from_criteria(self, location='all', category='all'):
+        'Get all channel for given criteria'
+        pageidx     = 1
+        pagemax     = None
+        channels    = []
+        while True:
+            #print "pageidx=" + pageidx.__str__()
+            # build the url for the dirpage
+            url_dirpage = self.build_uri_dirpage(location=location, category=category, pageidx=pageidx);
+            #print "url_dirpage=" + url_dirpage
+            # read and parse the dirpage
+            page_html   = urllib2.urlopen(url_dirpage).read()
+            page_soup   = BeautifulSoup(page_html)
+            # extract the channels from this directory
+            new_channels= self.channels_from_dirmoz_page_soup(page_soup)
+            channels    += new_channels
+            # if pagemax is not yet known, get it
+            if pagemax == None :
+                pagemax     = self.pagemax_from_dirmoz_page_soup(page_soup)
+                #print "pagemax=" + pagemax.__str__()
+            # if this was the last page, leave the loop
+            if pageidx == pagemax:  break
+            # goto the next page
+            pageidx += 1
+        # return the just built array
+        return channels
     
-    def channels_from_dirmoz_page_soup(self, soup_page):
+    def channels_from_dirmoz_page_soup(self, page_soup):
         '''returns the list of channel from a directory page in mozaic'''
         channels    = []
-        results     = soup_page.find("script", {"src":"http://pagead2.googlesyndication.com/pagead/show_ads.js"}).findAllNext('a')
+        results     = page_soup.find("script", {"src":"http://pagead2.googlesyndication.com/pagead/show_ads.js"}).findAllNext('a')
         for result in results :
             images  = result.findAll('img')
             if images == [] :               continue
@@ -131,27 +159,35 @@ class freeetv_parser_t:
             if len(images) >= 2 :
                 channel['stream_type']  = images[1]['alt']
             channel['watchpage_url']= "http://www.freeetv.com/" + result['href']
-            name_location           = images[0]['alt']
+            name_location           = images[0]['alt'].encode('ascii', 'replace')
             name_location_re        = re.search('(.*) \((.*)\)', name_location)
-            channel['name']         = name_location_re.group(1)
-            channel['location']     = name_location_re.group(2)
+            if name_location_re != None :
+                channel['name']         = name_location_re.group(1)
+                channel['location']     = name_location_re.group(2)
+            else:
+                channel['name']         = name_location
+                channel['location']     = "unknown"
             channels.append(channel)
             #print "channel=%s" % channel
         return channels
     
-    def pageinfo_from_dirmoz_page_soup(self, soup_page):
+    def pagemax_from_dirmoz_page_soup(self, page_soup):
         '''get information about the page indexes (cur/max) on a mosaic directory'''
-        page_text   = soup.findAll(text=re.compile("^Page "));
+        page_text   = page_soup.findAll(text=re.compile("^Page "));
         page_re     = re.search('Page ([0-9]+)/([0-9]+)', page_text[0])
+        # NOTE: there is a bug in the website
+        # - the current page number is always +1 the actual one
+        # - except when it is the last page
+        # - i simply ignored the data as it was confusing
         page_cur    = page_re.group(1)
         page_max    = page_re.group(2)
-        return { 'cur' : int(page_cur), 'max' : int(page_max) }
+        return int(page_max)
 
     def channels_hydrate_stream_uri(self, channels):
         'determine and set the stream_uri for each channel'
         for channel in channels :
             stream_uri  = self.streamurl_from_watchurl(channel['watchpage_url'])
-            #print "stream_uri=" + stream_uri
+            print "stream_uri=" + stream_uri
             channel['stream_uri']   = stream_uri
         return channels
 

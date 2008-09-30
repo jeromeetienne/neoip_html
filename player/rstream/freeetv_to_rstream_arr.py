@@ -1,12 +1,12 @@
 #! /usr/bin/env python
-from freeetv_parser_t import *
+from freeetv_t import *
 from BeautifulSoup import BeautifulSoup
 import urllib2
 import simplejson
     
 
-scrapper    = freeetv_parser_t()
-url_page    = "http://www.freeetv.com/mod.php?Video_Stream&________________________orderby-4-categoryby-8-newcategoryby-0-presel-moz"
+scrapper    = freeetv_t()
+url_page    = "http://www.freeetv.com/mod.php?Video_Stream&________________________orderby-4-categoryby-0-newcategoryby-0-presel-moz-d-1"
 html_page   = urllib2.urlopen(url_page).read()
 #html_page   = open('sample_dirmoz_page_freetv.html').read()
 soup        = BeautifulSoup(html_page)
