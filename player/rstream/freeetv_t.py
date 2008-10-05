@@ -20,7 +20,7 @@ class freeetv_t:
     - newcategoryby: this is the actual category
     """
     
-    categoryby_arr  = { 'afghanistan': 53,
+    location_arr  = {   'afghanistan': 53,
                         'africa': 25,
                         'all': 0,
                         'argentina': 43,
@@ -52,8 +52,7 @@ class freeetv_t:
                         'united kingdom': 33,
                         'usa': 13,
                         'venezuela': 46 }
-    newcategoryby_arr = {
-                        'all': 0,
+    category_arr = {    'all': 0,
                         'entertainment': 52,
                         'financial': 61,
                         'general': 48,
@@ -69,7 +68,7 @@ class freeetv_t:
                         'weather': 62,
                         'webcam': 53,
                         'zoo cam': 54   }
-    orderby_arr     = { 'alphabetically': 4,
+    order_arr   =     { 'alphabetically': 4,
                         'highest rated': 2,
                         'most viewed': 3,
                         'newest': 0,
@@ -102,9 +101,11 @@ class freeetv_t:
 
     def build_uri_dirpage(self, order='alphabetically', location='all', category='all', pageidx=1):
         url_page     ="http://www.freeetv.com/mod.php?Video_Stream&________________________"
-        url_page    +="orderby-"        + str(self.orderby_arr[order])
-        url_page    +='-categoryby-'    + str(self.categoryby_arr[location])
-        url_page    +='-newcategoryby-' + str(self.newcategoryby_arr[category])
+        url_page    +="orderby-"        + str(self.order_arr[order])
+        # the website call "category" the location... no idea why 
+        url_page    +='-categoryby-'    + str(self.location_arr[location])
+        # the website call "newcategory" the category... no idea why 
+        url_page    +='-newcategoryby-' + str(self.category_arr[category])
         url_page    +='-presel-moz'
         url_page    +='-d-'             + str(pageidx)
         return url_page
@@ -162,10 +163,10 @@ class freeetv_t:
             name_location           = images[0]['alt'].encode('ascii', 'replace')
             name_location_re        = re.search('(.*) \((.*)\)', name_location)
             if name_location_re != None :
-                channel['name']         = name_location_re.group(1)
-                channel['location']     = name_location_re.group(2)
+                channel['human_name']   = name_location_re.group(1).strip()
+                channel['location']     = name_location_re.group(2).lower()
             else:
-                channel['name']         = name_location
+                channel['human_name']   = name_location.strip()
                 channel['location']     = "unknown"
             channels.append(channel)
             #print "channel=%s" % channel
@@ -195,7 +196,7 @@ class freeetv_t:
         rstream_arr = []
         for channel in channels :
             rstream = {}
-            rstream['cast_name']    = channel['name'].encode('ascii', 'replace').replace(' ', '_') + '.flv'
+            rstream['cast_name']    = channel['human_name'].encode('ascii', 'replace').replace(' ', '_') + '.flv'
             rstream['stream_uri']   = channel['stream_uri']
             rstream_arr.append( rstream )
         return rstream_arr

@@ -11,7 +11,8 @@ class rstream_websrv_t:
     """
 
     # define the url root
-    websrv_urlroot  = "http://urfastr.net/rstream_api"
+    #websrv_urlroot  = "http://urfastr.net/rstream_api"
+    websrv_urlroot  = "http://localhost/~jerome/rstream_websrv/index.php/rstream_api"
 
     def search(self):
         "search the remote stream database"
@@ -22,6 +23,7 @@ class rstream_websrv_t:
     def create(self, rstream):
         url_cmd     = self.websrv_urlroot + "/create"
         data_post   = urllib.urlencode(rstream)
+        print data_post
         urllib2.urlopen(url_cmd, data_post).read()
         
     def read(self, cast_name):
