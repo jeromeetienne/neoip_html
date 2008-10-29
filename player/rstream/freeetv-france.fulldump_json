@@ -1,0 +1,810 @@
+[
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/abmoteur.JPG", 
+        "location": "France", 
+        "name": "AB Moteur", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/live3.ipercast.net\/abgroupe.fr\/abmoteurs\/live", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1994&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/alibitvfrench.JPG", 
+        "location": "France", 
+        "name": "Alibi TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.alibitivi.com\/start.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1111&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/argentv.JPG", 
+        "location": "Quebec", 
+        "name": "Argent Tv", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/207.253.121.82\/tvaargent", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1112&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/artchan.jpg", 
+        "location": "France", 
+        "name": "Art Channel", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/streaming.i2i-technology.com\/artChannelbb", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=79&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/artplatv_banniere.jpg", 
+        "location": "France", 
+        "name": "ArtPla TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/artplatv.dyndns.org:2677", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1871&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/astrocentertv.gif", 
+        "location": "France", 
+        "name": "Astro Center", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.tv-radio.com\/station\/astrocenter_tv\/astrocenter_tv-270k.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=422&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/astv.jpg", 
+        "location": "France", 
+        "name": "ASTV ", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/213.251.186.202:81\/ASTV", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=373&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/bambochtv.jpg", 
+        "location": "Haiti", 
+        "name": "Bamboch TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.bambochtv.com\/bamboch47.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=423&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/batilletv.JPG", 
+        "location": "France", 
+        "name": "Bastille TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/bastilletv.diffusepro.com\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2263&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/bfmtv.jpg", 
+        "location": "French", 
+        "name": "BFM TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipmms9.yacast.net\/bfm_bfmtv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=8&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/biosphere.jpg", 
+        "location": "France", 
+        "name": "Biosph?re ", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/biosphere\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1516&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/bloomberg.jpg", 
+        "location": "France", 
+        "name": "Bloomberg  French", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.bloomberg.com\/streams\/video\/LiveFR_nb.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=62&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/boardr.jpg", 
+        "location": "France", 
+        "name": "Boardriders TV ", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.tv\/brtv\/brtv.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=39&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/logo_c9.gif", 
+        "location": "France", 
+        "name": "C9 Television", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/live.c9television.fr\/Live.c9television.fr", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=34&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/calaistv.jpg", 
+        "location": "France", 
+        "name": "Calais TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/91.121.2.60\/calaistv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=560&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/\/images\/stream\/screen\/canalsavoir.gif", 
+        "location": "Canada", 
+        "name": "Canal Savoir", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/stream2.canal.qc.ca\/enOndes_bas_debit", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=23&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/cap24tv.JPG", 
+        "location": "France", 
+        "name": "Cap 24 TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/wm.live.tv-radio.com\/cap24_360k", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2128&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/cityzentv.jpg", 
+        "location": "France", 
+        "name": "CityZen TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/movix.sdv.fr:8086\/cityzen.asf", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1855&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/claptv.JPG", 
+        "location": "France", 
+        "name": "CLAP TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/rr93.diffusepro.com\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1365&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/corezetv.gif", 
+        "location": "France", 
+        "name": "Corr?ze Tv", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/213.246.42.27:8080", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=559&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/cpacf.jpg", 
+        "location": "Canada", 
+        "name": "CPAC French", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.cpac.ca\/asx\/cpac1flh.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=191&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/CT2Etv.jpg", 
+        "location": "France", 
+        "name": "CT2E  - ex Ciel Tv", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.ct2e.com\/live.wmv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=802&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/cyberticaurban.jpg", 
+        "location": "France", 
+        "name": "Cybertika Urban", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.cybertika.com\/urban.cybertika.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=40&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/direct8.jpg", 
+        "location": "France", 
+        "name": "Direct 8", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/direct8.directmedia.fr\/liveasx.php", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=35&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/dominotv.jpg", 
+        "location": "France", 
+        "name": "Domino TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/stream1.webaxys.net\/dominotv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=565&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/Euronews.jpg", 
+        "location": "France", 
+        "name": "Euronews", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/skinkers-livestation-euronews-fr.wm.llnwd.net\/skinkers_livestation_euronews_fr", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2205&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/fashiontvfr.jpg", 
+        "location": "France", 
+        "name": "Fashion TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/fashion.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1428&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/meteofrance2.jpg", 
+        "location": "France", 
+        "name": "France 2 - La M?t?o", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/a988.v101995.c10199.e.vm.akamaistream.net\/7\/988\/10199\/3f97c7e6\/ftvigrp.download.akamai.com\/10199\/horsgv\/regions\/siege\/france2\/meteo\/meteo_GT.wmv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1925&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/france2.jpg", 
+        "location": "France", 
+        "name": "France 2 - Le journal de 20h", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/france2.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1879&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/revuedepresse.jpg", 
+        "location": "France", 
+        "name": "France 2 - Revue de presse", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/a988.v101995.c10199.e.vm.akamaistream.net\/7\/988\/10199\/3f97c7e6\/ftvigrp.download.akamai.com\/10199\/horsgv\/regions\/siege\/france2\/revuepresse\/revuedepresse.wmv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1923&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/france24fr.jpg", 
+        "location": "France", 
+        "name": "France 24 French", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/stream1.france24.yacast.net\/f24_livefr", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=414&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/grossecaissetv.JPG", 
+        "location": "France", 
+        "name": "Grosse Caisse TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/groosecaissetv.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1911&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/reydddd\/itele_big.jpg", 
+        "location": "France", 
+        "name": "i>T?L?", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/reydddd\/watch_i_t__e____le___.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=3&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/inracitv.JPG", 
+        "location": "Belgium", 
+        "name": "InraciTV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/inraci\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1512&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/jcfwtv14.jpg", 
+        "location": "Congo", 
+        "name": "JC Faignond Web TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/yookast.com:8080\/jcfWebTv ", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1200&d=2"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/\/images\/stream\/screen2\/kinwebtvcongo.jpg", 
+        "location": "Congo", 
+        "name": "Kin WebTV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.kinwebtv.com\/kinwebtv.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=808&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/ktotv.JPG", 
+        "location": "France", 
+        "name": "KTO", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/mfile.akamai.com\/15765\/live\/reflector:38015.asx?bkup=38415", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2215&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/l-equipe-tv.jpg", 
+        "location": "France", 
+        "name": "L'Equipe TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipmms9.yacast.net\/eqtv_equipetvlive", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1942&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen4\/lasourcetv.JPG", 
+        "location": "C?te D'ivoire", 
+        "name": "La Source", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/stream2.telediaspora.net\/source", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1563&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/labelletv.jpg", 
+        "location": "France", 
+        "name": "Labelle TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.labelletv.net\/labelletv.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=801&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/lalocaltv.jpg", 
+        "location": "France", 
+        "name": "LaLocale TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/stream.lalocale.com\/lalocale", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2224&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/lciexpress.JPG", 
+        "location": "France", 
+        "name": "LCI Express", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/a1729.l2168647534.c21686.g.lm.akamaistream.net\/D\/1729\/21686\/v0001\/reflector:40334", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2210&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/lnc1.jpg", 
+        "location": "Canada", 
+        "name": "LCN", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/207.253.121.82\/LCN?.wma", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=194&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/lcntv.jpg", 
+        "location": "Quebec", 
+        "name": "LCN", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/207.253.121.82\/LCN", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=425&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen4\/ch_logo_lcn.gif", 
+        "location": "Canada", 
+        "name": "LCN 2", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/mfile.akamai.com\/41068\/live\/reflector:56102.asx?bkup=32561&prop=n", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1735&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/lcaassemble.jpg", 
+        "location": "French", 
+        "name": "LCP - Assembl?e nationale", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.lcpan.fr\/data\/lcp.wvx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=6&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/libertytv.jpg", 
+        "location": "France", 
+        "name": "Liberty TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/193.252.152.88\/livefr", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=421&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/_Logo_M6.jpg", 
+        "location": "France", 
+        "name": "M6 - Le Six minutes", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/m6.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1882&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/mboatv.jpg", 
+        "location": "French", 
+        "name": "MBOA TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/88.191.23.167\/mboatv ", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=69&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/logo_menu1.gif", 
+        "location": "Cara?be", 
+        "name": "Mizik Tropical TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/mizik\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1933&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/mulivantv.jpg", 
+        "location": "France", 
+        "name": "Mulivan TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/mulivantv.diffusepro.com\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1366&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/radio1292.jpg", 
+        "location": "France", 
+        "name": "Nimbooda TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/nim\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1372&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/normandietv.jpg", 
+        "location": "France", 
+        "name": "Normandie TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.tv-radio.com\/station\/normandie_tv\/normandie_tv-300k.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=36&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/nrjdance.jpg", 
+        "location": "France", 
+        "name": "NRJ Dance", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipnrj.yacast.net\/nrj_webtv02", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2006&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/goovenrj.jpg", 
+        "location": "France", 
+        "name": "NRJ Groove", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipnrj.yacast.net\/nrj_webtv01", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2004&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/nrjhits.jpg", 
+        "location": "France", 
+        "name": "NRJ Hits", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipnrj.yacast.net\/nrj_tvhit", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1509&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/nrjparis.JPG", 
+        "location": "France", 
+        "name": "NRJ Paris", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipnrj.yacast.net\/nrj_tvparis", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1860&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/porock.jpg", 
+        "location": "France", 
+        "name": "NRJ Pop Rock", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/vipnrj.yacast.net\/nrj_webtv03", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2005&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/oldcartoon.JPG", 
+        "location": "France", 
+        "name": "Old Cartoon TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/us.impek.com\/oldcartoontv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1504&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/orangesport.jpg", 
+        "location": "France", 
+        "name": "Orange Sport", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/livewm.orange.fr\/live-multicanaux", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1485&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/illustr_info1.gif", 
+        "location": "France", 
+        "name": "Orl?ans TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/movix.sdv.fr:8083\/orleanstv.asf", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1540&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/pariscap.jpg", 
+        "location": "French", 
+        "name": "Paris Cap", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.tv-radio.com\/station\/cap_24\/cap_24-360k.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=447&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/plaisancechannel.JPG", 
+        "location": "France", 
+        "name": "Plaisance TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/teleplaisance.diffusepro.com\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1182&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/rkingtv.JPG", 
+        "location": "France", 
+        "name": "R King TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/rkingtv.diffusepro.com\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1364&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/radioteleprovidence.JPG", 
+        "location": "Haiti", 
+        "name": "Radio Tele Providence International", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.radioteleprovidenceinter.com\/Radio%20Tele%20Providence%20Inter.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1262&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/railtvlogo.jpg", 
+        "location": "France", 
+        "name": "Rail Tv", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/RailTV.net\/canal1", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=668&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/rocknsmig.jpg", 
+        "location": "France", 
+        "name": "Rock & Swing TV 2", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/88.191.39.85\/rs", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1524&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/rtcteleliege.JPG", 
+        "location": "Belgium", 
+        "name": "RTC Tele Liege", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/video.rtc.be\/jt_du_jour.wmv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1095&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/rtltv.jpg", 
+        "location": "Luxembourg", 
+        "name": "RTL L?tzebuerg", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/streaming.newmedia.lu\/\/telehighres?MSWMExt=.asf", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=564&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/rtvniger.jpg", 
+        "location": "Niger", 
+        "name": "RTN Tele Sahel", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.ortn-niger.com\/video\/jtsa1.wmv", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=747&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/zak\/logocastingtv.jpg", 
+        "location": "France", 
+        "name": "Seven Casting TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/sbeaute\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2246&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/zak\/logohiphoptv.jpg", 
+        "location": "France", 
+        "name": "Seven Hip Hop TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/shiphop\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2244&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/zak\/logonosinfostv.jpg", 
+        "location": "France", 
+        "name": "Seven Nos Infos TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/sdance\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2247&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/zak\/logopoprocktv.jpg", 
+        "location": "France", 
+        "name": "Seven Pop Rock TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/srock\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2245&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/zak\/logotelevisiontv.jpg", 
+        "location": "France", 
+        "name": "Seven Television TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/sseven\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2248&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/soleiltv.jpg", 
+        "location": "Antille", 
+        "name": "Soleil TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.soleiltv.com\/antilles12.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=448&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/sunbiz.jpg", 
+        "location": "French", 
+        "name": "Sunbiz TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.sunvibz.tv\/sunvibz2.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=5&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/logo.gif", 
+        "location": "France", 
+        "name": "Teepik", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/teepiklive.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1910&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/misterchina4.jpg", 
+        "location": "France", 
+        "name": "T?l? 102", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.tele102.net\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=800&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/zak\/logotelenight.jpg", 
+        "location": "France", 
+        "name": "Tele Night", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/195.95.225.110\/telenight", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1499&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/canalalsace.jpg", 
+        "location": "France", 
+        "name": "T?l?Alsace", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/movix.sdv.fr:8081\/alsace.asf", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=417&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/telessonne.jpg", 
+        "location": "France", 
+        "name": "T?l?ssonne", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/80.245.36.221\/live\/", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=418&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/tf1.jpg", 
+        "location": "France", 
+        "name": "TF1 - Le journal de 20h", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/tf1.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1881&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/thefiretv.JPG", 
+        "location": "France", 
+        "name": "The Fire TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/firetv\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=972&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/thefishtv.JPG", 
+        "location": "France", 
+        "name": "The Fish TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/fishtv\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=971&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/tlm.gif", 
+        "location": "France", 
+        "name": "TLM", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/213.251.181.150\/tlm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=82&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/cyberti.gif", 
+        "location": "French", 
+        "name": "Tropical.Cybertika", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/tropical2\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=4&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/tsrinfo.jpg", 
+        "location": "Switzerland", 
+        "name": "TSR Info", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/akastreaming.tsr.ch\/vp\/chtsr\/no_geo\/chtsr_2_1_ss.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1847&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/tv5ronaldguintrange.jpg", 
+        "location": "France", 
+        "name": "TV 5 Monde - Le journal de 17h", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.freeetv.com\/images\/stream\/asx\/tv5.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1880&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/tv8montblanc.jpg", 
+        "location": "France", 
+        "name": "TV 8 Mont Blanc", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/88.191.38.160:1440", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=419&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/tvcaraibes.gif", 
+        "location": "France", 
+        "name": "Tv Caraibes", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/tvarchipel.com\/tvcaraibes", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1508&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/telegranoble.jpg", 
+        "location": "France", 
+        "name": "TV Grenoble", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/movix.sdv.fr:8084\/teleg1.asf", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=152&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/tv2cinema.jpg", 
+        "location": "C?te D'ivoire", 
+        "name": "TV2 Cinema", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.ricmedia.org\/IvorianTv.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=156&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/logotv7x100.jpg", 
+        "location": "France", 
+        "name": "TV7 Bordeaux", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/88.191.38.77:80\/live.asf", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1861&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen\/tva.jpg", 
+        "location": "Canada", 
+        "name": "TVA", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/207.253.121.82\/TVAStream", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=26&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv1\/tvpifr.JPG", 
+        "location": "France", 
+        "name": "TVPI", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/88.191.39.85\/tvpi", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1848&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen3\/tvsf.JPG", 
+        "location": "France", 
+        "name": "TVSF", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/stream.tvsf.fr\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1363&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/lusophonie.jpg", 
+        "location": "France", 
+        "name": "TVweb Lusophonie parisienne", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/lusophonie.diffusepro.com\/index.asx", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=744&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/utvfrance.JPG", 
+        "location": "France", 
+        "name": "UTV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/mediaWM01.cines.fr\/canal005", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1244&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/stream\/screen2\/videoclic.jpg", 
+        "location": "France", 
+        "name": "Videoclick TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "mms:\/\/live3.ipercast.net\/videoclick.com\/live", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=1322&d=3"
+    }, 
+    {
+        "icon_url": "http:\/\/www.freeetv.com\/images\/tv2\/zahra.jpg", 
+        "location": "France", 
+        "name": "Zahra TV", 
+        "stream_type": "Windows Media Player", 
+        "stream_uri": "http:\/\/www.impek.com\/go\/zahra\/wm", 
+        "watchpage_url": "http:\/\/www.freeetv.com\/modules.php?name=Video_Stream&page=watch&id=2265&d=3"
+    }
+]
