@@ -188,7 +188,7 @@ class freeetv_t:
         'determine and set the stream_uri for each channel'
         for channel in channels :
             stream_uri  = self.streamurl_from_watchurl(channel['watchpage_url'])
-            print "stream_uri=" + stream_uri
+            #print "stream_uri=" + stream_uri
             channel['stream_uri']   = stream_uri
         return channels
 

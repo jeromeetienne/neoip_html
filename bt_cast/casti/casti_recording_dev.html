@@ -202,7 +202,7 @@ function casti_param_reset_debug()
 
 function casti_param_reset_production()
 {
-	document.getElementById("mdata_srv_uri").value	= "http://www.web4web.tv/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+	document.getElementById("mdata_srv_uri").value	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
 }
 
 // copy all the casti_param to the html field
@@ -299,11 +299,9 @@ function	display_casti_state()
 		str	= state;
 	}else if( state == 'started' ){
 		var mdata_srv_uri	= casti_param['mdata_srv_uri'];
-		var player_live_host	= "player.web4web.tv";
+		var player_live_host	= "player.urfastr.tv";
 		if( mdata_srv_uri )	player_live_host	= /.*:\/\/(.*?)\//(mdata_srv_uri)[1];
-		if( player_live_host == "www.web4web.tv"){
-			player_live_host = "player.web4web.tv";
-		}
+		if( player_live_host == "dedixl.jetienne.com")	player_live_host = "player.urfastr.tv";
 		str	= "<font color='green'>" + state + "</font>";
 		str	+= ". The passwd_hash is " + casti_ctrl.passwd_hash();
 		str	+= ". to see only <a href='http://"+player_live_host+"/" + casti_ctrl.passwd_hash() + "/live/" + casti_param['cast_name'] + "'>" + casti_param['cast_name']+ "</a>";  

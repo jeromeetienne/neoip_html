@@ -1,11 +1,23 @@
 [
   {
-    "cast_name": "france24_fr.flv",
-    "stream_uri": "mms:\/\/live.france24.com\/france24_fr.wsx"
+    "cast_name": "france24 (en)",
+    "stream_uri": "mms:\/\/stream1.france24.yacast.net\/f24_liveen"
   },
   {
-    "cast_name": "france24_en.flv",
-    "stream_uri": "mms:\/\/live.france24.com\/france24_en.wsx"
+    "cast_name": "france24 (fr)",
+    "stream_uri": "mms:\/\/stream1.france24.yacast.net\/f24_livefr"
+  },
+  {
+    "cast_name": "Bastille Tv",
+    "stream_uri": "http:\/\/bastilletv.diffusepro.com\/index.asx"
+  },
+  {
+    "cast_name": "Orange Sport",
+    "stream_uri": "mms:\/\/livewm.orange.fr\/live-multicanaux"
+  },
+  {
+    "cast_name": "AB Moteur",
+    "stream_uri": "mms:\/\/live3.ipercast.net\/abgroupe.fr\/abmoteurs\/live"
   },
   {
     "cast_name": "weather.flv",
@@ -36,7 +48,7 @@
     "stream_uri": "mms:\/\/quik4.impek.tv\/brtv"
   },
   {
-    "cast_name": "BFMtv.flv",
+    "cast_name": "BFM Tv",
     "stream_uri": "mms:\/\/vipmms9.yacast.net\/bfm_bfmtv"
   },
   {
