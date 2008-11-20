@@ -1,0 +1,15 @@
+{	"playlist_title": "Ted Talks",
+	"playlist_id"	: "ted_talks",
+	"trackgen_info"	: [
+		{	"cmd"	: "concat",
+			"arg"	: {	"space"	: "bliptv",
+					"desc"	: {
+						"base_uri"	: "http://tedtalks.blip.tv/rss"
+						}
+				}
+		},
+		{	"cmd"	: "select_random_contiguous",
+			"arg"	: { "nb_contiguous"	: 3	}
+		}
+		]
+}

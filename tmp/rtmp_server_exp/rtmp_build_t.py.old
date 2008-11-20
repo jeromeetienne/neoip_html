@@ -1,0 +1,85 @@
+#! /usr/bin/env python
+#
+# \par Brief Description
+
+import StringIO, struct, sys
+
+
+FILTER=''.join([(len(repr(chr(x)))==3) and chr(x) or '.' for x in range(256)])
+def hexdump(src, length=16):
+    N=0; result=''
+    while src:
+       s,src = src[:length],src[length:]
+       hexa = ' '.join(["%02X"%ord(x) for x in s])
+       s = s.translate(FILTER)
+       result += "%04X   %-*s   %s\n" % (N, length*3, hexa, s)
+       N+=length
+    return result
+
+class rtmp_t:
+    body_types  = {
+        "ping"      : 0x4,
+        "serverbw"  : 0x5,
+        "clientbw"  : 0x6,
+        "invoke"    : 0x14,
+    }
+    
+    amf0_types  = {
+        "number"    : 0x0,
+        "boolean"   : 0x1,
+        "string"    : 0x2,
+        "object"    : 0x3,
+        "null"      : 0x5,
+        "undefined" : 0x6,
+    }
+
+class rtmp_build_t:
+    output  = StringIO.StringIO()
+    
+    def rtmp_header(self, channel_id, timestamp, body_size, body_type, stream_id):
+        self.output.write(struct.pack('B', channel_id))
+        self.output.write(struct.pack('B', (timestamp >> 16) & 0xFF))
+        self.output.write(struct.pack('B', (timestamp >>  8) & 0xFF))
+        self.output.write(struct.pack('B', (timestamp >>  0) & 0xFF))
+        self.output.write(struct.pack('B', (body_size >> 16) & 0xFF))
+        self.output.write(struct.pack('B', (body_size >>  8) & 0xFF))
+        self.output.write(struct.pack('B', (body_size >>  0) & 0xFF))
+        self.output.write(struct.pack('B', body_type))
+        self.output.write(struct.pack('>I', stream_id))
+
+    def amf0_type(self, value):
+        self.output.write(struct.pack('B', value))
+
+    def amf0_number(self, value):
+        self.output.write(struct.pack('>d', value))
+
+    def amf0_boolean(self, value):
+        self.output.write(struct.pack('B', int(value)))
+
+    def amf0_string(self, value):
+        self.output.write(struct.pack('>H', len(value)))
+        self.output.write(struct.pack(str(len(value))+'s', value))
+        
+    def amf0_element(self, value):
+        if( type(value) == int or type(value) == long or type(value) == float ):
+            self.amf0_type(rtmp_t.amf0_types['number'])
+            self.amf0_number(value)
+        elif( type(value) == bool ):
+            self.amf0_type(rtmp_t.amf0_types['boolean'])
+            self.amf0_boolean(value)
+        elif( type(value) == str ):
+            self.amf0_type(rtmp_t.amf0_types['string'])
+            self.amf0_string(value)
+        elif( value == None ):
+            self.amf0_type(rtmp_t.amf0_types['null'])
+
+if __name__=='__main__':
+    builder = rtmp_build_t()
+    builder.amf0_element("Hello")
+    builder.amf0_element(False)
+    builder.amf0_element(None)
+    builder.amf0_element(1)
+    print hexdump(builder.output.getvalue())
+    
+        
+        

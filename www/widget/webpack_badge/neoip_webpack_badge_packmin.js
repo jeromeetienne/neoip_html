@@ -1,0 +1,1 @@
+../../../jspackmin/data/neoip_webpack_badge_packmin.js

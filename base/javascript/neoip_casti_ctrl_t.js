@@ -25,9 +25,9 @@ neoip.casti_ctrl_t = function(p_callback)
 	// zero some fields
 	this.m_webdetect_uri	= null;
 	this.m_cast_name	= null;
-	this.m_passwd_plain	= null;
-	this.m_httpi_uri	= null;
-	this.m_httpi_mod	= null;
+	this.m_cast_privtext	= null;
+	this.m_scasti_uri	= null;
+	this.m_scasti_mod	= null;
 	this.m_mdata_srv_uri	= null;
 	this.m_http_peersrc_uri	= null;
 	
@@ -63,9 +63,9 @@ neoip.casti_ctrl_t.prototype.destructor = function()
 
 neoip.casti_ctrl_t.prototype.webdetect_uri 	= function(value) { this.m_webdetect_uri = value; return this;	}
 neoip.casti_ctrl_t.prototype.cast_name		= function(value) { this.m_cast_name	= value; return this;	}
-neoip.casti_ctrl_t.prototype.passwd_plain	= function(value) { this.m_passwd_plain	= value; return this;	}
-neoip.casti_ctrl_t.prototype.httpi_uri		= function(value) { this.m_httpi_uri	= value; return this;	}
-neoip.casti_ctrl_t.prototype.httpi_mod		= function(value) { this.m_httpi_mod	= value; return this;	}
+neoip.casti_ctrl_t.prototype.cast_privtext	= function(value) { this.m_cast_privtext= value; return this;	}
+neoip.casti_ctrl_t.prototype.scasti_uri		= function(value) { this.m_scasti_uri	= value; return this;	}
+neoip.casti_ctrl_t.prototype.scasti_mod		= function(value) { this.m_scasti_mod	= value; return this;	}
 neoip.casti_ctrl_t.prototype.mdata_srv_uri	= function(value) { this.m_mdata_srv_uri= value; return this;	}
 neoip.casti_ctrl_t.prototype.http_peersrc_uri	= function(value) { this.m_http_peersrc_uri = value; return this;}
 neoip.casti_ctrl_t.prototype.refresh_period	= function(value) { this.m_refresh_delay= value; return this;	}
@@ -87,7 +87,7 @@ neoip.casti_ctrl_t.prototype.is_recording = function()
 
 // declare all the methods to read the variables
 neoip.casti_ctrl_t.prototype.swarm_state	= function(){ return this.m_swarm_state;	}
-neoip.casti_ctrl_t.prototype.passwd_hash	= function(){ return this.m_passwd_hash;	}
+neoip.casti_ctrl_t.prototype.cast_privhash	= function(){ return this.m_cast_privhash;	}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -126,7 +126,7 @@ neoip.casti_ctrl_t.prototype.stop_recording = function()
 	var	xdomrpc	= new neoip.xdomrpc_t(rpc_uri, null, "release_stream"
 					, this.m_mdata_srv_uri	? this.m_mdata_srv_uri	: ''
 					, this.m_cast_name 	? this.m_cast_name	: ''
-					, this.m_passwd_plain 	? this.m_passwd_plain	: '');
+					, this.m_cast_privtext 	? this.m_cast_privtext	: '');
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -148,10 +148,10 @@ neoip.casti_ctrl_t.prototype._refresh_timeout_cb	= function()
 					, "request_stream"
 					, this.m_mdata_srv_uri	? this.m_mdata_srv_uri	: ''
 					, this.m_cast_name 	? this.m_cast_name	: ''
-					, this.m_passwd_plain 	? this.m_passwd_plain	: ''
-					, this.m_httpi_uri	? this.m_httpi_uri	: ''
-					, this.m_httpi_mod	? this.m_httpi_mod	: ''
-					, this.m_http_peersrc_uri? this.m_httpi_peersrc_uri: ''
+					, this.m_cast_privtext 	? this.m_cast_privtext	: ''
+					, this.m_scasti_uri	? this.m_scasti_uri	: ''
+					, this.m_scasti_mod	? this.m_scasti_mod	: ''
+					, this.m_http_peersrc_uri? this.m_http_peersrc_uri: ''
 					);
 }
 
@@ -182,10 +182,10 @@ neoip.casti_ctrl_t.prototype._xdomrpc_cb = function(notifier_obj, userptr, fault
 	if( fault ){
 		this.m_swarm_state	= "error due to " + fault.string;
 	}else if( returned_val == "" ){
-		this.m_passwd_hash	= returned_val; 
+		this.m_cast_privhash	= returned_val; 
 		this.m_swarm_state	= "starting";
 	}else{
-		this.m_passwd_hash	= returned_val; 
+		this.m_cast_privhash	= returned_val; 
 		this.m_swarm_state	= "started";
 	}
 	

@@ -4,11 +4,11 @@
 
 <body onload="start_probing()">
 
-<center><h1>NeoIP casti recording page</h1></center>
+<center><h1>NeoIP casti recording page for flash</h1></center>
 TODO code a check on the vlc plugin version as some are unable to read v4l.
 namely currently only svn for the proper mrl parsing...
 <script src="../../base/firebug/firebug.js"></script> 
-<script src="../../base/javascript/neoip_vlc_object.js"></script> 
+<script src="../../base/javascript/swfobject.js"></script>
 <script src="../../base/javascript/neoip_casti_ctrl_t.js"></script> 
 <script src="../../base/javascript/neoip_base64_safe.js"></script>
 <script src="../../base/javascript/neoip_core.js"></script>
@@ -17,7 +17,7 @@ namely currently only svn for the proper mrl parsing...
 <script>
 </script>
 
-<p id="vlc_objtest">Place to put the new vlc</p>
+<p id="recorder_container">Place to put the new recorder</p>
 <input type=button value="Start recording" onClick='start_record();'>
 <input type=button value="Stop recording" onClick='stop_record();'>
 
@@ -29,61 +29,22 @@ namely currently only svn for the proper mrl parsing...
 </ul>
 
 <script LANGUAGE="Javascript">
-function	vlc_player_build(){
-	var vlc_object	= new neoip.vlc_object('vlc_player', 320, 240);
-	vlc_object.write('vlc_objtest');
+function	asplayer_build(){
+	var so		= new SWFObject("neoip_asrecorder.swf", "recorderobj_htmlid"
+					, "320", "240"
+					, "9", "#000000", true);
+	// put the parameter to the flash plugin itself
+	so.addParam("allowScriptAccess"	, "always");
+	// write the result in the html
+	var succeed	= so.write("recorder_container");
+	if( succeed )	return;
 }
-function vlc_init()
-{
-	var vlc		= document.getElementById("vlc_player");
-	var opt		= new Array();
-	var driver	= document.getElementById("vlc_driver").value;
-	// build the options from the webcam parameter
-	opt.push(":"+driver+"-vdev="	+ document.getElementById("vlc_vdev").value);
-	opt.push(":"+driver+"-adev="	+ document.getElementById("vlc_adev").value)
-	opt.push(":"+driver+"-width="	+ document.getElementById("vlc_width").value)
-	opt.push(":"+driver+"-height="	+ document.getElementById("vlc_height").value)
-	opt.push(":"+driver+"-fps="	+ document.getElementById("vlc_fps").value)
-
-	// build the transcode line from the streaming parameters
-	var	str= ":sout=#transcode{"
-	str += "vcodec="	+ document.getElementById("vlc_vcodec").value
-	str += ",acodec="	+ document.getElementById("vlc_acodec").value
-	str += ",samplerate="	+ document.getElementById("vlc_samplerate").value
-	str += ",vb="		+ document.getElementById("vlc_vb").value*8
-	str += ",ab="		+ document.getElementById("vlc_ab").value*8
-	str += "}:duplicate{dst=display, dst=std{access=http"
-	str += ",mux="		+ document.getElementById("vlc_mux").value
-	str += ",dst="		+ document.getElementById("vlc_url").value
-	str += "}}"
-	opt.push(str);
-	console.log("sout=" + str);
-
-	// to insert a key frame every 25 frame
-	// - TODO make it tunable
-	opt.push(":sout-ffmpeg-keyint=25")
-	// to make ffmpeg to enforce the bitrate limitation
-	opt.push(":sout-ffmpeg-strict-rc")
-	
-	// to not show the video title on the video
-	opt.push(":no-video-title-show")
-
-	// if vlc_mute is checked, disable the sound sout audio
-	if( document.getElementById("vlc_mute").value == "yes" ){
-		opt.push(":no-sout-audio")
-	}
-
-	// clear the playlist
-	vlc.playlist.clear();
-	// put this element in the playlist
-	vlc.playlist.add(driver+"://", null, opt);
-}
-
 function start_record()
 {
-	var vlc = document.getElementById("vlc_player");
-	vlc_init()
-	vlc.playlist.play();
+	// NOTE: recorderobj start to record AFTER webpack enable this stream as started
+	// - aka when webpack start to listen to a potential stream for this player
+	// - thus flash player may connect 
+
 
 	casti_param_from_field();
 	casti_param_to_ctrl();
@@ -91,8 +52,8 @@ function start_record()
 }
 function stop_record()
 {
-	var vlc = document.getElementById("vlc_player");
-	if( vlc.playlist.isPlaying )	vlc.playlist.stop();
+	var recorderobj	= document.getElementById("recorderobj_htmlid");
+	if( recorderobj.record_inprogress() )	recorderobj.record_stop();
 
 	casti_param_to_ctrl();
 	casti_ctrl.stop_recording();
@@ -102,76 +63,48 @@ function stop_record()
 
 
 <script>
-function webcam_param_reset_linux()
+function webcam_param_reset()
 {
-	document.getElementById("vlc_driver").value	= "v4l";
-	document.getElementById("vlc_vdev").value	= "/dev/video0";
-	document.getElementById("vlc_adev").value	= "/dev/dsp";
-	document.getElementById("vlc_width").value	= "320";
-	document.getElementById("vlc_height").value	= "240";
-	document.getElementById("vlc_fps").value	= "25.0";
-}
-function stream_param_reset_mp4()
-{
-	document.getElementById("vlc_vcodec").value	= "mp4v";
-	document.getElementById("vlc_acodec").value	= "mpga";
-	document.getElementById("vlc_samplerate").value	= "";
-	document.getElementById("vlc_mute").value	= "yes";
-	document.getElementById("vlc_vb").value		= "32";
-	document.getElementById("vlc_ab").value		= "8";
-	document.getElementById("vlc_mux").value	= "ps";
-	document.getElementById("vlc_url").value	= "0.0.0.0:8080/stream.mp4";
+	document.getElementById("video_w").value	= "320";
+	document.getElementById("video_h").value	= "240";
+	document.getElementById("video_fps").value	= "25.0";
 }
 function stream_param_reset_flv()
 {
-	document.getElementById("vlc_vcodec").value	= "FLV1";
-	document.getElementById("vlc_acodec").value	= "mp3";
-	document.getElementById("vlc_samplerate").value	= "22050";
-	document.getElementById("vlc_mute").value	= "yes";
-	document.getElementById("vlc_vb").value		= "16";
-	document.getElementById("vlc_ab").value		= "4";
-	document.getElementById("vlc_mux").value	= "";
-	document.getElementById("vlc_url").value	= "127.0.0.1:8080/stream.flv";
+	document.getElementById("audio_mute").value	= "yes";
+	document.getElementById("video_bw").value	= "32";
+	document.getElementById("audio_bw").value	= "8";
 }
 
 function stream_param_reset_bw_20k()
 {
-	document.getElementById("vlc_vb").value		= "16";
-	document.getElementById("vlc_ab").value		= "4";
+	document.getElementById("video_bw").value	= "16";
+	document.getElementById("audio_bw").value	= "4";
 }
 
 function stream_param_reset_bw_40k()
 {
-	document.getElementById("vlc_vb").value		= "32";
-	document.getElementById("vlc_ab").value		= "8";
+	document.getElementById("video_bw").value	= "32";
+	document.getElementById("audio_bw").value	= "8";
 }
 
-function stream_param_reset_bw_60k()
+function stream_param_reset_bw_64k()
 {
-	document.getElementById("vlc_vb").value		= "48";
-	document.getElementById("vlc_ab").value		= "16";
+	document.getElementById("video_bw").value	= "48";
+	document.getElementById("audio_bw").value	= "16";
 }
 
 function casti_param_init()
 {
 	// vlc streaming parameters
-	casti_param['vlc_driver']	= null;
-	casti_param['vlc_vcodec']	= null;
-	casti_param['vlc_acodec']	= null;
-	casti_param['vlc_samplerate']	= null;
-	casti_param['vlc_mute']		= null;
-	casti_param['vlc_vb']		= null;
-	casti_param['vlc_ab']		= null;
-	casti_param['vlc_mux']		= null;
-	casti_param['vlc_url']		= null;
+	casti_param['audio_mute']	= null;
+	casti_param['video_bw']		= null;
+	casti_param['audio_bw']		= null;
 
 	// vlc input parameter
-	casti_param['vlc_driver']	= null;
-	casti_param['vlc_vdev']		= null;
-	casti_param['vlc_adev']		= null;
-	casti_param['vlc_width']	= null;
-	casti_param['vlc_height']	= null;
-	casti_param['vlc_fps']		= null;
+	casti_param['video_w']		= null;
+	casti_param['video_h']		= null;
+	casti_param['video_fps']	= null;
 
 	// casti streaming parameter
 	casti_param['cast_name']	= null;
@@ -184,11 +117,6 @@ function casti_param_init()
 function casti_param_reset_passwd()
 {
 	document.getElementById("cast_privtext").value	= neoip.core.build_nonce_str(8);
-}
-function casti_param_reset_mp4()
-{
-	document.getElementById("cast_name").value	= "superstream.mp4";
-	document.getElementById("scasti_mod").value	= "raw";
 }
 function casti_param_reset_flv()
 {
@@ -217,6 +145,7 @@ function casti_param_to_field()
 function casti_param_from_field()
 {
 	for( var key in casti_param ){
+		console.info("key=" + key);
 		casti_param[key] = document.getElementById(key).value;
 	}
 }
@@ -265,11 +194,11 @@ function casti_param_from_cookie()
 // fetch the casti_param from cookie 
 function casti_param_to_ctrl()
 {
-	casti_ctrl.webdetect_uri	( neoip.outter_uri('casti')		);
+	casti_ctrl.webdetect_uri	( get_webdetect_uri()			);
 	casti_ctrl.cast_name		( casti_param['cast_name']		);
-	casti_ctrl.cast_privtext		( casti_param['cast_privtext']		);
+	casti_ctrl.cast_privtext	( casti_param['cast_privtext']		);
 	casti_ctrl.mdata_srv_uri	( casti_param['mdata_srv_uri']		);
-	casti_ctrl.scasti_uri		( 'http://' + casti_param['vlc_url']	);
+	casti_ctrl.scasti_uri		( get_scasti_uri()			);
 	casti_ctrl.scasti_mod		( casti_param['scasti_mod']		);
 	casti_ctrl.http_peersrc_uri	( casti_param['http_peersrc_uri']	);
 }
@@ -281,8 +210,25 @@ function	neoip_casti_ctrl_cb(notifier_obj, userptr, event_type, arg)
 	// log to debug
 	console.info("enter_type=" + event_type);
 	
+	// NOTE start the recording AFTER webpack acknowledged 'starting'
+	if( event_type == "changed_state" && casti_ctrl.swarm_state() == "starting" ){
+		var recorderobj	= document.getElementById("recorderobj_htmlid");
+		var elValue	= function(htmlid){return document.getElementById(htmlid).value;}
+		var record_arg	= {
+			video_w:	elValue('video_w'),
+			video_h:	elValue('video_h'),
+			video_fps:	elValue('video_fps'),
+			video_bw:	elValue('video_bw')*1024,
+			audio_bw:	elValue('audio_bw')*1024,
+			audio_mute:	elValue('audio_mute') == "yes" ? true : false,
+			rtmp_uri:	get_scasti_uri(),
+		};
+		recorderobj.record_start(record_arg);
+	}
+
 	// forward to the proper handler depending on event_type
 	if( event_type == "changed_state" )	return display_casti_state(arg);
+	
 	// NOTE: just to avoid a warning 	
 	return 0;
 }
@@ -303,7 +249,7 @@ function	display_casti_state()
 		if( mdata_srv_uri )	player_live_host	= /.*:\/\/(.*?)\//(mdata_srv_uri)[1];
 		if( player_live_host == "dedixl.jetienne.com")	player_live_host = "player.urfastr.tv";
 		str	= "<font color='green'>" + state + "</font>";
-		str	+= ". The cast_privhash is " + casti_ctrl.cast_privhash();
+		str	+= ". The cast_privtext is " + casti_ctrl.cast_privhash();
 		str	+= ". to see only <a href='http://"+player_live_host+"/" + casti_ctrl.cast_privhash() + "/live/" + casti_param['cast_name'] + "'>" + casti_param['cast_name']+ "</a>";  
 		str	+= ". to see <a href='http://"+player_live_host+"/live>all live stream</a>";  
 	}else if( state == 'stopped' ){
@@ -333,30 +279,23 @@ function all_param_reset_default()
 	casti_param_reset_flv();
 	casti_param_reset_passwd();
 	casti_param_reset_production();
-	webcam_param_reset_linux();
+	webcam_param_reset();
 }
 </script>
 
 <h3>Streaming parameters</h3>
-<input type=button value="Reset for mp4" onClick='stream_param_reset_mp4()'>
 <input type=button value="Reset for flv" onClick='stream_param_reset_flv()'>
 <input type=button value="Reset to 20kbyte/s" onClick='stream_param_reset_bw_20k()'>
 <input type=button value="Reset to 40kbyte/s" onClick='stream_param_reset_bw_40k()'>
-<input type=button value="Reset to 60kbyte/s" onClick='stream_param_reset_bw_60k()'>
+<input type=button value="Reset to 64kbyte/s" onClick='stream_param_reset_bw_64k()'>
 <table>
-	<tr><td>Video Codec</td><td>: <input type="text" id="vlc_vcodec"	/></td></tr>
-	<tr><td>Audio Codec</td><td>: <input type="text" id="vlc_acodec"	/></td></tr>
-	<tr><td>Audio sample rate</td><td>: <input type="text" id="vlc_samplerate"		/></td></tr>
-	<tr><td>Audio mute</td><td>: <input type="text" id="vlc_mute"				/></td></tr>
-	<tr><td>Video Bitrate (in kbyte/s)</td><td>: <input type="text" id="vlc_vb"		/></td></tr>
-	<tr><td>Audio Bitrate (in kbyte/s)</td><td>: <input type="text" id="vlc_ab"		/></td></tr>
-	<tr><td>Muxer</td><td>: <input type="text" id="vlc_mux"			/></td></tr>
-	<tr><td>Url</td><td>: <input type="text" id="vlc_url"			/></td></tr>
+	<tr><td>Audio mute</td><td>: <input type="text" id="audio_mute"				/></td></tr>
+	<tr><td>Video bw (in kbyte/s)</td><td>: <input type="text" id="video_bw"		/></td></tr>
+	<tr><td>Audio bw (in kbyte/s)</td><td>: <input type="text" id="audio_bw"		/></td></tr>
 </table>
 
 <h3>neoip-casti parameters</h3>
 <input type=button value="Reset passwd" onClick='casti_param_reset_passwd()'>
-<input type=button value="Reset for mp4" onClick='casti_param_reset_mp4()'>
 <input type=button value="Reset for flv" onClick='casti_param_reset_flv()'>
 <input type=button value="Reset for debug" onClick='casti_param_reset_debug()'>
 <input type=button value="Reset for production" onClick='casti_param_reset_production()'>
@@ -369,14 +308,11 @@ function all_param_reset_default()
 </table>
 
 <h3>Webcam parameters</h3>
-<input type=button value="Reset for linux" onClick='webcam_param_reset_linux();'>
+<input type=button value="Reset" onClick='webcam_param_reset();'>
 <table>
-	<tr><td>Video Driver</td><td>: <input type="text" id="vlc_driver"	/></td></tr>
-	<tr><td>Video Device</td><td>: <input type="text" id="vlc_vdev"		/></td></tr>
-	<tr><td>Audio Device</td><td>: <input type="text" id="vlc_adev"		/></td></tr>
-	<tr><td>Video Width</td><td>: <input type="text" id="vlc_width"		/></td></tr>
-	<tr><td>Video Height</td><td>: <input type="text" id="vlc_height"	/></td></tr>
-	<tr><td>Image per Second</td><td>: <input type="text" id="vlc_fps"	/></td></tr>
+	<tr><td>Video Width</td><td>: <input type="text" id="video_w"		/></td></tr>
+	<tr><td>Video Height</td><td>: <input type="text" id="video_h"		/></td></tr>
+	<tr><td>Image per Second</td><td>: <input type="text" id="video_fps"	/></td></tr>
 </table>
 
 
@@ -413,12 +349,33 @@ function apps_detect_cb(apps_detect, userptr, result_str)
 	var	elem_id	= "neoip_" + suffix_name + "_probe_result";
 	document.getElementById(elem_id).innerHTML= str;
 }
+function get_webdetect_uri()
+{
+	var webdetect_uri	= neoip.apps_present("casti") ? neoip.outter_uri('casti') : "http://127.0.0.1:4570";
+	return webdetect_uri;
+}
+function get_scasti_uri()
+{
+	// get the host where neoip-casti is located
+	var webdetect_uri	= get_webdetect_uri();
+	var re		= webdetect_uri.match(/http:\/\/(.+?)([:\/]|$)/);
+	// sanity check - this regexp MUST find something
+	console.assert(re);
+	var casti_host	= re[1];
+	// build scasti_uri
+	var scasti_uri	= "rtmp://" + casti_host + ":1935"
+			+ "/" + escape(casti_param['mdata_srv_uri'])
+			+ "/" + escape(casti_param['cast_privtext'])
+			+ "/" + escape(casti_param['cast_name']);
+	scasti_uri	= "rtmp://127.0.0.1/live";
+	// return the just-built scasti_uri
+	return scasti_uri;
+}
 </script>
 <script>
-	vlc_player_build();
-	// on load, set the parameters for flv/linux
-	stream_param_reset_flv();
-	webcam_param_reset_linux();
+	asplayer_build();
+	// on load, set the parameters to default
+	all_param_reset_default()
 	// on load, read the casti_param_from_cookie
 	casti_param_from_cookie();
 	// init casti_ctrl

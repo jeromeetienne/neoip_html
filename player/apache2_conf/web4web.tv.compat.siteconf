@@ -1,0 +1,18 @@
+NameVirtualHost *
+<VirtualHost *>
+        ServerName	www.web4web.tv
+	ServerAlias	player.web4web.tv
+
+        DocumentRoot /var/www
+        <Directory /var/www>
+        	# disable the ability to see file directory content
+                Options -Indexes
+        </Directory>
+
+	RewriteEngine On
+	RewriteCond	%{HTTP_HOST}	^player\.web4web\.tv
+	RewriteRule	^(.*)$		http://player.urfastr.tv/$1 [R,L]	
+
+	RewriteCond	%{HTTP_HOST}	^www\.web4web\.tv
+	RewriteRule	^(.*)$		http://www.urfastr.tv/$1 [R,L]	
+</VirtualHost>
