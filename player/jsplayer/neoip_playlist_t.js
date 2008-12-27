@@ -41,14 +41,14 @@ neoip.playlist_t.prototype.from_jspf = function(jspf_str)
 	var jspf_data		= eval('(' + jspf_str + ')');
 	var jspf_playlist	= jspf_data.playlist;
 	//console.info("loaded jspf playlist");
-	//console.dir(jspf_playlist);
+	//console.dir(jspf_data);console.dir(jspf_playlist);
 	
 	// get data about the playlist itself
 	this.m_base_date	= Date.parse(jspf_playlist.date);
 	this.m_identifier	= jspf_playlist.identifier;
 	this.m_meta		= {};
 	this.m_extension	= {};
-
+	
 	// put some default in the this.m_meta
 	this.m_meta['may_loop']		= true;
 	this.m_meta['trackidx_beg']	= 0;
@@ -118,6 +118,7 @@ neoip.playlist_t.prototype.current_track_pos = function(present_date)
  */
 neoip.playlist_t.prototype.current_track_pos_wseek = function(present_date)
 {
+	//console.log("bla1 present_date=" + present_date + " typeof=" + typeof present_date);
 	// get the current_track_pos
 	var track_pos	= this.current_track_pos(present_date);
 	// if this track_t.may_not_startinmid, zero the track_reltime

@@ -567,7 +567,8 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_nopack_button	= function()
 					},
 				"element_opt" : {
 					"type"		: "vector",
-					"location"	: "webpack_install"
+					"location"	: "webpack_install",
+					"text"		: "install\nWekPack"
 					},
 			 	"base_sprite" : {
 			 		"element_x"	: 1.0,

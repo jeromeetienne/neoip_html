@@ -162,11 +162,12 @@ neoip.ezplayer_t.prototype.fullpage_state = function(value)
 neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri, prev_playlist_uri)
 {
 	// log to debug
-	console.info("enter");
+	console.info("enter uri=" + plistarr_uri);
 
 	// setup the plistarr for ezplayer_t 
 	var plistarr_str	= neoip.core.download_file_insync(plistarr_uri, true);
 	this.m_plistarr		= new neoip.plistarr_t(plistarr_str);
+	//console.info("str="+ plistarr_str);
 
 	// change the playlist
 	// - if prev_playlist_uri function param is specified, use this one.
@@ -184,6 +185,7 @@ neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri, prev_playlist_
 		}
 		if( not_found )	prev_playlist_uri = null;
 	}
+	// TODO what if there is no item in this.m_plistarr... there is a bug ?
 	if( prev_playlist_uri )	ezplayer.change_playlist(prev_playlist_uri);
 	else			ezplayer.change_playlist(this.m_plistarr.item_arr()[0].playlist_uri());
 }
