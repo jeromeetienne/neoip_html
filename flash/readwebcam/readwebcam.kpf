@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="a5901673-69d2-4927-b217-e8b87fb3a8ca" kpf_version="4" name="readwebcam.kpf">
+<preference-set idref="a5901673-69d2-4927-b217-e8b87fb3a8ca">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>

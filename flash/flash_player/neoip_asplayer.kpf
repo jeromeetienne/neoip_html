@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="38364159-4cc6-48cf-b826-f004ba768558" kpf_version="4" name="neoip_asplayer.kpf">
+<preference-set idref="38364159-4cc6-48cf-b826-f004ba768558">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>

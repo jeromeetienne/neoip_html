@@ -1,0 +1,52 @@
+8
+
+dir
+17
+https://as3-rpclib.googlecode.com/svn/trunk/src/com/ak33m/rpc/jsonrpc
+https://as3-rpclib.googlecode.com/svn
+
+
+
+2007-02-25T19:15:46.006341Z
+17
+akeemphilbert
+
+
+svn:special svn:externals svn:needs-lock
+
+JSONRPCObject.as
+file
+
+
+
+
+2007-02-25T02:09:38.590500Z
+88ac269f487e2ae517298e4ff3d789ef
+2007-02-25T19:15:46.006341Z
+17
+akeemphilbert
+
+JSONRPCSerializer.as
+file
+18
+
+
+
+2007-04-04T13:13:57.796875Z
+4fffd23ed2e890b76de5252ad13c45c8
+2007-04-14T17:48:22.963490Z
+18
+akeemphilbert
+
+JSONConnection.as
+file
+
+
+
+
+2007-02-25T02:13:53.340500Z
+3288753da7dd9136309614c8d1865c83
+2007-02-25T19:15:46.006341Z
+17
+akeemphilbert
+
