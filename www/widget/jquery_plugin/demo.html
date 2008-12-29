@@ -1,0 +1,20 @@
+<html>
+<head>
+	<script type="text/javascript" src="jquery-1.2.6.min.js"></script>
+	<script type="text/javascript" src="jquery.urfastrplayer.js"></script>
+<script>
+$(document).ready(function(){
+	$("a#aButton").click(function(){
+		$('#myplayercontainer').UrFastR_Player();
+	});
+});
+</script>
+</head>
+<body>
+
+Click <a href='javascript:void(0)' id="aButton">here</a> create player below:
+<br>
+<br>
+<div id='myplayercontainer'></div>
+</body>
+</html>
