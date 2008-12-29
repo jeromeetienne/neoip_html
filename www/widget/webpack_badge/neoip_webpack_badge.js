@@ -38,7 +38,7 @@ neoip.webpack_badge_t = function()
 	// TODO issue here with the src_pattern
 	var src_pattern	= /neoip_webpack_badge/;
 	// get the first <script> with a src matching src_pattern
-	var scripts	= document.getElementsByTagName('SCRIPT');
+	var scripts	= document.getElementsByTagName('script');
 	for(var i = 0; i < scripts.length && !scripts[i].src.match(src_pattern); i++ );
 	script_cur	= scripts[i];
 
