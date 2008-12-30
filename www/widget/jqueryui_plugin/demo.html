@@ -1,0 +1,29 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.js"></script>
+	<script type="text/javascript" src="../jquery_plugin/jquery.urfastrplayer.js"></script>
+	<link href="flora/flora.all.css" type="text/css" rel="stylesheet"></link>
+</head>
+<body>
+
+Click <a href='javascript:void(0)' id="aButton">here</a> create player below:
+
+<br>
+<br>
+<div id="myplayercontainer" class="flora"></div>
+<script>
+$(document).ready(function(){
+	$("a#aButton").click(function(){
+		$("#myplayercontainer")
+				.UrFastR_Player({
+					'width'		: '100%',
+					'height'	: '100%',
+				}).dialog({
+					'title': '<center><a href="http://urfastr.net/video/player">UrFastsR Player</a></center>',
+				});
+	});
+});
+</script>
+</body>
+</html>
