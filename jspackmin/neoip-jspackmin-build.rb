@@ -111,9 +111,14 @@ jsfname_tmpfile	= "/tmp/neoip_jsplayer_packmin_builder.tmp.js"
 File.open(jsfname_tmpfile, "w+") { |file| file.write(jsfdata_expand)	}
 
 # compress the jsfdata_tmpfile with yuicompressor
-cmdline	= "java -jar yuicompressor-2.2.4.jar"
+cmdline	= "java -jar yuicompressor-2.4.2.jar"
 cmdline	+= " #{jsfname_tmpfile}"
 cmdline	+= " 2>/dev/null"
+jsfdata_packed	= `#{cmdline}` 
+
+# NOTE: yuicompressor keep comments on the first pass... so
+#       this is a second pass just to remove the comment
+File.open(jsfname_tmpfile, "w+") { |file| file.write(jsfdata_packed)	}
 jsfdata_packed	= `#{cmdline}` 
 
 
