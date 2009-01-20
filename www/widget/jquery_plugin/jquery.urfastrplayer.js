@@ -14,7 +14,7 @@ jQuery.fn.UrFastR_Player = function(options) {
 		height:	240
 	}, options);
 	iframeEl	= document.createElement('iframe');
-	iframeEl.setAttribute('src'		, 'http://player.urfastr.tv/live');
+	iframeEl.setAttribute('src'		, 'http://player.urfastr.tv/live?neoip_var_widget_src=jquery_plugin');
 	iframeEl.setAttribute('width'		, settings.width);
 	iframeEl.setAttribute('height'		, settings.height);
 	iframeEl.setAttribute('frameborder'	, 'no');	

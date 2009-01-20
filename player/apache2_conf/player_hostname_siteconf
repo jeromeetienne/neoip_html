@@ -1,7 +1,7 @@
 NameVirtualHost *
 <VirtualHost *>
         DocumentRoot /var/www/player.urfastr.tv
-        ServerName player.urfastr.tv
+        ServerName	player.urfastr.tv
         <Directory /var/www/player.urfastr.tv>
         	# disable the ability to see file directory content
                 Options -Indexes

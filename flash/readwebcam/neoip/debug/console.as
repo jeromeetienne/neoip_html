@@ -29,6 +29,12 @@ import flash.external.ExternalInterface;
  */
 public class console
 {
+
+CONFIG::debug
+	private static var extCall:Function	= ExternalInterface.call;
+
+CONFIG::release
+	private static var extCall:Function	= function():void{};
 	
 	
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,13 +80,13 @@ public static function post_log(var_arg	:Array)		:void
 	// - NOTE: expand up to 4 parameters
 	// - could it be done more cleanly ?
 	if( var_arg.length == 1 ){
-		ExternalInterface.call("console.log", var_arg[0]);
+		console.extCall("console.log", var_arg[0]);
 	}else if( var_arg.length == 2 ){
-		ExternalInterface.call("console.log", var_arg[0], var_arg[1]);
+		console.extCall("console.log", var_arg[0], var_arg[1]);
 	}else if( var_arg.length == 3 ){
-		ExternalInterface.call("console.log", var_arg[0], var_arg[1], var_arg[2]);
+		console.extCall("console.log", var_arg[0], var_arg[1], var_arg[2]);
 	}else if( var_arg.length == 4 ){
-		ExternalInterface.call("console.log", var_arg[0], var_arg[1], var_arg[2], var_arg[3]);
+		console.extCall("console.log", var_arg[0], var_arg[1], var_arg[2], var_arg[3]);
 	}else{	console.assert(false);	}
 }
 
@@ -94,7 +100,7 @@ public static function post_log(var_arg	:Array)		:void
  */
 public static function dir(obj:Object)			:void
 {
-	ExternalInterface.call("console.dir", obj);
+	console.extCall("console.dir", obj);
 }
 
 
@@ -158,7 +164,7 @@ private static function post_assert(prefix_str:String)	:void
 		}
 	}
 	// send all that to console.log
-	ExternalInterface.call("console.error", str);
+	console.extCall("console.error", str);
 	
 	// throw an exception to stop the processing
 	throw new Error("ASSERT FAILED");

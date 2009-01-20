@@ -13,7 +13,6 @@ to display the neoip-webpack badge on webpages.
   - IF ANY of neoip-apps has a version below minimal, goto "toupgrade" state
   - else goto "installed"
 
-
 */
 
 
@@ -35,15 +34,15 @@ neoip.webpack_detect_t = function(p_callback)
 	
 	// define the parameters for each neoip-apps inside neoip-webpack
 	this.m_apps_params	= { 	"oload"	: {	"first_port"	: 4550,
-							"last_port"	: 4559,
+							"last_port"	: 4553,
 							"min_version"	: "0.0.1"
 						},
 					"casto"	: {	"first_port"	: 4560,
-							"last_port"	: 4569,
+							"last_port"	: 4563,
 							"min_version"	: "0.0.1"
 						},
 					"casti"	: {	"first_port"	: 4570,
-							"last_port"	: 4579,
+							"last_port"	: 4573,
 							"min_version"	: "0.0.1"
 						}
 				};

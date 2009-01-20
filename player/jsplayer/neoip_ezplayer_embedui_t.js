@@ -176,8 +176,8 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 	//   when m_ezplayer is in autoplay
 	if( this.m_ezplayer.m_play_post_playlist == false )	this._reinit_playstop_buttons();
 
-	// if ezplayer.apps_detect_running is false, notify a apps_detect_completed_cb()
-	if( this.m_ezplayer.apps_detect_running()== false )	this.apps_detect_completed_cb();
+	// if ezplayer.webpack_detect_running is false, notify a webpack_detect_completed_cb()
+	if( this.m_ezplayer.webpack_detect_running()== false )	this.webpack_detect_completed_cb();
 }
 
 /** \brief Destructor
@@ -518,14 +518,14 @@ neoip.ezplayer_embedui_t.prototype._embedui_delete_playlist_select	= function()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief Callback for called when ezplayer_t has completed the apps_detect_t
+/** \brief Callback for called when ezplayer_t has completed the webpack_detect_t
  */
-neoip.ezplayer_embedui_t.prototype.apps_detect_completed_cb	= function()
+neoip.ezplayer_embedui_t.prototype.webpack_detect_completed_cb	= function()
 {
-	// sanity check - at this point, this.m_ezplayer.apps_detect MUST be completed
-	console.assert( this.m_ezplayer.apps_detect_running()== false);
+	// sanity check - at this point, this.m_ezplayer.webpack_detect MUST be completed
+	console.assert( this.m_ezplayer.webpack_detect_running()== false);
 	// if "oload" AND "casto" are present, do nothing
-	if( neoip.apps_present("oload") && neoip.apps_present("oload") )	return;
+	if( this.m_ezplayer.webpack_detect_result() == "installed" )	return;
 	
 	// display a message
 	this._set_status_line("Limited version");
@@ -557,6 +557,15 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_nopack_button	= function()
 	var embedui_id	= "embedui_id_nopack_button";
 	// if this embedui_id alreadt exist, return now
 	if( plugin.embedui_exist(embedui_id) == true )	return;
+	
+	// determine the text in the button depending on this.m_ezplayer.webpack_detect_result()
+	if( this.m_ezplayer.webpack_detect_result() == "toinstall" ){
+		var button_text	= "Install\nWebPack";
+	}else if( this.m_ezplayer.webpack_detect_result() == "toupgrade" ){
+		var button_text	= "Update\nWebPack";
+	}else{
+		console.assert(false);
+	}
 
 	// build the "embedui_id_nopack_button"
 	// - TODO put another image for this icon.. one pointed by an uri
@@ -568,7 +577,7 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_nopack_button	= function()
 				"element_opt" : {
 					"type"		: "vector",
 					"location"	: "webpack_install",
-					"text"		: "install\nWekPack"
+					"text"		: button_text
 					},
 			 	"base_sprite" : {
 			 		"element_x"	: 1.0,

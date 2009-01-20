@@ -103,7 +103,7 @@ jsfname_arr.each { |jsfname| jsfdata_expand += File.read("#{basedir_path}/#{jsfn
 # - TODO currently work IIF there are no nested parentheses in the console.info() function
 # - TODO doesnt take care of the console.info() sent by asplayer
 if not cmdline_opt['keep-firebug']
-	jsfdata_expand.gsub!(/console\.[^(]*?\([^()]*?\)/, '')
+	jsfdata_expand.gsub!(/console\.[^(]*?\([^()]*?\);/, '')
 end
 
 # write the jsdata_str into jsfname_tmpfile

@@ -41,23 +41,31 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 ////////////////////////////////////////////////////////////////////////////////
 //			ctor/dtor
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////	this.m_last_port	= p_last_port;
+/////////////////////////////////////////////////////////
 
 /** \brief Constructor
+ * 
+ * - option['hostname'] : to have the hostname to probe (default to 127.0.0.1)
+ * - option['max_concurrent'] : set max_concurrent xdomrpc_t (default to 1)
  */
-neoip.apps_detect_t = function(p_suffix_name, p_first_port, p_last_port, p_callback)
+neoip.apps_detect_t = function(p_suffix_name, p_first_port, p_last_port, p_callback, p_options)
 {
 	// copy the parameter
 	this.m_callback		= p_callback;
 	this.m_suffix_name	= p_suffix_name;
 	this.m_first_port	= p_first_port;
 	this.m_last_port	= p_last_port;
-
+	this.m_options		= p_options != null ? neoip.core.object_clone(p_options) : {};
+	// set the hostname to probe
+	this.m_hostname		= "127.0.0.1";
+	if( this.m_options.hostname != undefined )	this.m_hostname	= this.m_options.hostname;
 
 	// set max_concurrent xdomrpc_t - may be usefull to speed up the detection
 	// - unclear how to use it for now. so default to 1
-	// - TODO make this tunable
 	this.m_max_concurrent	= 1;
+	if( this.m_options.max_concurrent != undefined )
+		this.m_max_concurrent	= this.m_options.max_concurrent;
 	 
 	// launch the m_expire_timeout	
 	this.m_expire_delay	= 10.0*1000;		// TODO make this tunable
@@ -106,6 +114,8 @@ neoip.apps_detect_t.prototype.destructor = function()
 neoip.apps_detect_t.prototype.suffix_name	= function(){ return this.m_suffix_name;}
 neoip.apps_detect_t.prototype.first_port	= function(){ return this.m_first_port;	}
 neoip.apps_detect_t.prototype.last_port		= function(){ return this.m_last_port;	}
+neoip.apps_detect_t.prototype.hostname		= function(){ return this.m_hostname;	}
+neoip.apps_detect_t.prototype.options		= function(){ return this.m_options;	}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +166,7 @@ neoip.apps_detect_t.prototype._launch_next_probe	= function()
 		// leave the loop if nb_active is now >= than this.m_max_concurrent
 		if( nb_active >= this.m_max_concurrent )	break;
 		// launch the xdomrpc_t on this port
-		var	rpc_uri	= "http://127.0.0.1:" + port + "/neoip_" 
+		var	rpc_uri	= "http://" + this.m_hostname + ":" + port + "/neoip_" 
 					+ this.m_suffix_name + "_appdetect_jsrest.js";
 		this.m_xdomrpc_arr[port]= new neoip.xdomrpc_t(rpc_uri
 						, neoip.xdomrpc_cb_t(this._xdomrpc_cb, this, port)
@@ -188,7 +198,7 @@ neoip.apps_detect_t.prototype._xdomrpc_cb = function(notifier_obj, userptr, faul
 	if( fault == null ){
 		// put the detected information in neoip_apps_detect_arr
 		var	obj	= {};
-		obj.outter_uri	= "http://127.0.0.1:" + probe_port;
+		obj.outter_uri	= "http://" + this.m_hostname + ":" + probe_port;
 		obj.version	= returned_val;
 		obj.present	= true;
 		neoip_apps_detect_arr[this.m_suffix_name]	= obj;
@@ -279,7 +289,7 @@ neoip.apps_version	= function(suffix_name)
  */
 neoip.apps_version_check	= function(suffix_name, min_version)
 {
-	var cur_version	= neoip_apps_detect_arr[suffix_name].version;
+	var cur_version	= neoip.apps_version(suffix_name);
 	// log to debug
 	//console.info("suffix_name=" + suffix_name + " cur_version=" + cur_version + " min_version=" + min_version);
 
@@ -292,6 +302,11 @@ neoip.apps_version_check	= function(suffix_name, min_version)
 	var cur_minor	= parseInt(cur_version.split(".")[1], 10);
 	var min_minor	= parseInt(min_version.split(".")[1], 10);
 	if( cur_minor < min_minor )	return false;
+
+	// if cur_version patch < min_version patch, return false
+	var cur_patch	= parseInt(cur_version.split(".")[2], 10);
+	var min_patch	= parseInt(min_version.split(".")[2], 10);
+	if( cur_patch < min_patch )	return false;
 
 	// if all previous tests passed, return true
 	return true;

@@ -15,6 +15,6 @@ Ext.ux.UrFastRPlayerWindow = Ext.extend(Ext.Window, {
 	height		: 240,
 	closeAction	:'close',
 	plain		: true,
-	html		: "<iframe src='http://player.urfastr.tv/live' "
+	html		: "<iframe src='http://player.urfastr.tv/live?neoip_var_widget_src=extjs_extension' "
 				+ "frameborder='no' height='100%' width='100%'></iframe>",
 });

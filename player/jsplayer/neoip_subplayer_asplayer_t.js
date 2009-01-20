@@ -131,7 +131,11 @@ neoip.subplayer_asplayer_t.prototype.build_objembed = function(p_container_id, p
 	// NOTE: at this point,  SWFObject failed to detect flash, so display something to warn the user
 	var innerhtml	= "<table width='100%' height='100%' align='center'>"
 				+ "<tr><td valign='middle' align='center'>"
-					+ "<span style='color:red; font-size: larger;'>Flash 9 required</span>"
+					+ "<span style='color:red; font-size: larger;'>"
+						+ "Flash 9 required"
+					+ "</span>"
+					+ "<br/>"
+					+ "<a href='http://get.adobe.com/flashplayer/' target='_blank'>download it</a>"
 				+ "</td></tr>"
 			+ "</table>";
 	document.getElementById(p_container_id).innerHTML = innerhtml;

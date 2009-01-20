@@ -49,6 +49,8 @@ private var m_video_bw		:Number;
 private var m_audio_bw		:Number;
 private var m_audio_mute	:Boolean;
 private var m_rtmp_uri		:String;
+private var m_cam_idx		:Number;
+private var m_mic_idx		:Number;
 
 private var m_recording		:Boolean;
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +86,8 @@ public function cam_recorder_t(p_stage:Stage)
 	ExternalInterface.addCallback("record_unpublishing"	, fromjs_record_unpublishing);
 	ExternalInterface.addCallback("record_ispublishing"	, fromjs_record_ispublishing);
 	ExternalInterface.addCallback("record_has_availcamera"	, fromjs_has_availcamera);	
+	ExternalInterface.addCallback("record_cam_names"	, fromjs_cam_names);	
+	ExternalInterface.addCallback("record_mic_names"	, fromjs_mic_names);
 	
 	// log to debug
 	console.info("end of ctor");
@@ -123,12 +127,16 @@ public	function start(arg:Object)	:void
 	m_video_bw	= (arg['video_bw']	!= undefined) ? arg['video_bw']		: 48*1024;
 	m_audio_bw	= (arg['audio_bw']	!= undefined) ? arg['audio_bw']		: 16*1024;
 	m_audio_mute	= (arg['audio_mute']	!= undefined) ? arg['audio_mute']	: true;
+	m_cam_idx	= (arg['cam_idx']	!= undefined) ? arg['cam_idx']		: null;
+	m_mic_idx	= (arg['mic_idx']	!= undefined) ? arg['mic_idx']		: null;
 	m_rtmp_uri	= arg['rtmp_uri'];
 	
 	console.info("video_bw=" + m_video_bw);
-
+	console.info("m_cam_idx=" + m_cam_idx);
+	console.info("cam name="+ Camera.names[m_cam_idx]);
 	// attach the camera to m_video
 	m_camera	= Camera.getCamera();
+//	m_camera	= Camera.getCamera(m_cam_idx != null ? String(m_cam_idx) : null);
 	if( !m_camera )	throw new Error("No Camera Installed");
 
 	m_camera.setMode(m_video_w, m_video_h, m_video_fps);
@@ -139,6 +147,7 @@ public	function start(arg:Object)	:void
 
 	// init the microphone IIF audio_mute
 	if( ! m_audio_mute ){
+//		m_micro		= Microphone.getMicrophone(m_mic_idx);
 		m_micro		= Microphone.getMicrophone();
 		// TODO flash10 allow to encode with speex
 		// - better quality. so use it by default ?
@@ -387,6 +396,23 @@ public function	fromjs_has_availcamera()	:Boolean
 	return has_availcamera();
 }
 
+/** \brief return the list of cameras (called only from js)
+ *
+ * @return array readonly list of camera names
+ */
+public function	fromjs_cam_names()	:Array
+{
+	return Camera.names;
+}
+
+/** \brief return the list of microphones (called only from js)
+ *
+ * @return array readonly list of microphone names
+ */
+public function	fromjs_mic_names()	:Array
+{
+	return Microphone.names;
+}
 
 }	// end of class 
 } // end of package

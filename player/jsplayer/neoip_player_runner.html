@@ -11,7 +11,8 @@
 <script src="../../base/javascript/swfobject.js"></script>
 <script src="../../base/javascript/neoip_xdomrpc_t.js"></script>
 <script src="../../base/javascript/neoip_apps_detect_t.js"></script> 
-<script src="../../base/javascript/neoip_apps_detect_wikidbg_t.js"></script> 
+<script src="../../base/javascript/neoip_apps_detect_wikidbg_t.js"></script>
+<script src="../../base/javascript/neoip_webpack_detect_t.js"></script> 
 <script src="../../base/javascript/neoip_wikidbg_t.js"></script>
 <script src="neoip_playlist_t.js"></script>
 <script src="neoip_playlist_track_t.js"></script>
@@ -47,7 +48,7 @@
 		// goto the next if not prefixed by "neoip_var_"
 		if( /^neoip_var_/.test(key) == false )	continue;
 		// remove the prefix from the key
-		stripped_key	= /^neoip_var_(.*)/(key)[1]
+		stripped_key	= /^neoip_var_(.*)/.exec(key)[1]
 		// copy the value in cfgvar_arr
 		cfgvar_arr[stripped_key]	= urivar_arr[key];
 	}

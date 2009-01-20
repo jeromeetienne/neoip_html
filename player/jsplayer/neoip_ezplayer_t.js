@@ -77,15 +77,10 @@ neoip.ezplayer_t.prototype.destructor	= function()
 		this.m_objembed_initmon.destructor();
 		this.m_objembed_initmon	= null;
 	}
-	// delete the oload apps_detect_t
-	if( this.m_oload_detect ){
-		this.m_oload_detect.destructor();
-		this.m_oload_detect	= null;
-	}
-	// delete the casto apps_detect_t
-	if( this.m_casto_detect ){
-		this.m_casto_detect.destructor();
-		this.m_casto_detect	= null;
+	// delete the webpack_detect_t
+	if( this.m_webpack_detect ){
+		this.m_webpack_detect.destructor();
+		this.m_webpack_detect	= null;
 	}
 	// delete the neoip.player_t if needed
 	if( this.m_player ){
@@ -261,7 +256,7 @@ neoip.ezplayer_t.prototype._window_onload_cb	= function()
 			, neoip.objembed_initmon_cb_t(this._objembed_initmon_cb, this));
 
 	// start detecting the neoip-apps
-	this._apps_detect_start();
+	this._webpack_detect_start();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -320,8 +315,8 @@ neoip.ezplayer_t.prototype._player_post_init	= function()
 	// - TODO neoip.player_t._prefetch_initial is a VERY bad name for it. change it	
 	if( this.m_autobuffer )		this.m_player._prefetch_initial();
 	
-	// if there is still a apps_detect_t running, return now
-	if( this.apps_detect_running() )	return;
+	// if there is still a webpack_detect_t running, return now
+	if( this.webpack_detect_running() )	return;
 	
 	// if there is no playlist, return now
 	if( this.m_player.playlist() == null )	return;
@@ -451,60 +446,59 @@ neoip.ezplayer_t.prototype._neoip_player_cb = function(notified_obj, userptr
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-//			apps_detect_t
+//			webpack_detect_t
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief Start the apps_detect_t object
+/** \brief Start the webpack_detect_t object
  */
-neoip.ezplayer_t.prototype._apps_detect_start	= function()
+neoip.ezplayer_t.prototype._webpack_detect_start	= function()
 {
 	// start probing neoip-apps
-	var cb_fct		= neoip.apps_detect_cb_t(this._apps_detect_cb, this);
-	// TODO put that in a array with suffix as key
-	this.m_oload_detect	= new neoip.apps_detect_t("oload", 4550, 4559, cb_fct);
-	this.m_casto_detect	= new neoip.apps_detect_t("casto", 4560, 4569, cb_fct);						
+	var cb_fct		= neoip.webpack_detect_cb_t(this._webpack_detect_cb, this);
+	this.m_webpack_detect	= new neoip.webpack_detect_t(cb_fct);
 }
 
-/** \brief Callback for all the neoip.apps_detect_t of this page
+/** \brief Callback for all the neoip.webpack_detect_t of this page
  */
-neoip.ezplayer_t.prototype._apps_detect_cb	= function(apps_detect, userptr, result_str)
+neoip.ezplayer_t.prototype._webpack_detect_cb	= function(webpack_detect, userptr, result_str)
 {
-	var apps_suffix	= apps_detect.suffix_name();
-	// log the result
-	console.info("enter suffix_name=" + apps_detect.suffix_name() + " result_str=" + result_str);
+	// detroy m_webpack_detect
+	this.m_webpack_detect.destructor();
+	this.m_webpack_detect	= null;
+	
+	// store the result
+	this.m_webpack_detect_result	= result_str;
 
-	// delete the apps_detect
-	if( apps_suffix == "oload" ){
-		this.m_oload_detect.destructor();
-		this.m_oload_detect	= null;
-	}else if( apps_suffix == "casto" ){
-		this.m_casto_detect.destructor();
-		this.m_casto_detect	= null;
-	}else{	console.assert(false);	}
-	
-	// display the result via wikidbg
-	//neoip.apps_detect_wikidbg.main_cb(null, "page", 'apps_detect_container_id');
-	
-	// if apps_detect is still running, return now
-	if( this.apps_detect_running() )	return;
-	
-	// NOTE: at this point apps_detect is considered completed
+	// log the result
+	console.info("webpack_state=" + result_str);
+		
+	// NOTE: at this point webpack_detect is considered completed
+	console.assert( !this.webpack_detect_running() );
 	
 	// notify the embedui if supported
-	if( this.m_embedui )	this.m_embedui.apps_detect_completed_cb();
+	if( this.m_embedui )	this.m_embedui.webpack_detect_completed_cb();
 	// call _player_post_init now
 	this._player_post_init()
 }
 
-/** \brief Return true if apps_detect probing is running, false otherwise
+/** \brief Return true if webpack_detect probing is running, false otherwise
  */
-neoip.ezplayer_t.prototype.apps_detect_running	= function()
+neoip.ezplayer_t.prototype.webpack_detect_running	= function()
 {
-	if( this.m_oload_detect )	return true;
-	if( this.m_casto_detect )	return true;
+	if( this.m_webpack_detect )	return true;
 	// return false if all previous tests passed
 	return false;
+}
+
+/** \brief Return the webpack_detect probing result
+ */
+neoip.ezplayer_t.prototype.webpack_detect_result	= function()
+{
+	// if the result is not yet known, return "inprobing"
+	if( !this.m_webpack_detect_result )	return "inprobing";
+	// return the actual result
+	return this.m_webpack_detect_result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

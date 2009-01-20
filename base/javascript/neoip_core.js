@@ -353,7 +353,7 @@ if( 1 ){
 	
 	// extract part_beg "http://example.com:3333"
 	var part_beg	= /(.*?:\/\/.*?)\//(req_uri)[1];
-	// extract part_beg "super/path/my/file.ext?var=value"
+	// extract part_end "super/path/my/file.ext?var=value"
 	var part_end	= /.*?:\/\/.*?\/(.*)/(req_uri)[1];
 	
 	// encode the part_end using base64

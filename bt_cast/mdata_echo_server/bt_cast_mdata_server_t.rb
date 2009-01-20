@@ -318,7 +318,8 @@ end
 def self.mdata_srv_uri_base;         @@mdata_srv_uri_base;        end
 def self.mdata_srv_uri_base=(val)    @@mdata_srv_uri_base = val;  end
 if `hostname`.chomp == "jmehost2"
-	@@mdata_srv_uri_base	= "http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+	@@mdata_srv_ipaddr	= IPSocket::getaddress('jmehost2.local');
+	@@mdata_srv_uri_base	= "http://#{@@mdata_srv_ipaddr}/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
 else
 	@@mdata_srv_ipaddr	= IPSocket::getaddress('sd-14474.dedibox.fr');
 	@@mdata_srv_uri_base	= "http://#{@@mdata_srv_ipaddr}/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";

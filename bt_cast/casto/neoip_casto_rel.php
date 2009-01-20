@@ -27,12 +27,12 @@
 	// extract all configuration options from the document URI
 	// - this is ok as it is suppposed to be used as iframe
 	var urivar_arr	= neoip.core.doc_urivar_arr();
-	var cfgvar_arr	= {}
+	var cfgvar_arr	= {};
 	for(var key in urivar_arr){
 		// goto the next if not prefixed by "neoip_var_"
 		if( /^neoip_var_/.test(key) == false )	continue;
 		// remove the prefix from the key
-		stripped_key	= /^neoip_var_(.*)/(key)[1]
+		stripped_key	= /^neoip_var_(.*)/.exec(key)[1]
 		// copy the value in cfgvar_arr
 		cfgvar_arr[stripped_key]	= urivar_arr[key];
 	}

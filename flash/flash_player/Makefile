@@ -2,17 +2,24 @@
 #
 
 MXMLC=mxmlc
-MXMLC_OPTS=-compiler.optimize -compiler.strict -compiler.as3
+MXMLC_OPTS	=	-compiler.optimize -compiler.strict -compiler.as3
+MXMLC_OPTS_DBG	=	-define=CONFIG::debug,true -define=CONFIG::release,false
+MXMLC_OPTS_REL	=	-define=CONFIG::debug,false -define=CONFIG::release,true
 
 MAIN_SRC=flash_player.as
-MAIN_OUT=bin/flash_player.swf
+
+MAIN_OUT_DBG	= bin/flash_player-dbg.swf
+MAIN_OUT_REL	= bin/flash_player-rel.swf
 
 
-all: player
+all: player-rel
 
-player:
-	$(MXMLC) $(MXMLC_OPTS) $(MAIN_SRC) -output $(MAIN_OUT)
+player-dbg:
+	$(MXMLC) $(MXMLC_OPTS) $(MXMLC_OPTS_DBG) $(MAIN_SRC) -output $(MAIN_OUT_DBG)
 
-upload:	
-	scp bin/flash_player.swf dedixl:workspace_flash/flash_player/bin-release
+player-rel:
+	$(MXMLC) $(MXMLC_OPTS) $(MXMLC_OPTS_REL) $(MAIN_SRC) -output $(MAIN_OUT_REL)
+
+clean:
+	rm -f $(MAIN_OUT_REL) $(MAIN_OUT_DBG)
 

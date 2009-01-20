@@ -39,7 +39,7 @@ def self.from_youtube_videoid(video_id)
 		# those username/password are any user on registered on youtube 
 		# - no need to be a registered developper or anything
 		login_form.username = 'nonymity'
-		login_form.password = 'slotapim'
+		login_form.password = 'bonjour'
 		html_page	= agent.submit(login_form, login_form.buttons.first)
 		# now confirm the age
 		age_form	= html_page.forms[2];

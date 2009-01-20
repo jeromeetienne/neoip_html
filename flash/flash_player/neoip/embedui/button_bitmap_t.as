@@ -271,7 +271,7 @@ private function redraw_vector()	:void
 		textfield.autoSize	= TextFieldAutoSize.LEFT;
 		textfield.width		= 350;
 		textfield.wordWrap	= true;
-		textfield.text		= "install\nWebPack";
+		textfield.text		= m_element_opt['text'];
 		textfield.y		= 50;
 		textfield.x		= 30;
 	

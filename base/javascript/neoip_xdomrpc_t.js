@@ -42,7 +42,7 @@ neoip.xdomrpc_t = function(p_rpc_url, p_callback, method_name, arg0, arg1, arg2,
 	this.m_obj_id		= neoip_xdomrpc_cb_new_obj_id();
 	this.m_callback		= p_callback;
 	this.m_rpc_url		= p_rpc_url;
-	this.m_expire_delay	= 10.0*1000;		// TODO make this tunable
+	this.m_expire_delay	= 3.0*1000;		// TODO make this tunable
 	this.m_expire_timeout	= setTimeout(neoip.basic_cb_t(this._expire_timeout_cb, this)
 							, this.m_expire_delay);
 	// register this xdomrpc to the neoip_xdomrpc_cb_arr

@@ -12,6 +12,7 @@
 <script src="../../base/javascript/neoip_xdomrpc_t.js"></script>
 <script src="../../base/javascript/neoip_apps_detect_t.js"></script> 
 <script src="../../base/javascript/neoip_apps_detect_wikidbg_t.js"></script> 
+<script src="../../base/javascript/neoip_webpack_detect_t.js"></script> 
 <script src="../../base/javascript/neoip_wikidbg_t.js"></script>
 <script src="../../player/jsplayer/neoip_playlist_t.js"></script>
 <script src="../../player/jsplayer/neoip_playlist_track_t.js"></script>
@@ -60,12 +61,24 @@
 <script>
 //	var cast_name		= "superstream.flv"
 //	var cast_privhash	= "1f71e0f4";
-	var cast_name		= ""
+	var cast_name		= "";
 	var cast_privhash	= "";
 
+	// extract all configuration options from the document URI
+	// - this is ok as it is suppposed to be used as iframe
+	var urivar_arr	= neoip.core.doc_urivar_arr();
+	var cfgvar_arr	= {}
+	for(var key in urivar_arr){
+		// goto the next if not prefixed by "neoip_var_"
+		if( /^neoip_var_/.test(key) == false )	continue;
+		// remove the prefix from the key
+		stripped_key	= /^neoip_var_(.*)/.exec(key)[1]
+		// copy the value in cfgvar_arr
+		cfgvar_arr[stripped_key]	= urivar_arr[key];
+	}
 
 	// build the neoip.ezplayer_t
-	var ezplayer	= new neoip.ezplayer_t();
+	var ezplayer	= new neoip.ezplayer_t(cfgvar_arr);
 	// set the server_date in ezplayer
 	ezplayer.set_server_date( parseFloat(neoip.core.download_file_insync("../../cgi-bin/server_date.php", true))*1000 );
 
@@ -76,7 +89,9 @@
 		var	playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";
 		ezplayer.change_playlist(playlist_url);
 	}else{
-		ezplayer.load_plistarr("../mdata_echo_server/data/ezplayer_playlist_arr.json");
+		var plistarr_url	= "../mdata_echo_server/data/ezplayer_playlist_arr.json";
+		//var plistarr_url	= "testrpc.php/castiRecordWebSrv/GetPlistArr";
+		ezplayer.load_plistarr(plistarr_url);
 	}
 	// start the ezplayer_t
 	ezplayer.start();

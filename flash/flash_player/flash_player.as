@@ -93,6 +93,8 @@ public function flash_player()
 	var cmdline_var	:Object;
 	cmdline_var	= this.root.loaderInfo.parameters;
 
+	console.info('blabal');
+
 	// get the parameter from the webpage to pass them to player_t
 	m_jscallback_str	= cmdline_var['jscallback_str'];
 	m_jscallback_key	= cmdline_var['jscallback_key'];
