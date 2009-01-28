@@ -4,6 +4,10 @@
     "stream_uri": "http:\/\/flash.live.tv-radio.com\/lcp\/all\/lcp-350k.flv"
   },
   {
+    "cast_name": "Public Senat",
+    "stream_uri": "http:\/\/flash.live.tv-radio.com\/ps\/all\/ps_350k.flv"
+  },
+  {
     "cast_name": "france24 (en)",
     "stream_uri": "mms:\/\/stream1.france24.yacast.net\/f24_liveen"
   },
