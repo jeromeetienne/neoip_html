@@ -89,8 +89,8 @@
 		var	playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";
 		ezplayer.change_playlist(playlist_url);
 	}else{
-		var plistarr_url	= "../mdata_echo_server/data/ezplayer_playlist_arr.json";
-		//var plistarr_url	= "testrpc.php/castiRecordWebSrv/GetPlistArr";
+		//var plistarr_url	= "../mdata_echo_server/data/ezplayer_playlist_arr.json";
+		var plistarr_url	= "testrpc.php/castiRecordWebSrv/GetPlistArr";
 		ezplayer.load_plistarr(plistarr_url);
 	}
 	// start the ezplayer_t
