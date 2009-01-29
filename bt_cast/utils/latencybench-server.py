@@ -23,7 +23,8 @@ import SocketServer, optparse
 import SimpleHTTPServer
 import time
 
-class Proxy(SimpleHTTPServer.SimpleHTTPRequestHandler):
+# function to handle the GET on the http server
+class MyHttpServer(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def do_GET(self):
         # return a 200 http code
         self.send_response(200)
@@ -39,7 +40,7 @@ class Proxy(SimpleHTTPServer.SimpleHTTPRequestHandler):
             # sleep for one second
             time.sleep(0.2)
 
-
+# parse the cmdline option
 optparser    = optparse.OptionParser()
 optparser.add_option('-r', '--rate', dest='send_rate', default=64, type='int',
                     help='set output rate in kbyte', metavar='kbyte')
@@ -47,11 +48,14 @@ optparser.add_option('-p', '--port', dest='listen_port', default=1234, type='int
                     help='set the listening port of http server', metavar='PORT')
 (options, args) = optparser.parse_args()
 
+# copy cmdline option to local variable
 listen_port = options.listen_port
 rate_kbyte  = options.send_rate
 
-
-SocketServer.ForkingTCPServer.allow_reuse_address   = 1;
-httpd = SocketServer.ForkingTCPServer(('', listen_port), Proxy)
+# log to debug
 print "server listenint at port %s at %skbyte" % (listen_port, rate_kbyte)
+
+# start the http server
+SocketServer.ForkingTCPServer.allow_reuse_address   = 1;
+httpd = SocketServer.ForkingTCPServer(('', listen_port), MyHttpServer)
 httpd.serve_forever()

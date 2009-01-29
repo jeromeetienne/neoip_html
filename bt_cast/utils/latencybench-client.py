@@ -5,6 +5,7 @@
 import asyncore, socket, urlparse, optparse
 import string
 import time
+from pprint import pprint
 
 class http_client(asyncore.dispatcher):
     def __init__(self, url_str):
@@ -54,7 +55,21 @@ class http_client(asyncore.dispatcher):
         sent = self.send(self.buffer)
         self.buffer = self.buffer[sent:]
 
+# parse the cmdline option
+optparser    = optparse.OptionParser()
+(options, args) = optparser.parse_args()
+
+# set default values
 url_str = "http://127.0.0.1:4560/aaf4c61d/latencybench?mdata_srv_uri=http%3A//localhost/%7Ejerome/neoip_html/bt_cast/casto/testrpc.php/castiRecordWebSrv/RPC2"
 #url_str = "http://localhost:1234"
+
+# overwrite default args if available
+if len(args) > 0:
+    url_str = args[0]
+
+# log to debug
+print "Start a latency bench toward : %s" % url_str
+
+# launch the http client
 myclient    = http_client(url_str)
 asyncore.loop()
