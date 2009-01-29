@@ -1,40 +1,45 @@
 #! /usr/bin/env python
 # This script is the client part of the lantency bench
 # - see latencybench-server.py for details on this test
-# - TODO issue the whole file is fully in ram
-#   - possible solution: have stringio to be rewinded once it is parsed
-#   - high cpu but nice memory
 
-import asyncore, socket
-import StringIO
+import asyncore, socket, urlparse, optparse
+import string
+import time
 
 class http_client(asyncore.dispatcher):
-    def __init__(self):
+    def __init__(self, url_str):
         asyncore.dispatcher.__init__(self)
+        url = urlparse.urlparse(url_str);
         self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.connect( ('localhost', 1234) )
-        self.buffer = 'GET / HTTP/1.0\r\n\r\n'
-        self.recv_buf       = StringIO.StringIO();
-        self.nread_bytes    = 0
+        self.connect( (url.hostname, url.port) )
+        self.buffer = 'GET %s HTTP/1.0\r\n\r\n' % (url.path + '?' + url.query)
+        self.recv_buf       = '';
         self.header_read   = False
 
     def handle_read(self):
-        self.recv_buf.seek(0, 2);
-        self.recv_buf.write( self.recv(8192) )
-        self.recv_buf.seek(self.nread_bytes, 0);
-        for line in self.recv_buf.readlines():
-            self.nread_bytes    += len(line)
+        self.recv_buf   +=  self.recv(8192)
+        lines           = self.recv_buf.split('\r\n')
+        self.recv_buf   = lines.pop()
+        for line in lines:
+            #print 'line len=%d' % len(line)
+            #print 'line=%s' % line
             # if the header is not yet read, mark it as read now
-            if line == "\r\n" and self.header_read == False:
+            if line == '' and self.header_read == False:
                 self.header_read    = True
                 continue;
             # if http header is not read, goto next line
             if self.header_read == False:
                 continue;
+            # if this line is not a timestamp, remove it
+            if line.startswith('TIMESTAMP ') == False :
+                continue;
             # remove the endline character from the string
-            line = line.replace("\r\n", "")
-            # this string is 
-            print line
+            line = line.split(' ')[1].replace("\r\n", "").strip()
+            
+            # this string is
+            #print line
+            lantency_sec    = time.time() - float(line)
+            print "latency is %f" % (lantency_sec)
 
     def handle_connect(self):
         pass
@@ -49,5 +54,7 @@ class http_client(asyncore.dispatcher):
         sent = self.send(self.buffer)
         self.buffer = self.buffer[sent:]
 
-myclient    = http_client()
+url_str = "http://127.0.0.1:4560/aaf4c61d/latencybench?mdata_srv_uri=http%3A//localhost/%7Ejerome/neoip_html/bt_cast/casto/testrpc.php/castiRecordWebSrv/RPC2"
+#url_str = "http://localhost:1234"
+myclient    = http_client(url_str)
 asyncore.loop()
