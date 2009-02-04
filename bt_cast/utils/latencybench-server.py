@@ -32,7 +32,7 @@ class MyHttpServer(SimpleHTTPServer.SimpleHTTPRequestHandler):
         # infinit loop with a timestamp every second
         while(True):
             # write the timestamp
-            str = 'TIMESTAMP %s\r\n' % time.time()
+            str = 'TIMESTAMP %f\r\n' % time.time()
             self.wfile.write(str)
             # write a padding string to ensure a high byterate
             pad_len = rate_kbyte*1024 - len(str) - len('\r\n')

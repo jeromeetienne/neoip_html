@@ -29,7 +29,7 @@
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
 <style type="text/css">	
 	/* body style for the video fullpage mode - hardcoded for now */
-	body_not_now {	height	: 100%;
+	body {	height	: 100%;
 		width	: 100%;
 		margin	: 0px;
 		overflow: hidden;
@@ -39,23 +39,23 @@
 
 <body>
 
-<!-- <div id="neoip_player_container_id">Place to put player container</div> -->
+<div id="neoip_player_container_id">Place to put player container</div>
 
 
-<!-- <center><h3>NeoIP web player demo</h3></center> -->
-
-<table>
-<tr><td><!-- PLAYER CONTAINER	-->
+<!-- <center><h3>NeoIP web player demo</h3></center>
+<table cellpadding="0px" cellspacing="0px">
+<tr><td>
 	<div id="neoip_player_container_id">Place to put player container</div>
-</td><td><table><tr><td ><!-- ADMIN INFO	-->
+</td><td><table><tr><td >
 	<div id="player_info_container_id"></div>
-</td></tr><tr><td><!-- APPS DETECT	-->
+</td></tr><tr><td>
 	<div id="apps_detect_container_id"></div>
 </td></tr></table>
 </table>
-
-
 <div id="debug_info_container_id"></div>
+-->
+
+
 
 </script>
 <script>
@@ -79,6 +79,8 @@
 
 	// build the neoip.ezplayer_t
 	var ezplayer	= new neoip.ezplayer_t(cfgvar_arr);
+	ezplayer.play_post_playlist(true);
+	ezplayer.fullpage_state("maximized");	
 	// set the server_date in ezplayer
 	ezplayer.set_server_date( parseFloat(neoip.core.download_file_insync("../../cgi-bin/server_date.php", true))*1000 );
 

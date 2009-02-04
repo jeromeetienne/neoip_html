@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+</head>
+<body>
+
+<div style="position: absolute; bottom: 0px; right: 0px;">
+	<iframe src="neoip_casto_dev.html" style="display: block; width=320px; height: 240px; overflow: hidden;"></iframe>
+	Latency timer: <span id='container_timer'>not started</span>
+</div>
+
+<!-- ************************************************************ -->
+<!-- *    Timer as part of the video latencybench		* -->
+<!-- ************************************************************ -->
+<script>
+var timer_id	= null;
+function timer_print()
+{
+	// build the string to display
+	var pad_digit	= function(d, ndigit){
+				var str	= d.toString();
+				while( str.length < ndigit ) str = "0" + str;
+				return str;
+	};
+	var pad2digit	= function(d){ return pad_digit(d, 2); }
+	var pad3digit	= function(d){ return pad_digit(d, 3); }
+	var now		= new Date();
+	var str_hour	= pad2digit(now.getHours());
+	var str_min	= pad2digit(now.getMinutes());
+	var str_sec	= pad2digit(now.getSeconds());
+	var str_msec	= pad3digit(now.getMilliseconds());
+	var str_total	= str_hour + ":" + str_min + ":" + str_sec + ":" + str_msec;
+	// set the timer
+	var htmlid	= "container_timer";
+	var elem	= document.getElementById(htmlid);
+	elem.innerHTML	= str_total;
+}
+function timer_start()
+{
+	var frequency	= 0.1 * 1000;
+	timer_id	= setInterval("timer_print()", frequency );
+}
+function timer_stop()
+{
+	if(timer_id)	clearInterval(timer_id);
+	timer_id	= null;
+}
+timer_start();
+</script>
+
+</body>
+</html>
