@@ -1,4 +1,4 @@
-<application xmlns="http://ns.adobe.com/air/application/1.0">
+<application xmlns="http://ns.adobe.com/air/application/1.1">
 	<!-- The application identifier string, unique to this application. Required. --> 
 	<id>com.urfastr.player</id>
 
@@ -38,6 +38,8 @@
 -->
 	</initialWindow>
 
+	<!-- The icon the system uses for the application. For at least one resolution,
+		 specify the path to a PNG file included in the AIR package. Optional. -->
 	<icon>
 		<image16x16>images/thumbnail-16.png</image16x16>
 		<image32x32>images/thumbnail-32.png</image32x32>
