@@ -282,11 +282,14 @@ var systray_t = function(){
 	
 		if( evt.target.label == "Open" ){
 			winPlayerClose();
+if(false){
 			winPlayerOpen({	'chrome': 	true,
 					'position':	'center',
 					'size':		'medium',
 					'stayInFront':	false
-					})
+					});
+}
+			winPlayerOpen();
 		}else if( evt.target.label == "About" ){
 			var url	= 'http://urfastr.net';
 			air.navigateToURL(new air.URLRequest(url));
@@ -334,6 +337,7 @@ var systray_t = function(){
 		// The system will size and convert to the appropriate format
 		var imgDock	= event.target.content.bitmapData;
 		myapp.icon.bitmaps = [imgDock];
+
 		
 		if( air.NativeApplication.supportsSystemTrayIcon ){
 			// Setup Windows specific system tray functionality
