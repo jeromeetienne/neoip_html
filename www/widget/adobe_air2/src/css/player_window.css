@@ -1,0 +1,11 @@
+/* CSS for window chrome */
+
+.gripper {
+	/*position:fixed; right:0; bottom:0; width:62; height:62;*/
+	width: 		16px;
+	height: 	16px;
+	background-image: url(app:/images/thumbnail-16.png);
+}
+a#iconMoveWin {
+	cursor: move;
+}

@@ -1,41 +1,3 @@
-
-
-/********************************************************************************/
-/********************************************************************************/
-/*		appUpdater Stuff	- based on flash version		*/
-/********************************************************************************/
-/********************************************************************************/
-
-function appUpdaterCheckUpdate() {
-	air.trace("air updater checkupdate");	
-	var updater	= new runtime.air.update.ApplicationUpdaterUI();
-	// we set the URL for the update.xml file
-	updater.updateURL = "http://urfastr.net/static/player/widget/adobe_air2/update.xml";
-	// we set the event handlers for INITIALIZED nad ERROR
-	updater.addEventListener(runtime.air.update.events.UpdateEvent.INITIALIZED	, appUpdaterOnUpdate);
-	updater.addEventListener(runtime.flash.events.ErrorEvent.ERROR			, appUpdaterOnError);
-	// we can hide the dialog asking for permission for checking for a new update;
-	// if you want to see it just leave the default value (or set true).
-	updater.isCheckForUpdateVisible	= false;
-	// if isFileUpdateVisible is set to true, File Update, File No Update, 
-	// and File Error dialog boxes will be displayed
-	updater.isFileUpdateVisible	= false;
-	// if isInstallUpdateVisible is set to true, the dialog box for installing the update is visible
-	updater.isInstallUpdateVisible	= false;
-	// we initialize the updater
-	updater.initialize();
-}
-			
-function appUpdaterOnUpdate(event) {
-	var updater	= new runtime.air.update.ApplicationUpdaterUI();
-	//starts the update process
-	updater.checkNow();
-}
-
-function appUpdaterOnError(event) {
-	alert(event);
-}
-
 /********************************************************************************/
 /********************************************************************************/
 /*		winPlayer Stuff							*/
@@ -75,21 +37,23 @@ function winPlayerOpen(options)
 		var win_h	= 240*2;
 	}
 	
+	var screenCap	= getScreenCap();
+	
 	if(options.position == "center"){
-		var win_x	= (air.Capabilities.screenResolutionX - win_w)/2;
-		var win_y	= (air.Capabilities.screenResolutionY - win_h)/2;
+		var win_x	= screenCap.min_x + (screenCap.w - win_w)/2;
+		var win_y	= screenCap.min_y + (screenCap.h - win_h)/2;
 	}else if(options.position == "topleft"){
 		var win_x	= 0;
 		var win_y	= 0;
 	}else if(options.position == "topright"){
-		var win_x	= air.Capabilities.screenResolutionX - win_w;
+		var win_x	= screenCap.min_x + (screenCap.w - win_w);
 		var win_y	= 0;		
 	}else if(options.position == "bottomleft"){
 		var win_x	= 0;
-		var win_y	= air.Capabilities.screenResolutionY - win_h;		
+		var win_y	= screenCap.min_y + (screenCap.h - win_h);
 	}else if(options.position == "bottomright"){
-		var win_x	= air.Capabilities.screenResolutionX - win_w;
-		var win_y	= air.Capabilities.screenResolutionY - win_h;		
+		var win_x	= screenCap.min_x + (screenCap.w - win_w);
+		var win_y	= screenCap.min_y + (screenCap.h - win_h);		
 	}
 
 	// create a new window
@@ -155,22 +119,24 @@ function winPlayerCoordFromPosition(position)
 	var win		= winPlayerLoader.stage.nativeWindow;
 	var win_w	= win.width;
 	var win_h	= win.height;
+
+	var screenCap	= getScreenCap();
 	
 	if(position == "center"){
-		var win_x	= (air.Capabilities.screenResolutionX - win_w)/2;
-		var win_y	= (air.Capabilities.screenResolutionY - win_h)/2;
+		var win_x	= screenCap.min_x + (screenCap.w - win_w)/2;
+		var win_y	= screenCap.min_y + (screenCap.h - win_h)/2;
 	}else if(position == "topleft"){
-		var win_x	= 0;
-		var win_y	= 0;
+		var win_x	= screenCap.min_x;
+		var win_y	= screenCap.min_y;
 	}else if(position == "topright"){
-		var win_x	= air.Capabilities.screenResolutionX - win_w;
-		var win_y	= 0;		
+		var win_x	= screenCap.min_x + (screenCap.w - win_w);
+		var win_y	= screenCap.min_y;		
 	}else if(position == "bottomleft"){
-		var win_x	= 0;
-		var win_y	= air.Capabilities.screenResolutionY - win_h;		
+		var win_x	= screenCap.min_x;
+		var win_y	= screenCap.min_y + (screenCap.h - win_h);
 	}else if(position == "bottomright"){
-		var win_x	= air.Capabilities.screenResolutionX - win_w;
-		var win_y	= air.Capabilities.screenResolutionY - win_h;		
+		var win_x	= screenCap.min_x + (screenCap.w - win_w);
+		var win_y	= screenCap.min_y + (screenCap.h - win_h);		
 	}
 	return {x: win_x, y: win_y};
 }
@@ -234,7 +200,10 @@ function winPlayerOnResized(event)
 
 function winPlayerOnClose(event)
 {
-	winPlayerClose();
+	// close this window - after a tiny delay of 1-ms
+	// - NOTE: calling winPlayerClose() directly cause an exception to be thrown
+	// - the reason is unknown. my opinion is a bug in air js/flash gateway
+	setTimeout(winPlayerClose, 1);
 }
 
 
@@ -261,119 +230,59 @@ function myOnLoadCallback()
 		air.NativeApplication.nativeApplication.startAtLogin = true;
 	}catch(e){ /*air.trace(e); */	}
 
-	
+	// experimentation on the systray notification
+	setTimeout(systray.notifyUser, 3*1000);
+
+	// launch the app_updater_t
+	// - works only when installed (aka not in adl)
+	// - TODO find a way to determine if you run in ADL or not
+	//   - same thing happen when you do startAtLogin
+	//var app_updater	= new app_updater_t();
+	//app_updater.checkUpdate("http://192.168.0.10/~jerome/adobe_air2/bin/update.xml");
+
+	// try to display random capability from the air plateform
+	// - i failed check the API again
+	air.trace('supportNotification '+(air.NativeWindow.supportsNotification ? 'is': 'is NOT')+' supported.');
+	air.trace('supportsTransparency '+(air.NativeWindow.supportsTransparency ? 'is': 'is NOT')+' supported.');
+	air.trace('supportsMenu '+(air.NativeWindow.supportsMenu ? 'is': 'is NOT')+' supported.');
+	air.trace('supportsSystemTrayIcon='+air.NativeApplication.supportsSystemTrayIcon);
+	air.trace('supportsDockIcon='+air.NativeApplication.supportsDockIcon);
 	//setTimeout(appUpdaterCheckUpdate, 1000);
 	
-	//air.navigateToURL(new air.URLRequest('http://google.com'));
+	$(document).ready(function(){
+		$("body").append("blbl");
+	});
+	
+if(false){
+	var myfile	= air.File.userDirectory.resolvePath('/tmp/filecookie.store.json');
+	var content	= {'mykey' : 'myvalue'};
+	var json_str	= $.toJSON(content);
+	air.trace('json_str='+json_str);
+	air.trace('exists=' + myfile.exists);
+	var fs	= new air.FileStream();
+	fs.open(myfile, air.FileMode.WRITE);
+	fs.writeUTFBytes(json_str);
+	fs.close();
+}
+	var filecookie	= new filecookie_t();
+	air.trace('mykey='+filecookie.has('mykey'));
+	air.trace('firstrun='+filecookie.has('firstrun'));
+	filecookie.set('firstrun', true);
+	air.trace('firstrun='+filecookie.has('firstrun'));
+	filecookie.del('firstrun');
+	air.trace('firstrun='+filecookie.has('firstrun'));
+	
+	
+	// TODO how to determine the OS on which you are running
+	
+	// experiementation to determine what is the border of the screen (tacking taskbar into account)
+	// - note: it display x=2880/y=2880 on linux... no clue where those numbers come from
+	// - test on other plateforms
+//	var maxsize	= nativeWindow.systemMaxSize;
+//	air.trace(maxsize.x);
+//	air.trace(maxsize.y);
 }
 window.onload	= myOnLoadCallback;
 
 
 
-var systray_t = function(){
-	// Called with the dock item to open the window is selected
-	// Calls a shared function to open (restore) the window
-	function NativeMenuOnSelect( evt )
-	{
-		// log to debug
-		air.trace("Selected command: PRE"); 
-		air.trace("Selected command: " + evt.target.label); 
-		air.trace("Selected command: POST"); 
-	
-		if( evt.target.label == "Open" ){
-			winPlayerClose();
-if(false){
-			winPlayerOpen({	'chrome': 	true,
-					'position':	'center',
-					'size':		'medium',
-					'stayInFront':	false
-					});
-}
-			winPlayerOpen();
-		}else if( evt.target.label == "About" ){
-			var url	= 'http://urfastr.net';
-			air.navigateToURL(new air.URLRequest(url));
-		}else if( evt.target.label == "Quit" ){
-			winPlayerClose();
-			nativeWindow.close();	
-		}
-	}
-	
-	// Called to create a menu on the systray/dock icon
-	// Takes operating system into consideration
-	function menuBuild( isMac )
-	{
-		var menu	= new air.NativeMenu();
-		var menuItem	= null;
-	
-		// install the menuitem 'open'
-		menuItem	= new air.NativeMenuItem("Open" );
-		menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
-		menu.addItem( menuItem );
-		// install the menuitem 'about'
-		menuItem	= new air.NativeMenuItem("About" );
-		menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
-		menu.addItem( menuItem );
-		
-		if( !isMac ){
-			// Mac provides built-in "Quit" item
-			// Create an "Exit" item for Windows
-			// install the menuitem 'quit'
-			menuItem	= new air.NativeMenuItem("Quit");
-			menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
-			menu.addItem( menuItem );
-		}
-		// return the menu itself
-		return menu;	
-	}
-
-	// Called when the icon image is loaded
-	// Setup systray/dock actions depending on operating system
-	var loaderOnComplete	= function(event){
-		var myapp	= air.NativeApplication.nativeApplication;
-		var isMac	= null;
-		
-		// Get the bitmap data (pixels) of the icon for the system
-		// The system will size and convert to the appropriate format
-		var imgDock	= event.target.content.bitmapData;
-		myapp.icon.bitmaps = [imgDock];
-
-		
-		if( air.NativeApplication.supportsSystemTrayIcon ){
-			// Setup Windows specific system tray functionality
-			myapp.icon.tooltip	= "UrFastR Player, your TV just a click away!";
-			myapp.icon.addEventListener(air.MouseEvent.CLICK, systrayOnClick );		
-			
-			isMac	= false;
-		}else{
-			isMac	= true;
-		}
-
-		// Setup a menu on the docked icon to restore or close
-		var myMenu	= menuBuild( isMac );
-		myapp.icon.menu	= myMenu;
-	}
-
-	// Called when the docked icon is clicked (Windows only)
-	// Calls a shared function to restore the window
-	var systrayOnClick	= function(event){
-		if( winPlayerIsOpened() )	winPlayerClose();
-		else				winPlayerOpen();
-	}
-
-	var start	= function(){
-		air.trace('systay loaded');
-		// Loader to load the icon image
-		// - Use Loader not HTML image to get at bitmap data (pixels)
-		var loader = new air.Loader();
-		// Handle when the icon image is loaded
-		// Load the icon image (in this case local)
-		loader.contentLoaderInfo.addEventListener(air.Event.COMPLETE, loaderOnComplete );
-		loader.load( new air.URLRequest("app:/images/thumbnail-48.png") );
-	};
-	
-	// return public functions and variables
-	return {
-		start: start
-	};
-}
