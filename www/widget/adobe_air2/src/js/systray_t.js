@@ -11,7 +11,7 @@ var systray_t = function(){
 		if( evt.target.label == "Open" ){
 			winPlayerClose();
 			winPlayerOpen({	'chrome': 	true,
-					'position':	'center',
+					'position':	'cc',
 					'size':		'medium',
 					'stayInFront':	false
 					});

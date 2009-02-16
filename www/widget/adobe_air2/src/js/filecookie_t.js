@@ -2,14 +2,14 @@
  * - TODO find a better name for this class
  * - this class is mainly used for working around the lack of
  *   cookie for app:/ document
- * - NOTE: you MUST not instantiate multiple object on the same files
+ * - NOTE: you MUST not instantiate multiple objects on the same files
  *   - this object contains a local copy of the store.
  *   - several objects would desync/duplicate copies
 */
 var filecookie_t = function(filename){
 	// define the filename if needed
-	filename	= filename || "/tmp/filecookie.store.json";
-	var myfile	= air.File.userDirectory.resolvePath(filename);
+	filename	= filename || "filecookie.store.json";
+	var myfile	= air.File.applicationStorageDirectory.resolvePath(filename);
 	var store	= {}
 	// TODO read the file from the disk
 	

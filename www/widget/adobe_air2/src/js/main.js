@@ -17,7 +17,7 @@ function winPlayerOpen(options)
 	if( winPlayerLoader )	return;
 	// handle the default options
 	options		= options || {	'chrome': 	false,
-					'position':	'bottomright',
+					'position':	'se',
 					'size':		'small',
 					'stayInFront':	true
 					};
@@ -37,24 +37,9 @@ function winPlayerOpen(options)
 		var win_h	= 240*2;
 	}
 	
-	var screenCap	= getScreenCap();
-	
-	if(options.position == "center"){
-		var win_x	= screenCap.min_x + (screenCap.w - win_w)/2;
-		var win_y	= screenCap.min_y + (screenCap.h - win_h)/2;
-	}else if(options.position == "topleft"){
-		var win_x	= 0;
-		var win_y	= 0;
-	}else if(options.position == "topright"){
-		var win_x	= screenCap.min_x + (screenCap.w - win_w);
-		var win_y	= 0;		
-	}else if(options.position == "bottomleft"){
-		var win_x	= 0;
-		var win_y	= screenCap.min_y + (screenCap.h - win_h);
-	}else if(options.position == "bottomright"){
-		var win_x	= screenCap.min_x + (screenCap.w - win_w);
-		var win_y	= screenCap.min_y + (screenCap.h - win_h);		
-	}
+	var coord	= winPlayerCoordFromPosition(options.position, {w: win_w, h: win_h});
+	var win_x	= coord.x;
+	var win_y	= coord.y;
 
 	// create a new window
 	var bounds	= new air.Rectangle(win_x, win_y,win_w, win_h);	
@@ -80,11 +65,12 @@ function winPlayerClose()
 	var iconMove	= myDoc.getElementById("iconMoveWin");
 	iconMove.removeEventListener("mousedown"	, winPlayerOnMove);
 	iconMove.removeEventListener("mouseup"		, winPlayerOnMoved);
-	var iconResize	= myDoc.getElementById("iconResizeWin");
+	var iconResize	= myDoc.getElementById("iconResizeWinE");
 	iconResize.removeEventListener("mousedown"	, winPlayerOnResize);
 	iconResize.removeEventListener("mouseup"	, winPlayerOnResized);
-	var iconClose	= myDoc.getElementById("iconCloseWin");
-	iconClose.removeEventListener("mousedown"	, winPlayerOnClose);
+	var iconResize	= myDoc.getElementById("iconResizeWinW");
+	iconResize.removeEventListener("mousedown"	, winPlayerOnResize);
+	iconResize.removeEventListener("mouseup"	, winPlayerOnResized);
 
 	// close the window
 	winPlayerLoader.stage.nativeWindow.close();
@@ -102,11 +88,12 @@ function winPlayerOnComplete()
 	var iconMove	= myDoc.getElementById("iconMoveWin");
 	iconMove.addEventListener("mousedown"	, winPlayerOnMove	, true);
 	iconMove.addEventListener("mouseup"	, winPlayerOnMoved	, true);
-	var iconResize	= myDoc.getElementById("iconResizeWin");
+	var iconResize	= myDoc.getElementById("iconResizeWinE");
 	iconResize.addEventListener("mousedown"	, winPlayerOnResize	, true);	
 	iconResize.addEventListener("mouseup"	, winPlayerOnResized	, true);	
-	var iconClose	= myDoc.getElementById("iconCloseWin");
-	iconClose.addEventListener("mousedown"	, winPlayerOnClose	, true);
+	var iconResize	= myDoc.getElementById("iconResizeWinW");
+	iconResize.addEventListener("mousedown"	, winPlayerOnResize	, true);	
+	iconResize.addEventListener("mouseup"	, winPlayerOnResized	, true);	
 }
 
 function winPlayerOnMove(event)
@@ -114,27 +101,32 @@ function winPlayerOnMove(event)
 	var win	= winPlayerLoader.stage.nativeWindow;
 	win.startMove();
 }
-function winPlayerCoordFromPosition(position)
+function winPlayerCoordFromPosition(position, win_size)
 {
-	var win		= winPlayerLoader.stage.nativeWindow;
-	var win_w	= win.width;
-	var win_h	= win.height;
-
+	if(!win_size){
+		var win		= winPlayerLoader.stage.nativeWindow;
+		win_size	= {w: win.width, h: win.height};
+	}
+	var win_w	= win_size.w;
+	var win_h	= win_size.h;
 	var screenCap	= getScreenCap();
+	air.trace('coordfrom pos for '+position);
+	air.trace('w='+win_w);
+	air.trace('h='+win_h);
 	
-	if(position == "center"){
+	if(position == "cc"){
 		var win_x	= screenCap.min_x + (screenCap.w - win_w)/2;
 		var win_y	= screenCap.min_y + (screenCap.h - win_h)/2;
-	}else if(position == "topleft"){
+	}else if(position == "nw"){
 		var win_x	= screenCap.min_x;
 		var win_y	= screenCap.min_y;
-	}else if(position == "topright"){
+	}else if(position == "ne"){
 		var win_x	= screenCap.min_x + (screenCap.w - win_w);
 		var win_y	= screenCap.min_y;		
-	}else if(position == "bottomleft"){
+	}else if(position == "sw"){
 		var win_x	= screenCap.min_x;
 		var win_y	= screenCap.min_y + (screenCap.h - win_h);
-	}else if(position == "bottomright"){
+	}else if(position == "se"){
 		var win_x	= screenCap.min_x + (screenCap.w - win_w);
 		var win_y	= screenCap.min_y + (screenCap.h - win_h);		
 	}
@@ -174,23 +166,24 @@ function winPlayerOnMoved(event)
 	var cur_x	= (win.x + win.width	/2);
 	var cur_y	= (win.y + win.height	/2);
 	var position	= "";
-	if( cur_y >= air.Capabilities.screenResolutionY/2 )	position += "bottom";
-	else							position += "top";
-	if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "right";
-	else							position += "left";
+	if( cur_y >= air.Capabilities.screenResolutionY/2 )	position += "s";
+	else							position += "n";
+	if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "e";
+	else							position += "w";
 
 	coord	= winPlayerCoordFromPosition(position);
-	
-//	win.x	= coord.x;
-//	win.y	= coord.y;
 	winPlayerGotoXY(coord.x, coord.y);
-//	winPlayerGotoXY(500, 500);
 }
 
 function winPlayerOnResize(event)
 {
+	air.trace('win on resize');
+	air.trace('id='+event.target.id);
 	var win	= winPlayerLoader.stage.nativeWindow;
-	win.startResize(air.NativeWindowResize.TOP_LEFT);
+	if( event.target.id == "iconResizeWinE" )
+		win.startResize(air.NativeWindowResize.TOP_LEFT);
+	else
+		win.startResize(air.NativeWindowResize.TOP_RIGHT);
 }
 function winPlayerOnResized(event)
 {
@@ -252,27 +245,7 @@ function myOnLoadCallback()
 	$(document).ready(function(){
 		$("body").append("blbl");
 	});
-	
-if(false){
-	var myfile	= air.File.userDirectory.resolvePath('/tmp/filecookie.store.json');
-	var content	= {'mykey' : 'myvalue'};
-	var json_str	= $.toJSON(content);
-	air.trace('json_str='+json_str);
-	air.trace('exists=' + myfile.exists);
-	var fs	= new air.FileStream();
-	fs.open(myfile, air.FileMode.WRITE);
-	fs.writeUTFBytes(json_str);
-	fs.close();
-}
-	var filecookie	= new filecookie_t();
-	air.trace('mykey='+filecookie.has('mykey'));
-	air.trace('firstrun='+filecookie.has('firstrun'));
-	filecookie.set('firstrun', true);
-	air.trace('firstrun='+filecookie.has('firstrun'));
-	filecookie.del('firstrun');
-	air.trace('firstrun='+filecookie.has('firstrun'));
-	
-	
+
 	// TODO how to determine the OS on which you are running
 	
 	// experiementation to determine what is the border of the screen (tacking taskbar into account)
