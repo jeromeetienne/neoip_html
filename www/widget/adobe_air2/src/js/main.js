@@ -9,8 +9,23 @@
 //   - need to get the pos/size memorized from one spawn to another
 //   - split the chromedPlayer to the nochrome one
 //     - find good names
+// - issue with detecting move and resize event
+//   - there is a event MOVE for native window which is trigger while moving
+//   - so the issue is detecting the mouse up on the resize gripper is not reliable
+//     - if the mouse is too fast then the mouse up will happen outsite the gripper
+//     - and so the gripper will never receive a mouse up
+//   - possible workaround:
+//     - onMouseMove event, start a timer
+//       - if it expire, considere the window as Moved
+//     - onMouseUp: considere the window as Moved
+//     - onMouseMoved: stop the timer
+//   - the good part is that fast moving mouse are moving fast :)
+//     - so the timer's delay may be short and so the workaround less noticable
 
 var winPlayerLoader	= null;
+/**
+ * Open a win player
+*/
 function winPlayerOpen(options)
 {
 	// if it is already open, return now
@@ -30,19 +45,25 @@ function winPlayerOpen(options)
 		winopts.transparent	= true;
 	}
 	if(options.size	== "small"){
-		var win_w	= 320*2/3;
-		var win_h	= 240*2/3;
+		var win_size	= {	w:	320*2/3,
+					h:	240*2/3
+		};
 	}else if(options.size	== "medium"){
-		var win_w	= 320*2;
-		var win_h	= 240*2;
+		var win_size	= {	w:	320*2,
+					h:	240*2
+		};
 	}
-	
-	var coord	= winPlayerCoordFromPosition(options.position, {w: win_w, h: win_h});
+	if( filecookie.has('nochromewin_size') )
+		var win_size	= filecookie.get('nochromewin_size');
+
+	if( filecookie.has('nochromewin_pos') )
+		options.position	= filecookie.get('nochromewin_pos');
+	var coord	= winPlayerCoordFromPosition(options.position, win_size);
 	var win_x	= coord.x;
 	var win_y	= coord.y;
 
 	// create a new window
-	var bounds	= new air.Rectangle(win_x, win_y,win_w, win_h);	
+	var bounds	= new air.Rectangle(win_x, win_y,win_size.w, win_size.h);	
 	loader		= air.HTMLLoader.createRootWindow( true, winopts, true, bounds );
 	// set it always in front
 	if(options.stayInFront)	loader.stage.nativeWindow.alwaysInFront	= true;	
@@ -139,7 +160,6 @@ function winPlayerGotoXY(dst_x, dst_y, old_x, old_y)
 	var delta_x	= dst_x - win.x;
 	var delta_y	= dst_y - win.y;
 	
-
 	var old2_x	= win.x;
 	var old2_y	= win.y;
 
@@ -170,7 +190,10 @@ function winPlayerOnMoved(event)
 	else							position += "n";
 	if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "e";
 	else							position += "w";
-
+	
+	// save the position for next time
+	filecookie.set('nochromewin_pos', position);
+	
 	coord	= winPlayerCoordFromPosition(position);
 	winPlayerGotoXY(coord.x, coord.y);
 }
@@ -181,13 +204,19 @@ function winPlayerOnResize(event)
 	air.trace('id='+event.target.id);
 	var win	= winPlayerLoader.stage.nativeWindow;
 	if( event.target.id == "iconResizeWinE" )
-		win.startResize(air.NativeWindowResize.TOP_LEFT);
-	else
 		win.startResize(air.NativeWindowResize.TOP_RIGHT);
+	else
+		win.startResize(air.NativeWindowResize.TOP_LEFT);
 }
 function winPlayerOnResized(event)
 {
+	// save the win_size for next time
+	var win		= winPlayerLoader.stage.nativeWindow;
+	win_size	= {w: win.width, h: win.height};
+	filecookie.set('nochromewin_size', win_size);
+	
 	air.trace('win resized!');
+
 	winPlayerOnMoved(event);
 }
 
@@ -256,6 +285,5 @@ function myOnLoadCallback()
 //	air.trace(maxsize.y);
 }
 window.onload	= myOnLoadCallback;
-
-
+filecookie	= new filecookie_t();
 

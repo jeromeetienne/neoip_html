@@ -1,3 +1,7 @@
+/**
+ * Handle systray
+ * @class systray_t
+*/
 var systray_t = function(){
 	// Called with the dock item to open the window is selected
 	// Calls a shared function to open (restore) the window
@@ -85,6 +89,9 @@ var systray_t = function(){
 		else				winPlayerOpen();
 	}
 
+	/**
+	 * Start the systray
+	*/
 	var start	= function(){
 		air.trace('systay loaded');
 		// Loader to load the icon image
@@ -95,7 +102,7 @@ var systray_t = function(){
 		loader.contentLoaderInfo.addEventListener(air.Event.COMPLETE, loaderOnComplete );
 		loader.load( new air.URLRequest("app:/images/thumbnail-48.png") );
 	}
-	
+
 	/**
 	 * notify the user that some activity is happening
 	 * - doesnt seems to work. written to keep those functions 
@@ -113,10 +120,10 @@ var systray_t = function(){
 			myapp.icon.bounce();
 		}
 	}
-	
 	// return public functions and variables
 	return {
 		start:		start,
 		notifyUser:	notifyUser
 	};
 }
+var systray	= new systray_t();

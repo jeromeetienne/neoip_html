@@ -18,13 +18,17 @@
 	<link type="text/css" rel="stylesheet" href="app:/css/player_window.css" />
 	<script type="text/javascript"	src="app:/js/AIRAliases.js"	/>
 	<script type="text/javascript"	src="app:/js/jquery/jquery.js"	/>
+	<script type="text/javascript"	src="app:/js/jquery/plugins/jquery.json-1.3.min.js"	/>
 	</head>
 <body>
 	<div class="header">
 		<div id='toolbar'>
-			<a href="#" class="gripper" id='iconResizeWinE' style='position: absolute; left: 0; cursor: nw-resize;'></a>
-			<a href="#" class="gripper" id='iconMoveWin'	style='position: absolute; left: 16; width: 100%; padding-right: -16px;background-color: red;'></a>
-			<a href="#" class="gripper" id='iconResizeWinW' style='position: absolute; right: 0; cursor: ne-resize;'></a>
+			<img id='iconResizeWinW' src="app:/images/resize-nw.png"
+			     style='position: absolute; left: 0; cursor: nw-resize;'/>
+			<a href="#" class="gripper" id='iconMoveWin'
+				style='position: absolute; left: 16; width: 100%; padding-right: -16px;'></a>
+			<img id='iconResizeWinE' src="app:/images/resize-ne.png"
+				style='position: absolute; right: 0; cursor: ne-resize;'/>
 		</div>
 	</div>
 	<div class="content">
@@ -39,19 +43,6 @@
 	</div>
 	<div class="footer" style="position: relative;">
 	</div>
-<script>
-$(document).ready(function(){
-	$('#toolbasr').hover(function(){
-		//$(this).fadeIn();
-		//alert('blabla');
-	}, function(){
-		$(this).fadeOut();
-	});
-})
-
-</script>
-
-
 </body>
 </html>
 

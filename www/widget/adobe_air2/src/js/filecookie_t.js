@@ -2,7 +2,7 @@
  * - TODO find a better name for this class
  * - this class is mainly used for working around the lack of
  *   cookie for app:/ document
- * - NOTE: you MUST not instantiate multiple objects on the same files
+ * - NOTE: you MUST not instantiate multiple objects on the same file
  *   - this object contains a local copy of the store.
  *   - several objects would desync/duplicate copies
 */

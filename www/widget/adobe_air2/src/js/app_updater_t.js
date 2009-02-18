@@ -1,3 +1,12 @@
+/*
+ * - updater probe: the fact of contacting the release server to determine the
+ *   most uptodate version.
+ * - When to trigger the autoupdate probe ?
+ *   - put some random in it to avoid useless peack
+ *   - handle max/min delay between probes
+ * - handle multiple probes if the application run longer than expected
+ * - find a proper algorithm and code it once and for all
+*/
 var app_updater_t = function(){
 	// instantiate an updater object
 	var appUpdater = new runtime.air.update.ApplicationUpdaterUI();
