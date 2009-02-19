@@ -31,8 +31,13 @@ httpi_uri_port	= 8080 + channel_idx;
 
 
 # Some parameters
-cast_privtext	= "bonjour77";
-httpi_uri_ipaddr= "127.0.0.1";
+cast_privtext		= "bonjour77";
+httpi_uri_ipaddr	= "127.0.0.1";
+if `hostname`.chomp == "jmehost2"
+	cast_mdata_server_host	= "jmehost2";
+else
+	cast_mdata_server_host	= "dedixl.jetienne.com";
+end
 
 ################################################################################
 #		Launch vlc in background
@@ -98,7 +103,7 @@ cmdline	+= "./neoip-casti-recording.rb";
 cmdline += " --cast_name '#{cast_name}'";
 cmdline += " --cast_privtext '#{cast_privtext}'";
 cmdline += " --httpi_mod flv";
-cmdline += " --mdata_srv_uri http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+cmdline += " --mdata_srv_uri http://#{cast_mdata_server_host}/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
 cmdline += " --httpi_uri http://#{httpi_uri_ipaddr}:#{httpi_uri_port}/stream.flv";
 
 # log to debug
