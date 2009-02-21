@@ -1,3 +1,40 @@
+var guessOS	= function(){
+	if(air.NativeApplication.supportsDockIcon)	return "macos";
+	if(air.NativeWindow.supportsTransparency)	return "win32";
+	return "linux";
+}
+
+var getScreenCap	= function()
+{
+	var screenMargin	= {
+		n:	0,
+		e:	0,
+		s:	0,
+		w:	0
+	};
+	// KLUDGE: use hardcoded margin depending on plateform not to be on top on taskbar
+	var curOS	= guessOS();
+	if( curOS == "win32" ){
+		screenMargin.s	= 30;
+	}else if( curOS == "macos" ){
+		screenMargin.n	= 22;
+	}
+	
+	var screenCap	= {
+		min_x:	screenMargin.w,
+		max_x:	air.Capabilities.screenResolutionX - screenMargin.e,
+		min_y:	screenMargin.n,
+		max_y:	air.Capabilities.screenResolutionY - screenMargin.s
+	};
+	// compute the width/height
+	screenCap.w	= screenCap.max_x - screenCap.min_x;
+	screenCap.h	= screenCap.max_y - screenCap.min_y;
+	// return the result
+	return screenCap;
+}
+
+
+
 /********************************************************************************/
 /********************************************************************************/
 /*		winPlayer Stuff							*/
@@ -9,30 +46,15 @@
 //   - need to get the pos/size memorized from one spawn to another
 //   - split the chromedPlayer to the nochrome one
 //     - find good names
-// - issue with detecting move and resize event
-//   - there is a event MOVE for native window which is trigger while moving
-//   - so the issue is detecting the mouse up on the resize gripper is not reliable
-//     - if the mouse is too fast then the mouse up will happen outsite the gripper
-//     - and so the gripper will never receive a mouse up
-//   - possible workaround:
-//     - onMouseMove event, start a timer
-//       - if it expire, considere the window as Moved
-//     - onMouseUp: considere the window as Moved
-//     - onMouseMoved: stop the timer
-//   - the good part is that fast moving mouse are moving fast :)
-//     - so the timer's delay may be short and so the workaround less noticable
 
 var winPlayerLoader	= null;
-/**
- * Open a win player
-*/
 function winPlayerOpen(options)
 {
 	// if it is already open, return now
 	if( winPlayerLoader )	return;
 	// handle the default options
 	options		= options || {	'chrome': 	false,
-					'position':	'se',
+					'position':	'bottomright',
 					'size':		'small',
 					'stayInFront':	true
 					};
@@ -45,25 +67,34 @@ function winPlayerOpen(options)
 		winopts.transparent	= true;
 	}
 	if(options.size	== "small"){
-		var win_size	= {	w:	320*2/3,
-					h:	240*2/3
-		};
+		var win_w	= 320*2/3;
+		var win_h	= 240*2/3;
 	}else if(options.size	== "medium"){
-		var win_size	= {	w:	320*2,
-					h:	240*2
-		};
+		var win_w	= 320*2;
+		var win_h	= 240*2;
 	}
-	if( filecookie.has('nochromewin_size') )
-		var win_size	= filecookie.get('nochromewin_size');
-
-	if( filecookie.has('nochromewin_pos') )
-		options.position	= filecookie.get('nochromewin_pos');
-	var coord	= winPlayerCoordFromPosition(options.position, win_size);
-	var win_x	= coord.x;
-	var win_y	= coord.y;
+	
+	var screenCap	= getScreenCap();
+	
+	if(options.position == "center"){
+		var win_x	= screenCap.min_x + (screenCap.w - win_w)/2;
+		var win_y	= screenCap.min_y + (screenCap.h - win_h)/2;
+	}else if(options.position == "topleft"){
+		var win_x	= 0;
+		var win_y	= 0;
+	}else if(options.position == "topright"){
+		var win_x	= screenCap.min_x + (screenCap.w - win_w);
+		var win_y	= 0;		
+	}else if(options.position == "bottomleft"){
+		var win_x	= 0;
+		var win_y	= screenCap.min_y + (screenCap.h - win_h);
+	}else if(options.position == "bottomright"){
+		var win_x	= screenCap.min_x + (screenCap.w - win_w);
+		var win_y	= screenCap.min_y + (screenCap.h - win_h);		
+	}
 
 	// create a new window
-	var bounds	= new air.Rectangle(win_x, win_y,win_size.w, win_size.h);	
+	var bounds	= new air.Rectangle(win_x, win_y,win_w, win_h);	
 	loader		= air.HTMLLoader.createRootWindow( true, winopts, true, bounds );
 	// set it always in front
 	if(options.stayInFront)	loader.stage.nativeWindow.alwaysInFront	= true;	
@@ -86,12 +117,11 @@ function winPlayerClose()
 	var iconMove	= myDoc.getElementById("iconMoveWin");
 	iconMove.removeEventListener("mousedown"	, winPlayerOnMove);
 	iconMove.removeEventListener("mouseup"		, winPlayerOnMoved);
-	var iconResize	= myDoc.getElementById("iconResizeWinE");
+	var iconResize	= myDoc.getElementById("iconResizeWin");
 	iconResize.removeEventListener("mousedown"	, winPlayerOnResize);
 	iconResize.removeEventListener("mouseup"	, winPlayerOnResized);
-	var iconResize	= myDoc.getElementById("iconResizeWinW");
-	iconResize.removeEventListener("mousedown"	, winPlayerOnResize);
-	iconResize.removeEventListener("mouseup"	, winPlayerOnResized);
+	var iconClose	= myDoc.getElementById("iconCloseWin");
+	iconClose.removeEventListener("mousedown"	, winPlayerOnClose);
 
 	// close the window
 	winPlayerLoader.stage.nativeWindow.close();
@@ -109,12 +139,11 @@ function winPlayerOnComplete()
 	var iconMove	= myDoc.getElementById("iconMoveWin");
 	iconMove.addEventListener("mousedown"	, winPlayerOnMove	, true);
 	iconMove.addEventListener("mouseup"	, winPlayerOnMoved	, true);
-	var iconResize	= myDoc.getElementById("iconResizeWinE");
+	var iconResize	= myDoc.getElementById("iconResizeWin");
 	iconResize.addEventListener("mousedown"	, winPlayerOnResize	, true);	
 	iconResize.addEventListener("mouseup"	, winPlayerOnResized	, true);	
-	var iconResize	= myDoc.getElementById("iconResizeWinW");
-	iconResize.addEventListener("mousedown"	, winPlayerOnResize	, true);	
-	iconResize.addEventListener("mouseup"	, winPlayerOnResized	, true);	
+	var iconClose	= myDoc.getElementById("iconCloseWin");
+	iconClose.addEventListener("mousedown"	, winPlayerOnClose	, true);
 }
 
 function winPlayerOnMove(event)
@@ -122,32 +151,27 @@ function winPlayerOnMove(event)
 	var win	= winPlayerLoader.stage.nativeWindow;
 	win.startMove();
 }
-function winPlayerCoordFromPosition(position, win_size)
+function winPlayerCoordFromPosition(position)
 {
-	if(!win_size){
-		var win		= winPlayerLoader.stage.nativeWindow;
-		win_size	= {w: win.width, h: win.height};
-	}
-	var win_w	= win_size.w;
-	var win_h	= win_size.h;
+	var win		= winPlayerLoader.stage.nativeWindow;
+	var win_w	= win.width;
+	var win_h	= win.height;
+
 	var screenCap	= getScreenCap();
-	air.trace('coordfrom pos for '+position);
-	air.trace('w='+win_w);
-	air.trace('h='+win_h);
 	
-	if(position == "cc"){
+	if(position == "center"){
 		var win_x	= screenCap.min_x + (screenCap.w - win_w)/2;
 		var win_y	= screenCap.min_y + (screenCap.h - win_h)/2;
-	}else if(position == "nw"){
+	}else if(position == "topleft"){
 		var win_x	= screenCap.min_x;
 		var win_y	= screenCap.min_y;
-	}else if(position == "ne"){
+	}else if(position == "topright"){
 		var win_x	= screenCap.min_x + (screenCap.w - win_w);
 		var win_y	= screenCap.min_y;		
-	}else if(position == "sw"){
+	}else if(position == "bottomleft"){
 		var win_x	= screenCap.min_x;
 		var win_y	= screenCap.min_y + (screenCap.h - win_h);
-	}else if(position == "se"){
+	}else if(position == "bottomright"){
 		var win_x	= screenCap.min_x + (screenCap.w - win_w);
 		var win_y	= screenCap.min_y + (screenCap.h - win_h);		
 	}
@@ -160,6 +184,7 @@ function winPlayerGotoXY(dst_x, dst_y, old_x, old_y)
 	var delta_x	= dst_x - win.x;
 	var delta_y	= dst_y - win.y;
 	
+
 	var old2_x	= win.x;
 	var old2_y	= win.y;
 
@@ -186,37 +211,27 @@ function winPlayerOnMoved(event)
 	var cur_x	= (win.x + win.width	/2);
 	var cur_y	= (win.y + win.height	/2);
 	var position	= "";
-	if( cur_y >= air.Capabilities.screenResolutionY/2 )	position += "s";
-	else							position += "n";
-	if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "e";
-	else							position += "w";
-	
-	// save the position for next time
-	filecookie.set('nochromewin_pos', position);
-	
+	if( cur_y >= air.Capabilities.screenResolutionY/2 )	position += "bottom";
+	else							position += "top";
+	if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "right";
+	else							position += "left";
+
 	coord	= winPlayerCoordFromPosition(position);
+	
+//	win.x	= coord.x;
+//	win.y	= coord.y;
 	winPlayerGotoXY(coord.x, coord.y);
+//	winPlayerGotoXY(500, 500);
 }
 
 function winPlayerOnResize(event)
 {
-	air.trace('win on resize');
-	air.trace('id='+event.target.id);
 	var win	= winPlayerLoader.stage.nativeWindow;
-	if( event.target.id == "iconResizeWinE" )
-		win.startResize(air.NativeWindowResize.TOP_RIGHT);
-	else
-		win.startResize(air.NativeWindowResize.TOP_LEFT);
+	win.startResize(air.NativeWindowResize.TOP_LEFT);
 }
 function winPlayerOnResized(event)
 {
-	// save the win_size for next time
-	var win		= winPlayerLoader.stage.nativeWindow;
-	win_size	= {w: win.width, h: win.height};
-	filecookie.set('nochromewin_size', win_size);
-	
 	air.trace('win resized!');
-
 	winPlayerOnMoved(event);
 }
 
@@ -243,12 +258,6 @@ function myOnLoadCallback()
 
 	var systray	= new systray_t();
 	systray.start();
-	
-	var pipwin 	= new pipwin_t();
-	setTimeout(pipwin.show, 3*1000);
-	setTimeout(pipwin.hide, 6*1000);
-	setTimeout(pipwin.show, 9*1000);
-	setTimeout(pipwin.show, 12*1000);
 
 	//systrayInit();
 	//air.trace("post systray init");
@@ -258,7 +267,6 @@ function myOnLoadCallback()
 		air.NativeApplication.nativeApplication.startAtLogin = true;
 	}catch(e){ /*air.trace(e); */	}
 
-	// experimentation on the systray notification
 	setTimeout(systray.notifyUser, 3*1000);
 
 	// launch the app_updater_t
@@ -276,13 +284,16 @@ function myOnLoadCallback()
 	air.trace('supportsSystemTrayIcon='+air.NativeApplication.supportsSystemTrayIcon);
 	air.trace('supportsDockIcon='+air.NativeApplication.supportsDockIcon);
 	//setTimeout(appUpdaterCheckUpdate, 1000);
-	air.trace('availheigth='+screen.availHeight);
-	air.trace('availTop='+screen.availTop);
 	
-	$(document).ready(function(){
-		$("body").append("blbl");
-	});
-
+	
+	var guessOS	= function(){
+		if(air.NativeApplication.supportsDockIcon)	return "macos";
+		if(air.NativeWindow.supportsTransparency)	return "win32";
+		return "linux";
+	}
+	air.trace('guessOS=' + guessOS());
+	
+	
 	// TODO how to determine the OS on which you are running
 	
 	// experiementation to determine what is the border of the screen (tacking taskbar into account)
@@ -293,5 +304,6 @@ function myOnLoadCallback()
 //	air.trace(maxsize.y);
 }
 window.onload	= myOnLoadCallback;
-filecookie	= new filecookie_t();
+
+
 

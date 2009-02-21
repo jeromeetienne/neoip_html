@@ -11,6 +11,11 @@
 	background-image: url(app:/images/titleBar-16.png);
 }
 a#iconMoveWin {
-	/* TODO maybe to use an url */
 	cursor: move;
+}
+a#iconResizeWinW {
+	cursor: pointer;
+}
+a#iconResizeWinE {
+	cursor: pointer;
 }

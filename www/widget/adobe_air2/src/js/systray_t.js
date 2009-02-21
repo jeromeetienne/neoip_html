@@ -120,6 +120,7 @@ var systray_t = function(){
 			myapp.icon.bounce();
 		}
 	}
+
 	// return public functions and variables
 	return {
 		start:		start,

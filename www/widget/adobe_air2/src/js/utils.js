@@ -11,6 +11,7 @@ var guessOS	= function(){
 }
 
 /**
+ * @deprecated this is a old version before i knew about the screen dom object
  * Determine the screen capabilities
  * - this function is mainly due to an issue on macos/win32 with the
  *   nochrome window going over the task bar
@@ -23,7 +24,7 @@ var guessOS	= function(){
  *   - to investigate
  * @returns {object} properties max_x/max_y/min_x/min_y/w/h
 */
-var getScreenCap	= function()
+var getScreenCapOld	= function()
 {
 	// determine the default margins
 	var screenMargin	= {
@@ -49,6 +50,27 @@ var getScreenCap	= function()
 	// compute the width/height depending on max/min values
 	screenCap.w	= screenCap.max_x - screenCap.min_x;
 	screenCap.h	= screenCap.max_y - screenCap.min_y;
+	// return the just-built result
+	return screenCap;
+}
+
+/**
+ * Determine the screen capabilities
+ * - this function is mainly due to an issue on macos/win32 with the
+ *   nochrome window going over the task bar
+ * @returns {object} properties max_x/max_y/min_x/min_y/w/h
+*/
+var getScreenCap	= function()
+{
+	// compute the screenCap depending screenResolution and screenMargin
+	var screenCap	= {
+		min_x:	screen.availLeft,
+		max_x:	screen.availLeft + screen.availWidth,
+		min_y:	screen.availTop,
+		max_y:	screen.availTop + screen.availHeight,
+		w:	screen.availWidth,
+		h:	screen.availHeight
+	};
 	// return the just-built result
 	return screenCap;
 }
