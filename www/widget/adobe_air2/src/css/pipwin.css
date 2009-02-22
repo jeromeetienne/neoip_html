@@ -1,0 +1,32 @@
+/* TODO put that in its own css to be compressable
+/* body style for the video fullpage mode */
+html, body {
+	height	: 100%;
+	width	: 100%;
+	margin	: 0;
+	padding	: 0;
+	overflow: hidden;
+}
+div.titlebar {
+	height:			16px !important;
+	position:		relative;
+}
+.gripper {
+	height: 16px;
+	background-image: url(app:/images/titleBar-16.png);
+}
+#iconResizeWinE {
+	background-image: url(app:/images/titleBar-16.png);
+}
+#iconResizeWinW {
+	background-image: url(app:/images/titleBar-16.png);
+}
+a#iconMoveWin {
+	cursor: move;
+}
+a#iconResizeWinW {
+	cursor: pointer;
+}
+a#iconResizeWinE {
+	cursor: pointer;
+}

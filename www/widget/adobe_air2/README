@@ -1,0 +1,25 @@
+- complete autoupdate
+  - test at every launch would do it
+  - optimize later
+    - once a date max
+- integrate the transparent support
+  - made a bunch of experiment on jquery in expsite
+  - integrate those effect in the widget
+- BUG what about the issue between player.urfastr.tv/live and webkit
+  - it seems very close to init
+  - may be close to flash and when i wait for download
+  - point on a uncompressed but concatenated js to findout which line fails
+  - see about using the full debug version to get even more info
+- BUG what about the missed event while moving the window
+- even linux may benefit from this animations to appear/disapear the pipwin
+- TODO what about the fancy easing for the window parking
+  - see how to integrate jquery easing plugin
+- TODO make a release process
+  - goal to reduce the size of the download
+  - minify the js/css
+  - remove the useless js/css/images
+    - especially all the libraries like jquery.ui :)
+*********************************************
+- DONE plug the pipwin_t with systray_t
+  - changed systray to be independant of the rest
+- DONE remove the old winPlayer

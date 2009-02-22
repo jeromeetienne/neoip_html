@@ -3,6 +3,8 @@
  * @class systray_t
 */
 var systray_t = function(){
+	var userOption	= {};
+	
 	// Called with the dock item to open the window is selected
 	// Calls a shared function to open (restore) the window
 	function NativeMenuOnSelect( evt )
@@ -13,13 +15,17 @@ var systray_t = function(){
 		air.trace("Selected command: POST"); 
 	
 		if( evt.target.label == "Open" ){
-			winPlayerClose();
-			winPlayerOpen({	'chrome': 	true,
-					'position':	'cc',
-					'size':		'medium',
-					'stayInFront':	false
-					});
-			winPlayerOpen();
+			alert('you click on open');
+			// TODO should open the chromeWin on player
+			if(false){
+				winPlayerClose();
+				winPlayerOpen({	'chrome': 	true,
+						'position':	'cc',
+						'size':		'medium',
+						'stayInFront':	false
+						});
+				winPlayerOpen();
+			}
 		}else if( evt.target.label == "About" ){
 			var url	= 'http://urfastr.net';
 			air.navigateToURL(new air.URLRequest(url));
@@ -85,14 +91,15 @@ var systray_t = function(){
 	// Called when the docked icon is clicked (Windows only)
 	// Calls a shared function to restore the window
 	var systrayOnClick	= function(event){
-		if( winPlayerIsOpened() )	winPlayerClose();
-		else				winPlayerOpen();
+		if( configOpt.onClick )	configOpt.onClick(event)
 	}
 
 	/**
 	 * Start the systray
 	*/
-	var start	= function(){
+	var start	= function(userCfg){
+		// copy the user option if needed
+		if( userCfg )	configOpt	= userCfg;	
 		air.trace('systay loaded');
 		// Loader to load the icon image
 		// - Use Loader not HTML image to get at bitmap data (pixels)
