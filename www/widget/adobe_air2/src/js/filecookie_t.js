@@ -33,9 +33,14 @@ var filecookie_t = function(filename){
 		fs.close();
 	}
 
-
+	/**
+	 * Get a value for a given key
+	*/
 	var get		= function(key, defaultValue){
-		if( key in store == false )	return defaultValue;
+		// if the key is not in the store, return the default
+		// - TODO if there is not defaultValue, throw an exception
+		if(key in store == false)	return defaultValue;
+		// return the store value for this key
 		return store[key];
 	}
 	var set		= function(key, val){

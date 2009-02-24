@@ -58,6 +58,9 @@ var getScreenCapOld	= function()
  * Determine the screen capabilities
  * - this function is mainly due to an issue on macos/win32 with the
  *   nochrome window going over the task bar
+ * - NOTE: on macos, the max_y is above the dock while it could be nice to be
+ *   on the side of the dock...
+ *   - TODO sort this out... maybe on option
  * @returns {object} properties max_x/max_y/min_x/min_y/w/h
 */
 var getScreenCap	= function()
@@ -71,6 +74,13 @@ var getScreenCap	= function()
 		w:	screen.availWidth,
 		h:	screen.availHeight
 	};
+	// KLUDGE: use hardcoded margin depending on plateform not to be on top on taskbar
+	var curOS	= guessOS();
+	if( curOS == "macos" ){
+		// macos kludge to be beside the dock and not on top
+		screenCap.max_y	= air.Capabilities.screenResolutionY;
+		screenCap.h	= screenCap.max_y - screenCap.min_y;
+	}
 	// return the just-built result
 	return screenCap;
 }

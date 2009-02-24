@@ -4,6 +4,7 @@
 */
 var pipwin_t = function (){
 	var htmlLoader	= null;
+	var filecookie	= new filecookie_t("filecookie_pipwin.store.json");
 	
 	/********************************************************************************/
 	/********************************************************************************/
@@ -16,9 +17,8 @@ var pipwin_t = function (){
 	*/
 	var createWin	= function(opt){
 		// get winopts for the window
-		var winopts	= new air.NativeWindowInitOptions();
+		var winopts		= new air.NativeWindowInitOptions();
 		winopts.systemChrome	= air.NativeWindowSystemChrome.NONE;
-		air.trace('slota');
 		// TODO should i make this transparent?
 		// - level of transparency is done by opacity css
 		// - air.NativeWindow.supportsTransparency
@@ -159,8 +159,8 @@ var pipwin_t = function (){
 	
 	
 	var winOnMove	= function(event){
-		var win	= htmlLoader.stage.nativeWindow;
-		win.startMove();
+		var nativeWin	= htmlLoader.stage.nativeWindow;
+		nativeWin.startMove();
 	}
 	
 	var winPlayerCoordFromPosition	= function(position, win_size){
@@ -215,6 +215,26 @@ var pipwin_t = function (){
 		setTimeout(function(){ winPlayerGotoXY(dst_x, dst_y, old2_x, old2_y); }, 20);
 	}
 
+	var winGotoXY2	= function(param){
+		var nativeWin	= htmlLoader.stage.nativeWindow;
+		// if the animation is over, return now
+		if( param.cur_time >= param.tot_time ){
+			air.trace('animation ended');
+			nativeWin.x	= param.dst_x;
+			nativeWin.y	= param.dst_y;
+			return;
+		}
+		// compute the next position
+		var easin	= jQuery.easing[param.easin];
+		nativeWin.x	= easin(null, param.cur_time, param.src_x, (param.dst_x-param.src_x), param.tot_time);
+		nativeWin.y	= easin(null, param.cur_time, param.src_y, (param.dst_y-param.src_y), param.tot_time);
+		// setup the timeout for the next
+		setTimeout(function(){
+			param.cur_time	+= param.refresh_msec;
+			winGotoXY2(param);
+		}, param.refresh_msec);
+	}
+
 	var winOnMoved	= function(event){
 		var win	= htmlLoader.stage.nativeWindow;
 		air.trace('win moved!');
@@ -228,12 +248,34 @@ var pipwin_t = function (){
 		else							position += "n";
 		if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "e";
 		else							position += "w";
-		
+
 		// save the position for next time
 		filecookie.set('pipwin_pos', position);
 		
 		coord	= winPlayerCoordFromPosition(position);
+if(false){
+		// old obsolete version 
 		winPlayerGotoXY(coord.x, coord.y);
+}else{
+		var param	= {
+			refresh_msec:	20,
+			cur_time:	0,
+			src_x:		win.x,	//win.x,
+			src_y:		win.y,	//win.y,
+			dst_x:		coord.x,
+			dst_y:		coord.y	//coord.y
+		};
+		if( guessOS() == "linux" ){			
+			param.tot_time	= 300;
+			param.easin	= 'easeOutQuad';
+			param.tot_time	= 1000;
+			param.easin	= 'easeOutBounce';
+		}else{
+			param.tot_time	= 1000;
+			param.easin	= 'easeOutElastic';
+		}
+		winGotoXY2(param);
+}
 	}
 	
 	var winOnResize	= function(event){
@@ -276,11 +318,15 @@ var pipwin_t = function (){
 	 * @returns {jquery} a jquery object
 	*/
 	var playerCtor	= function(container){
+		var src_url	= 'http://player.urfastr.tv/live?neoip_var_widget_src=adobe_air2';
+		// TODO to remove, only to debug a flash init issue
+		//src_url		= 'http://localhost/~jerome/neoip_html/bt_cast/casto/neoip_casto_rel.php';
 		iframe	= document.createElement('iframe');
-		iframe.setAttribute('src'		, 'http://player.urfastr.tv/live?neoip_var_widget_src=adobe_air2');
+		iframe.setAttribute('src'		, src_url);
 		iframe.setAttribute('width'		, '100%');
 		iframe.setAttribute('height'		, '100%');
 		iframe.setAttribute('frameborder'	, 'no');	
+		iframe.setAttribute('style'		, 'opacity: 0.8;');	
 		return $(container).empty().append(iframe);
 	}
 

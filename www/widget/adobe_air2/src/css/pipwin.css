@@ -8,8 +8,9 @@ html, body {
 	overflow: hidden;
 }
 div.titlebar {
-	height:			16px !important;
-	position:		relative;
+	height:		16px !important;
+	position:	relative;
+	opacity:	0.8;	
 }
 .gripper {
 	height: 16px;

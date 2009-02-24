@@ -19,25 +19,67 @@
 */
 var app_updater_t = function(){
 	// instantiate an updater object
+	var filecookie	= new filecookie_t("filecookie_app_updater.store.json");
 	var appUpdater	= new runtime.air.update.ApplicationUpdaterUI();
+	var timeoutID	= null;
+	var configOpt	= {
+				mindelay_success:	24*60*60*1000	// default to 1day
+			};
 
 	/**
 	 * Start the operation
 	 * - options.updateUrl: the url where to fetch the update xml file
 	 * - options.mindelay_success: how many ms between 2 successfull update check
 	*/
-	var start	= function(updateURL){
-		checkUpdate(updateURL);
+	var start	= function(options){
+		// copy the user option if needed
+		configOpt	= jQuery.extend(configOpt, options);
+checkUpdate();
+return;
+		// schedule next check
+		scheduleNextCheck();
+	}
+
+	/**
+	 * Schedule next check
+	*/
+	var scheduleNextCheck	= function(){
+		// if no lastcheck_time exist, then check in configOpt.mindelay_success
+		if( !filecookie.has('lastcheck_time') ){
+			timeoutID	= setTimeout(checkUpdate, configOpt.mindelay_success);
+			return;
+		}
+		var lastcheck_time	= filecookie.get('lastcheck_time');
+		var present_time	= (new Date()).getTime();
+		var diff_time		= present_time - lastcheck_time;
+		// if time went back, do a check now (no matter the reasons)
+		if( diff_time < 0 ){
+			checkUpdate();
+			return;
+		}
+		// 
+		if( diff_time < configOpt.mindelay_success ){
+			// init timer for checkUpdate in configOpt.mindelay_success - diff_time
+			timeoutID	= setTimeout(checkUpdate, configOpt.mindelay_success - diff_time);
+			return;
+		}
+		// do a update now
+		checkUpdate();
 	}
 
 	/**
 	 * - TODO find a better name for this function
 	*/
-	var checkUpdate	= function(updateURL) {
+	var checkUpdate	= function() {
 		// log to debug
 		air.trace('checkupdate now');
+		// clear the timeoutID if needed
+		if( timeoutID ){
+			clearTimeout(timeoutID);
+			timeoutID	= null;
+		}
 		// we set the URL for the update.xml file
-		appUpdater.updateURL	= updateURL;
+		appUpdater.updateURL	= configOpt.updateUrl;
 		//we set the event handlers for INITIALIZED nad ERROR
 		appUpdater.addEventListener(runtime.air.update.events.UpdateEvent.INITIALIZED, onUpdate);
 		appUpdater.addEventListener(runtime.flash.events.ErrorEvent.ERROR, onError);
@@ -60,16 +102,19 @@ var app_updater_t = function(){
 	 * - AKA beuark function
 	*/	
 	var onUpdate	= function(event){
-		appUpdater.cancelUpdate();
-		appUpdater.removeEventListener(runtime.air.update.events.UpdateEvent.INITIALIZED, onUpdate);
-		appUpdater.removeEventListener(runtime.flash.events.ErrorEvent.ERROR, onError);
 		appUpdater	= null;
-		return;
+return;
+		// update the lastcheck_time
+		filecookie.set('lastcheck_time', (new Date()).getTime());
+
 		// log to debug
 		air.trace('onUpdate is called');
 		air.trace(event);
+		air.trace('date='+ (new Date()).getTime());
 		//starts the update process
 		appUpdater.checkNow();
+		// schedule the next check
+		scheduleNextCheck();
 	}
 	/**
 	 * TODO to comment
@@ -79,6 +124,9 @@ var app_updater_t = function(){
 		// log to debug
 		air.trace('onError is called');
 		air.trace(event);
+return;
+		// schedule the next check
+		scheduleNextCheck();
 	}
 	
 	// return public functions and variables

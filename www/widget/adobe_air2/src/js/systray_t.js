@@ -17,6 +17,7 @@ var systray_t = function(){
 		if( evt.target.label == "Open" ){
 			alert('you click on open');
 			// TODO should open the chromeWin on player
+			// - TODO this should be configurable from outside as it depends on outside context ?
 			if(false){
 				winPlayerClose();
 				winPlayerOpen({	'chrome': 	true,
