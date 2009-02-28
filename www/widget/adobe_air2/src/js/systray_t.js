@@ -31,8 +31,7 @@ var systray_t = function(){
 			var url	= 'http://urfastr.net';
 			air.navigateToURL(new air.URLRequest(url));
 		}else if( evt.target.label == "Quit" ){
-			var myapp	= air.NativeApplication.nativeApplication;
-			myapp.exit();
+			if( configOpt.onQuit )	configOpt.onQuit(evt)
 		}
 	}
 	
@@ -100,6 +99,7 @@ var systray_t = function(){
 	*/
 	var start	= function(userCfg){
 		// copy the user option if needed
+		// TODO use jquery to extend instead
 		if( userCfg )	configOpt	= userCfg;	
 		air.trace('systay loaded');
 		// Loader to load the icon image

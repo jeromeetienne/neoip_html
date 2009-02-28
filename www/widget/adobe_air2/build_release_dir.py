@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # script to build a minimal src directory which will be used to build air package
 
-import re, os, shutil, subprocess
+import re, os, shutil, subprocess, tempfile
 from pprint import pprint
 
 def is_javascript_declaration(line):
@@ -92,20 +92,20 @@ def compress_html_file(path_src, path_dst, javascript_path, stylesheet_path):
 
 def compress_javascript_data(data):
     """Compress the javascript data"""
-    # TODO make this a temporary file
-    # TODO remove this file
-    open("/tmp/full.js", "w+").write(data)
-    cmdline = ["yui-compressor", "/tmp/full.js"]
+    tmp_fname   = tempfile.mktemp("urfastr-player-air-min.js")
+    open(tmp_fname, "w+").write(data)
+    cmdline = ["yui-compressor", tmp_fname]
     compressed_data   = subprocess.Popen(cmdline, stdout=subprocess.PIPE).communicate()[0]
+    os.remove(tmp_fname)    
     return compressed_data
     
 def compress_stylesheet_data(data):
     """Compress the stylesheet data"""
-    # TODO make this a temporary file
-    # TODO remove this file
-    open("/tmp/full.css", "w+").write(data)
-    cmdline = ["yui-compressor", "/tmp/full.css"]
+    tmp_fname   = tempfile.mktemp("urfastr-player-air-min.css")
+    open(tmp_fname, "w+").write(data)
+    cmdline = ["yui-compressor", tmp_fname]
     compressed_data   = subprocess.Popen(cmdline, stdout=subprocess.PIPE).communicate()[0]
+    os.remove(tmp_fname)    
     return compressed_data
 
 
@@ -143,12 +143,12 @@ def process_html_file(html_path, src_rootpath, dst_rootpath):
     javascript_paths    = javascript_paths_for(src_rootpath+"/"+html_path)
     javascript_data     = concat_data_from_paths(javascript_paths)
     javascript_packed   = compress_javascript_data(javascript_data)
-    myfilewrite(javascript_data, dst_rootpath + '/' + javascript_min_path)
+    myfilewrite(javascript_packed, dst_rootpath + '/' + javascript_min_path)
     # handle the stylesheet in the html file
     stylesheet_paths    = stylesheet_paths_for(src_rootpath+"/"+html_path)
     stylesheet_data     = concat_data_from_paths(stylesheet_paths)
     stylesheet_packed   = compress_stylesheet_data(stylesheet_data)
-    myfilewrite(stylesheet_data, dst_rootpath + '/' + stylesheet_min_path)
+    myfilewrite(stylesheet_packed, dst_rootpath + '/' + stylesheet_min_path)
     # compress the html file itself
     compress_html_file(src_rootpath+'/'+html_path, dst_rootpath+'/'+html_path,
                         javascript_min_path, stylesheet_min_path)

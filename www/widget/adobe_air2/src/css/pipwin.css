@@ -10,17 +10,28 @@ html, body {
 div.titlebar {
 	height:		16px !important;
 	position:	relative;
-	opacity:	0.8;	
+/*	opacity:	0.8; TODO set it up in jquery IIF transparencysupport */	
 }
-.gripper {
-	height: 16px;
+#iconMoveWin {
 	background-image: url(app:/images/titleBar-16.png);
+	height:		16px;
+	text-decoration: none;
+	font-weight:	bolder;
+	font-size:	12px;
+	color:		#3366BB;
+	-webkit-user-select:	none;	/* TESTING: not sure it works */
 }
+a#iconMoveWin:active {
+	color:		#3366BB;
+}
+
 #iconResizeWinE {
 	background-image: url(app:/images/titleBar-16.png);
+	-webkit-user-select:	none;	/* TESTING: not sure it works */
 }
 #iconResizeWinW {
 	background-image: url(app:/images/titleBar-16.png);
+	-webkit-user-select:	none;	/* TESTING: not sure it works */
 }
 a#iconMoveWin {
 	cursor: move;

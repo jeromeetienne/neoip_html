@@ -1,29 +1,45 @@
 <html>
 <head>
 	<title>UrFastR Player (beta)</title>
-	<script type="text/javascript"			src="app:/js/AIRAliases.js"			/>
 	<script type="application/x-shockwave-flash"	src="app:/lib/applicationupdater_ui.swf"	/>
+	<script type="text/javascript"			src="app:/js/AIRAliases.js"			/>
 	<script type="text/javascript"			src="app:/js/jquery/jquery.js"			/>
 	<script type="text/javascript"			src="app:/js/jquery/plugins/jquery.json-1.3.min.js"	/>
 	<script type="text/javascript"			src="app:/js/jquery/plugins/jquery.easing.1.3.js"	/>
 	<script type="text/javascript"			src="app:/js/filecookie_t.js"			/>
-	<script type="text/javascript"			src="app:/js/app_updater_t.js"			/>
+	<script type="text/javascript"			src="app:/js/app_updater.js"			/>
 	<script type="text/javascript"			src="app:/js/systray_t.js"			/>
 	<script type="text/javascript"			src="app:/js/main.js"				/>
 	<script type="text/javascript"			src="app:/js/utils.js"				/>
 	<script type="text/javascript"			src="app:/js/pipwin_t.js"			/>
 </head>
-<body style="background-color: red;">
-	
-	blabla
+<body style="background-color: red;position: relative;">
 	<img src="app:/images/thumbnail-48.png" id="imgbutton"/>
 <script>
 $(document).ready(function(){
 	$('#imgbutton').click(function(){
-		alert('you clicked');
+		var src_url	= 'http://player.urfastr.tv/live';
+		// TODO to remove, only to debug a flash init issue
+		src_url		= 'http://jmehost2.local/~jerome/neoip_html/bt_cast/casto/neoip_casto_rel.php';
+		iframe	= document.createElement('iframe');
+		iframe.setAttribute('src'		, src_url);
+		iframe.setAttribute('style'		, 'position: absolute; width: 100%; top: 0; bottom: 0;');
+		iframe.setAttribute('frameborder'	, 'no');
+		return $('.content').empty().append(iframe);
 	});
 })
 </script>
+<!--
+<iframe	style="display: compact; position: absolute; width: 100%; top: 16px; bottom: 0px; background-color: green; border-bottom: double;"
+	src='http://player.urfastr.tv/live'
+	frameborder="no"
+	>
+</iframe>
+<div style="position: absolute; width: 100%; top: 16px; bottom: 0px; background-color: red; border-bottom: double;">
+</div>
+-->	
+
+<div class="content"></div>
 </body>
 </html>
 

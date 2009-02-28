@@ -4,6 +4,10 @@
  * - fixed assumptions on expression evaluation order with commutatives operator
  *   aka (t/=d)*t results is not garanteed to be t/=d; t*t (e.g in adobe air)
  *   Jerome Etienne jerome.etienne@gmail.com
+ *   - TODO check all functions
+ * - fixed a division by 0 when c = 0 in easeOutElastic
+ *   Jerome Etienne jerome.etienne@gmail.com
+ *   - TODO check all functions
  *   
  * Uses the built in easing capabilities added In jQuery 1.1
  * to offer multiple easing options
@@ -134,6 +138,7 @@ jQuery.extend( jQuery.easing,
 		return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
 	},
 	easeOutElastic: function (x, t, b, c, d) {
+		if(c==0) return b;	// jme- to avoid a division by 0
 		var s=1.70158;var p=0;var a=c;
 		if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
 		if (a < Math.abs(c)) { a=c; var s=p/4; }

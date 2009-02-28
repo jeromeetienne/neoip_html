@@ -1,25 +1,61 @@
-- complete autoupdate
-  - test at every launch would do it
-  - optimize later
-    - once a date max
-- integrate the transparent support
-  - made a bunch of experiment on jquery in expsite
-  - integrate those effect in the widget
 - BUG what about the issue between player.urfastr.tv/live and webkit
   - it seems very close to init
   - may be close to flash and when i wait for download
   - point on a uncompressed but concatenated js to findout which line fails
-  - see about using the full debug version to get even more info
+  - see about using the full debug version of player to get even more info
+  - see about installing air sdk on mac, DONE
+    - it is failling all the time
+    - is this the same faillure ?
+  - see about installing flash debug
+  - what about a callback from flash to js when the asplayer ctor is completed ?
+    - this would ensure that the flash is fully loaded
+    - find a way to experiment this
+  - Check that it is this flash init by just adding a timer of 2sec
+    - YES it is that! now how to fix it ?
+    - possible solution: do a function which is created at ctor end only and test this one
+      - this one is simple and dont change anything
+      - TODO to test
+    - possible solution: to test a bunch of function instead of only one. all function ?
+      - simple and good... like all the function in a array
+      - only little modification
+    - possible solution: have the ctor to notify once completed
+    - possible solution: do a explicit delay
+- BUG: when the window is transparent, the flash doesnt appear in it
+  - no idea why. in relation to wmode transparent ?
+  - google for it... see "desktop keeley"
 - BUG what about the missed event while moving the window
-- even linux may benefit from this animations to appear/disapear the pipwin
-- TODO what about the fancy easing for the window parking
-  - see how to integrate jquery easing plugin
-- TODO make a release process
-  - goal to reduce the size of the download
-  - minify the js/css
-  - remove the useless js/css/images
-    - especially all the libraries like jquery.ui :)
+  - can i detect when the mouse is no more on the title bar ?
+- BUG: css on linux
+  - mouse wheel on title bar make it disapears
+  - this make mouse wheel to disppears ... cool on linux to remove the title bar
+  - a feature ? :)
+- BUG: on macos, cant quit apps if autoupdate is enabled
+  - reason: unknown
+  - workaround: to manually quit the main windows
+  - look at the class of this icon
+  - test if an explicit quit would help
+- TODO work: make a real private beta stuff for this
+- TODO shiny: animations to appear/disapear the pipwin
+  - even linux may have one by tricking the window size + position
+- TODO shiny: integrate the transparent support
+  - made a bunch of experiment on jquery in expsite
+  - integrate those effect in the widget
 *********************************************
+- DONE make a release process
+  - set up the version
+  - automatised + certificate signing
+  - goal to reduce the size of the download
+    - minify the js/css
+    - remove the useless js/css/images
+    - especially all the libraries like jquery.ui :)
+- DONE complete autoupdate
+  - test at every launch would do it
+  - optimize later
+    - once a date max
+  - LATER: got a working version
+    - clean it up and determine why the old version failed
 - DONE plug the pipwin_t with systray_t
   - changed systray to be independant of the rest
 - DONE remove the old winPlayer
+- DONE what about the fancy easing for the window parking
+  - see how to integrate jquery easing plugin

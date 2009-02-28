@@ -5,6 +5,7 @@
 var pipwin_t = function (){
 	var htmlLoader	= null;
 	var filecookie	= new filecookie_t("filecookie_pipwin.store.json");
+	var winAnimTimeoutID	= null;
 	
 	/********************************************************************************/
 	/********************************************************************************/
@@ -22,7 +23,10 @@ var pipwin_t = function (){
 		// TODO should i make this transparent?
 		// - level of transparency is done by opacity css
 		// - air.NativeWindow.supportsTransparency
-		winopts.transparent	= true;
+		// - TODO if the window is transparent then the player doesnt appears on macos
+		//   - likely the same reason for win32 not appearing
+		//   - in relation with wmode="transparent" ?
+		//winopts.transparent	= true;
 
 		var win_size	= filecookie.get('pipwin_size'	, {w: 320*2/3, h: 240*2/3});
 		var win_pos	= filecookie.get('pipwin_pos'	, 'se');
@@ -34,7 +38,7 @@ var pipwin_t = function (){
 		// set it always in front
 		htmlLoader.stage.nativeWindow.alwaysInFront	= true;	
 		htmlLoader.load( new air.URLRequest('app:/html/pipwin.html') );
-		htmlLoader.addEventListener(air.Event.COMPLETE, function(){loaderOnComplete(opt.onComplete)});
+		htmlLoader.addEventListener(air.Event.COMPLETE, function(){loaderOnComplete(opt.onComplete)}, false);
 	}
 	/**
 	 * Destroy the window
@@ -59,6 +63,7 @@ var pipwin_t = function (){
 	 * Handle air.Event.COMPLETE for htmlLoader
 	*/
 	var loaderOnComplete	= function(callback){
+		htmlLoader.removeEventListener(air.Event.COMPLETE, arguments.callee, false);
 		// build the titlebar
 		titlebarCtor($('.titlebar', htmlLoader.window.document));
 		// notify the caller of loaderOnComplete if needed
@@ -106,11 +111,18 @@ var pipwin_t = function (){
 	 * @returns {jquery} a jquery object
 	 */
 	var titlebarCtor	= function(container){
-		var html_str1	= "<a href='#'><img id='iconResizeWinW' src='../images/resize-nw.png' " +
+		var html_str1	= "<a href='javascript:void(0)'><img id='iconResizeWinW' src='../images/resize-nw.png' " +
 					"style='position: absolute; left: 0; cursor: nw-resize;'/></a>";
-		var html_str2	= "<a href='#' class='gripper' id='iconMoveWin' " +
-					"style='position: absolute; left: 16; width: 100%; padding-right: -16px;'></a>";
-		var html_str3	= "<a href='#'><img id='iconResizeWinE' src='../images/resize-ne.png' " +
+		var html_str2	= "<a href='javascript:void(0)' class='gripper' id='iconMoveWin' " +
+					"style='position: absolute; left: 16; right: 16;'>" +
+					"<center>" +
+					"<font color='#cc1002'>Ur</font>" +
+					"<font color='#3366bb'>Fast</font>" +
+					"<font color='#cc1002'>R</font>" +
+					" " +
+					"<font color='#339966'>Live</font>" +
+					"</center></a>";
+		var html_str3	= "<a href='javascript:void(0)'><img id='iconResizeWinE' src='../images/resize-ne.png' " +
 					"style='position: absolute; right: 0; cursor: ne-resize;'/> </a>";
 		$(container).empty()
 			.append(html_str1)
@@ -159,11 +171,28 @@ var pipwin_t = function (){
 	
 	
 	var winOnMove	= function(event){
+		// cancel the previous animation if needed
+		if( winAnimTimeoutID ){
+			clearTimeout(winAnimTimeoutID);
+			winAnimTimeoutID	= null;
+		}
 		var nativeWin	= htmlLoader.stage.nativeWindow;
 		nativeWin.startMove();
 	}
 	
-	var winPlayerCoordFromPosition	= function(position, win_size){
+	/**
+	 * Stop the window animation if it is running
+	 */
+	var winAnimCancelIfNeeded	= function(){
+		// if the timer is not running, return now
+		if( !winAnimTimeoutID )	return;
+		// cancel the timer
+		clearTimeout(winAnimTimeoutID);
+		// mark the timer as stopped
+		winAnimTimeoutID	= null;
+	}
+	
+	var winCoordFromPosition	= function(position, win_size){
 		if(!win_size){
 			var win		= htmlLoader.stage.nativeWindow;
 			win_size	= {w: win.width, h: win.height};
@@ -194,29 +223,10 @@ var pipwin_t = function (){
 		return {x: win_x, y: win_y};
 	}
 	
-	var winPlayerGotoXY	= function(dst_x, dst_y, old_x, old_y){
-		var win		= htmlLoader.stage.nativeWindow;
-		var delta_x	= dst_x - win.x;
-		var delta_y	= dst_y - win.y;
-		
-		var old2_x	= win.x;
-		var old2_y	= win.y;
-	
-		if( old_x == old2_x && old_y == old2_y ){
-			air.trace('animation ended');
-			win.x	= dst_x;
-			win.y	= dst_y;
-			return;
-		}
-	
-		win.x	+= Math.ceil(delta_x*0.3);
-		win.y	+= Math.ceil(delta_y*0.3);
-		
-		setTimeout(function(){ winPlayerGotoXY(dst_x, dst_y, old2_x, old2_y); }, 20);
-	}
-
-	var winGotoXY2	= function(param){
+	var winAnimDoing	= function(param){
 		var nativeWin	= htmlLoader.stage.nativeWindow;
+		// cancel the previous animation if needed
+		winAnimCancelIfNeeded();
 		// if the animation is over, return now
 		if( param.cur_time >= param.tot_time ){
 			air.trace('animation ended');
@@ -229,10 +239,10 @@ var pipwin_t = function (){
 		nativeWin.x	= easin(null, param.cur_time, param.src_x, (param.dst_x-param.src_x), param.tot_time);
 		nativeWin.y	= easin(null, param.cur_time, param.src_y, (param.dst_y-param.src_y), param.tot_time);
 		// setup the timeout for the next
-		setTimeout(function(){
-			param.cur_time	+= param.refresh_msec;
-			winGotoXY2(param);
-		}, param.refresh_msec);
+		winAnimTimeoutID	= setTimeout(function(){
+						param.cur_time	+= param.refresh_msec;
+						winAnimDoing(param);
+					}, param.refresh_msec);
 	}
 
 	var winOnMoved	= function(event){
@@ -252,11 +262,11 @@ var pipwin_t = function (){
 		// save the position for next time
 		filecookie.set('pipwin_pos', position);
 		
-		coord	= winPlayerCoordFromPosition(position);
-if(false){
-		// old obsolete version 
-		winPlayerGotoXY(coord.x, coord.y);
-}else{
+		// cancel the previous animation if needed
+		winAnimCancelIfNeeded();
+		
+		coord	= winCoordFromPosition(position);
+
 		var param	= {
 			refresh_msec:	20,
 			cur_time:	0,
@@ -274,13 +284,15 @@ if(false){
 			param.tot_time	= 1000;
 			param.easin	= 'easeOutElastic';
 		}
-		winGotoXY2(param);
-}
+		winAnimDoing(param);
 	}
 	
 	var winOnResize	= function(event){
 		air.trace('win on resize');
 		air.trace('id='+event.target.id);
+		// cancel the previous animation if needed
+		winAnimCancelIfNeeded();
+
 		var win	= htmlLoader.stage.nativeWindow;
 		if( event.target.id == "iconResizeWinE" )
 			win.startResize(air.NativeWindowResize.TOP_RIGHT);
@@ -320,13 +332,16 @@ if(false){
 	var playerCtor	= function(container){
 		var src_url	= 'http://player.urfastr.tv/live?neoip_var_widget_src=adobe_air2';
 		// TODO to remove, only to debug a flash init issue
-		//src_url		= 'http://localhost/~jerome/neoip_html/bt_cast/casto/neoip_casto_rel.php';
+		// - make the mac on casti flv dev, and a webpack on jmehost2
+		// - all local easier to debug
+		//src_url		= 'http://jmehost2.local/~jerome/neoip_html/bt_cast/casto/neoip_casto_rel.php';
 		iframe	= document.createElement('iframe');
 		iframe.setAttribute('src'		, src_url);
 		iframe.setAttribute('width'		, '100%');
 		iframe.setAttribute('height'		, '100%');
-		iframe.setAttribute('frameborder'	, 'no');	
-		iframe.setAttribute('style'		, 'opacity: 0.8;');	
+		iframe.setAttribute('frameborder'	, 'no');
+		//if( air.NativeWindow.supportsTransparency )
+		//	iframe.setAttribute('style'	, 'opacity: 0.8;');
 		return $(container).empty().append(iframe);
 	}
 

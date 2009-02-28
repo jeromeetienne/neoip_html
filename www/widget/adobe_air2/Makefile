@@ -23,11 +23,11 @@ package:
 	$(ADT) -package -storetype pkcs12 -keystore cert.pfx bin/$(APPS_FNAME) application.xml -C $(REL_DIRNAME) .
 	# rm -rf $(REL_DIRNAME)
 
-build_release_file:
+build_release_files:
 	sed -e "s/##VERSION##/$(REL_VERSION)/" -e "s/##DESCRIPTION##/$(REL_DESCRIPTION)/" < tmpl.update.xml > bin/update.xml
 	sed s/##VERSION##/$(REL_VERSION)/ < tmpl.application.xml > application.xml
 
-release: build_release_file package
+release: build_release_files package
 
 # NOTE: adobe installer MUST have a full path
 install:
