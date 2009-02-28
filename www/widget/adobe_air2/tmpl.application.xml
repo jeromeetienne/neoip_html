@@ -1,0 +1,57 @@
+<application xmlns="http://ns.adobe.com/air/application/1.1">
+	<!-- The application identifier string, unique to this application. Required. --> 
+	<id>com.urfastr.player</id>
+
+	<!-- Used as the filename for the application. Required. -->
+	<filename>UrFastR Player</filename> 
+
+	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
+	<version>0.8.11</version>
+
+	<!-- The name that is displayed in the AIR application installer. Optional. -->
+	<name>UrFastR Player</name>
+
+	<!-- Description, displayed in the AIR application installer. Optional. -->
+	<description>UrFastR Player, your TV just a click away!</description> 
+
+	<!-- Copyright information. Optional -->
+	<copyright></copyright> 
+
+	<!-- Settings for the application's initial window. Required. --> 
+	<initialWindow>
+		<!-- The main HTML file of the application. Required. -->
+		<content>html/index.html</content>
+
+		<!-- Whether the window is initially visible. Optional. Default false. -->
+		<visible>false</visible>
+
+		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
+		<!-- <systemChrome>none</systemChrome> -->
+		<!-- Whether the window is transparent. Only applicable when systemChrome is false. Optional. Default false. -->
+		<!-- <transparent>false</transparent> -->
+
+		<!-- The window's initial width. Optional. -->
+		<width>320</width>
+		<!-- The window's initial height. Optional. -->
+		<height>240</height>
+	
+<!--
+		<systemChrome>none</systemChrome>
+		<transparent>true</transparent>
+-->
+	</initialWindow>
+
+	<!-- The icon the system uses for the application. For at least one resolution,
+		 specify the path to a PNG file included in the AIR package. Optional. -->
+	<icon>
+		<image16x16>images/thumbnail-16.png</image16x16>
+		<image32x32>images/thumbnail-32.png</image32x32>
+		<image48x48>images/thumbnail-48.png</image48x48>
+		<image128x128>images/thumbnail-128.png</image128x128>
+	</icon>
+   
+	<!-- Whether the application can be launched when the user clicks a link in a web browser.
+	Optional. Default false. --> 
+	<allowBrowserInvocation>true</allowBrowserInvocation>
+</application>
+
