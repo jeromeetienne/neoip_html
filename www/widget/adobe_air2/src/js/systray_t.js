@@ -3,7 +3,7 @@
  * @class systray_t
 */
 var systray_t = function(){
-	var userOption	= {};
+	var configOpt	= {};
 	
 	// Called with the dock item to open the window is selected
 	// Calls a shared function to open (restore) the window
@@ -14,25 +14,10 @@ var systray_t = function(){
 		air.trace("Selected command: " + evt.target.label); 
 		air.trace("Selected command: POST"); 
 	
-		if( evt.target.label == "Open" ){
-			alert('you click on open');
-			// TODO should open the chromeWin on player
-			// - TODO this should be configurable from outside as it depends on outside context ?
-			if(false){
-				winPlayerClose();
-				winPlayerOpen({	'chrome': 	true,
-						'position':	'cc',
-						'size':		'medium',
-						'stayInFront':	false
-						});
-				winPlayerOpen();
-			}
-		}else if( evt.target.label == "About" ){
-			var url	= 'http://urfastr.net';
-			air.navigateToURL(new air.URLRequest(url));
-		}else if( evt.target.label == "Quit" ){
+		if( evt.target.label == "Quit" ){
 			if( configOpt.onQuit )	configOpt.onQuit(evt)
 		}
+		if( configOpt.onMenuSelect )	configOpt.onMenuSelect(evt)
 	}
 	
 	// Called to create a menu on the systray/dock icon
@@ -42,19 +27,21 @@ var systray_t = function(){
 		var menu	= new air.NativeMenu();
 		var menuItem	= null;
 	
-		// add the menuitem 'open'
-		menuItem	= new air.NativeMenuItem("Open" );
-		menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
-		menu.addItem( menuItem );
 		// add the menuitem 'about'
 		menuItem	= new air.NativeMenuItem("About" );
 		menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
 		menu.addItem( menuItem );
-		// add a separator
-		menu.addItem(new air.NativeMenuItem('', true));
+		// add the menuitem 'Preferences'
+		menuItem	= new air.NativeMenuItem("Preferences" );
+		menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
+		menu.addItem( menuItem );
 		// add a menuItem 'quit'
 		// - IIF supportsSystemTrayIcon as mac (with only DockIcon) already got its own quit
+		// - NOTE: !IMPORTANT doing quit on the dock menu seems to close
+		//   the most recently opened native window. aka not the application itself
 		if( air.NativeApplication.supportsSystemTrayIcon ){
+			// add a separator
+			menu.addItem(new air.NativeMenuItem('', true));
 			menuItem	= new air.NativeMenuItem("Quit");
 			menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
 			menu.addItem( menuItem );
@@ -81,7 +68,14 @@ var systray_t = function(){
 		}else{
 			// NOTE: assume air.NativeApplication.supportsDockIcon
 			// trick to detect click on the dock icon
-			myapp.addEventListener(air.InvokeEvent.INVOKE, systrayOnClick);
+			myapp.addEventListener(air.InvokeEvent.INVOKE, function(event){
+				// if this invoke is from login, it isnt a click on 'systray'
+				// - it is on air 1.5.1 and above
+				// - http://www.adobe.com/support/documentation/en/air/1_5_1/releasenotes_developers.html#new_apis
+				// - http://blogs.adobe.com/simplicity/2009/02/invokeevent_reason_in_air_1_5_1.html
+				if( event.reason == "login" )	return;				
+				systrayOnClick()
+			});
 		}
 
 		// to init the context menu on the systray
@@ -99,8 +93,7 @@ var systray_t = function(){
 	*/
 	var start	= function(userCfg){
 		// copy the user option if needed
-		// TODO use jquery to extend instead
-		if( userCfg )	configOpt	= userCfg;	
+		jQuery.extend(configOpt, userCfg);
 		air.trace('systay loaded');
 		// Loader to load the icon image
 		// - Use Loader not HTML image to get at bitmap data (pixels)

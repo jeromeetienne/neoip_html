@@ -1,11 +1,12 @@
 /* TODO put that in its own css to be compressable
 /* body style for the video fullpage mode */
 html, body {
-	height	: 100%;
+/*	height	: 100%;
 	width	: 100%;
+*/
 	margin	: 0;
 	padding	: 0;
-	overflow: hidden;
+/*	overflow: hidden;*/
 }
 div.titlebar {
 	height:		16px !important;

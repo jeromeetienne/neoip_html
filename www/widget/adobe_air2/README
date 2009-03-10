@@ -18,22 +18,22 @@
     - possible solution: to test a bunch of function instead of only one. all function ?
       - simple and good... like all the function in a array
       - only little modification
+      - FAILED: coded but failed. image is still black. no indication of the new bug location
     - possible solution: have the ctor to notify once completed
     - possible solution: do a explicit delay
+      - works. done in neoip_objembed_initmon_t ctor. but ultra crappy design
+- BUG: neoip_objembed_initmon_t and neoip.ezplayer_t.prototype._window_onload_cb
+  - both modified to track the flash init bug. rewind later
 - BUG: when the window is transparent, the flash doesnt appear in it
   - no idea why. in relation to wmode transparent ?
   - google for it... see "desktop keeley"
 - BUG what about the missed event while moving the window
   - can i detect when the mouse is no more on the title bar ?
-- BUG: css on linux
+- BUG: titlebar+mousewheel on linux
   - mouse wheel on title bar make it disapears
   - this make mouse wheel to disppears ... cool on linux to remove the title bar
   - a feature ? :)
-- BUG: on macos, cant quit apps if autoupdate is enabled
-  - reason: unknown
-  - workaround: to manually quit the main windows
-  - look at the class of this icon
-  - test if an explicit quit would help
+    - if decided as feature, save its state in filecookie
 - TODO work: make a real private beta stuff for this
 - TODO shiny: animations to appear/disapear the pipwin
   - even linux may have one by tricking the window size + position
@@ -59,3 +59,14 @@
 - DONE remove the old winPlayer
 - DONE what about the fancy easing for the window parking
   - see how to integrate jquery easing plugin
+- DONE FIXED by listening on pipwin closing event
+  BUG: on macos, cant quit apps if autoupdate is enabled
+  - reason: unknown
+  - workaround: to manually quit the main windows
+  - look at the class of this icon
+    - http://help.adobe.com/en_US/AIR/1.5/jslr/flash/desktop/DockIcon.html
+    - 'Any items in the menu are displayed above the standard items. The standard
+       items cannot be modified or removed.'
+  - test if an explicit quit would help
+    - YES it does. an explicit quit do close the application
+    - so maybe something with a event to determine what is done by the default quit   

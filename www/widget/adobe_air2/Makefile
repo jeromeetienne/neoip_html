@@ -11,11 +11,17 @@ ADL=$(AIR_SDK)/bin/adl
 ADT=$(AIR_SDK)/bin/adt
 
 REL_DIRNAME	= /tmp/adobe_air2_reldir.tmp
-REL_VERSION	= 0.8.11
-REL_DESCRIPTION	= Super version 0.8.11 mieux \\nque la 10
+REL_VERSION	= 0.9.2
+# to put a \n in the description, do a \\n
+REL_DESCRIPTION	= * Allow a preference menu\\n* keep title bar state between opening\\nEnjoy it hot!
 
 devrun:
 	$(ADL) application.xml src
+
+pkgrun:
+	./build_release_dir.py src $(REL_DIRNAME)
+	$(ADL) application.xml $(REL_DIRNAME)
+	# rm -rf $(REL_DIRNAME)
 
 package:
 	./build_release_dir.py src $(REL_DIRNAME)
@@ -27,7 +33,11 @@ build_release_files:
 	sed -e "s/##VERSION##/$(REL_VERSION)/" -e "s/##DESCRIPTION##/$(REL_DESCRIPTION)/" < tmpl.update.xml > bin/update.xml
 	sed s/##VERSION##/$(REL_VERSION)/ < tmpl.application.xml > application.xml
 
-release: build_release_files package
+copy2pbeta:
+	cp bin/$(APPS_FNAME) ../adobe_air_pbeta/bin
+	cp bin/update.xml ../adobe_air_pbeta/bin
+
+release: build_release_files package copy2pbeta
 
 # NOTE: adobe installer MUST have a full path
 install:

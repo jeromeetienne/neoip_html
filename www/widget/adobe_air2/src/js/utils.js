@@ -2,12 +2,23 @@
  * Try to guess the operating system on which the application is running
  * - this is rather kludgy. guessing based on support features
  * - this is not reliable over time. but may be used as workaround
+ * - there is a air.Capabilities.os which is a lot more reliable than that
+ *   - http://livedocs.adobe.com/flex/3/langref/flash/system/Capabilities.html
  * @returns {string} macos|win32|linux
 */
 var guessOS	= function(){
 	if(air.NativeApplication.supportsDockIcon)	return "macos";
 	if(air.NativeWindow.supportsTransparency)	return "win32";
 	return "linux";
+}
+
+/**
+ * @returns {boolean} true if the application is running thru ADL, false if installed
+*/
+var RunningThruAdl	= function(){
+	var publisherId	= air.NativeApplication.nativeApplication.publisherID;
+	if( publisherId == "" )	return true;
+	return false;
 }
 
 /**
@@ -74,13 +85,6 @@ var getScreenCap	= function()
 		w:	screen.availWidth,
 		h:	screen.availHeight
 	};
-	// KLUDGE: use hardcoded margin depending on plateform not to be on top on taskbar
-	var curOS	= guessOS();
-	if( curOS == "macos" ){
-		// macos kludge to be beside the dock and not on top
-		screenCap.max_y	= air.Capabilities.screenResolutionY;
-		screenCap.h	= screenCap.max_y - screenCap.min_y;
-	}
 	// return the just-built result
 	return screenCap;
 }

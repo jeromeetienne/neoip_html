@@ -4,14 +4,20 @@
 	<script type="application/x-shockwave-flash"	src="app:/lib/applicationupdater_ui.swf"	/>
 	<script type="text/javascript"			src="app:/js/AIRAliases.js"			/>
 	<script type="text/javascript"			src="app:/js/jquery/jquery.js"			/>
+	<!-- TODO why do i need json exactly ?!?!	-->
 	<script type="text/javascript"			src="app:/js/jquery/plugins/jquery.json-1.3.min.js"	/>
 	<script type="text/javascript"			src="app:/js/jquery/plugins/jquery.easing.1.3.js"	/>
+<!--
+	<script type="text/javascript"			src="app:/js/jquery/ui/ui.core.js"		/>
+	<script type="text/javascript"			src="app:/js/jquery/ui/ui.slider.js"		/>
+-->
 	<script type="text/javascript"			src="app:/js/filecookie_t.js"			/>
 	<script type="text/javascript"			src="app:/js/app_updater.js"			/>
 	<script type="text/javascript"			src="app:/js/systray_t.js"			/>
 	<script type="text/javascript"			src="app:/js/main.js"				/>
 	<script type="text/javascript"			src="app:/js/utils.js"				/>
 	<script type="text/javascript"			src="app:/js/pipwin_t.js"			/>
+	<script type="text/javascript"			src="app:/js/prefwin_t.js"			/>
 </head>
 <body style="background-color: red;position: relative;">
 	<img src="app:/images/thumbnail-48.png" id="imgbutton"/>
@@ -27,7 +33,11 @@ $(document).ready(function(){
 		iframe.setAttribute('frameborder'	, 'no');
 		return $('.content').empty().append(iframe);
 	});
+	$('body').append("publisherid=" + air.NativeApplication.nativeApplication.publisherID + ":");
+	$('body').append(RunningThruAdl() ? "thru adl" : "installed");
 })
+
+
 </script>
 <!--
 <iframe	style="display: compact; position: absolute; width: 100%; top: 16px; bottom: 0px; background-color: green; border-bottom: double;"

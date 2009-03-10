@@ -137,6 +137,7 @@ def concat_data_from_paths(paths):
 
 def process_html_file(html_path, src_rootpath, dst_rootpath):
     """Process the html file (aka minify html+js+css)"""
+    print("Processing "+html_path+"...");
     javascript_min_path = 'js/' + os.path.basename(html_path).split('.')[0] + '-min.js'
     stylesheet_min_path = 'css/' + os.path.basename(html_path).split('.')[0] + '-min.css'
     # handle the javascript in the html file
@@ -168,6 +169,7 @@ dst_rootpath    = os.sys.argv[2]
 
 html_paths      = [ "html/index.html",
                     "html/pipwin.html",
+                    "html/prefwin.html",
                   ]
 img_paths   = ["images/resize-ne.png",
         "images/resize-nw.png",
@@ -179,6 +181,10 @@ img_paths   = ["images/resize-ne.png",
         "images/thumbnail-32.png",
         "images/thumbnail-48.png",
         "images/thumbnail-128.png",
+        ["js/jquery/plugins/cluetip/images/arrowleft.gif"   , "css/images/arrowleft.gif"    ],
+        ["js/jquery/plugins/cluetip/images/arrowright.gif"  , "css/images/arrowright.gif"   ],
+        ["js/jquery/plugins/cluetip/images/arrowup.gif"     , "css/images/arrowup.gif"      ],
+        ["js/jquery/plugins/cluetip/images/arrowdown.gif"   , "css/images/arrowdown.gif"    ]
         ]
 lib_paths   = ["lib/applicationupdater_ui.swf",
         ]
@@ -188,7 +194,12 @@ for html_path in html_paths:
     process_html_file(html_path, src_rootpath, dst_rootpath)
 # process all the img_paths+lib_paths
 for path in img_paths + lib_paths:
-    path_src    = src_rootpath + '/' + path
-    path_dst    = dst_rootpath + '/' + path
-    mycopyfile(path_src, path_dst)
+    if( type(path) == str ):
+        path_src    = src_rootpath + '/' + path
+        path_dst    = dst_rootpath + '/' + path
+        mycopyfile(path_src, path_dst)
+    else:
+        path_src    = src_rootpath + '/' + path[0]
+        path_dst    = dst_rootpath + '/' + path[1]
+        mycopyfile(path_src, path_dst)
 

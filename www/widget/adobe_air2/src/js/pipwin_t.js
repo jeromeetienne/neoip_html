@@ -3,9 +3,25 @@
  * @class pipwin_t
 */
 var pipwin_t = function (){
-	var htmlLoader	= null;
-	var filecookie	= new filecookie_t("filecookie_pipwin.store.json");
+	var configOpt		= {};
+	var htmlLoader		= null;
 	var winAnimTimeoutID	= null;
+	var filecookie		= new filecookie_t("filecookie_pipwin.store.json");
+	var PrefsDefault	= {
+		'always_in_front':	true,
+		'park_corner_enabled':	true,
+		'park_easin_enabled':	true,
+		'park_easin_type_x':	guessOS() != 'linux' ? 'easeOutElastic' : 'easeOutBounce',
+		'park_easin_duration_x':1000,
+		'park_easin_type_y':	guessOS() != 'linux' ? 'easeOutElastic' : 'easeOutBounce',
+		'park_easin_duration_y':1000,
+		'park_south_macos':	'bottom_screen'	// [bottom_screen|top_dock]
+	}
+	// ensure all the preferences are set in filecookie
+	for(var key in PrefsDefault){
+		if( filecookie.has('pref_'+key))	continue;
+		filecookie.set("pref_"+key, PrefsDefault[key]);
+	}
 	
 	/********************************************************************************/
 	/********************************************************************************/
@@ -17,6 +33,9 @@ var pipwin_t = function (){
 	 * create the window
 	*/
 	var createWin	= function(opt){
+		// copy the user option if needed
+		jQuery.extend(configOpt, opt);
+		
 		// get winopts for the window
 		var winopts		= new air.NativeWindowInitOptions();
 		winopts.systemChrome	= air.NativeWindowSystemChrome.NONE;
@@ -29,17 +48,24 @@ var pipwin_t = function (){
 		//winopts.transparent	= true;
 
 		var win_size	= filecookie.get('pipwin_size'	, {w: 320*2/3, h: 240*2/3});
-		var win_pos	= filecookie.get('pipwin_pos'	, 'se');
-		var win_coord	= coordFromPosition(win_pos, win_size);
+		var win_coord	= null;
+		if( filecookie.get('pref_park_corner_enabled') ){
+			var win_pos	= filecookie.get('park_position', 'se');
+			win_coord	= winCoordFromPosition(win_pos, win_size);
+		}else{
+			win_coord	= filecookie.get('nopark_position', {x:0, y:0});
+		}
 
 		// create a new root window
 		var bounds	= new air.Rectangle(win_coord.x, win_coord.y, win_size.w, win_size.h);	
 		htmlLoader	= air.HTMLLoader.createRootWindow(false, winopts, false, bounds);
 		// set it always in front
-		htmlLoader.stage.nativeWindow.alwaysInFront	= true;	
+		htmlLoader.stage.nativeWindow.alwaysInFront	= filecookie.get('pref_always_in_front');	
 		htmlLoader.load( new air.URLRequest('app:/html/pipwin.html') );
-		htmlLoader.addEventListener(air.Event.COMPLETE, function(){loaderOnComplete(opt.onComplete)}, false);
+		htmlLoader.addEventListener(air.Event.COMPLETE, loaderOnComplete, false);
+		htmlLoader.stage.nativeWindow.addEventListener(air.Event.CLOSING, winOnClosing);
 	}
+
 	/**
 	 * Destroy the window
 	*/
@@ -48,10 +74,8 @@ var pipwin_t = function (){
 		if( !htmlLoader )	return;
 
 		// remove the complete event if needed
-		// - TODO as the addEventListener is with a anonymous function this is hard to delete it
-		//   - how to fix this ?
-		//   - isnt there a true/false at the end of addEventListener for this ?
-//		htmlLoader.removeEventListener(air.Event.COMPLETE, loaderOnComplete);
+		htmlLoader.removeEventListener(air.Event.COMPLETE, loaderOnComplete);
+		htmlLoader.stage.nativeWindow.removeEventListener(air.Event.CLOSING, winOnClosing);
 
 		// close the window
 		htmlLoader.stage.nativeWindow.close();
@@ -62,44 +86,23 @@ var pipwin_t = function (){
 	/**
 	 * Handle air.Event.COMPLETE for htmlLoader
 	*/
-	var loaderOnComplete	= function(callback){
-		htmlLoader.removeEventListener(air.Event.COMPLETE, arguments.callee, false);
+	var loaderOnComplete	= function(){
 		// build the titlebar
 		titlebarCtor($('.titlebar', htmlLoader.window.document));
+		
+		// TODO attempts to eat up the titlebar via scroll - FAILED
+		//htmlLoader.window.scrollTo(0, 16);
+		//htmlLoader.window.scrollY	= 16;
+		
 		// notify the caller of loaderOnComplete if needed
-		if(callback)	callback();				
+		if(configOpt.onComplete)	configOpt.onComplete();				
 	}
 	
-
-	/********************************************************************************/
-	/********************************************************************************/
-	/*		misc								*/
-	/********************************************************************************/
-	/********************************************************************************/
-
-	var coordFromPosition	= function(win_pos, win_size){
-		var screenCap	= getScreenCap();
-		var coord	= {};
-		if(win_pos == "cc"){
-			coord.x	= screenCap.min_x + (screenCap.w - win_size.w)/2;
-			coord.y	= screenCap.min_y + (screenCap.h - win_size.h)/2;
-		}else if(win_pos == "nw"){
-			coord.x	= screenCap.min_x;
-			coord.y	= screenCap.min_y;
-		}else if(win_pos == "ne"){
-			coord.x	= screenCap.min_x + (screenCap.w - win_size.w);
-			coord.y	= screenCap.min_y;		
-		}else if(win_pos == "sw"){
-			coord.x	= screenCap.min_x;
-			coord.y	= screenCap.min_y + (screenCap.h - win_size.h);
-		}else if(win_pos == "se"){
-			coord.x	= screenCap.min_x + (screenCap.w - win_size.w);
-			coord.y	= screenCap.min_y + (screenCap.h - win_size.h);		
-		}
-		// return the coord
-		return coord;
+	var winOnClosing	= function(){
+		// notify the caller of loaderOnComplete if needed
+		if(configOpt.onClosing)		configOpt.onClosing();						
 	}
-	
+
 	/********************************************************************************/
 	/********************************************************************************/
 	/*		titlebar stuff							*/
@@ -164,11 +167,35 @@ var pipwin_t = function (){
 		iconResize.addEventListener("mouseup"	, winOnResized	, true);	
 		var iconResize	= myDoc.getElementById("iconResizeWinW");
 		iconResize.addEventListener("mousedown"	, winOnResize	, true);	
-		iconResize.addEventListener("mouseup"	, winOnResized	, true);	
+		iconResize.addEventListener("mouseup"	, winOnResized	, true);
 		
 		air.trace('title bar ready for action YAHOOOOO');
+		
+		// TODO to remove this is an experiementation on detecting the missed mouse events
+		// while moving the window
+		$("#iconMoveWin", myDoc).hover(function(){
+			air.trace('it is over the movewin');
+		},function(){
+			air.trace('it is no more over the movewin');
+		});
 	}
 	
+	var titlebarShow	= function(){
+		htmlLoader.window.scrollTo(0, 0);
+	}
+
+	var titlebarHide	= function(){
+		htmlLoader.window.scrollTo(0, 16);
+	}
+	var titlebarIsVisible	= function(){
+		return htmlLoader.window.scrollY == 0		
+	}
+	
+	/********************************************************************************/
+	/********************************************************************************/
+	/*	other stuff TODO to comment						*/
+	/********************************************************************************/
+	/********************************************************************************/
 	
 	var winOnMove	= function(event){
 		// cancel the previous animation if needed
@@ -190,6 +217,32 @@ var pipwin_t = function (){
 		clearTimeout(winAnimTimeoutID);
 		// mark the timer as stopped
 		winAnimTimeoutID	= null;
+	}
+
+	/**
+	 * Determine the screen capabilities
+	 * @returns {object} properties max_x/max_y/min_x/min_y/w/h
+	*/
+	var getScreenCap	= function()
+	{
+		// compute the screenCap depending screenResolution and screenMargin
+		var screenCap	= {
+			min_x:	screen.availLeft,
+			max_x:	screen.availLeft + screen.availWidth,
+			min_y:	screen.availTop,
+			max_y:	screen.availTop + screen.availHeight,
+			w:	screen.availWidth,
+			h:	screen.availHeight
+		};
+		// KLUDGE: is OS="macos" and pref_park_south_macos=='screen' park on
+		// bottom on the screen and not on top of the dock
+		if( guessOS() == "macos" && filecookie.get('pref_park_south_macos') == 'bottom_screen'){
+			// macos kludge to be beside the dock and not on top
+			screenCap.max_y	= air.Capabilities.screenResolutionY;
+			screenCap.h	= screenCap.max_y - screenCap.min_y;
+		}		
+		// return the just-built result
+		return screenCap;
 	}
 	
 	var winCoordFromPosition	= function(position, win_size){
@@ -227,17 +280,26 @@ var pipwin_t = function (){
 		var nativeWin	= htmlLoader.stage.nativeWindow;
 		// cancel the previous animation if needed
 		winAnimCancelIfNeeded();
-		// if the animation is over, return now
-		if( param.cur_time >= param.tot_time ){
+
+		// compute the next position
+		if( param.cur_time < param.easin_duration_x ){
+			nativeWin.x	= jQuery.easing[param.easin_type_x](null, param.cur_time, param.src_x
+						, (param.dst_x-param.src_x), param.easin_duration_x);
+		}else{
+			nativeWin.x	= param.dst_x;			
+		}
+		if( param.cur_time < param.easin_duration_y ){
+			nativeWin.y	= jQuery.easing[param.easin_type_y](null, param.cur_time, param.src_y
+						, (param.dst_y-param.src_y), param.easin_duration_y);
+		}else{
+			nativeWin.y	= param.dst_y;			
+		}
+		// if both animations are completed, return now
+		if( param.cur_time >= param.easin_duration_x && param.cur_time >= param.easin_duration_y ){
 			air.trace('animation ended');
-			nativeWin.x	= param.dst_x;
-			nativeWin.y	= param.dst_y;
 			return;
 		}
-		// compute the next position
-		var easin	= jQuery.easing[param.easin];
-		nativeWin.x	= easin(null, param.cur_time, param.src_x, (param.dst_x-param.src_x), param.tot_time);
-		nativeWin.y	= easin(null, param.cur_time, param.src_y, (param.dst_y-param.src_y), param.tot_time);
+
 		// setup the timeout for the next
 		winAnimTimeoutID	= setTimeout(function(){
 						param.cur_time	+= param.refresh_msec;
@@ -245,46 +307,60 @@ var pipwin_t = function (){
 					}, param.refresh_msec);
 	}
 
-	var winOnMoved	= function(event){
-		var win	= htmlLoader.stage.nativeWindow;
-		air.trace('win moved!');
-		air.trace('x=' + win.x);
-		air.trace('y=' + win.y);
-		
-		var cur_x	= (win.x + win.width	/2);
-		var cur_y	= (win.y + win.height	/2);
+	var winParkStart	= function(){
+		var screenCap	= getScreenCap();
+		var nativeWin	= htmlLoader.stage.nativeWindow;
+		var cur_x	= (nativeWin.x + nativeWin.width	/2);
+		var cur_y	= (nativeWin.y + nativeWin.height	/2);
 		var position	= "";
-		if( cur_y >= air.Capabilities.screenResolutionY/2 )	position += "s";
-		else							position += "n";
-		if( cur_x >= air.Capabilities.screenResolutionX/2 )	position += "e";
-		else							position += "w";
+		if( cur_y >= screenCap.min_y + screenCap.h/2 )	position += "s";
+		else						position += "n";
+		if( cur_x >= screenCap.min_x + screenCap.w/2 )	position += "e";
+		else						position += "w";
 
 		// save the position for next time
-		filecookie.set('pipwin_pos', position);
+		filecookie.set('park_position', position);
 		
 		// cancel the previous animation if needed
 		winAnimCancelIfNeeded();
 		
+		// compute the new park coordinate
 		coord	= winCoordFromPosition(position);
-
-		var param	= {
-			refresh_msec:	20,
-			cur_time:	0,
-			src_x:		win.x,	//win.x,
-			src_y:		win.y,	//win.y,
-			dst_x:		coord.x,
-			dst_y:		coord.y	//coord.y
-		};
-		if( guessOS() == "linux" ){			
-			param.tot_time	= 300;
-			param.easin	= 'easeOutQuad';
-			param.tot_time	= 1000;
-			param.easin	= 'easeOutBounce';
-		}else{
-			param.tot_time	= 1000;
-			param.easin	= 'easeOutElastic';
+		
+		// if pref_park_easin_enabled == false, set it immediatly
+		// - use nativeWindow.bounds to set x and y at the same time and avoid useless flashy effects
+		if( filecookie.get('pref_park_easin_enabled') == false ){
+			nativeWin.bounds = new air.Rectangle(coord.x, coord.y, nativeWin.width, nativeWin.height);
+			return;	
 		}
-		winAnimDoing(param);
+		// do the parking
+		winAnimDoing({
+			refresh_msec:		20,
+			cur_time:		0,
+			src_x:			nativeWin.x,
+			src_y:			nativeWin.y,
+			dst_x:			coord.x,
+			dst_y:			coord.y,
+			easin_duration_x:	filecookie.get('pref_park_easin_duration_x'),
+			easin_type_x:		filecookie.get('pref_park_easin_type_x'),
+			easin_duration_y:	filecookie.get('pref_park_easin_duration_y'),
+			easin_type_y:		filecookie.get('pref_park_easin_type_y')
+		});		
+	}
+
+	var winOnMoved	= function(event){
+		var nativeWin	= htmlLoader.stage.nativeWindow;
+		air.trace('win moved!');
+		air.trace('x=' + nativeWin.x);
+		air.trace('y=' + nativeWin.y);
+		
+		// if park_corner_enabled == false 
+		if( filecookie.get('pref_park_corner_enabled') == false ){
+			filecookie.set('nopark_position', {x: nativeWin.x, y: nativeWin.y});
+			return;
+		}
+		// Start the window parking
+		winParkStart();
 	}
 	
 	var winOnResize	= function(event){
@@ -366,12 +442,20 @@ var pipwin_t = function (){
 		htmlLoader.stage.nativeWindow.activate();		
 		htmlLoader.stage.nativeWindow.visible	= true;
 		playerCtor($('.content', htmlLoader.window.document));
+
+		// hide/show titlebar depending on the titlebar_hidden property
+		if( filecookie.get('titlebar_hidden', false) )	titlebarHide();
+		else						titlebarShow();
 	}
 
 	/**
 	 * hide the window
 	*/
 	var hideWin	= function(){
+		// save the titlebar_hidden property
+		filecookie.set('titlebar_hidden', !titlebarIsVisible());
+
+		air.trace('scrollY='+htmlLoader.window.scrollY);
 		htmlLoader.stage.nativeWindow.visible	= false;
 		playerDtor($('.content', htmlLoader.window.document));
 	}
@@ -383,6 +467,48 @@ var pipwin_t = function (){
 		return htmlLoader.stage.nativeWindow.visible ? true : false;
 	}
 	
+	/********************************************************************************/
+	/********************************************************************************/
+	/*		Handle preferences 						*/
+	/********************************************************************************/
+	/********************************************************************************/
+	/**
+	 * Get a preference current value
+	*/
+	var getPreference	= function(key){
+		return filecookie.get('pref_'+key);
+	}
+	/**
+	 * Get a preference default value
+	*/
+	var getPrefDefault	= function(key){
+		return PrefsDefault[key];
+	}
+	/**
+	 * Set a preference current value
+	*/
+	var setPreference	= function(key, val){
+		var val_changed	= filecookie.get(key) != val;
+		air.trace("setting key=" + key + " to value=" + val);
+		// store the preference in filecookie
+		filecookie.set("pref_"+key, val);
+		
+		// if the val_changed and this pref may affect the position of the window, trigger a onMoved
+		if( val_changed && (key == 'park_south_macos' || key == 'park_corner_enabled')){
+			winOnMoved(null);
+		}
+		
+		// now make it effective
+		if( key == "always_in_front" ){
+			htmlLoader.stage.nativeWindow.alwaysInFront	= filecookie.get("pref_"+ key);
+		}
+	}
+	/**
+	 * Get a preference default value
+	*/
+	var prefHasKey	= function(key){
+		return filecookie.has("pref_"+key);
+	}
 
 	/********************************************************************************/
 	/********************************************************************************/
@@ -395,6 +521,10 @@ var pipwin_t = function (){
 		destroy:	destroyWin,
 		show:		showWin,
 		hide:		hideWin,
-		isVisible:	isVisibleWin
+		isVisible:	isVisibleWin,
+		getPreference:	getPreference,
+		getPrefDefault:	getPrefDefault,
+		setPreference:	setPreference,
+		prefHasKey:	prefHasKey
 	}
 }

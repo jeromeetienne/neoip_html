@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.adobe.com/air/framework/update/description/1.0">
 	<version>##VERSION##</version>
-	<url>http://192.168.0.13/~jerome/adobe_air2/bin/urfastr-player.air</url>
+	<url>http://urfastr.net/static/player/widget/adobe_air_pbeta/bin/urfastr-player.air</url>
 	<description><![CDATA[##DESCRIPTION##]]></description>
 </update>

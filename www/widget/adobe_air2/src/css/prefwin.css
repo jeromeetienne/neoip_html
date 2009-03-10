@@ -1,0 +1,28 @@
+html, body {
+	font-size:	16px;
+	font-family:	arial, sans-serif;	
+}
+div.header {
+	border-bottom:	0.5em solid #88BBFF;
+}
+div.header .logo {
+	font-size:	300%;
+	font-weight:	bolder;
+	float:		left;
+	margin-left:	0.1em;
+}
+div.header div.title_container {
+	text-align:	right;
+	margin-top: 	0.1em;
+}
+div.header span.title {
+	-webkit-border-top-left-radius:		0.3em;
+	-webkit-border-top-right-radius:	0.3em;
+	padding-right:		0.5em;
+	padding-left:		0.5em;
+	margin-right: 		0.5em;
+	color:			#114499;
+	background-color:	#88BBFF;
+	font-size:		150%;
+	font-weight:		bolder;
+}

@@ -1,0 +1,167 @@
+<html>
+<head>
+	<title>UrFastR Live Preferences</title>
+	<link rel="stylesheet" type="text/css"	href="app:/css/prefwin.css"					/>
+	<link rel="stylesheet" type="text/css"	href="app:/js/jquery/plugins/cluetip/jquery.cluetip.css"	/>
+	<script type="text/javascript"		src="app:/js/jquery/jquery.js"					/>
+	<script type="text/javascript"		src="app:/js/jquery/plugins/cluetip/jquery.dimensions.js"	/>
+	<script type="text/javascript"		src="app:/js/jquery/plugins/cluetip/jquery.hoverIntent.js"	/>
+	<script type="text/javascript"		src="app:/js/jquery/plugins/cluetip/jquery.cluetip.js"		/>
+</head>
+<body>
+<div class="header">
+	<div class="logo">
+		<font color="#CC1002">Ur</font><font color="#3366BB">Fast</font><font color="#CC1002">R</font><font color="#339966"> Live</font>
+	</div>
+	<br/>
+	<br/>
+	<div class="title_container">
+		<span class="title">
+			Preferences
+		</span>
+	</div>
+</div>
+<div class="content">
+	<table>
+		<tr cluetips_selcss='#start_at_login_tip' class="cluetip_needed">
+			<td><label for="start_at_login">Start at login</label></td>
+			<td><input type="checkbox" name="start_at_login" id="start_at_login"></td>
+		</tr>
+		<tr cluetips_selcss='#always_in_front_tip' class="cluetip_needed">
+			<td><label for="always_in_front">Always on top</label></td>
+			<td><input type="checkbox" name="always_in_front" id="always_in_front"></td>
+		</tr>
+		<tr cluetips_selcss='#park_corner_enabled_tip' class="cluetip_needed">
+			<td><label for="park_corner_enabled">Park in corners</label></td>
+			<td><input type="checkbox" name="park_corner_enabled" id="park_corner_enabled"></td>
+		</tr>
+		<tr id="park_south_macos_row"  cluetips_selcss='#park_south_macos_tip' class="cluetip_needed">
+			<td><label for="park_south_macos">park_south_macos</label></td>
+			<td><select name="park_south_macos" id="park_south_macos">
+				<option value="bottom_screen"	>Bottom of the screen	</option>
+				<option value="top_dock"	>Top of the Dock	</option>
+			</select></td>
+		</tr>
+		<tr cluetips_selcss='#park_easin_enabled_tip' class="cluetip_needed">
+			<td><label for="park_easin_enabled">Animate parking ?</label></td>
+			<td><input type="checkbox" name="park_easin_enabled" id="park_easin_enabled"></td>
+		</tr>
+		<tr cluetips_selcss='#park_easin_precfg_tip' class="cluetip_needed">
+			<td>
+				Examples
+			</td>
+			<td>
+				<input type="button" id="but_easin_gravity"	value="Gravity">
+				<input type="button" id="but_easin_fancy"	value="Fancy">
+				<input type="button" id="but_easin_simple"	value="Simple">
+				<input type="button" id="but_easin_none"	value="None">			
+			</td>
+		</tr>
+		<tr cluetips_selcss='#park_easin_duration_x_tip' class="cluetip_needed">
+			<td>Horizontal</td>
+			<td>
+				<select name="park_easin_type_x" id="park_easin_type_x"
+					cluetips_selcss='#park_easin_type_x_tip' class="cluetip_needed">
+					<option value="easeOutQuad">quad</option>
+					<option value="easeOutBounce">bounce</option>
+					<option value="easeOutElastic">elastic</option>
+				</select>
+				<input type="text" size=5 name="park_easin_duration_x" id="park_easin_duration_x"
+					cluetips_selcss='#park_easin_duration_x_tip' class="cluetip_needed">
+			</td>
+		</tr>
+		<tr cluetips_selcss='#park_easin_duration_y_tip' class="cluetip_needed">
+			<td>Vertical</td>
+			<td>
+				<select name="park_easin_type_y" id="park_easin_type_y"
+					cluetips_selcss='#park_easin_type_y_tip' class="cluetip_needed">
+					<option value="easeOutQuad">quad</option>
+					<option value="easeOutBounce">bounce</option>
+					<option value="easeOutElastic">elastic</option>
+				</select>
+				<input type="text" size=5 name="park_easin_duration_y" id="park_easin_duration_y"
+					cluetips_selcss='#park_easin_duration_y_tip' class="cluetip_needed">
+			</td>
+		</tr>
+		<tr><td colspan='2' align="right">
+			<input type="button" id="reset_to_default" value="Reset to Default"
+			       cluetips_selcss='#reset_to_default_tip' class="cluetip_needed">
+		</td></tr>
+	</table>
+</div>
+<!--
+TODO
+<ul>
+<li><b>PART:</b> a slider for easin duration</li>
+<li>if park easin enabled==false -> disable all fields in relation to easing</li>
+<li>if park enabled==false -> disbale all UI park-related</li>
+<li>store the state of title bar: visible/hidden</li>
+<li>detect the mouseleave event when doing moving... doesnt work over flash...
+	<ul>
+	<li>easiest is to do: if not moved for 1sec, and supposed in moving. consider it moved</li>
+	</ul>
+	</li>
+<li><b>DONE:</b>on macos, make the option park_macos_bottom: screen/dock</li>
+<li><b>DONE:</b> preconfig for easin: none/fancy/simple</li>
+<li><b>DONE:</b>if easin is disabled, the window make 2 moves, x/y. can you set them at the same time</li>
+</ul>
+-->
+
+<div id="start_at_login_tip">
+This option determines if the application should be started every time you login or not
+</div>
+<div id="always_in_front_tip">
+This option determines if the video window should always be in front of others or not
+</div>
+<div id="park_corner_enabled_tip">
+This option determines if the video window should be parked in the screen corners or not
+</div>
+<div id="park_south_macos_tip">
+This option where to park the video window.
+If <b>Top of the Dock</b> it will be park on top of the dock,
+If it is <b>Bottom of the screen</b>, it will be park at the botton of the screen.
+</div>
+<div id="park_easin_enabled_tip">
+Should the parking be animated ?
+</div>
+<div id="park_easin_precfg_tip">
+Already configured animations:
+<b>Gravity</b> is for a gravity like animation,
+<b>Fancy</b> is for a shiny one,
+<b>Simple</b> is for a more humble one and 
+<b>None</b> speaks for itself.
+</div>
+<div id="park_easin_type_x_tip">
+Which type of horizontabl animation which should be used ?
+</div>
+<div id="park_easin_duration_x_tip">
+How long the horizontal animation should last in millisecond ?
+</div>
+<div id="park_easin_type_y_tip">
+Which type of vertical animation which should be used ?
+</div>
+<div id="park_easin_duration_y_tip">
+How long the vertical animation should last in millisecond ?
+</div>
+<div id="reset_to_default_tip">
+Reset all preferences to their default values.
+</div>
+<script>
+$(function(){
+	$('.cluetip_needed').each(function(){
+		$(this).cluetip({
+			local:		true,
+			attribute:	'cluetips_selcss',
+			arrows:		true,
+			positionBy: 	'bottomTop',
+			topOffset:	16,
+			showTitle:	false,
+			cluetipClass:	'jtip'
+		})
+	});
+})
+</script>
+
+</body>
+</html>
+
