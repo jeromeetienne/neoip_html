@@ -125,6 +125,10 @@ jsfdata_packed	= `#{cmdline}`
 # unlink the jsfname_tmpfile
 File.unlink(jsfname_tmpfile)
 
+
+# TODO to remove - only there to help debug the flash init race condition in webkit
+#jsfdata_packed	= jsfdata_expand;
+
 # write the jsfdata_packed into a file
 jsfname_packed	= output_fname
 File.open(jsfname_packed, "w+") { |file| file.write(jsfdata_packed)	}
