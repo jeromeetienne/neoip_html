@@ -11,9 +11,9 @@ ADL=$(AIR_SDK)/bin/adl
 ADT=$(AIR_SDK)/bin/adt
 
 REL_DIRNAME	= /tmp/adobe_air2_reldir.tmp
-REL_VERSION	= 0.9.2
+REL_VERSION	= 0.9.4
 # to put a \n in the description, do a \\n
-REL_DESCRIPTION	= * Allow a preference menu\\n* keep title bar state between opening\\nEnjoy it hot!
+REL_DESCRIPTION	= * better animation\\n* Improvement in menu\\n* ported to jqueryui1.7\\nEnjoy it hot!
 
 devrun:
 	$(ADL) application.xml src

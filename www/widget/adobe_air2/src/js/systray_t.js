@@ -27,6 +27,11 @@ var systray_t = function(){
 		var menu	= new air.NativeMenu();
 		var menuItem	= null;
 	
+		// add the application name+version
+		var app_xml	= getAppXml();
+		menuItem	= new air.NativeMenuItem(app_xml.name+" "+app_xml.version);
+		menu.addItem( menuItem );
+		menu.addItem(new air.NativeMenuItem('', true));
 		// add the menuitem 'about'
 		menuItem	= new air.NativeMenuItem("About" );
 		menuItem.addEventListener(air.Event.SELECT, NativeMenuOnSelect );	
@@ -128,4 +133,3 @@ var systray_t = function(){
 		notifyUser:	notifyUser
 	};
 }
-var systray	= new systray_t();

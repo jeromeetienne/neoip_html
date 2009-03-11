@@ -282,18 +282,18 @@ var pipwin_t = function (){
 		winAnimCancelIfNeeded();
 
 		// compute the next position
+		var coord	= { x: param.dst_x, y: param.dst_y };
 		if( param.cur_time < param.easin_duration_x ){
-			nativeWin.x	= jQuery.easing[param.easin_type_x](null, param.cur_time, param.src_x
+			coord.x	= jQuery.easing[param.easin_type_x](null, param.cur_time, param.src_x
 						, (param.dst_x-param.src_x), param.easin_duration_x);
-		}else{
-			nativeWin.x	= param.dst_x;			
 		}
 		if( param.cur_time < param.easin_duration_y ){
-			nativeWin.y	= jQuery.easing[param.easin_type_y](null, param.cur_time, param.src_y
+			coord.y	= jQuery.easing[param.easin_type_y](null, param.cur_time, param.src_y
 						, (param.dst_y-param.src_y), param.easin_duration_y);
-		}else{
-			nativeWin.y	= param.dst_y;			
 		}
+		// set next position atomically
+		nativeWin.bounds = new air.Rectangle(coord.x, coord.y, nativeWin.width, nativeWin.height);
+		
 		// if both animations are completed, return now
 		if( param.cur_time >= param.easin_duration_x && param.cur_time >= param.easin_duration_y ){
 			air.trace('animation ended');
@@ -406,7 +406,7 @@ var pipwin_t = function (){
 	 * @returns {jquery} a jquery object
 	*/
 	var playerCtor	= function(container){
-		var src_url	= 'http://player.urfastr.tv/live?neoip_var_widget_src=adobe_air2';
+		var src_url	= 'http://player.urfastr.tv/live?neoip_var_widget_src=adobe_air_pbeta';
 		// TODO to remove, only to debug a flash init issue
 		// - make the mac on casti flv dev, and a webpack on jmehost2
 		// - all local easier to debug

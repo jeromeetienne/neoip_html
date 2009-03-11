@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="539305af-b94b-4950-8eed-a0222b378b4d" kpf_version="4" name="adobe_air2.kpf">
-<snippet id="33d9e4ba-8037-4cc3-a287-9241b8b8faae" idref="539305af-b94b-4950-8eed-a0222b378b4d" indent_relative="false" name="" set_selection="true">
-!@#_anchor	
-!@#_currentPos</snippet>
-<snippet id="a9b6c3bb-00ee-4254-8761-486060e9438e" idref="539305af-b94b-4950-8eed-a0222b378b4d/bin" indent_relative="false" name="" set_selection="true">
-!@#_anchor
-
-
-!@#_currentPos</snippet>
 <preference-set idref="539305af-b94b-4950-8eed-a0222b378b4d">
   <boolean id="import_live">1</boolean>
 </preference-set>

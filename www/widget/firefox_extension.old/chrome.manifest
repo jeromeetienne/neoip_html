@@ -1,5 +1,0 @@
-content	urfastrplayer	content/
-locale	urfastrplayer	en-US		locale/en-US/
-skin	urfastrplayer	classic/1.0	skin/
-overlay chrome://browser/content/browser.xul		chrome://urfastrplayer/content/browser.xul
-style	chrome://global/content/customizeToolbar.xul	chrome://urfastrplayer/skin/overlay.css

@@ -129,9 +129,9 @@ var prefwin_t = function (ctorOpt){
 		$('#but_easin_gravity', mydoc).click(function(){
 			mySetValue('park_easin_enabled'	, true);
 			mySetValue('park_easin_type_x'	, 'easeOutQuad');
-			mySetValue('park_easin_duration_x', 1000);
+			mySetValue('park_easin_duration_x', 600);
 			mySetValue('park_easin_type_y'	, 'easeOutBounce');
-			mySetValue('park_easin_duration_y', 1000);
+			mySetValue('park_easin_duration_y', 600);
 		});
 		$('#but_easin_fancy', mydoc).click(function(){
 			mySetValue('park_easin_enabled'	, true);

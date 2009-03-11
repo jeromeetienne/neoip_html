@@ -13,13 +13,13 @@ function MainOnLoadCallback()
 			air.trace("main native window clossing");
 		});
 	}
-
 	//var htmlLoader	= air.HTMLLoader.createRootWindow(true);
 	//htmlLoader.load( new air.URLRequest('http://localhost/~jerome/webwork/expsite/web/index.php/testjqueryui/cluetip') );
 	//return;
 
 
 	// set the startAtLogin - it is known to fails thru adl
+	// - TODO bug bug bug. why would i set it to true by default ?
 	if( !RunningThruAdl() )
 		air.NativeApplication.nativeApplication.startAtLogin = true;
 

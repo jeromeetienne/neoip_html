@@ -5,7 +5,7 @@
 APPS_FNAME=urfastr-player.air
 # TODO put adt in a more regular path
 #ADT=~/opt/adobeair_linux_sdk_b1_091508/bin/adt
-ADT=~/opt/adobeair_1.5_sdk/bin/adt
+ADT=~/opt/air_1.5_sdk/bin/adt
 
 
 

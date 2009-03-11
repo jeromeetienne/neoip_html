@@ -22,6 +22,25 @@ var RunningThruAdl	= function(){
 }
 
 /**
+ * Parse the application.xml from AIR and convert it to json
+ * - http://livedocs.adobe.com/flex/gumbo/langref/flash/desktop/NativeApplication.html
+ * @returns {string} the version from the application.xml
+*/
+var getAppXml		= function(){
+	var xmlString	= air.NativeApplication.nativeApplication.applicationDescriptor;
+	var appXml	= new DOMParser();
+	var xmlObject	= appXml.parseFromString(xmlString, "text/xml");
+	var root	= xmlObject.getElementsByTagName('application')[0];
+	// build the result
+	var result	= {}
+	jQuery.each(['id', 'version', 'name'], function(){
+		result[this]	= root.getElementsByTagName(this)[0].firstChild.data;
+	});
+	// return the just-built result
+        return result;
+}
+
+/**
  * @deprecated this is a old version before i knew about the screen dom object
  * Determine the screen capabilities
  * - this function is mainly due to an issue on macos/win32 with the

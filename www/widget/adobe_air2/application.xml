@@ -3,16 +3,16 @@
 	<id>com.urfastr.player</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>UrFastR Player</filename> 
+	<filename>UrFastR Live on AIR</filename>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>0.9.2</version>
+	<version>0.9.4</version>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name>UrFastR Player</name>
+	<name>UrFastR Live</name>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
-	<description>UrFastR Player, your TV just a click away!</description> 
+	<description>UrFastR Live, your TV just a click away!</description> 
 
 	<!-- Copyright information. Optional -->
 	<copyright></copyright> 
