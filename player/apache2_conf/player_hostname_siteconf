@@ -4,8 +4,22 @@ NameVirtualHost *
         ServerName	player.urfastr.tv
         <Directory /var/www/player.urfastr.tv>
         	# disable the ability to see file directory content
-                Options -Indexes
+                #Options -Indexes
+		AllowOverride All
+		Allow from All
         </Directory>
+	
+	<IfDefine SuperExperimentationDisabled>
+		# experimentation to cache *.(css|js|swf)
+		<LocationMatch "\.(css|js|swf)$">
+			Header set Cache-Control "max-age=600"
+			ExpiresActive On
+			#ExpiresDefault A600
+			ExpiresByType text/css				"access plus 1 day"
+			ExpiresByType text/javascript			"access plus 1 day"
+			ExpiresByType application/x-shockwave-flash	"access plus 1 day"
+		</LocationMatch>
+	</IfDefine>
 	
 	# BARCAMP KLUDGE BEG
 	# - to allow direct access to ANY neoip-casto stream without neoip-webpack
@@ -15,7 +29,6 @@ NameVirtualHost *
                 Order deny,allow
                 Allow from all
         </Proxy>
-
         ProxyPass               /direct_stream/ http://127.0.0.1:4560/
         ProxyPassReverse        /direct_stream/ http://127.0.0.1:4560/
         # BARCAMP KLUDGE END

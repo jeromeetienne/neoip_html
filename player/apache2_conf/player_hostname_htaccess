@@ -1,6 +1,28 @@
 # \brief This file is the apache2 .htaccess to put in the vhost directory
 #        in order to get all the clean url relative to the player
 
+# gzip .js
+AddType text/javascript .js
+AddType text/css .css
+AddType application/x-shockwave-flash .swf
+AddOutputFilterByType DEFLATE text/javascript
+# gzip .css
+AddOutputFilterByType DEFLATE text/css
+
+# doc about caching
+# - http://www.websiteoptimization.com/speed/tweak/cache/
+<FilesMatch "\.(css|js|swf)$">
+	Header set Cache-Control "max-age=600"
+</FilesMatch>
+# -  the expire stuff do works but i dont understand it well enougth to enable it
+ExpiresActive On
+#ExpiresDefault A600
+ExpiresByType text/css				"access plus 1 day"
+ExpiresByType text/javascript			"access plus 1 day"
+ExpiresByType application/x-shockwave-flash	"access plus 1 day"
+
+
+
 # IIF no path in the url, then do a http redir to /play
 RewriteRule ^$ /live [R]
 
