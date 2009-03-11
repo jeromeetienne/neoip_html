@@ -116,6 +116,8 @@ neoip.subplayer_asplayer_t.prototype.build_objembed = function(p_container_id, p
 	// put the parameter to the flash plugin itself
 	so.addParam("allowScriptAccess"	, "always");
 
+	// TODO to remove just an experimentation for wmode transparent - in relation with 
+	//so.addParam	("wmode"	, "transparent");
 
 	var allowfullscreen	= true;
 	so.addParam("allowfullscreen"	, allowfullscreen ? "true" : "false");
@@ -135,7 +137,7 @@ neoip.subplayer_asplayer_t.prototype.build_objembed = function(p_container_id, p
 						+ "Flash required"
 					+ "</span>"
 					+ "<br/>"
-					+ "<a href='http://get.adobe.com/flashplayer/' target='_blank'>download it</a>"
+					+ "<a href='http://get.adobe.com/flashplayer/' target='_blank'>Download it</a>"
 				+ "</td></tr>"
 			+ "</table>";
 	document.getElementById(p_container_id).innerHTML = innerhtml;
