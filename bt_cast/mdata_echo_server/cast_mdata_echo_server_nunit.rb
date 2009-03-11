@@ -8,7 +8,7 @@
 require 'xmlrpc/client'
 
 # init the xmlrpc client
-server = XMLRPC::Client.new2("http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.rb")
+server = XMLRPC::Client.new2("http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi")
 
 
 # set some variables
