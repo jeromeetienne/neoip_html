@@ -29,7 +29,7 @@
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
 <style type="text/css">	
 	/* body style for the video fullpage mode - hardcoded for now */
-	body {	height	: 100%;
+	body_no {	height	: 100%;
 		width	: 100%;
 		margin	: 0px;
 		overflow: hidden;
@@ -67,7 +67,10 @@
 	// extract all configuration options from the document URI
 	// - this is ok as it is suppposed to be used as iframe
 	var urivar_arr	= neoip.core.doc_urivar_arr();
-	var cfgvar_arr	= {}
+	var cfgvar_arr	= {
+		'onload_start_play'	: "enabled",
+		'fullpage_state'	: 'maximized'
+	};		
 	for(var key in urivar_arr){
 		// goto the next if not prefixed by "neoip_var_"
 		if( /^neoip_var_/.test(key) == false )	continue;
@@ -76,11 +79,14 @@
 		// copy the value in cfgvar_arr
 		cfgvar_arr[stripped_key]	= urivar_arr[key];
 	}
+	
+	console.dir(cfgvar_arr);
 
 	// build the neoip.ezplayer_t
 	var ezplayer	= new neoip.ezplayer_t(cfgvar_arr);
-	ezplayer.play_post_playlist(true);
-	ezplayer.fullpage_state("maximized");	
+	// commented out - been replace by a more generic cfgvar_arr, settable from url var
+	//	ezplayer.play_post_playlist(true);
+	//	ezplayer.fullpage_state("maximized");	
 	// set the server_date in ezplayer
 	ezplayer.set_server_date( parseFloat(neoip.core.download_file_insync("../../cgi-bin/server_date.php", true))*1000 );
 
@@ -91,8 +97,8 @@
 		var	playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";
 		ezplayer.change_playlist(playlist_url);
 	}else{
-		//var plistarr_url	= "../mdata_echo_server/data/ezplayer_playlist_arr.json";
-		var plistarr_url	= "testrpc.php/castiRecordWebSrv/GetPlistArr";
+		var plistarr_url	= "../mdata_echo_server/data/ezplayer_playlist_arr.json";
+		//var plistarr_url	= "testrpc.php/castiRecordWebSrv/GetPlistArr";
 		ezplayer.load_plistarr(plistarr_url);
 	}
 	// start the ezplayer_t

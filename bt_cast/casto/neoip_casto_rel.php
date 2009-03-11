@@ -27,7 +27,10 @@
 	// extract all configuration options from the document URI
 	// - this is ok as it is suppposed to be used as iframe
 	var urivar_arr	= neoip.core.doc_urivar_arr();
-	var cfgvar_arr	= {};
+	var cfgvar_arr	= {
+		'onload_start_play'	: "enabled",
+		'fullpage_state'	: 'maximized'
+	};
 	for(var key in urivar_arr){
 		// goto the next if not prefixed by "neoip_var_"
 		if( /^neoip_var_/.test(key) == false )	continue;
@@ -39,8 +42,9 @@
 	
 	// build the neoip.ezplayer_t
 	var ezplayer	= new neoip.ezplayer_t(cfgvar_arr);
-	ezplayer.play_post_playlist(true);
-	ezplayer.fullpage_state("maximized");
+	// commented out - been replace by a more generic cfgvar_arr, settable from url var
+	//	ezplayer.play_post_playlist(true);
+	//	ezplayer.fullpage_state("maximized");
 
 	// set the server_date in ezplayer
 	// - use php to get the server date now
