@@ -23,10 +23,14 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 neoip.objembed_initmon_t = function()
 {
 	// log to debug
-	//console.info("enter");
+	console.info("enter");
 	// init some parameters
 	this.m_cur_delay	= 0.1*1000;
 	this.m_end_delay	= 5.0*1000;
+
+// TODO temporary while i fix the adobe_air2 loading delay	
+	this.m_cur_delay	= 3*1000;
+	this.m_end_delay	= 15.0*1000;
 }
 
 /** \brief destructor of the object
@@ -49,16 +53,16 @@ neoip.objembed_initmon_t.prototype.destructor = function()
 ////////////////////////////////////////////////////////////////////////////////
 
 /** \brief Start the operation
+ * @param obj_fcts {string|Array} the function to test on the html id
  */
-neoip.objembed_initmon_t.prototype.start = function(html_id, fct_str, callback)
+neoip.objembed_initmon_t.prototype.start = function(html_id, obj_fcts, callback)
 {
 	// log to debug
-	//console.info("enter html_id=" + html_id +  " fct_str=" + fct_str);
+	console.info("enter html_id=" + html_id +  " obj_fcts=" + obj_fcts);
 	// copy the parameters
 	this.m_html_id	= html_id;
-	this.m_fct_str	= fct_str;
+	this.m_obj_fcts	= obj_fcts instanceof Array ? obj_fcts : [obj_fcts];
 	this.m_callback	= callback;
-	
 	// start the next timeout
 	this.m_expire_timeout	= setTimeout(neoip.basic_cb_t(this._expire_timeout_cb, this)
 							, this.m_cur_delay);
@@ -70,6 +74,25 @@ neoip.objembed_initmon_t.prototype.start = function(html_id, fct_str, callback)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+/** \brief test is the 
+*/
+neoip.objembed_initmon_t.prototype._emdeb_do_exist	= function()
+{
+	// get the embed_elem in the page
+	var embed_elem	= document.getElementById(this.m_html_id);
+	// if embed_elem exists and has fct_str, notify the callback
+	if( embed_elem == undefined )	return false;
+	
+	// if embed_elem exists and has fct_str, notify the callback
+	for(var i = 0; i < this.m_obj_fcts.length; i++){
+		// TODO this eval may likely remove
+		// old version: if( eval("typeof(embed_elem."+this.m_obj_fcts+")") != "function")
+		if( typeof embed_elem[this.m_obj_fcts[i]] !== 'function' )
+			return false;
+	}
+	return true;
+}
+
 /** \brief The _expire_timeout_cb
  */
 neoip.objembed_initmon_t.prototype._expire_timeout_cb	= function()
@@ -80,12 +103,10 @@ neoip.objembed_initmon_t.prototype._expire_timeout_cb	= function()
 	clearInterval( this.m_expire_timeout );
 	this.m_expire_timeout	= null;
 	
-	// get the embed_elem in the page
-	var embed_elem	= document.getElementById(this.m_html_id);
-	// if embed_elem exists and has fct_str, notify the callback
-	if( embed_elem != undefined && eval("typeof(embed_elem."+this.m_fct_str+")") == "function"){
+	// if the embed element do exist, notify the callback now
+	if(this._emdeb_do_exist()){
 		this.m_callback();
-		return;
+		return;		
 	}
 	
 	// NOTE: at this point, the objembed is NOT YET initialized
