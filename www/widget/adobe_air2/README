@@ -1,3 +1,16 @@
+Post pbeta:
+**********************************************
+- make a button random animation in prefwin
+- make titlebar to disapear on timeout
+  - on option in prefwin
+- recenter it pip when animation is changed in preference
+- when a new version got installed, popup the pipwin
+  - popup a 'new version window' ala firefox
+- if click on center pipwin, + drag, then drag it
+  - at least require working crossframe 
+
+Pre pbeta:
+**********************************************
 - BUG what about the issue between player.urfastr.tv/live and webkit
   - it seems very close to init
   - may be close to flash and when i wait for download
@@ -29,12 +42,6 @@
   - google for it... see "desktop keeley"
 - BUG what about the missed event while moving the window
   - can i detect when the mouse is no more on the title bar ?
-- BUG: titlebar+mousewheel on linux
-  - mouse wheel on title bar make it disapears
-  - this make mouse wheel to disppears ... cool on linux to remove the title bar
-  - a feature ? :)
-    - if decided as feature, save its state in filecookie
-- TODO work: make a real private beta stuff for this
 - TODO shiny: animations to appear/disapear the pipwin
   - even linux may have one by tricking the window size + position
 - TODO shiny: integrate the transparent support
@@ -70,3 +77,9 @@
   - test if an explicit quit would help
     - YES it does. an explicit quit do close the application
     - so maybe something with a event to determine what is done by the default quit   
+- DONE BUG: titlebar+mousewheel on linux
+  - mouse wheel on title bar make it disapears
+  - this make mouse wheel to disppears ... cool on linux to remove the title bar
+  - a feature ? :)
+    - if decided as feature, save its state in filecookie
+- DONE work: make a real private beta stuff for this

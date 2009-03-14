@@ -42,7 +42,7 @@ neoip.xdomrpc_t = function(p_rpc_url, p_callback, method_name, arg0, arg1, arg2,
 	this.m_obj_id		= neoip_xdomrpc_cb_new_obj_id();
 	this.m_callback		= p_callback;
 	this.m_rpc_url		= p_rpc_url;
-	this.m_expire_delay	= 3.0*1000;		// TODO make this tunable
+	this.m_expire_delay	= 6.0*1000;		// TODO make this tunable
 	this.m_expire_timeout	= setTimeout(neoip.basic_cb_t(this._expire_timeout_cb, this)
 							, this.m_expire_delay);
 	// register this xdomrpc to the neoip_xdomrpc_cb_arr
@@ -50,6 +50,8 @@ neoip.xdomrpc_t = function(p_rpc_url, p_callback, method_name, arg0, arg1, arg2,
 	// build the call_uri
 	var	call_uri	= this.m_rpc_url;
 	call_uri	+= "?obj_id="		+ this.m_obj_id;
+	// TODO what is this js_callback stuff ?!?
+	// - it is not used here and not used in webpack
 	call_uri	+= "&js_callback="	+ 'neoip_xdomrpc_cb_callback_from_server';
 	call_uri	+= "&method_name="	+ escape(method_name);
 	if( arg0 != null )	call_uri += "&arg0=" + escape(arg0);
