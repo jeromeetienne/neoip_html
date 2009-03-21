@@ -18,14 +18,12 @@ function MainOnLoadCallback()
 	//return;
 
 
-	// set the startAtLogin - it is known to fails thru adl
-	// - TODO bug bug bug. why would i set it to true by default ?
-	if( !RunningThruAdl() )
-		air.NativeApplication.nativeApplication.startAtLogin = true;
+
 
 	// launch the autoupdater
 	// - TODO calling this prevent the application to quit on macos (but work on linux/win32)
 	// - is it in relation with the 'quit != with dock' on macos too
+	// - if destination address is unreachable, this is a trouble too
 	var updateURL	= "http://urfastr.net/static/player/widget/adobe_air_pbeta/bin/update.xml";
 	//updateURL	= "http://192.168.0.13/~jerome/adobe_air2/bin/update_4adl.xml";
 	if( !RunningThruAdl() )	handle_autoupdate(updateURL);
@@ -53,50 +51,25 @@ function MainOnLoadCallback()
 		onClosing:	function(){ appQuit();			}
 	});
 	
-	var mainPref	= {
-		hasKey:	function(key){
-				air.trace("haskey for key="+key);
-				if( key == "start_at_login" )	return true;
-				return false;
-			},
-		set:	function(key, val){
-				air.trace("set for key="+key+" val="+val);
-				if( key == "start_at_login" ){
-					// set the startAtLogin - it is known to fails thru adl
-					if( RunningThruAdl() )	return;
-					air.NativeApplication.nativeApplication.startAtLogin = val;
-					return;
-				}
-			},
-		get:	function(key){
-				air.trace("get for key="+key);
-				if(key == "start_at_login"){
-					if( RunningThruAdl() )	return true;
-					return air.NativeApplication.nativeApplication.startAtLogin;
-				}
-				return null;
-			},
-		getDfl:	function(key){
-				if(key == 'start_at_login')	return true;
-				return null;
-			}
-	};
+	// handle the mainpref_t
+	var mainpref	= new mainpref_t();
 
+	// handle prefwin_t
 	var prefwin	= new prefwin_t({
 		getValueDefault: function(key){
-				if( mainPref.hasKey(key) )	return mainPref.getDfl(key);
+				if( mainpref.hasKey(key) )	return mainpref.getDfl(key);
 				if( pipwin.prefHasKey(key) )	return pipwin.getPrefDefault(key)
 				return null;
 			},
 		getValue: function(key){
 				air.trace('try to get key='+key);
-				if( mainPref.hasKey(key) )	return mainPref.get(key);
+				if( mainpref.hasKey(key) )	return mainpref.get(key);
 				if( pipwin.prefHasKey(key) )	return pipwin.getPreference(key);
 				return null;
 			},
 		setValue: function(key, val){
 				air.trace('try to get key='+key+" to value="+val);
-				if( mainPref.hasKey(key) )	return mainPref.set(key, val);
+				if( mainpref.hasKey(key) )	return mainpref.set(key, val);
 				if( pipwin.prefHasKey(key) )	return pipwin.setPreference(key, val);
 				return null;				
 			}

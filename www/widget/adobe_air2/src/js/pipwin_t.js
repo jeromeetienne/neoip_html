@@ -334,7 +334,7 @@ var pipwin_t = function (){
 			return;	
 		}
 		// do the parking
-		winAnimDoing({
+		var opt	= {
 			refresh_msec:		20,
 			cur_time:		0,
 			src_x:			nativeWin.x,
@@ -345,7 +345,32 @@ var pipwin_t = function (){
 			easin_type_x:		filecookie.get('pref_park_easin_type_x'),
 			easin_duration_y:	filecookie.get('pref_park_easin_duration_y'),
 			easin_type_y:		filecookie.get('pref_park_easin_type_y')
-		});		
+		};
+		if(false){
+			// experimentation to put random in duration
+			// - result: convincing randomized effect especially with bounce/elastic
+			// - FIXME how to do the UI in prefwin for it
+			var rand_range		= function(val_inf, val_sup){
+				return val_inf + Math.ceil((val_sup-val_inf)*Math.random());
+			}
+			opt.easin_duration_x	= rand_range(500,900); 
+			opt.easin_duration_y	= rand_range(500,900);
+			air.trace('duration_x='+opt.easin_duration_x);
+			air.trace('duration_y='+opt.easin_duration_y);
+		}
+		if(false){
+			// experimentation to put random in type
+			// - result: i am not really convinced
+			// - FIXME: same as random duration, how to put that in UI ?
+			var types	= ['easeOutQuad', 'easeOutBounce'];
+			if( guessOS() != 'linux' )	types.push('easeOutElastic');
+			var rand_type	= function(){ return types[Math.floor(types.length*Math.random())];	}
+			opt.easin_type_x	= rand_type();
+			opt.easin_type_y	= rand_type();
+			air.trace('type_x='+opt.easin_type_x);
+			air.trace('type_y='+opt.easin_type_y);
+		}
+		winAnimDoing(opt);		
 	}
 
 	var winOnMoved	= function(event){
