@@ -1,0 +1,7 @@
+- put it all in a single namespace 'crossframe'
+  - even listener_obj
+- rename crossframe_t into
+  - rpc_call
+  - rpc_bind
+  - msg_send
+  - msg_bind
