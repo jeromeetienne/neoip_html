@@ -20,7 +20,7 @@ var mainpref_t	= function(){
 		filecookie.set("pref_"+key, val);
 		
 		// now make it effective
-		if( key == "startAtLogin" ){
+		if( key == "start_at_login" ){
 			// set the startAtLogin - it is known to fails thru adl
 			if( RunningThruAdl() )	return;
 			var nativeApp		= air.NativeApplication.nativeApplication;

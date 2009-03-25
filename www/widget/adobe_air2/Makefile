@@ -11,9 +11,12 @@ ADL=$(AIR_SDK)/bin/adl
 ADT=$(AIR_SDK)/bin/adt
 
 REL_DIRNAME	= /tmp/adobe_air2_reldir.tmp
-REL_VERSION	= 0.9.4
+REL_VERSION	= 0.9.6
 # to put a \n in the description, do a \\n
-REL_DESCRIPTION	= * better animation\\n* Improvement in menu\\n* ported to jqueryui1.7\\nEnjoy it hot!
+REL_DESCRIPTION	= 0.9.6 \\n * fixed bugs in start at login :) \\n 0.9.5 \\n* fixed start at login preference \\n0.9.4 \\n* better animation\\n* Improvement in menu\\n* ported to jqueryui1.7\\nEnjoy it hot!
+# attempt to make it automatic
+#REL_DESCRIPTION = $(shell cat ChangeLog | sed 's/$/\\\\n/' | tr -d '\n')
+#REL_DESCRIPTION = $(shell awk "{printf '%s\\\\n', $0}" ChangeLog)
 
 devrun:
 	$(ADL) application.xml src

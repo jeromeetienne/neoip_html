@@ -29,7 +29,7 @@ function MainOnLoadCallback()
 	if( !RunningThruAdl() )	handle_autoupdate(updateURL);
 
 	/**
-	 * functino which quit the application
+	 * function which quit the application
 	 * - NOTE: on macos, doing the predefined quit menu on the dockicon doesnt
 	 *   quit the application. it seems to close the most recently opened
 	 *   native window. aka not the application itself.
