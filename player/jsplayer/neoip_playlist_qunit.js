@@ -1,5 +1,10 @@
+/**
+ * All the qunit test for neoip_playlist_t classes
+*/
 var neoip_playlist_qunit	= function(){
-	module("playlist_loader");
+	// define the name of the module
+	module("tests for neoip_playlist_t classes");
+
 	test("playlist_loader with xdomrpc", function(){
 		var playlist_loader_cb	= function(notified_obj, userptr, event_type, arg){
 			console.info("event_type="+event_type);

@@ -1,5 +1,10 @@
+/**
+ * All the qunit test for neoip_playlist_t classes
+*/
 var neoip_plistarr_qunit	= function(){
-	module("plistarr_loader");
+	// define the name of the module
+	module("tests for neoip_plistarr_t classes");
+
 	test("plistarr_loader with xdomrpc", function(){
 		// same for plistarr
 		var plistarr_loader_cb	= function(notified_obj, userptr, event_type, arg){
