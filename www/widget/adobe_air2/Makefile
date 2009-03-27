@@ -7,8 +7,8 @@ APPS_ID=com.urfastr.player
 
 # TODO put adt in a more regular path
 AIR_SDK=~/opt/air_1.5_sdk
-ADL=$(AIR_SDK)/bin/adl
-ADT=$(AIR_SDK)/bin/adt
+ADL=adl
+ADT=adt
 
 REL_DIRNAME	= /tmp/adobe_air2_reldir.tmp
 REL_VERSION	= 0.9.6
