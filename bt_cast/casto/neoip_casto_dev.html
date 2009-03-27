@@ -19,6 +19,7 @@
 <script src="../../player/jsplayer/neoip_playlist_loader_t.js"></script>
 <script src="../../player/jsplayer/neoip_plistarr_t.js"></script>
 <script src="../../player/jsplayer/neoip_plistarr_item_t.js"></script>
+<script src="../../player/jsplayer/neoip_plistarr_loader_t.js"></script>
 <script src="../../player/jsplayer/neoip_subplayer_cb_t.js"></script>
 <script src="../../player/jsplayer/neoip_subplayer_vlc_t.js"></script>
 <script src="../../player/jsplayer/neoip_subplayer_asplayer_t.js"></script>
@@ -29,7 +30,7 @@
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
 <style type="text/css">	
 	/* body style for the video fullpage mode - hardcoded for now */
-	body_no {	height	: 100%;
+	body {	height	: 100%;
 		width	: 100%;
 		margin	: 0px;
 		overflow: hidden;
@@ -59,8 +60,8 @@
 
 </script>
 <script>
-//	var cast_name		= "superstream.flv"
-//	var cast_privhash	= "1f71e0f4";
+//	var cast_name		= "LCP an"
+//	var cast_privhash	= "e334e91c";
 	var cast_name		= "";
 	var cast_privhash	= "";
 
@@ -68,8 +69,8 @@
 	// - this is ok as it is suppposed to be used as iframe
 	var urivar_arr	= neoip.core.doc_urivar_arr();
 	var cfgvar_arr	= {
-		'onload_start_play'	: "enabled",
-		'fullpage_state'	: 'maximized'
+		//'onload_start_play'	: "enabled",
+		//'fullpage_state'	: 'maximized'
 	};		
 	for(var key in urivar_arr){
 		// goto the next if not prefixed by "neoip_var_"
@@ -103,6 +104,31 @@
 	}
 	// start the ezplayer_t
 	ezplayer.start();
+
+//	setTimeout(function(){ ezplayer.playing_start() }, 5000);
+//	setTimeout(function(){ ezplayer.playing_stop() }, 10000);
+</script>
+
+<!-- ************************************************************ -->
+<!-- ************************************************************ -->
+<!-- *		handle a API with crossframe library 		* -->
+<!-- ************************************************************ -->
+<!-- ************************************************************ -->
+<!--
+-->
+<script src="../../lib/crossframe/crossframe_rpc_server.standalone-min.js"></script>
+<script>
+var rpc_server	= crossframe.rpc_server_t({
+	listener_obj:	"crossframe_msg"
+});
+rpc_server.register("playing_start", function(){
+	console.info("rpc_server playing start");
+	ezplayer.playing_start();
+});
+rpc_server.register("playing_stop", function(){
+	console.info("rpc_server playing stop");
+	ezplayer.playing_stop();
+});
 </script>
 
 </body>

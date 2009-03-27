@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
 <script src="../../lib/crossframe/crossframe_rpc_client.standalone-min.js" type="text/javascript"></script>
 <script src="urfastr_live.js" type="text/javascript"></script>
 <script>
@@ -21,9 +20,10 @@ $(function(){
 	module("tests for urfastr_live_t classes");
 
 	// init the global object first
+	var dirname	= location.href.replace(/[^/]*$/, '');
 	var opt		= {
 		container_id:		"container_urfastr",
-		crossframe_proxyUrl:	"../../lib/crossframe/crossframe_proxy.html",
+		crossframe_proxyUrl:	dirname + "../../lib/crossframe/crossframe_proxy.html",
 	}
 	var urfastr	= new urfastr_live(opt);
 

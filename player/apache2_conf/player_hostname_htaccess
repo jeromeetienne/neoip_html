@@ -21,7 +21,9 @@ ExpiresByType text/css				"access plus 1 day"
 ExpiresByType text/javascript			"access plus 1 day"
 ExpiresByType application/x-shockwave-flash	"access plus 1 day"
 
-
+# experiementation to allow neoip_var in the URL path
+# - this was needed for facebook app
+RewriteRule (.*)(neoip_var_[^/]*)/([^/]*)(.*)$  http://player.urfastr.tv$1$4?$2=$3 [L,R=301,QSA]
 
 # IIF no path in the url, then do a http redir to /play
 RewriteRule ^$ /live [R]
@@ -55,7 +57,6 @@ RewriteRule	^live$			bt_cast/casto/neoip_casto_rel.php	[L]
 RewriteRule	^([^/]+)/live/([^/]+)$	bt_cast/casto/neoip_casto_rel.php?cast_privhash=$1&cast_name=$2	[L]
 RewriteRule	^(mdata_echo_server/data/.*)$	bt_cast/$1	[L]
 	
-
 # rewrite for 'clean url' for the record function
 # http://example.com/record
 # - TODO should it http://record.web4web.tv ?
@@ -67,6 +68,9 @@ RewriteRule	^(cache/ezplayer_playlist_arr.json)$	player/$1	[L]
 #RewriteRule	^(neoip_asplayer.swf)$			player/$1	[L]
 # special rewrite rules to get the release version of asplayer
 RewriteRule	^(neoip_asplayer.swf)$			player/jsplayer/neoip_asplayer_rel.swf	[L]
+
+# special rewrite rules to fetch the crossframe_proxy.html for iframe widget API
+RewriteRule	^(crossframe_proxy.html)$		lib/crossframe/crossframe_proxy.html	[L]
 
 # some cheap way to allow neoip_player.php to load
 RewriteRule	^(cgi-bin/cast_get_playlist.fcgi)$	$1		[L]

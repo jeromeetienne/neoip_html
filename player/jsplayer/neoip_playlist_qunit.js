@@ -17,9 +17,13 @@ var neoip_playlist_qunit	= function(){
 		var cast_name		= "Public Senat"
 		var cast_privhash	= "e334e91c";
 		var playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";	
-		playlist_url	= "xdomrpc:"+ cast_name +"_"+cast_privhash+".playlist_jspf";
+		playlist_url		= "xdomrpc:"+ cast_name +"_"+cast_privhash+".playlist_jspf";
 		// init the playlist_loader for this playlist_uri
-		var playlist_loader = new neoip.playlist_loader_t(playlist_url, neoip.playlist_loader_cb_t(playlist_loader_cb));
+		var xdomrpc_url		= "../../cgi-bin/xdomrpc_dispatcher.php";
+		var playlist_loader = new neoip.playlist_loader_t(playlist_url,
+							neoip.playlist_loader_cb_t(playlist_loader_cb),
+							xdomrpc_url
+							);
 		
 		// delay qunit until result is known
 		QUnit.delayed_result();

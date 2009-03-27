@@ -86,5 +86,27 @@
 </script>
 <!-- END   google analytic script -->
 
+<!-- ************************************************************ -->
+<!-- ************************************************************ -->
+<!-- *		handle a API with crossframe library 		* -->
+<!-- ************************************************************ -->
+<!-- ************************************************************ -->
+<!--
+-->
+<script>
+var rpc_server	= crossframe.rpc_server_t({
+	listener_obj:	"crossframe_msg"
+});
+rpc_server.register("playing_start", function(){
+	console.info("rpc_server playing start");
+	ezplayer.playing_start();
+});
+rpc_server.register("playing_stop", function(){
+	console.info("rpc_server playing stop");
+	ezplayer.playing_stop();
+});
+</script>
+
+
 </body>
 </html>

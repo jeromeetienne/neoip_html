@@ -33,7 +33,7 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
  *     - default to 'direct access'
  *   - onload_start_play string: if == 'enabled', start playing immediatly after load, otherwise dont start
  *     - default to 'enabled'
- *   - fullpage_state string: determine the full_page_state
+ *   - fullpage_state string: determine the full_page_state (maximized|normal)
  *     - default to 'maximized'
  *
  * @param p_cfgvar_arr	array of all the configuration variable for this ezplayer_t
@@ -78,7 +78,7 @@ neoip.ezplayer_t	= function(p_cfgvar_arr)
 	//   'forward/backward' firefox cache 
 	neoip.core.dom_event_listener(window,"unload", function(){});
 
-	// act on this.m_cfgvar_arrvalue
+	// act on this.m_cfgvar_arr values
 	if( this.cfgvar_has('fullpage_state') )
 		this.fullpage_state(this.cfgvar_get('fullpage_state'));
 	if( this.cfgvar_has('onload_start_play') && this.cfgvar_get('onload_start_play') == "enabled" )
@@ -116,6 +116,8 @@ neoip.ezplayer_t.prototype.destructor	= function()
 	}
 	// delete the neoip.playlist_loader_t if needed
 	this._playlist_loader_dtor();
+	// delete the neoip.plistarr_loader_t if needed
+	this._plistarr_loader_dtor();
 }
 
 
@@ -171,11 +173,28 @@ neoip.ezplayer_t.prototype.fullpage_state = function(value)
  * - TODO make this plistarr read asynchronous
  *   - this plistarr is read in sync, which increase the latency of the start
  */
-neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri, prev_playlist_uri)
+neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri)
 {
 	// log to debug
 	console.info("enter uri=" + plistarr_uri);
 
+
+// pseudo version with download insync but going thru async callback
+if(false){
+	// TODO and i dont use the plistarr_uri !?!?
+	this._plistarr_loader_ctor();
+}
+
+// debug version with download insync but going thru async callback
+if(false){
+	var plistarr_str	= neoip.core.download_file_insync(plistarr_uri, true);
+	var plistarr		= new neoip.plistarr_t(plistarr_str);
+
+	this._neoip_plistarr_loader_cb(null, null, "new_plistarr", {plistarr: plistarr});	
+}
+
+// original version with download insync and mandatory same-domain
+if(true){
 	// setup the plistarr for ezplayer_t 
 	var plistarr_str	= neoip.core.download_file_insync(plistarr_uri, true);
 	this.m_plistarr		= new neoip.plistarr_t(plistarr_str);
@@ -185,21 +204,14 @@ neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uri, prev_playlist_
 	// - if prev_playlist_uri function param is specified, use this one.
 	// - if there is a "ezplayer_playlist_uri" cookie, use this one
 	// - else pick the first of the this.m_plistarr
-	if( !prev_playlist_uri )	prev_playlist_uri = neoip.core.cookie_read("ezplayer_playlist_uri");
-	// if prev_playlist_uri != null, check if it is contained in this.m_plistarr
-	if( prev_playlist_uri ){
-		var not_found	= true;
-		for(var i = 0; i < this.m_plistarr.item_arr().length; i++ ){
-			var	item	= this.m_plistarr.item_arr()[i];
-			if( item.playlist_uri() != prev_playlist_uri )	continue;
-			not_found	= false;
-			break;
-		}
-		if( not_found )	prev_playlist_uri = null;
-	}
+	var prev_playlist_uri = neoip.core.cookie_read("ezplayer_playlist_uri");
+	// if prev_playlist_uri != null and is not in this.m_plistarr, act if it was null
+	if( prev_playlist_uri && !this.m_plistarr.has_playlist_uri(prev_playlist_uri) )
+		prev_playlist_uri = null;
 	// TODO what if there is no item in this.m_plistarr... there is a bug ?
 	if( prev_playlist_uri )	ezplayer.change_playlist(prev_playlist_uri);
 	else			ezplayer.change_playlist(this.m_plistarr.item_arr()[0].playlist_uri());
+}
 }
 
 
@@ -387,6 +399,85 @@ neoip.ezplayer_t.prototype._player_post_init	= function()
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+//			neoip.plistarr_loader_t callback
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+/** \brief Construct neoip.plistarr_loader_t
+ */
+neoip.ezplayer_t.prototype._plistarr_loader_ctor = function()
+{
+	// log to debug
+	console.info("ENTER plistarr_loader_ctor");
+	// destruct the existing neoip.plistarr_loader_t if needed
+	this._plistarr_loader_dtor();	
+	// init the plistarr_loader
+	this.m_plistarr_loader = new neoip.plistarr_loader_t({
+		callback:	neoip.plistarr_loader_cb_t(this._neoip_plistarr_loader_cb, this),
+		xdomrpc_url:	"../../cgi-bin/xdomrpc_dispatcher.php"
+	});
+}
+
+/** \brief destruct neoip.plistarr_loader_t
+ */
+neoip.ezplayer_t.prototype._plistarr_loader_dtor = function()
+{
+	// if no neoip.plistarr_loader_t is running, return now 
+	if( this._plistarr_loader_running() == false )	return;
+	// log to debug
+	console.info("ENTER plistarr_loader_dtor");
+	// delete the neoip.plistarr_loader_t
+	this.m_plistarr_loader.destructor();
+	this.m_plistarr_loader= null;
+}
+
+/** \brief return true if neoip.plistarr_loader_t is running, false otherwise
+ */
+neoip.ezplayer_t.prototype._plistarr_loader_running = function()
+{
+	// if no neoip.plistarr_loader_t is running, return false 
+	if( !this.m_plistarr_loader )	return false;
+	// else return true
+	return true;
+}
+
+/** \brief neoip.plistarr_loader_t callback
+ */
+neoip.ezplayer_t.prototype._neoip_plistarr_loader_cb = function(notified_obj, userptr
+							, event_type, arg)
+{
+
+	// TODO this is super unclear what to do
+	// - it should do the usual post plistarr stuff
+	// - and what do to if it changed
+	//   - on the UI
+	//   - on the player
+	// - what if the player is currently playing something
+
+	// sanity check -
+	console.assert(event_type == 'new_plistarr');
+
+	// log to debug
+	console.info("enter event_type=" + event_type);
+	console.dir(arg);
+
+	// copy plistarr_t 
+	this.m_plistarr		= arg.plistarr;
+
+	// change the playlist
+	// - if there is a "ezplayer_playlist_uri" cookie, use this one
+	// - else pick the first of the this.m_plistarr
+	var prev_playlist_uri	= neoip.core.cookie_read("ezplayer_playlist_uri");
+	// if prev_playlist_uri != null and is not in this.m_plistarr, act if it was null
+	if( prev_playlist_uri && !this.m_plistarr.has_playlist_uri(prev_playlist_uri) )
+		prev_playlist_uri = null;
+	// TODO what if there is no item in this.m_plistarr... there is a bug ?
+	if( prev_playlist_uri )	ezplayer.change_playlist(prev_playlist_uri);
+	else			ezplayer.change_playlist(this.m_plistarr.item_arr()[0].playlist_uri());
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //			neoip.playlist_loader_t callback
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -426,7 +517,6 @@ neoip.ezplayer_t.prototype._playlist_loader_running = function()
 	// else return true
 	return true;
 }
-
 
 /** \brief neoip.playlist_loader_t callback
  */

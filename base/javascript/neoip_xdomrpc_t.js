@@ -5,6 +5,10 @@
 This object implement a cross-domain rpc mechanism based on "remote scripting 
 with script tag"
 
+\par TODO OBSOLETE
+in practice i should have used jsonp, but i wasnt aware of this technology
+when i wrote this one.
+
 \par About the callback and the notification
 - if neoip.xdomrpc_t constructor specify null as callback, no notification is made
   and the object autodelete itself on completion

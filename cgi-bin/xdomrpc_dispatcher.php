@@ -11,20 +11,19 @@
 /**
  * Return the playlist_jspf from $castname/$privhash
  */
-function getPlaylist($castname, $privhash)
+function castGetPlaylist($basename)
 {
 	$dirname	= "/tmp/.neoip_cast_mdata_server_data/playlist_jspf";
-	$basename	= $castname."_".$privhash.".playlist_jspf";
+	if( !file_exists($dirname."/".$basename) )	$basename = "none_not_found_cast_privhash.playlist_jspf";
 	$fullname	= $dirname."/".$basename;
-	if( !file_exists($fullname) )	throw new Exception("Unknown playlist");
 	$content	= file_get_contents($fullname);
-	return $content;	
+	return $content;
 }
 
 /**
  * Return playlist_arr
 */
-function getPlistArr()
+function castGetPlistArr()
 {
 	$dirname	= "/tmp/.neoip_cast_mdata_server_data";
 	$basename	= "ezplayer_playlist_arr.json";
