@@ -31,6 +31,13 @@
 			<td><label for="always_in_front">Always on top</label></td>
 			<td><input type="checkbox" name="always_in_front" id="always_in_front"></td>
 		</tr>
+		<tr cluetips_selcss='#titlebar_autohide_tip' class="cluetip_needed">
+			<td>Autohide titlebar</td>
+			<td>
+				<input type="checkbox" id="titlebar_autohide_enabled">
+				<input type="text" size=5 id="titlebar_autohide_duration">
+			</td>
+		</tr>
 		<tr cluetips_selcss='#park_corner_enabled_tip' class="cluetip_needed">
 			<td><label for="park_corner_enabled">Park in corners</label></td>
 			<td><input type="checkbox" name="park_corner_enabled" id="park_corner_enabled"></td>
@@ -112,6 +119,9 @@ This option determines if the application should be started every time you login
 </div>
 <div id="always_in_front_tip">
 This option determines if the video window should always be in front of others or not
+</div>
+<div id="titlebar_autohide_tip">
+This option determines if the titlebar should autohide and after which delay
 </div>
 <div id="park_corner_enabled_tip">
 This option determines if the video window should be parked in the screen corners or not

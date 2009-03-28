@@ -69,6 +69,8 @@ var prefwin_t = function (ctorOpt){
 		// init all the input type=checkbox
 		var pref_ids	= [	'start_at_login',
 					'always_in_front',
+					'titlebar_autohide_enabled',
+					'titlebar_autohide_duration',
 					'park_corner_enabled',
 					'park_easin_enabled',
 					'park_easin_type_x',
@@ -160,7 +162,7 @@ var prefwin_t = function (ctorOpt){
 			], function(){
 				$('#'+this, myDoc).attr('disabled', myVal)
 			});
-		});	
+		});
 		$('#park_corner_enabled', mydoc).change(function(){
 			var myDoc	= this.ownerDocument;
 			var myVal	= !this.checked;
