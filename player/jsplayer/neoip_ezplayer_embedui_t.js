@@ -322,13 +322,17 @@ neoip.ezplayer_embedui_t.prototype._embedui_button_winsizer_cb	= function(event_
 	if( event_type == "click" && may_fullscreen ){
 		// toggle the hw-fullscreen in the plugin
 		plugin.set_fullscreen( !plugin.get_fullscreen() );
-	}else if( event_type == "mouseWheel" || event_type == "click" ){
-		if( plugin.getAttribute("width") == "100%" ){
-			plugin.setAttribute("width", "320");
-			plugin.setAttribute("height", "240");
-		}else{
-			plugin.setAttribute("width", "100%");
-			plugin.setAttribute("height", "100%");
+	}
+	// obsolete thing - mouse wheel on winsizer... keeping source.. not sure why
+	if(false){
+		if( event_type == "mouseWheel" || event_type == "click" ){
+			if( plugin.getAttribute("width") == "100%" ){
+				plugin.setAttribute("width", "320");
+				plugin.setAttribute("height", "240");
+			}else{
+				plugin.setAttribute("width", "100%");
+				plugin.setAttribute("height", "100%");
+			}
 		}
 	}
 
