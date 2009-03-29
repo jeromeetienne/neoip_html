@@ -556,12 +556,15 @@ var pipwin_t = function (){
 		air.trace("setting key=" + key + " to value=" + val);
 		// store the preference in filecookie
 		filecookie.set("pref_"+key, val);
-		
+
+		// TODO set/clear the titlebar_autohide timer
+		// - require to determine if the pipwin is resizing/moving
+
 		// if the val_changed and this pref may affect the position of the window, trigger a onMoved
 		if( val_changed && (key == 'park_south_macos' || key == 'park_corner_enabled')){
 			winOnMoved(null);
 		}
-		
+
 		// now make it effective
 		if( key == "always_in_front" ){
 			htmlLoader.stage.nativeWindow.alwaysInFront	= filecookie.get("pref_"+ key);
