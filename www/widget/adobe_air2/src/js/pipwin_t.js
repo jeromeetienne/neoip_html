@@ -6,16 +6,19 @@ var pipwin_t = function (){
 	var configOpt		= {};
 	var htmlLoader		= null;
 	var winAnimTimeoutID	= null;
+	var titlebarTimeoutID	= null;
 	var filecookie		= new filecookie_t("filecookie_pipwin.store.json");
 	var PrefsDefault	= {
-		'always_in_front':	true,
-		'park_corner_enabled':	true,
-		'park_easin_enabled':	true,
-		'park_easin_type_x':	guessOS() != 'linux' ? 'easeOutElastic' : 'easeOutBounce',
-		'park_easin_duration_x':1000,
-		'park_easin_type_y':	guessOS() != 'linux' ? 'easeOutElastic' : 'easeOutBounce',
-		'park_easin_duration_y':1000,
-		'park_south_macos':	'bottom_screen'	// [bottom_screen|top_dock]
+		'always_in_front':		true,
+		'titlebar_autohide_enabled':	true,
+		'titlebar_autohide_duration':	3000,
+		'park_corner_enabled':		true,
+		'park_easin_enabled':		true,
+		'park_easin_type_x':		guessOS() != 'linux' ? 'easeOutElastic' : 'easeOutBounce',
+		'park_easin_duration_x':	1000,
+		'park_easin_type_y':		guessOS() != 'linux' ? 'easeOutElastic' : 'easeOutBounce',
+		'park_easin_duration_y':	1000,
+		'park_south_macos':		'bottom_screen'	// [bottom_screen|top_dock]
 	}
 	// ensure all the preferences are set in filecookie
 	for(var key in PrefsDefault){
@@ -140,6 +143,12 @@ var pipwin_t = function (){
 	 * @returns {jquery} a jquery object
 	 */
 	var titlebarDtor	= function(container){
+		// cancel titlebarTimeoutID if needed
+		if( titlebarTimeoutID ){
+			clearTimeout(titlebarTimeoutID);
+			titlebarTimeoutID	= null;
+		}
+
 		var myDoc	= htmlLoader.window.document;
 		// remove icon events
 		// - TODO to port on jquery
@@ -183,14 +192,36 @@ var pipwin_t = function (){
 	var titlebarShow	= function(){
 		htmlLoader.window.scrollTo(0, 0);
 	}
-
 	var titlebarHide	= function(){
 		htmlLoader.window.scrollTo(0, 16);
 	}
 	var titlebarIsVisible	= function(){
 		return htmlLoader.window.scrollY == 0		
 	}
-	
+	var titlebarActionBeg	= function(){
+		// log to debug
+		air.trace('titlebarActionBeg');
+		// cancel titlebarTimeoutID if needed
+		if( titlebarTimeoutID ){
+			clearTimeout(titlebarTimeoutID);
+			titlebarTimeoutID	= null;
+		}
+	}
+	var titlebarActionEnd	= function(){
+		// log to debug
+		air.trace('titlebarActionEnd');
+		// if titlebar_autohide_enabled is false, return now
+		if( filecookie.get('pref_titlebar_autohide_enabled') == false )	return;
+		
+		// setup the timeout for the next
+		var duration	= filecookie.get('pref_titlebar_autohide_duration');
+		titlebarTimeoutID	= setTimeout(function(){
+			// log to debug
+			air.trace('titlebar_autohide expiration');
+			// hide the titlebar if needed
+			if( titlebarIsVisible() )	titlebarHide();
+		}, duration);	
+	}
 	/********************************************************************************/
 	/********************************************************************************/
 	/*	other stuff TODO to comment						*/
@@ -203,6 +234,9 @@ var pipwin_t = function (){
 			clearTimeout(winAnimTimeoutID);
 			winAnimTimeoutID	= null;
 		}
+		// notify the begining of an action involving the titlebar
+		titlebarActionBeg();
+		// start moving the window
 		var nativeWin	= htmlLoader.stage.nativeWindow;
 		nativeWin.startMove();
 	}
@@ -378,7 +412,10 @@ var pipwin_t = function (){
 		air.trace('win moved!');
 		air.trace('x=' + nativeWin.x);
 		air.trace('y=' + nativeWin.y);
-		
+
+		// notify the end of an action involving the titlebar
+		titlebarActionEnd();
+
 		// if park_corner_enabled == false 
 		if( filecookie.get('pref_park_corner_enabled') == false ){
 			filecookie.set('nopark_position', {x: nativeWin.x, y: nativeWin.y});
@@ -393,6 +430,8 @@ var pipwin_t = function (){
 		air.trace('id='+event.target.id);
 		// cancel the previous animation if needed
 		winAnimCancelIfNeeded();
+		// notify the begining of an action involving the titlebar
+		titlebarActionBeg();
 
 		var win	= htmlLoader.stage.nativeWindow;
 		if( event.target.id == "iconResizeWinE" )
