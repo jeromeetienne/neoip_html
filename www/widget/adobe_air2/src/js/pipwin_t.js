@@ -198,21 +198,17 @@ var pipwin_t = function (){
 	var titlebarIsVisible	= function(){
 		return htmlLoader.window.scrollY == 0		
 	}
-	var titlebarActionBeg	= function(){
+	var titlebarTimeoutStart	= function(){
 		// log to debug
-		air.trace('titlebarActionBeg');
+		air.trace('titlebarTimeoutStart');
+		// if titlebar_autohide_enabled is false, return now
+		if( filecookie.get('pref_titlebar_autohide_enabled') == false )	return;
+	
 		// cancel titlebarTimeoutID if needed
 		if( titlebarTimeoutID ){
 			clearTimeout(titlebarTimeoutID);
 			titlebarTimeoutID	= null;
 		}
-	}
-	var titlebarActionEnd	= function(){
-		// log to debug
-		air.trace('titlebarActionEnd');
-		// if titlebar_autohide_enabled is false, return now
-		if( filecookie.get('pref_titlebar_autohide_enabled') == false )	return;
-		
 		// setup the timeout for the next
 		var duration	= filecookie.get('pref_titlebar_autohide_duration');
 		titlebarTimeoutID	= setTimeout(function(){
@@ -222,6 +218,20 @@ var pipwin_t = function (){
 			if( titlebarIsVisible() )	titlebarHide();
 		}, duration);	
 	}
+	var titlebarTimeoutCancel	= function(){
+		// log to debug
+		air.trace('titlebarTimeoutCancel');
+		// cancel titlebarTimeoutID if needed
+		if( titlebarTimeoutID ){
+			clearTimeout(titlebarTimeoutID);
+			titlebarTimeoutID	= null;
+		}
+	}
+	var titlebarTimeoutRunning	= function(){
+		if( titlebarTimeoutID )	return true;
+		return false;
+	}
+
 	/********************************************************************************/
 	/********************************************************************************/
 	/*	other stuff TODO to comment						*/
@@ -235,7 +245,7 @@ var pipwin_t = function (){
 			winAnimTimeoutID	= null;
 		}
 		// notify the begining of an action involving the titlebar
-		titlebarActionBeg();
+		titlebarTimeoutCancel();
 		// start moving the window
 		var nativeWin	= htmlLoader.stage.nativeWindow;
 		nativeWin.startMove();
@@ -414,7 +424,7 @@ var pipwin_t = function (){
 		air.trace('y=' + nativeWin.y);
 
 		// notify the end of an action involving the titlebar
-		titlebarActionEnd();
+		titlebarTimeoutStart();
 
 		// if park_corner_enabled == false 
 		if( filecookie.get('pref_park_corner_enabled') == false ){
@@ -431,7 +441,7 @@ var pipwin_t = function (){
 		// cancel the previous animation if needed
 		winAnimCancelIfNeeded();
 		// notify the begining of an action involving the titlebar
-		titlebarActionBeg();
+		titlebarTimeoutCancel();
 
 		var win	= htmlLoader.stage.nativeWindow;
 		if( event.target.id == "iconResizeWinE" )
@@ -508,8 +518,13 @@ var pipwin_t = function (){
 		playerCtor($('.content', htmlLoader.window.document));
 
 		// hide/show titlebar depending on the titlebar_hidden property
-		if( filecookie.get('titlebar_hidden', false) )	titlebarHide();
-		else						titlebarShow();
+		if( filecookie.get('titlebar_hidden', false) ){
+			titlebarHide();
+		}else{
+			titlebarShow();
+			// start titlebar timeout if needed
+			titlebarTimeoutStart();
+		}
 	}
 
 	/**
@@ -518,6 +533,9 @@ var pipwin_t = function (){
 	var hideWin	= function(){
 		// save the titlebar_hidden property
 		filecookie.set('titlebar_hidden', !titlebarIsVisible());
+
+		// cancel titlebar timeout if needed
+		titlebarTimeoutCancel();
 
 		air.trace('scrollY='+htmlLoader.window.scrollY);
 		htmlLoader.stage.nativeWindow.visible	= false;
@@ -563,6 +581,15 @@ var pipwin_t = function (){
 		// if the val_changed and this pref may affect the position of the window, trigger a onMoved
 		if( val_changed && (key == 'park_south_macos' || key == 'park_corner_enabled')){
 			winOnMoved(null);
+		}
+
+		// if it is about the titlebar
+		if( key == "titlebar_autohide_enabled" || key == "titlebar_autohide_duration"){
+			// cancel titlebar timeout if needed
+			titlebarTimeoutCancel();
+			// if titlebar autohide is still enabled, start it
+			if( filecookie.get("pref_"+ "titlebar_autohide_enabled") )
+				titlebarTimeoutStart();
 		}
 
 		// now make it effective
