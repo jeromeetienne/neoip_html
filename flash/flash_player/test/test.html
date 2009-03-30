@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>asplayer testbed</title>
+</head>
+<body>
+
+<script src="js/jquery/jquery-latest.js"></script>
+<script src="js/lib/swfobject.js"></script>
+
+<input type="button" value="build"/>
+<input type="button" value="track_add"/>
+<input type="button" value="start"/>
+<input type="button" value="stop"/>
+
+<div id="container_htmlid"></div>
+
+<script>
+var plugin_htmlid	= "plugin_htmlid";
+var container_htmlid	= "container_htmlid";
+var build_objembed	= function(){
+	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
+	var so		= new SWFObject("../bin/flash_player-dbg.swf", plugin_htmlid
+					, "320", "240"
+					, "9", "#000000", true);
+	// put the parameter to the flash plugin itself
+	so.addParam("allowScriptAccess"	, "always");
+
+	// TODO to remove just an experimentation for wmode transparent - in relation with 
+	//so.addParam	("wmode"	, "transparent");
+
+	var allowfullscreen	= true;
+	so.addParam("allowfullscreen"	, allowfullscreen ? "true" : "false");
+	// mirror addParam "allowfullscreen" because unable to get addParam from as
+	so.addVariable("allowfullscreen", allowfullscreen ? "true" : "false");  
+	// put the variable for the flash program
+	so.addVariable("jscallback_str"	, "asplayer_plugin_cb");
+	so.addVariable("jscallback_key"	, "tag_"+plugin_htmlid);
+	// write the result in the html
+	var succeed	= so.write(container_htmlid);
+	console.assert(succeed);
+}
+var track_add	= function(){
+	var track_uri		= "http://localhost/~jerome/seeso.flv";	
+	var plugin_track_arg	= {};
+	var cooked_uri_arg	= {};
+	// compute the track_arg to pass to the plugin
+	plugin_track_arg['content_url']	= track_uri;
+	//plugin_track_arg['video_aspect']	= playlist_track.video_aspect();
+	var plugin	= document.getElementById(plugin_htmlid)
+	// add this track to the plugin
+	plugin.track_add(plugin_track_arg, 0);
+	// start playing
+	//plugin.playing_start();	
+}
+var playing_start	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	// start playing
+	plugin.playing_start();	
+}
+var playing_stop	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	// start playing
+	plugin.playing_stop();	
+}
+$(function(){
+	$("input[value=build]").click(function(){
+		build_objembed();
+	});
+	$("input[value=track_add]").click(function(){
+		track_add();
+	});
+	$("input[value='start']").click(function(){
+		playing_start();	
+	});
+	$("input[value='stop']").click(function(){
+		playing_stop();
+	});
+});
+</script>
+
+
+</body>
+</html>
