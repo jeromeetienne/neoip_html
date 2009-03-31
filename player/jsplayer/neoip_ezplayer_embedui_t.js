@@ -70,7 +70,8 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 			 		"element_h"	: 0.0,
 					"anchor_x"	: 0.5, 
 					"anchor_y"	: 0.5,
-					"display_type"	: "mouse_over" 
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000					
 					}
 				};
 	plugin.embedui_create(embedui_opt);
@@ -94,7 +95,8 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 			 		"element_h"	: 0.0,
 					"anchor_x"	: 0.0, 
 					"anchor_y"	: 0.0,
-					"display_type"	: "mouse_over"
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000				
 					}
 				};
 	plugin.embedui_create(embedui_opt);
@@ -114,7 +116,8 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 			 		"element_y"	: 0.5,
 			 		"element_w"	: 0.08,
 			 		"element_h"	: 0.0,
-					"display_type"	: "mouse_over"
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000				
 					}
 				};
 	// create the embedui_id_playlist_toggle IIF there is this.m_ezplayer.m_plistarr 
@@ -336,10 +339,11 @@ neoip.ezplayer_embedui_t.prototype._embedui_button_winsizer_cb	= function(event_
 		}
 	}
 
+if(false){
 	// make the embedui invisible
 	plugin.embedui_update(embedui_id, { "action": "base_reset_state",
 				"arg":	{ "new_state": "invisible" } });
-
+}
 
 	// determine the image to display
 	var is_fullscreen	= plugin.get_fullscreen();
@@ -377,12 +381,30 @@ neoip.ezplayer_embedui_t.prototype._embedui_root_stage_cb	= function(event_type,
 	// hide/show the mouse on changed_state
 	if( event_type == "changed_state" ){
 		var new_state	= arg['new_state'];
+		var embedui_new_state	= null;
 		if( new_state == "idle_detect" ){
 			plugin.embedui_update(embedui_id, { "action": "element_update_opt",
 					"arg":	{ "mouse_visibility" : "show"	}});
+			embedui_new_state	= "appearing";
 		}else{
 			plugin.embedui_update(embedui_id, { "action": "element_update_opt",
 					"arg":	{ "mouse_visibility" : "hide"	}});
+			embedui_new_state	= "disappearing";
+		}
+		// change the state of some embedui to make them visible on "idle_detect"
+		var embedui_id_arr	= [	"embedui_id_volume",
+						"embedui_id_winsizer",
+						"embedui_id_playlist_toggle"
+					];
+		// if this embedui_id_stop exists, add it to the list
+		if( plugin.embedui_exist(embedui_id) == true )
+			embedui_id_arr.push('embedui_id_stop');
+		for(var i = 0; i < embedui_id_arr.length; i++){
+			var embedui_id	= embedui_id_arr[i];
+			plugin.embedui_update(embedui_id, {
+						"action": 	"base_reset_state",
+						"arg":		{ "new_state": embedui_new_state }
+					});
 		}
 	}
 }
@@ -827,7 +849,8 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_stop	= function()
 			 		"element_h"	: 0.0,
 					"anchor_x"	: 0.5, 
 					"anchor_y"	: 0.5,
-					"display_type"	: "mouse_over"
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000				
 					}
 				};
 	// actually ask the plugin to create the element
