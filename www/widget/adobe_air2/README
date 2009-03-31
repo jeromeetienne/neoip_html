@@ -1,13 +1,23 @@
+Feedback from revolunet:
+**********************************************
+- animation des le lancement: sinon on voit meme pas qu'elle est arrive
+- animation parking: amusant mais sans plus. gadget
+- title bar: confusing... the mouse wheel. find better
+  - normal chrome to begin with ?
+  - easy option for pipwin ?
+- default size: proportionnal to screen size
+  - 320x240 is tiny on 1900x1200
+
 Post pbeta:
 **********************************************
 - make a button random animation in prefwin
-- make titlebar to disapear on timeout
-  - on option in prefwin
 - recenter it pip when animation is changed in preference
 - when a new version got installed, popup the pipwin
   - popup a 'new version window' ala firefox
 - if click on center pipwin, + drag, then drag it
   - at least require working crossframe 
+- DONE make titlebar to disapear on timeout
+  - on option in prefwin
 
 Pre pbeta:
 **********************************************
