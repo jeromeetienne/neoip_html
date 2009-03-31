@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>asplayer testbed</title>
+</head>
+
+<body>
+
+<script src="js/jquery/jquery-latest.js"></script>
+<script src="js/lib/swfobject.js"></script>
+
+<input type="button" value="build_objembed"/>
+<input type="button" value="track_add"/>
+<input type="button" value="playing_start"/>
+<input type="button" value="playing_stop"/>
+<br/>
+<input type="button" value="embedui_winsizer_add"/>
+<input type="button" value="embedui_winsizer_del"/>
+<input type="button" value="embedui_root_stage_add"/>
+<input type="button" value="embedui_root_stage_del"/>
+<div id="container_htmlid"></div>
+
+<script>
+var plugin_htmlid	= "plugin_htmlid";
+var container_htmlid	= "container_htmlid";
+var build_objembed	= function(){
+	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
+	var so		= new SWFObject("../bin/flash_player-dbg.swf", plugin_htmlid
+					, "320", "240"
+					, "9", "#000000", true);
+	// put the parameter to the flash plugin itself
+	so.addParam("allowScriptAccess"	, "always");
+
+	// TODO to remove just an experimentation for wmode transparent - in relation with 
+	//so.addParam	("wmode"	, "transparent");
+
+	var allowfullscreen	= true;
+	so.addParam("allowfullscreen"	, allowfullscreen ? "true" : "false");
+	// mirror addParam "allowfullscreen" because unable to get addParam from as
+	so.addVariable("allowfullscreen", allowfullscreen ? "true" : "false");  
+	// put the variable for the flash program
+	so.addVariable("jscallback_str"	, "asplayer_plugin_cb");
+	so.addVariable("jscallback_key"	, "tag_"+plugin_htmlid);
+	// write the result in the html
+	var succeed	= so.write(container_htmlid);
+	console.assert(succeed);
+}
+var track_add	= function(){
+	var track_uri		= "http://localhost/~jerome/seeso.flv";	
+	var plugin_track_arg	= {};
+	var cooked_uri_arg	= {};
+	// compute the track_arg to pass to the plugin
+	plugin_track_arg['content_url']	= track_uri;
+	//plugin_track_arg['video_aspect']	= playlist_track.video_aspect();
+	var plugin	= document.getElementById(plugin_htmlid)
+	// add this track to the plugin
+	plugin.track_add(plugin_track_arg, 0);
+	// start playing
+	//plugin.playing_start();	
+}
+var playing_start	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	// start playing
+	plugin.playing_start();	
+}
+var playing_stop	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	// start playing
+	plugin.playing_stop();	
+}
+var embedui_winsizer_add	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	// build the "embedui_id_winsizer"
+	var embedui_opt	= {	"embedui_class"	: "button_bitmap",
+				"embedui_id"	: "embedui_id_winsizer",
+				"userptr": {
+					"embedui_id"	: "embedui_id_winsizer"
+					},
+				"element_opt" : {
+					"type"		: "vector",
+					"location"	: plugin.get_fullscreen() 
+								? "win_normalizer"
+								: "win_maximizer"
+					},
+			 	"base_sprite" : {
+			 		"element_x"	: 1.0,
+			 		"element_y"	: 0.0,
+			 		"element_w"	: 0.08,
+			 		"element_h"	: 0.0,
+					"anchor_x"	: 0.0, 
+					"anchor_y"	: 0.0,
+					"display_type"	: "timeout",
+					"timeout_delay"	: 2*1000,
+					}
+				};
+	plugin.embedui_create(embedui_opt);
+}
+var embedui_winsizer_del	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	plugin.embedui_delete("embedui_id_winsizer");	
+}
+var embedui_root_stage_add	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	var embedui_opt	= {	"embedui_class"	: "root_stage",
+				"embedui_id"	: "embedui_id_root_stage",
+				"userptr": {
+					"embedui_id"	: "embedui_id_root_stage"
+					},
+				"element_opt"	: {
+					}
+				};
+	plugin.embedui_create(embedui_opt);
+}
+var embedui_root_stage_del	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	plugin.embedui_delete("embedui_id_root_stage");	
+}
+var asplayer_plugin_cb	= function(key, event_type, arg)
+{
+	// log to debug
+	console.info("key="+ key + " event_type=" + event_type);
+	//console.dir(arg);
+	
+	if( event_type != 'embedui_event' )		return;
+	var embedui_id	= arg.arg.userptr.embedui_id;
+	if( embedui_id != "embedui_id_root_stage" )	return;
+	if( arg.event_type != 'changed_state' )		return;
+	if( arg.arg.new_state == 'move_detect')		return;
+	console.info('make all icon appears');
+
+	var plugin	= document.getElementById(plugin_htmlid)
+	plugin.embedui_update("embedui_id_winsizer", { "action": "base_reset_state",
+					"arg":	{ "new_state": "appearing" } });
+};
+
+$(function(){
+	$("input[value=build_objembed]").click(function(){
+		build_objembed();
+	});
+	$("input[value=track_add]").click(function(){
+		track_add();
+	});
+	$("input[value='playing_start']").click(function(){
+		playing_start();	
+	});
+	$("input[value='playing_stop']").click(function(){
+		playing_stop();
+	});
+	$("input[value=embedui_winsizer_add]").click(function(){
+		embedui_winsizer_add();
+	});
+	$("input[value=embedui_winsizer_del]").click(function(){
+		embedui_winsizer_del();
+	});
+	$("input[value=embedui_root_stage_add]").click(function(){
+		embedui_root_stage_add();
+	});
+	$("input[value=embedui_root_stage_del]").click(function(){
+		embedui_root_stage_del();
+	});
+});
+</script>
+
+
+</body>
+</html>
