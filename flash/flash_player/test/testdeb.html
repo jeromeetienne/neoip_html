@@ -90,7 +90,7 @@ var embedui_winsizer_add	= function(){
 					"anchor_x"	: 0.0, 
 					"anchor_y"	: 0.0,
 					"display_type"	: "timeout",
-					"timeout_delay"	: 2*1000,
+					"timeout_delay"	: 999*1000,					
 					}
 				};
 	plugin.embedui_create(embedui_opt);
@@ -119,18 +119,31 @@ var asplayer_plugin_cb	= function(key, event_type, arg)
 {
 	// log to debug
 	console.info("key="+ key + " event_type=" + event_type);
-	//console.dir(arg);
-	
+	console.dir(arg);
+
 	if( event_type != 'embedui_event' )		return;
 	var embedui_id	= arg.arg.userptr.embedui_id;
 	if( embedui_id != "embedui_id_root_stage" )	return;
 	if( arg.event_type != 'changed_state' )		return;
-	if( arg.arg.new_state == 'move_detect')		return;
-	console.info('make all icon appears');
-
-	var plugin	= document.getElementById(plugin_htmlid)
-	plugin.embedui_update("embedui_id_winsizer", { "action": "base_reset_state",
-					"arg":	{ "new_state": "appearing" } });
+// TODO idle_detect and move_detect are swapped in the asplayer... to fix
+// - update: no they are not, they advertise the switching in "idle_detect" phase
+// - todo: rename in mouse_move/mouse_idle for idle_detect/move_detect ?
+	if( arg.arg.new_state == 'idle_detect'){
+		console.info('make all icon appears');
+		var plugin	= document.getElementById(plugin_htmlid)
+		plugin.embedui_update("embedui_id_winsizer", {
+						"action": 	"base_reset_state",
+						"arg":		{ "new_state": "appearing" }
+					});
+	}
+	if( arg.arg.new_state == 'move_detect'){
+		console.info('make all icon disappears');
+		var plugin	= document.getElementById(plugin_htmlid)
+		plugin.embedui_update("embedui_id_winsizer", {
+						"action": 	"base_reset_state",
+						"arg":		{ "new_state": "disappearing" }
+					});
+	}
 };
 
 $(function(){
