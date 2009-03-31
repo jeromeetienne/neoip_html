@@ -57,7 +57,7 @@ private var m_last_mouse_x	:uint;
 private var m_last_mouse_y	:uint;
 
 private var m_probe_timeout	:Timer;	
-private var m_probe_delay	:Number	= 1.0 * 1000;
+private var m_probe_delay	:Number	= 0.5 * 1000;
 private var m_probe_count_cur	:uint	= 0; 
 private var m_probe_count_max	:uint	= 3; 
 
