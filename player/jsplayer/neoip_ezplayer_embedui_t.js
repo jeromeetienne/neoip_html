@@ -146,7 +146,7 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 				};
 	plugin.embedui_create(embedui_opt);
 	
-	// create the "embedui_id_track_title"
+	// create the "embedui_id_status_line"
 	var embedui_opt	= {	"embedui_class"	: "text_caption",
 				"embedui_id"	: "embedui_id_status_line",
 				"userptr": {
