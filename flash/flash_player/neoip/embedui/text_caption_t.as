@@ -9,7 +9,6 @@ text_caption_t is a class to have bitmap button.
 /** \brief Definition of the package
  */
 package neoip.embedui {
-	
 
 // list of all import for this package
 import flash.display.Bitmap;

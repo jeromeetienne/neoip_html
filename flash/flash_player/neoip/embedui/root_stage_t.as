@@ -59,7 +59,7 @@ private var m_last_mouse_y	:uint;
 private var m_probe_timeout	:Timer;	
 private var m_probe_delay	:Number	= 1.0 * 1000;
 private var m_probe_count_cur	:uint	= 0; 
-private var m_probe_count_max	:uint	= 0; 
+private var m_probe_count_max	:uint	= 3; 
 
 private	var element_opt_dfl	:Object	= {
 					"mouse_visibility"	: "show"
@@ -246,6 +246,12 @@ private function probe_timeout_cb(event :TimerEvent)	:void
 	if( mouse_pos_changed )		m_probe_count_cur = 0;
 	// if not mouse_pos_changed, then increase m_probe_count_cur
 	if( !mouse_pos_changed )	m_probe_count_cur++;
+
+	// log to debug
+	console.debug("mouse_pos_changed="+mouse_pos_changed
+			+ " m_probe_count_cur=" + m_probe_count_cur
+			+ " m_probe_count_max=" + m_probe_count_max
+			);
 
 	// if m_probe_count_cur == m_probe_count_max, the mouse is considered "not moving"
 	if( m_probe_count_cur == m_probe_count_max ){

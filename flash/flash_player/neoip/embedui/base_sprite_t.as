@@ -269,6 +269,7 @@ private function update_reset_state(arg:Object)	:void
 	// update m_bitmap.alpha with m_alpha
 	m_bitmap.alpha	= m_alpha;
 	
+	
 	// if start listening on Event.ENTER_FRAME to do the animation
 	if( state_is_unstable() && !m_container.hasEventListener(Event.ENTER_FRAME) ){
 		m_container.addEventListener(Event.ENTER_FRAME	, onEnterFrame);
@@ -378,19 +379,6 @@ protected function set_bitmap(p_bitmap:Bitmap)	:void
 	// recompute the size and position 
 	recpu_sizepos();
 	
-	// if m_base_opt['display_type'] == "timeout", start/reinit the timer
-	if( m_base_opt['display_type'] == "timeout" ){
-		// delete m_display_timeout if needed
-		if( m_display_timeout ){
-			m_display_timeout.stop();
-			m_display_timeout	= null;
-		}
-		// initialize m_display_timeout
-		m_display_timeout	= new Timer(m_base_opt['timeout_delay']);
-		m_display_timeout.addEventListener(TimerEvent.TIMER, display_timeout_cb);
-		m_display_timeout.start();
-	}
-	
 	// if start listening on Event.ENTER_FRAME to do the animation
 	if( state_is_unstable() && !m_container.hasEventListener(Event.ENTER_FRAME) ){
 		m_container.addEventListener(Event.ENTER_FRAME	, onEnterFrame);
@@ -463,6 +451,8 @@ private function onMouseOut(mouse_event	:MouseEvent)	:void
  */
 private function onEnterFrame(event	:Event)	:void
 {
+	// log to debug
+	console.debug('onEnterFrame='+m_state);
 	// if m_bitmap not yet initialize, do nothing
 	if( m_bitmap == null )			return;
 	
@@ -484,6 +474,19 @@ private function onEnterFrame(event	:Event)	:void
 
 	// update m_bitmap.alpha with m_alpha
 	m_bitmap.alpha	= m_alpha;
+
+	// if m_base_opt['display_type'] == "timeout", start/reinit the timer
+	if( m_state == STATE_VISIBLE && m_base_opt['display_type'] == "timeout" ){
+		// delete m_display_timeout if needed
+		if( m_display_timeout ){
+			m_display_timeout.stop();
+			m_display_timeout	= null;
+		}
+		// initialize m_display_timeout
+		m_display_timeout	= new Timer(m_base_opt['timeout_delay']);
+		m_display_timeout.addEventListener(TimerEvent.TIMER, display_timeout_cb);
+		m_display_timeout.start();
+	}
 	
 	// if m_state is not an animated one, stop listening on frame event 
 	// - this avoid to uselessly consume cpu
