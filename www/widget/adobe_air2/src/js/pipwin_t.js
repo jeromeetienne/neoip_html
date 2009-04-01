@@ -50,7 +50,13 @@ var pipwin_t = function (){
 		//   - in relation with wmode="transparent" ?
 		//winopts.transparent	= true;
 
-		var win_size	= filecookie.get('pipwin_size'	, {w: 320*2/3, h: 240*2/3});
+		// compute the default win_size 
+		var screenCap	= getScreenCap();
+		var win_size_dfl= { w: Math.floor((screenCap.h/4) * 3/2), h: Math.floor(screenCap.h/4) };
+		
+		
+		var win_size	= filecookie.get('pipwin_size'	, win_size_dfl);
+		var win_size	= win_size_dfl;
 		var win_coord	= null;
 		if( filecookie.get('pref_park_corner_enabled') ){
 			var win_pos	= filecookie.get('park_position', 'se');
