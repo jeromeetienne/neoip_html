@@ -50,13 +50,11 @@ var pipwin_t = function (){
 		//   - in relation with wmode="transparent" ?
 		//winopts.transparent	= true;
 
-		// compute the default win_size 
+		// compute the default win_size - rules: aspect 4/3 and height=screen height/4
 		var screenCap	= getScreenCap();
 		var win_size_dfl= { w: Math.floor((screenCap.h/4) * 3/2), h: Math.floor(screenCap.h/4) };
 		
-		
 		var win_size	= filecookie.get('pipwin_size'	, win_size_dfl);
-		var win_size	= win_size_dfl;
 		var win_coord	= null;
 		if( filecookie.get('pref_park_corner_enabled') ){
 			var win_pos	= filecookie.get('park_position', 'se');
@@ -254,6 +252,22 @@ var pipwin_t = function (){
 		titlebarTimeoutCancel();
 		// start moving the window
 		var nativeWin	= htmlLoader.stage.nativeWindow;
+		// algo: if the window keep the same coord/size for X-sec and it is supposed to be moving/resizeing
+		//       then considere the move is over and trigger a parking
+		if( true ){
+			nativeWin.addEventListener(air.NativeWindowBoundsEvent.MOVE, function(){
+				air.trace("EVENT MOVE");
+			});
+			nativeWin.addEventListener(air.NativeWindowBoundsEvent.MOVING, function(){
+				air.trace("EVENT MOVING");
+			});
+		}
+		// or more a active pooling
+		if( true ){
+			setInterval(function(){
+				air.trace('x='+nativeWin.x+' y='+nativeWin.y);
+			}, 1000);
+		}
 		nativeWin.startMove();
 	}
 	
