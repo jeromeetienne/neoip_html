@@ -252,9 +252,10 @@ var pipwin_t = function (){
 		titlebarTimeoutCancel();
 		// start moving the window
 		var nativeWin	= htmlLoader.stage.nativeWindow;
+		// TODO: experimentation:
 		// algo: if the window keep the same coord/size for X-sec and it is supposed to be moving/resizeing
 		//       then considere the move is over and trigger a parking
-		if( true ){
+		if( false ){
 			nativeWin.addEventListener(air.NativeWindowBoundsEvent.MOVE, function(){
 				air.trace("EVENT MOVE");
 			});
@@ -262,8 +263,8 @@ var pipwin_t = function (){
 				air.trace("EVENT MOVING");
 			});
 		}
-		// or more a active pooling
-		if( true ){
+		// TODO: experimentation: or more a active pooling
+		if( false ){
 			setInterval(function(){
 				air.trace('x='+nativeWin.x+' y='+nativeWin.y);
 			}, 1000);
