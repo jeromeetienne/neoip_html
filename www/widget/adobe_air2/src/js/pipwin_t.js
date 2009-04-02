@@ -1,3 +1,100 @@
+var idlewin_monitor_t	= function(nativeWin, callback){
+	
+	var probeTimeoutID	= null;
+	var probeDelay		= 0.5*1000;
+	var probeIterCur	= null;
+	var probeIterMax	= 6;
+	var lastBounds		= null;
+	
+	/********************************************************************************/
+	/********************************************************************************/
+	/*		ctor/dtor							*/
+	/********************************************************************************/
+	/********************************************************************************/
+	var start	= function(){
+		// log to debug
+		air.trace("idlewin_monitor.start()");
+		// init context variable
+		probeIterCur	= 0;
+		lastBounds	= nativeWin.bounds;
+		// start the timeout
+		probeTimeoutID	= setTimeout(timeout_cb, probeDelay);	
+	}
+	var stop	= function(){
+		// log to debug
+		air.trace("idlewin_monitor.stop()");
+		// cancel probeTimeoutID if needed
+		if( probeTimeoutID ){
+			clearTimeout(probeTimeoutID);
+			probeTimeoutID	= null;
+		}		
+	}
+	
+	/********************************************************************************/
+	/********************************************************************************/
+	/*		timeout callback						*/
+	/********************************************************************************/
+	/********************************************************************************/
+	var timeout_cb	= function(){
+		// log to debug
+		air.trace("idlewin_monitor.timeout_cb() probeIterCur=" + probeIterCur);
+		// clear probeTimeoutID	
+		clearTimeout(probeTimeoutID);
+		probeTimeoutID	= null;
+		
+		var curBounds	= nativeWin.bounds;
+		
+		air.trace("x=" + curBounds.x);
+		air.trace("x=" + curBounds.y);
+		air.trace("width=" + curBounds.width);
+		air.trace("height=" + curBounds.height);
+		
+		var has_moved	=	curBounds.x	!= lastBounds.x		||
+					curBounds.y	!= lastBounds.y		||
+					curBounds.width	!= lastBounds.width	||
+					curBounds.height!= lastBounds.height;
+		air.trace('has_moved=' + has_moved);
+		// if the window bounds changed,
+		if( has_moved ){
+			// start back to zero
+			probeIterCur	= 0;
+			// backup nativeWin.bounds
+			lastBounds	= curBounds;
+		}
+		
+		// if probeIterCur == probeIterMax,
+		if( probeIterCur == probeIterMax ){
+			callback();
+			return
+		}
+		
+		// increase the probe counter
+		probeIterCur++;
+		// restart the timeout
+		probeTimeoutID	= setTimeout(timeout_cb, probeDelay);
+	}
+	
+	/**
+	 * @returns {boolean} true if it is running, false otherwise
+	*/
+	var isRunning	= function(){
+		if( probeTimeoutID === null )	return false;
+		return true;
+	}
+	
+	/********************************************************************************/
+	/********************************************************************************/
+	/*		return public functions and variables				*/
+	/********************************************************************************/
+	/********************************************************************************/
+	// return public functions and variables	
+	return {
+		start:		start,
+		stop:		stop,
+		isRunning:	isRunning
+ 	};
+}
+
 /**
  * Handle the PicInPic window
  * @class pipwin_t
@@ -7,6 +104,7 @@ var pipwin_t = function (){
 	var htmlLoader		= null;
 	var winAnimTimeoutID	= null;
 	var titlebarTimeoutID	= null;
+	var idlewin_monitor	= null;
 	var filecookie		= new filecookie_t("filecookie_pipwin.store.json");
 	var PrefsDefault	= {
 		'always_in_front':		true,
@@ -58,7 +156,7 @@ var pipwin_t = function (){
 		var win_coord	= null;
 		if( filecookie.get('pref_park_corner_enabled') ){
 			var win_pos	= filecookie.get('park_position', 'se');
-			win_coord	= winCoordFromPosition(win_pos, win_size);
+			win_coord	= parkCoordFromPosition(win_pos, win_size);
 		}else{
 			win_coord	= filecookie.get('nopark_position', {x:0, y:0});
 		}
@@ -252,38 +350,24 @@ var pipwin_t = function (){
 		titlebarTimeoutCancel();
 		// start moving the window
 		var nativeWin	= htmlLoader.stage.nativeWindow;
-		// TODO: experimentation:
-		// algo: if the window keep the same coord/size for X-sec and it is supposed to be moving/resizeing
-		//       then considere the move is over and trigger a parking
-		if( false ){
-			nativeWin.addEventListener(air.NativeWindowBoundsEvent.MOVE, function(){
-				air.trace("EVENT MOVE");
-			});
-			nativeWin.addEventListener(air.NativeWindowBoundsEvent.MOVING, function(){
-				air.trace("EVENT MOVING");
-			});
-		}
-		// TODO: experimentation: or more a active pooling
-		if( false ){
-			setInterval(function(){
-				air.trace('x='+nativeWin.x+' y='+nativeWin.y);
-			}, 1000);
-		}
 		nativeWin.startMove();
+		
+		// experiment to trap startMove end
+		// - NOTE: failed as the os keep the window control if the button is not up
+		if( false ){
+			// start idlewin_monitor
+			// - NOTE: this is a workaround because AIR doesnt notify an event when user stopped moving window
+			//   - so i listen to mouseup on titlebar
+			//   - BUT when the mouse is moving fast, the mouseup is happening outside the titlebar
+			//   - so i never receive it and never trigger the parking
+			idlewin_monitor	= new idlewin_monitor_t(nativeWin, function(){
+				air.trace('said to be static');
+				winOnMoved();
+			});
+			idlewin_monitor.start();
+		}
 	}
 	
-	/**
-	 * Stop the window animation if it is running
-	 */
-	var winAnimCancelIfNeeded	= function(){
-		// if the timer is not running, return now
-		if( !winAnimTimeoutID )	return;
-		// cancel the timer
-		clearTimeout(winAnimTimeoutID);
-		// mark the timer as stopped
-		winAnimTimeoutID	= null;
-	}
-
 	/**
 	 * Determine the screen capabilities
 	 * @returns {object} properties max_x/max_y/min_x/min_y/w/h
@@ -310,7 +394,7 @@ var pipwin_t = function (){
 		return screenCap;
 	}
 	
-	var winCoordFromPosition	= function(position, win_size){
+	var parkCoordFromPosition	= function(position, win_size){
 		if(!win_size){
 			var win		= htmlLoader.stage.nativeWindow;
 			win_size	= {w: win.width, h: win.height};
@@ -372,6 +456,21 @@ var pipwin_t = function (){
 					}, param.refresh_msec);
 	}
 
+	/**
+	 * Stop the window animation if it is running
+	 */
+	var winAnimCancelIfNeeded	= function(){
+		// if the timer is not running, return now
+		if( !winAnimTimeoutID )	return;
+		// cancel the timer
+		clearTimeout(winAnimTimeoutID);
+		// mark the timer as stopped
+		winAnimTimeoutID	= null;
+	}
+	
+	/**
+	 * Start the window parking
+	*/
 	var winParkStart	= function(){
 		var screenCap	= getScreenCap();
 		var nativeWin	= htmlLoader.stage.nativeWindow;
@@ -390,7 +489,7 @@ var pipwin_t = function (){
 		winAnimCancelIfNeeded();
 		
 		// compute the new park coordinate
-		coord	= winCoordFromPosition(position);
+		coord	= parkCoordFromPosition(position);
 		
 		// if pref_park_easin_enabled == false, set it immediatly
 		// - use nativeWindow.bounds to set x and y at the same time and avoid useless flashy effects
@@ -438,14 +537,25 @@ var pipwin_t = function (){
 		winAnimDoing(opt);		
 	}
 
+	/**
+	 * Called once the window is considered as "Moved"
+	*/
 	var winOnMoved	= function(event){
 		var nativeWin	= htmlLoader.stage.nativeWindow;
-		air.trace('win moved!');
-		air.trace('x=' + nativeWin.x);
-		air.trace('y=' + nativeWin.y);
+		//air.trace('win moved! x=' + nativeWin.x + ' y=' + nativeWin.y);
 
 		// notify the end of an action involving the titlebar
 		titlebarTimeoutStart();
+
+		// experiment to trap startMove end
+		// - NOTE: failed as the os keep the window control if the button is not up
+		if(false){
+			// delete idlewin_monitor if needed
+			if( idlewin_monitor !== null ){
+				idlewin_monitor.stop();
+				idlewin_monitor	= null;
+			}
+		}
 
 		// if park_corner_enabled == false 
 		if( filecookie.get('pref_park_corner_enabled') == false ){
@@ -455,6 +565,7 @@ var pipwin_t = function (){
 		// Start the window parking
 		winParkStart();
 	}
+
 	
 	var winOnResize	= function(event){
 		air.trace('win on resize');
