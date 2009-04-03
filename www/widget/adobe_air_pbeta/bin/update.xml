@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.adobe.com/air/framework/update/description/1.0">
-	<version>0.9.8</version>
+	<version>0.9.9</version>
 	<url>http://urfastr.net/static/player/widget/adobe_air_pbeta/bin/urfastr-player.air</url>
-	<description><![CDATA[0.9.8 
- * make pref change on titlebar_autohide live 
- 0.9.7 
- * autohide on title bar 
- 0.9.6 
- * fixed bugs in start at login :) 
- 0.9.5 
-* fixed start at login preference 
-0.9.4 
-* better animation
-* Improvement in menu
-* ported to jqueryui1.7
+	<description><![CDATA[New version with new stuff
 Enjoy it hot!]]></description>
 </update>
