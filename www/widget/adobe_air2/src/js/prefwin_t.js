@@ -189,7 +189,6 @@ var prefwin_t = function (ctorOpt){
 			createWin();
 			return;
 		}
-		air.trace("blbl");
 	}
 
 	/********************************************************************************/

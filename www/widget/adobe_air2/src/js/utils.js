@@ -21,6 +21,7 @@ var RunningThruAdl	= function(){
 	return false;
 }
 
+
 /**
  * Parse the application.xml from AIR and convert it to json
  * - http://livedocs.adobe.com/flex/gumbo/langref/flash/desktop/NativeApplication.html
