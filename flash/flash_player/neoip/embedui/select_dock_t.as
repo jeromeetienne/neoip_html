@@ -79,7 +79,8 @@ private var m_prev_mouse_x	:Number	= -1;
 private var m_prev_mouse_y	:Number	= -1;
 
 // list of embedded bitmap
-[Embed(source='../../globe.png')]
+// - no more embeded as it is not used - it save memory in the .swf
+// [Embed(source='../../globe.png')]
 private var embed_pic_globe	:Class;
 
 // determine the size at which this is drawn before being scaled on the stage

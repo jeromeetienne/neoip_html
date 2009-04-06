@@ -534,6 +534,18 @@ var pipwin_t = function (){
 			air.trace('type_x='+opt.easin_type_x);
 			air.trace('type_y='+opt.easin_type_y);
 		}
+		if(true){
+			// experimentation to put manually random custom 
+			var rand_range		= function(val_inf, val_sup){
+				return val_inf + Math.ceil((val_sup-val_inf)*Math.random());
+			}
+			opt.easin_type_x	= 'easeOutBounce';
+			opt.easin_type_y	= 'easeOutBounce';
+			opt.easin_duration_x	= rand_range(500,900); 
+			opt.easin_duration_y	= rand_range(500,900);
+			air.trace('duration_x='+opt.easin_duration_x);
+			air.trace('duration_y='+opt.easin_duration_y);
+		}
 		winAnimDoing(opt);		
 	}
 

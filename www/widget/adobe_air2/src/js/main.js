@@ -44,6 +44,10 @@ function MainOnLoadCallback()
 				myapp.exit();
 		}
 
+	// create the postwin_t to handle the postinstall/postupdate message
+	var postwin	= new postwin_t();
+	postwin.showIfNeeded();
+
 	// create the pip_win_t
 	var pipwin 	= new pipwin_t();
 	pipwin.create({
@@ -53,6 +57,7 @@ function MainOnLoadCallback()
 	
 	// handle the mainpref_t
 	var mainpref	= new mainpref_t();
+
 
 	// handle prefwin_t
 	var prefwin	= new prefwin_t({

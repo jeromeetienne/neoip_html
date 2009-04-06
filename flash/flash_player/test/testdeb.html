@@ -26,7 +26,7 @@ var container_htmlid	= "container_htmlid";
 var build_objembed	= function(){
 	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
 	var so		= new SWFObject("../bin/flash_player-dbg.swf", plugin_htmlid
-					, "320", "240"
+					, "640", "480"
 					, "9", "#000000", true);
 	// put the parameter to the flash plugin itself
 	so.addParam("allowScriptAccess"	, "always");
@@ -78,9 +78,7 @@ var embedui_winsizer_add	= function(){
 					},
 				"element_opt" : {
 					"type"		: "vector",
-					"location"	: plugin.get_fullscreen() 
-								? "win_normalizer"
-								: "win_maximizer"
+					"location"	: "chansel"
 					},
 			 	"base_sprite" : {
 			 		"element_x"	: 1.0,

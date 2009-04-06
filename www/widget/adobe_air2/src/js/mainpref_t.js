@@ -1,3 +1,6 @@
+/**
+ * Handle the preference for the main
+*/
 var mainpref_t	= function(){
 	var filecookie		= new filecookie_t("filecookie_mainpref.store.json");
 	var PrefsDefault	= {

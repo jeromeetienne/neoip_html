@@ -170,6 +170,8 @@ dst_rootpath    = os.sys.argv[2]
 html_paths      = [ "html/index.html",
                     "html/pipwin.html",
                     "html/prefwin.html",
+                    "html/postupdate.html",
+                    "html/postinstall.html",
                   ]
 img_paths   = ["images/resize-ne.png",
         "images/resize-nw.png",

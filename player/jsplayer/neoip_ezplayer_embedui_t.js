@@ -108,8 +108,8 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 					"embedui_id"	: "embedui_id_playlist_toggle"
 					},
 				"element_opt" : {
-					"type"		: "embedded",
-					"location"	: "embed_pic_globe"
+					"type"		: "vector",
+					"location"	: "chansel"
 					},
 			 	"base_sprite" : {
 			 		"element_x"	: 0.0,

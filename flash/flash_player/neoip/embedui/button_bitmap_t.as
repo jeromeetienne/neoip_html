@@ -54,7 +54,8 @@ private var m_bmap_loader	:Loader;
 private var m_element_opt	:Object;
 
 // list of embedded bitmap
-[Embed(source='../../globe.png')]
+// - no more embeded as it is not used - it save memory in the .swf
+// [Embed(source='../../globe.png')]
 private var embed_pic_globe	:Class;
 
 
@@ -205,7 +206,7 @@ private function redraw_vector()	:void
 	var container	:Sprite	= new Sprite();
 	// sanity check - the element type MUST be TYPE_VECTOR
 	console.assert( m_element_opt['type'] == TYPE_VECTOR );
-	//console.info("location="+ element_opt['location']);
+	console.info("location="+ m_element_opt['location']);
 
 	// get the bitmap from the embedded pic 
 	if( m_element_opt['location'] == "play" ){
@@ -227,6 +228,33 @@ private function redraw_vector()	:void
 		container.graphics.beginFill	( 0xFFFFFF );
 		container.graphics.drawRect	( stop_t, stop_t, stop_w, stop_h);
 		container.graphics.drawRect	( stop_t*3 + stop_w, stop_t, stop_w, stop_h);
+		container.graphics.endFill	( );
+	}else if( m_element_opt['location'] == "record" ){
+		var record_t	:Number	= 10;
+		var record_r	:Number	= 60;
+		var record_x	:Number	= record_r + record_t;
+		var record_y	:Number	= record_r + record_t;
+		container.graphics.lineStyle	( record_t, 0xAA0000);
+		container.graphics.beginFill	( 0xFF0000 );
+		container.graphics.drawCircle	( record_x, record_y, record_r);
+		container.graphics.endFill	();
+	}else if( m_element_opt['location'] == "chansel" ){
+		var chansel_t	:Number	= 10;
+		var chansel_w	:Number	= 60;
+		var chansel_n	:Number	= 4;
+		container.graphics.lineStyle	( chansel_t, 0xFFFFFF);
+		for(var chansel_i	:Number = 0; chansel_i < chansel_n; chansel_i++){
+			var chansel_y	:Number	= chansel_t + chansel_i * (chansel_t*1.8);
+			// tried to put a round in front... not convincing
+			//container.graphics.lineStyle	( 1, 0xFFFFFF);
+			//container.graphics.beginFill	( 0xFFFFFF );
+			//container.graphics.drawCircle	( chansel_t, chansel_y, chansel_t*0.75);
+			//container.graphics.endFill	();
+
+			container.graphics.lineStyle	( chansel_t, 0xFFFFFF);
+			container.graphics.moveTo	( chansel_t, chansel_y );
+			container.graphics.lineTo	( chansel_t+chansel_w, chansel_y );
+		}
 	}else if( m_element_opt['location'] == "win_maximizer" ){
 		var maxer_t	:Number	= 2;
 		var maxer_w	:Number	= 30;
