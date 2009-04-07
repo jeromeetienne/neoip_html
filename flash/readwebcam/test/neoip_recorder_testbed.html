@@ -30,7 +30,7 @@ var objembed_htmlid	= "objembed_htmlid";
 var container_htmlid	= "container_htmlid";
 var build_objembed	= function(){
 	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
-	var so		= new SWFObject("../bin/readwebcam-dbg.swf", objembed_htmlid
+	var so		= new SWFObject("../bin/readwebcam-rel.swf", objembed_htmlid
 					, "320", "240"
 					, "9", "#000000", true);
 	// put the parameter to the flash plugin itself
@@ -93,6 +93,7 @@ neoip_recorder_cb	= function(notifier_obj, userptr, event_type, arg)
 {
 	// log to debug
 	console.info("enter event_type="+event_type);
+	console.dir(arg);
 }
 
 $(function(){

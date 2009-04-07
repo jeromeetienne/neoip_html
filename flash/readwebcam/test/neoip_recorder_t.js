@@ -1,5 +1,5 @@
 //
-// this script implement a plistarr_t.item_t for the player_t
+// this script implement a neoip_recorder_t
 //
 
 // defined the namespace if not yet done
@@ -64,6 +64,7 @@ neoip.recorder_t.prototype.record_start	= function()
 	};
 	console.assert( !objembed.record_inprogress() );
 	console.info("pre  record_start");
+	console.dir(record_arg);
 	try{
 		objembed.record_start(record_arg);	
 	}catch(e){
@@ -96,8 +97,7 @@ neoip.recorder_t.prototype.record_stop	= function()
 	if( objembed.record_inprogress() )	objembed.record_stop();
 
 	// stop casti_ctrl_t if needed
-	if( this.m_casti_ctrl.is_recording() )
-		this.m_casti_ctrl.stop_recording();
+	if( this.m_casti_ctrl.is_recording() )	this.m_casti_ctrl.stop_recording();
 }
 
 /**
