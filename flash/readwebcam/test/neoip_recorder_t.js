@@ -1,6 +1,6 @@
-// 
+//
 // this script implement a plistarr_t.item_t for the player_t
-// 
+//
 
 // defined the namespace if not yet done
 if( typeof neoip == 'undefined' )	var neoip	= {};
@@ -11,25 +11,33 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief the constructor
+/**
+ * the constructor
  */
-neoip.recorder_t = function(p_callback)
+neoip.recorder_t = function(p_callback, p_objembed_htmlid, p_flash_param, p_casti_param)
 {
 	// copy the parameter
 	this.m_callback		= p_callback;
-	this.m_objembed_htmlid	= "recorderobj_htmlid";
+	this.m_objembed_htmlid	= p_objembed_htmlid;
+	this.m_flash_param	= p_flash_param;
+	this.m_casti_param	= p_casti_param;
 
-	// init casti_ctrl
+	// init casti_ctrl_t
 	var casti_ctrl_cb	= neoip.casti_ctrl_cb_t(this._casti_ctrl_cb, this);
 	this.m_casti_ctrl	= new neoip.casti_ctrl_t(casti_ctrl_cb);
 }
 
-/** \brief destructor
+/**
+ * destructor
  */
 neoip.recorder_t.prototype.destructor	= function()
 {
+	// delete the casti_ctrl_t if needed
+	if( this.m_casti_ctrl ){
+		this.m_casti_ctrl.destructor();
+		this.m_casti_ctrl	= null;
+	}	
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,16 +45,67 @@ neoip.recorder_t.prototype.destructor	= function()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief start the recording
+/**
+ * start the recording
  */
-neoip.recorder_t.prototype.start	= function()
+neoip.recorder_t.prototype.record_start	= function()
 {
+	// objembed start to record
+	var objembed	= document.getElementById("objembed_htmlid");
+	// build the parameters
+	var record_arg	= {
+		video_w:	this.m_flash_param['video_w'],
+		video_h:	this.m_flash_param['video_h'],
+		video_fps:	this.m_flash_param['video_fps'],
+		video_bw:	this.m_flash_param['video_bw'],
+		audio_bw:	this.m_flash_param['audio_bw'],
+		audio_mute:	this.m_flash_param['audio_mute'],
+		rtmp_uri:	this._get_scasti_uri()
+	};
+	console.assert( !objembed.record_inprogress() );
+	console.info("pre  record_start");
+	try{
+		objembed.record_start(record_arg);	
+	}catch(e){
+		// extract a readable message from the exception
+		var result	= /.*\".*: (.*)\".*/.exec(e);
+		var except_str	= result[1];
+		console.info("failed due to " + except_str);
+		return;
+	}
+	console.info("post record_start");
+
+	// start_recording with casti_ctrl_t
+	this.m_casti_ctrl.webdetect_uri		( neoip.outter_uri('casti')		);
+	this.m_casti_ctrl.cast_name		( this.m_casti_param['cast_name']	);
+	this.m_casti_ctrl.cast_privtext		( this.m_casti_param['cast_privtext']	);
+	this.m_casti_ctrl.mdata_srv_uri		( this.m_casti_param['mdata_srv_uri']	);
+	this.m_casti_ctrl.scasti_uri		( this._get_scasti_uri()		);
+	this.m_casti_ctrl.scasti_mod		( this.m_casti_param['scasti_mod']	);
+	this.m_casti_ctrl.http_peersrc_uri	( this.m_casti_param['http_peersrc_uri']);
+	this.m_casti_ctrl.start_recording();
 }
 
-/** \brief stop the recording
+/**
+ * stop the recording
  */
-neoip.recorder_t.prototype.stop	= function()
+neoip.recorder_t.prototype.record_stop	= function()
 {
+	// objembed stop to record
+	var objembed	= document.getElementById("objembed_htmlid");
+	if( objembed.record_inprogress() )	objembed.record_stop();
+
+	// stop casti_ctrl_t if needed
+	if( this.m_casti_ctrl.is_recording() )
+		this.m_casti_ctrl.stop_recording();
+}
+
+/**
+ * return true if a record is in progress, false otherwise
+*/
+neoip.recorder_t.prototype.record_inprogress	= function()
+{
+	return this.m_casti_ctrl.is_recording();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +114,8 @@ neoip.recorder_t.prototype.stop	= function()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief get scasti_uri
+/**
+ * get scasti_uri
  */
 neoip.recorder_t.prototype._get_scasti_uri	= function()
 {
@@ -70,9 +130,9 @@ neoip.recorder_t.prototype._get_scasti_uri	= function()
 	//   casti can pass it to webdetect...
 	//   - TODO fix this to make it more flexible
 	var scasti_uri	= "rtmp://" + casti_host + ":1935"
-			+ "/" + escape(casti_param['mdata_srv_uri'])
-			+ "/" + escape(casti_param['cast_privtext'])
-			+ "/" + escape(casti_param['cast_name']);
+			+ "/" + escape(this.m_casti_param['mdata_srv_uri'])
+			+ "/" + escape(this.m_casti_param['cast_privtext'])
+			+ "/" + escape(this.m_casti_param['cast_name']);
 	// return the just-built scasti_uri
 	return scasti_uri;
 }
@@ -83,7 +143,8 @@ neoip.recorder_t.prototype._get_scasti_uri	= function()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief casti_ctrl_t callback
+/**
+ * casti_ctrl_t callback
  */
 neoip.recorder_t.prototype._casti_ctrl_cb	= function(notifier_obj, userptr, event_type, arg)
 {
@@ -93,20 +154,27 @@ neoip.recorder_t.prototype._casti_ctrl_cb	= function(notifier_obj, userptr, even
 	// if state is leaving (started|starting), stop the publishing
 	if( event_type == "changed_state" && (arg.old_state == "starting" || arg.old_state == "started")
 					&& !(arg.new_state == "starting" || arg.new_state == "started") ){
-		var recorderobj	= document.getElementById(this.m_objembed_htmlid);
-		recorderobj.record_unpublishing();
+		var objembed	= document.getElementById(this.m_objembed_htmlid);
+		objembed.record_unpublishing();
 	}
 	
 	// NOTE start the publishing AFTER webpack acknowledged 'starting'
 	// - it is needed because the neoip-casti start listen at 'starting' and
 	//   the recording need it to listen before trying to connect.
 	if( event_type == "changed_state" && arg.new_state == "starting" ){
-		var recorderobj	= document.getElementById(this.m_objembed_htmlid);
-		recorderobj.record_dopublishing();
+		var objembed	= document.getElementById(this.m_objembed_htmlid);
+		objembed.record_dopublishing();
 		// sanity check - at this point, 
-		console.assert( recorderobj.record_inprogress() );
+		console.assert( objembed.record_inprogress() );
 	}
 	
+	// notify the caller
+	if( event_type == "changed_state" && this.m_callback ){
+		this.m_callback("changed_state", {
+			old_state: arg.old_state,
+			new_state: arg.new_state
+		});
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +183,8 @@ neoip.recorder_t.prototype._casti_ctrl_cb	= function(notifier_obj, userptr, even
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief to notify the caller
+/**
+ * to notify the caller
  */
 neoip.recorder_t.prototype._notify_callback	= function(event_type, arg)
 {
@@ -134,7 +203,8 @@ neoip.recorder_t.prototype._notify_callback	= function(event_type, arg)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief constructor for a recoder_cb_t
+/**
+ * constructor for a recoder_cb_t
  *
  * - see http://www.dustindiaz.com/javascript-curry/ for principle description 
  */
