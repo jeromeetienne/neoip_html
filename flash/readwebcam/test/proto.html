@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>NeoIP casti recording page</title></head>
+
+<body onload="start_probing()">
+
+<center><h1>NeoIP casti recording page for flash</h1></center>
+
+<script src="../../../base/firebug/firebug.js"></script> 
+<script src="../../../base/javascript/swfobject.js"></script>
+<script src="../../../base/javascript/neoip_casti_ctrl_t.js"></script> 
+<script src="../../../base/javascript/neoip_base64_safe.js"></script>
+<script src="../../../base/javascript/neoip_core.js"></script>
+<script src="../../../base/javascript/neoip_xdomrpc_t.js"></script>
+<script src="../../../base/javascript/neoip_apps_detect_t.js"></script> 
+<script src="../../../base/javascript/neoip_objembed_initmon_t.js"></script> 
+<script>
+</script>
+
+<p id="recorder_container">Place to put the new recorder</p>
+<input type=button value="Start recording" onClick='start_record();'>
+<input type=button value="Stop recording" onClick='stop_record();'>
+
+
+<h1>Current status</h1>
+<ul>
+	<li>neoip-casti <span id="neoip_casti_probe_result">is currently being probbed.</span></li>
+	<li>neoip-casti swarm is currently <span id="casti_swarm_state">unknown</span></li>
+</ul>
+
+<script LANGUAGE="Javascript">
+function	asplayer_build(){
+	var so		= new SWFObject("../bin/readwebcam-dbg.swf", "recorderobj_htmlid"
+					, "320", "240"
+					, "9", "#000000", true);
+	// put the parameter to the flash plugin itself
+	so.addParam("allowScriptAccess"	, "always");
+	// write the result in the html
+	var succeed	= so.write("recorder_container");
+
+	// start monitoring objembed to determine when it is built
+	var objembed_initmon	= new neoip.objembed_initmon_t()
+	objembed_initmon.start("recorderobj_htmlid", "record_start"
+			       , neoip.objembed_initmon_cb_t(asplayer_built));
+}
+function start_record()
+{
+	// recorderobj start to record
+	var recorderobj	= document.getElementById("recorderobj_htmlid");
+	
+	var elValue	= function(htmlid){return document.getElementById(htmlid).value;	}
+	var elChecked	= function(htmlid){return document.getElementById(htmlid).checked;	}
+	var record_arg	= {
+		video_w:	elInputGet('video_w'),
+		video_h:	elInputGet('video_h'),
+		video_fps:	elInputGet('video_fps'),
+		video_bw:	elInputGet('video_bw')*1024,
+		audio_bw:	elInputGet('audio_bw')*1024,
+		audio_mute:	elInputGet('audio_mute'),
+		rtmp_uri:	get_scasti_uri()
+	};
+	console.assert( !recorderobj.record_inprogress() );
+	console.info("pre  record_start");
+	try{
+		recorderobj.record_start(record_arg);	
+	}catch(e){
+		// extract a readable message from the exception
+		var result	= /.*\".*: (.*)\".*/.exec(e);
+		var except_str	= result[1];
+		console.info("failed due to " + except_str);
+		return;
+	}
+	console.info("post record_start");
+
+	casti_param_from_field();
+	casti_param_to_ctrl();
+	casti_ctrl.start_recording();
+}
+function stop_record()
+{
+	// recorderobj stop to record
+	var recorderobj	= document.getElementById("recorderobj_htmlid");
+	if( recorderobj.record_inprogress() )	recorderobj.record_stop();
+
+	if( casti_ctrl.is_recording() ){
+		casti_param_to_ctrl();
+		casti_ctrl.stop_recording();
+	}
+	display_casti_state();
+}
+</script>
+
+
+<script>
+
+function	elInputSet(htmlid, value)
+{
+	// get the element from the dom
+	var element	= document.getElementById(htmlid);
+	// various set depending on the element.type
+	if( element.type == "checkbox" ){
+		element.checked	= parseInt(value);
+	}else{
+		element.value	= value;
+	}
+}
+function	elInputGet(htmlid)
+{
+	// get the element from the dom
+	var element	= document.getElementById(htmlid);
+	// various set depending on the element.type
+	if( element.type == "checkbox" )return element.checked ? 1 : 0;	
+	return element.value;
+}
+
+function webcam_param_reset()
+{
+	elInputSet("video_w"	, "320");
+	elInputSet("video_h"	, "240");
+	elInputSet("video_fps"	, "25");
+}
+function stream_param_reset_flv()
+{
+	elInputSet("audio_mute"	, "1");
+	elInputSet("video_bw"	, "32");
+	elInputSet("audio_bw"	, "8");
+}
+
+function stream_param_reset_bw_20k()
+{
+	elInputSet("video_bw"	, "16");
+	elInputSet("audio_bw"	, "4");
+}
+
+function stream_param_reset_bw_40k()
+{
+	elInputSet("video_bw"	, "32");
+	elInputSet("audio_bw"	, "8");
+}
+
+function stream_param_reset_bw_64k()
+{
+	elInputSet("video_bw"	, "48");
+	elInputSet("audio_bw"	, "16");
+}
+
+function casti_param_init()
+{
+	// vlc streaming parameters
+	casti_param['audio_mute']	= null;
+	casti_param['video_bw']		= null;
+	casti_param['audio_bw']		= null;
+
+	// vlc input parameter
+	casti_param['video_w']		= null;
+	casti_param['video_h']		= null;
+	casti_param['video_fps']	= null;
+
+	// casti streaming parameter
+	casti_param['cast_name']	= null;
+	casti_param['cast_privtext']	= null;
+	casti_param['scasti_mod']	= null;
+	casti_param['mdata_srv_uri']	= null;
+	casti_param['http_peersrc_uri']	= null;
+}
+
+function casti_param_reset_passwd()
+{
+	elInputSet("cast_privtext"	, neoip.core.build_nonce_str(8));
+}
+function casti_param_reset_flv()
+{
+	elInputSet("cast_name"		, "superstream.flv");
+	elInputSet("scasti_mod"		, "flv");
+}
+function casti_param_reset_debug()
+{
+	elInputSet("mdata_srv_uri"	, "http://jmehost2.local/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi");
+	//elInputSet("mdata_srv_uri"	, "http://rstream.urfastr.net/frontend_dev.php/castiRecordWebSrv/RPC2");
+}
+
+function casti_param_reset_production()
+{
+	elInputSet("mdata_srv_uri"	, "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi");
+}
+
+// copy all the casti_param to the html field
+function casti_param_to_field()
+{
+	for( var key in casti_param ){
+		elInputSet(key	, casti_param[key]);
+	}
+}
+
+// copy all the html_field to the casti_param
+function casti_param_from_field()
+{
+	casti_param_init();
+	for( var key in casti_param ){
+		casti_param[key] = elInputGet(key);
+	}
+}
+
+// Store all the casti_param in cookie 
+function casti_param_to_cookie()
+{
+	// get the casti_param from the html fields
+	casti_param_from_field();
+
+	// set the expiration date
+	var	expire_date	= new Date()
+	expire_date.setDate(expire_date.getDate() + 30*24*60*60)
+	
+	// add all the casti_param into cookies
+	for( var key in casti_param ){
+		var str  = ' ' + key + '=' + escape(casti_param[key]) + '; ';
+		str	+= "expires=" + expire_date.toGMTString() + ';';
+		document.cookie	= str;
+	}
+}
+
+// fetch the casti_param from cookie 
+function casti_param_from_cookie()
+{
+	// add all the casti_param into cookies
+	for( var key in casti_param ){
+		// try to find this key
+		var c_start	= document.cookie.indexOf(key + "=")
+		// if not found, goto the next
+		if( c_start == -1 )	continue;
+		// skip the test of the key + '='
+		c_start	= c_start + key.length + 1;
+		// try to find the end of the value
+		var c_end	= document.cookie.indexOf(";", c_start);
+		// if not found, assume it is up to the end of the cookie
+		if( c_end==-1 )	c_end	= document.cookie.length;
+		// now actually set the casti_param with the value from the cookie
+		casti_param[key]	= unescape(document.cookie.substring(c_start,c_end));
+	}
+
+	// set the casti_param to the html fields
+	casti_param_to_field();
+}
+
+// fetch the casti_param from cookie 
+function casti_param_to_ctrl()
+{
+	casti_ctrl.webdetect_uri	( neoip.outter_uri('casti')		);
+	casti_ctrl.cast_name		( casti_param['cast_name']		);
+	casti_ctrl.cast_privtext	( casti_param['cast_privtext']		);
+	casti_ctrl.mdata_srv_uri	( casti_param['mdata_srv_uri']		);
+	casti_ctrl.scasti_uri		( get_scasti_uri()			);
+	casti_ctrl.scasti_mod		( casti_param['scasti_mod']		);
+	casti_ctrl.http_peersrc_uri	( casti_param['http_peersrc_uri']	);
+}
+
+/** \brief casti_ctrl_t callback
+ */
+function	neoip_casti_ctrl_cb(notifier_obj, userptr, event_type, arg)
+{
+	// log to debug
+	//console.info("enter_type=" + event_type);console.dir(arg);
+
+	// if state is leaving (started|starting), stop the publishing
+	if( event_type == "changed_state" && (arg.old_state == "starting" || arg.old_state == "started")
+					&& !(arg.new_state == "starting" || arg.new_state == "started") ){
+		var recorderobj	= document.getElementById("recorderobj_htmlid");
+		recorderobj.record_unpublishing();
+	}
+	
+	// NOTE start the publishing AFTER webpack acknowledged 'starting'
+	// - it is needed because the neoip-casti start listen at 'starting' and
+	//   the recording need it to listen before trying to connect.
+	if( event_type == "changed_state" && arg.new_state == "starting" ){
+		var recorderobj	= document.getElementById("recorderobj_htmlid");
+		recorderobj.record_dopublishing();
+		// sanity check - at this point, 
+		console.assert( recorderobj.record_inprogress() );
+	}
+
+	// forward to the proper handler depending on event_type
+	if( event_type == "changed_state" )	display_casti_state(arg);
+	
+	// NOTE: just to avoid a warning 	
+	return 0;
+}
+
+/** \brief Display the casti_ctrl_t state
+ */
+function	display_casti_state()
+{
+	var	str	= null;
+	// get the current_state
+	var	state	= casti_ctrl.swarm_state();
+	// display according to the current state
+	if( state == 'starting' ){
+		str	= state;
+	}else if( state == 'started' ){
+		var mdata_srv_uri	= casti_param['mdata_srv_uri'];
+		var player_live_host	= "player.urfastr.tv";
+		if( mdata_srv_uri )	player_live_host	= /.*:\/\/(.*?)\//(mdata_srv_uri)[1];
+		if( player_live_host == "dedixl.jetienne.com")	player_live_host = "player.urfastr.tv";
+		str	= "<font color='green'>" + state + "</font>";
+		str	+= ". The cast_privhash is " + casti_ctrl.cast_privhash();
+		str	+= ". to see only <a href='http://"+player_live_host+"/" + casti_ctrl.cast_privhash() + "/live/" + casti_param['cast_name'] + "'>" + casti_param['cast_name']+ "</a>";  
+		str	+= ". to see <a href='http://"+player_live_host+"/live>all live stream</a>";  
+	}else if( state == 'stopped' ){
+		str	= state;
+	}else{
+		str	= "<font color='red'>" + state + "</font>";
+		str	+= ". The webbrowser is unable to contact neoip-casti. check if it is running.";
+	}
+	// display the current str
+	document.getElementById("casti_swarm_state").innerHTML= str;
+}
+
+// declare the casti_param and initialize it
+var casti_param	= new Array();
+casti_param_init();
+</script>
+
+<input type=button value="Save Parameter" onClick='casti_param_to_cookie()'>
+<input type=button value="Load Parameter" onClick='casti_param_from_cookie()'>
+
+<!-- TODO this button should be placed elsewhere -->
+<input type=button value="Reset ALL to default" onClick='all_param_reset_default()'>
+<script>
+function all_param_reset_default()
+{
+	stream_param_reset_flv();
+	casti_param_reset_flv();
+	casti_param_reset_passwd();
+	casti_param_reset_production();
+	webcam_param_reset();
+}
+</script>
+
+<h3>Streaming parameters</h3>
+<input type=button value="Reset for flv" onClick='stream_param_reset_flv()'>
+<input type=button value="Reset to 20kbyte/s" onClick='stream_param_reset_bw_20k()'>
+<input type=button value="Reset to 40kbyte/s" onClick='stream_param_reset_bw_40k()'>
+<input type=button value="Reset to 64kbyte/s" onClick='stream_param_reset_bw_64k()'>
+<table>
+	<tr><td>Audio mute	</td><td>: <input type="checkbox" id="audio_mute"		/></td></tr>
+	<tr><td>Video bw (in kbyte/s)</td><td>: <input type="text" id="video_bw"		/></td></tr>
+	<tr><td>Audio bw (in kbyte/s)</td><td>: <input type="text" id="audio_bw"		/></td></tr>
+</table>
+
+<h3>neoip-casti parameters</h3>
+<input type=button value="Reset passwd" onClick='casti_param_reset_passwd()'>
+<input type=button value="Reset for flv" onClick='casti_param_reset_flv()'>
+<input type=button value="Reset for debug" onClick='casti_param_reset_debug()'>
+<input type=button value="Reset for production" onClick='casti_param_reset_production()'>
+<table>
+	<tr><td>cast_name	</td><td>: <input type="text" id="cast_name"		/></td></tr>
+	<tr><td>cast_privtext	</td><td>: <input type="text" id="cast_privtext"	/></td></tr>
+	<tr><td>scasti_mod	</td><td>: <input type="text" id="scasti_mod"		/></td></tr>
+	<tr><td>mdata_srv_uri	</td><td>: <input type="text" id="mdata_srv_uri"	/></td></tr>
+	<tr><td>http_peersrc_uri</td><td>: <input type="text" id="http_peersrc_uri"	/></td></tr>	
+</table>
+
+<h3>Webcam parameters</h3>
+<input type=button value="Reset" onClick='webcam_param_reset();'>
+<table>
+	<tr><td>Video Width	</td><td>: <input type="text" id="video_w"		/></td></tr>
+	<tr><td>Video Height	</td><td>: <input type="text" id="video_h"		/></td></tr>
+	<tr><td>Image per Second</td><td>: <input type="text" id="video_fps"		/></td></tr>
+</table>
+
+<script>
+function start_probing()
+{
+	// start probing neoip-apps
+	var	casti_detect	= new neoip.apps_detect_t("casti", 4570, 4579
+					, neoip.apps_detect_cb_t(apps_detect_cb)
+					, {'hostname': 'jmehost2.local'});						
+//					, {'hostname': 'dedixl.jetienne.com'});						
+//					, {'hostname': '127.0.0.1'});						
+}
+
+/** \brief Callback for all the neoip.apps_detect_t of this page
+ */
+function apps_detect_cb(apps_detect, userptr, result_str)
+{
+	var suffix_name	= apps_detect.suffix_name();
+	var hostname	= apps_detect.hostname();
+	// log the result
+	console.info("enter suffix_name=" + apps_detect.suffix_name() + " result_str=" + result_str);
+
+	// delete the apps_detect
+	apps_detect.destructor();
+
+	// special case: if it failed to be found on 127.0.0.1, test global server
+	// - this is to allow to record without casti installed
+	if( !neoip.apps_present(suffix_name) &&  hostname == "127.0.0.1" ){
+		var	casti_detect	= new neoip.apps_detect_t("casti", 4570, 4579
+				, neoip.apps_detect_cb_t(apps_detect_cb)
+				, {'hostname': 'jmehost2.local'});
+		return;
+	}
+
+	// build the string to display
+	var	str;
+	if( neoip.apps_present(suffix_name) ){
+		str	 = " <font color='green'>HAS been found</font> -";
+		str	+= " version " + neoip.apps_version(suffix_name);
+		str	+= " with outter_uri of " + neoip.outter_uri(suffix_name);
+	}else{
+		str	 = "<font color='red'>HAS NOT</font> been found";
+		str	+= " running on your computer.";
+	}
+	// display the current str
+	var	elem_id	= "neoip_" + suffix_name + "_probe_result";
+	document.getElementById(elem_id).innerHTML= str;
+}
+function get_scasti_uri()
+{
+	// get the host where neoip-casti is located
+	var webdetect_uri	= neoip.outter_uri('casti');
+	var re		= webdetect_uri.match(/http:\/\/(.+?)([:\/]|$)/);
+	// sanity check - this regexp MUST find something
+	console.assert(re);
+	var casti_host	= re[1];
+	// build scasti_uri
+	// - NOTE: currently the port for rtmp is hardcoded as i dunno how
+	//   casti can pass it to webdetect...
+	//   - TODO fix this to make it more flexible
+	var scasti_uri	= "rtmp://" + casti_host + ":1935"
+			+ "/" + escape(casti_param['mdata_srv_uri'])
+			+ "/" + escape(casti_param['cast_privtext'])
+			+ "/" + escape(casti_param['cast_name']);
+	// return the just-built scasti_uri
+	return scasti_uri;
+}
+</script>
+<script>
+	asplayer_build();
+	// on load, set the parameters to default
+	all_param_reset_default()
+	// on load, read the casti_param_from_cookie
+	casti_param_from_cookie();
+	// init casti_ctrl
+	var casti_ctrl	= new neoip.casti_ctrl_t(neoip.casti_ctrl_cb_t(neoip_casti_ctrl_cb));
+	// display the casti_state
+	display_casti_state();
+</script>
+
+</body>
+</html>
