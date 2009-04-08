@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>asplayer testbed</title>
+</head>
+
+<body>
+
+<script src="../../../base/javascript/swfobject.js"></script>
+<script src="../../../base/javascript/neoip_casti_ctrl_t.js"></script> 
+<script src="../../../base/javascript/neoip_base64_safe.js"></script>
+<script src="../../../base/javascript/neoip_core.js"></script>
+<script src="../../../base/javascript/neoip_xdomrpc_t.js"></script>
+<script src="../../../base/javascript/neoip_apps_detect_t.js"></script>
+
+<script src="neoip_recorder_t.js"></script>
+<script src="lib/js/jquery/jquery-latest.js"></script>
+
+
+<input type="button" class="val_as_fctname" value="build_objembed"/>
+<input type="button" class="val_as_fctname" value="record_init"/>
+<input type="button" class="val_as_fctname" value="record_start"/>
+<input type="button" class="val_as_fctname" value="record_stop"/>
+
+<div id="container_htmlid"></div>
+
+<script>
+var neoip_recorder	= null;
+var objembed_htmlid	= "objembed_htmlid";
+var container_htmlid	= "container_htmlid";
+var build_objembed	= function(){
+	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
+	var so		= new SWFObject("../bin/readwebcam-rel.swf", objembed_htmlid
+					, "320", "240"
+					, "9", "#000000", true);
+	// put the parameter to the flash plugin itself
+	so.addParam("allowScriptAccess"	, "always");
+
+	// write the result in the html
+	var succeed	= so.write(container_htmlid);
+	console.assert(succeed);
+}
+var record_init		= function(){
+	var flash_param	= {
+		audio_mute:	true,
+		video_bw:	48*1024,
+		audio_bw:	16*1024,
+		video_w:	320,
+		video_h:	240,
+		video_fps:	25
+	};
+	var casti_param	= {
+		cast_name:	"superstream.flv",
+		cast_privtext:	neoip.core.build_nonce_str(8),
+		scasti_mod:	"flv",
+		mdata_srv_uri:	"http://jmehost2.local/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi"
+	};
+	var callback	= new neoip.recorder_cb_t(neoip_recorder_cb);
+	neoip_recorder	= new neoip.recorder_t(callback, objembed_htmlid, flash_param, casti_param);	
+}
+var record_start	= function(){
+	neoip_recorder.record_start();
+}
+var record_stop	= function(){
+	neoip_recorder.record_stop();
+}
+
+/** \brief Callback for all the neoip.apps_detect_t of this page
+ */
+function apps_detect_cb(apps_detect, userptr, result_str)
+{
+	var suffix_name	= apps_detect.suffix_name();
+	var hostname	= apps_detect.hostname();
+	// log the result
+	console.info("enter suffix_name=" + apps_detect.suffix_name() + " result_str=" + result_str);
+
+	// delete the apps_detect
+	apps_detect.destructor();
+
+	// special case: if it failed to be found on 127.0.0.1, test global server
+	// - this is to allow to record without casti installed
+	if( !neoip.apps_present(suffix_name) &&  hostname == "127.0.0.1" ){
+		var	casti_detect	= new neoip.apps_detect_t("casti", 4570, 4579
+				, neoip.apps_detect_cb_t(apps_detect_cb)
+				, {'hostname': 'jmehost2.local'});
+		return;
+	}
+}
+/**
+ * casti_ctrl_t callback
+ */
+neoip_recorder_cb	= function(notifier_obj, userptr, event_type, arg)
+{
+	// log to debug
+	console.info("enter event_type="+event_type);
+	console.dir(arg);
+}
+
+$(function(){
+	// build the embed
+	build_objembed();
+
+	// start probing neoip-apps
+	var	casti_detect	= new neoip.apps_detect_t("casti", 4570, 4579
+					, neoip.apps_detect_cb_t(apps_detect_cb)
+					, {'hostname': 'jmehost2.local'});						
+//					, {'hostname': 'dedixl.jetienne.com'});						
+//					, {'hostname': '127.0.0.1'});						
+
+	// bind the click on all button	
+	$("input.val_as_fctname").click(function(event){
+		var elem	= event.target;
+		var fct_name	= $(elem).val();
+		window[fct_name]();	
+	});
+});
+</script>
+
+
+</body>
+</html>
