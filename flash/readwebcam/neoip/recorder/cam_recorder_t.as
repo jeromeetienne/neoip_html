@@ -73,7 +73,6 @@ public function cam_recorder_t(p_stage:Stage)
 	m_stage.scaleMode	= "noScale";
 	m_video			= new Video(m_stage.stageWidth, m_stage.stageHeight);
 	m_video.smoothing	= true;
-	m_stage.addChild(m_video);
 
 	// make as3 exception sent to js
 	ExternalInterface.marshallExceptions = true;
@@ -103,7 +102,7 @@ public function destructor()	:void
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-//
+//		setup functions
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -192,6 +191,11 @@ public	function stop()	:void
  * @return boolean true if a recording is inprogress, false otherwise
 */
 public function is_recording()	:Boolean	{ return( m_recording );	}
+
+/** \brief return the video element
+ * - this is used to attach it 
+*/
+public function get mediaVideo():Video		{ return m_video;		}
 
 
 ////////////////////////////////////////////////////////////////////////////////

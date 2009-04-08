@@ -35,6 +35,8 @@ public function readwebcam()
 if(true){
 	var recorder	:cam_recorder_t;
 	recorder	= new cam_recorder_t(this.stage);
+	// add the recoder.mediaVideo on the stage
+	this.stage.addChild(recorder.mediaVideo);
 	console.info("enter");	
 }else{
 	vid	= new Video( );
