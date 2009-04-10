@@ -1,6 +1,10 @@
 NameVirtualHost *:80
 <VirtualHost *:80>
-        ServerName	player.urfastr.tv
+        ServerName	player.urfastr.net
+	
+	# an alias for backward compatibility
+	ServerAlias	player.urfastr.tv
+	
         DocumentRoot /home/jerome/public_html/neoip_html/player/apache2_conf/player_hostname_fake_docroot
 
         <Directory /home/jerome/public_html/neoip_html/player/apache2_conf/player_hostname_fake_docroot>
