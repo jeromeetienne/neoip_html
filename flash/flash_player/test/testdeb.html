@@ -14,8 +14,10 @@
 <input type="button" value="playing_start"/>
 <input type="button" value="playing_stop"/>
 <br/>
-<input type="button" value="embedui_winsizer_add"/>
-<input type="button" value="embedui_winsizer_del"/>
+<input type="button" value="embedui_chansel_add"/>
+<input type="button" value="embedui_chansel_del"/>
+<input type="button" value="embedui_recorder_pip_add"/>
+<input type="button" value="embedui_recorder_pip_del"/>
 <input type="button" value="embedui_root_stage_add"/>
 <input type="button" value="embedui_root_stage_del"/>
 <div id="container_htmlid"></div>
@@ -46,7 +48,7 @@ var build_objembed	= function(){
 	console.assert(succeed);
 }
 var track_add	= function(){
-	var track_uri		= "http://localhost/~jerome/seeso.flv";	
+	var track_uri		= "http://localhost/~jerome/sample.flv";	
 	var plugin_track_arg	= {};
 	var cooked_uri_arg	= {};
 	// compute the track_arg to pass to the plugin
@@ -68,13 +70,13 @@ var playing_stop	= function(){
 	// start playing
 	plugin.playing_stop();	
 }
-var embedui_winsizer_add	= function(){
+var embedui_chansel_add	= function(){
 	var plugin	= document.getElementById(plugin_htmlid)
-	// build the "embedui_id_winsizer"
+	// build the "embedui_id_chansel"
 	var embedui_opt	= {	"embedui_class"	: "button_bitmap",
-				"embedui_id"	: "embedui_id_winsizer",
+				"embedui_id"	: "embedui_id_chansel",
 				"userptr": {
-					"embedui_id"	: "embedui_id_winsizer"
+					"embedui_id"	: "embedui_id_chansel"
 					},
 				"element_opt" : {
 					"type"		: "vector",
@@ -93,9 +95,9 @@ var embedui_winsizer_add	= function(){
 				};
 	plugin.embedui_create(embedui_opt);
 }
-var embedui_winsizer_del	= function(){
+var embedui_chansel_del	= function(){
 	var plugin	= document.getElementById(plugin_htmlid)
-	plugin.embedui_delete("embedui_id_winsizer");	
+	plugin.embedui_delete("embedui_id_chansel");	
 }
 var embedui_root_stage_add	= function(){
 	var plugin	= document.getElementById(plugin_htmlid)
@@ -129,7 +131,7 @@ var asplayer_plugin_cb	= function(key, event_type, arg)
 	if( arg.arg.new_state == 'idle_detect'){
 		console.info('make all icon appears');
 		var plugin	= document.getElementById(plugin_htmlid)
-		plugin.embedui_update("embedui_id_winsizer", {
+		plugin.embedui_update("embedui_id_chansel", {
 						"action": 	"base_reset_state",
 						"arg":		{ "new_state": "appearing" }
 					});
@@ -137,12 +139,43 @@ var asplayer_plugin_cb	= function(key, event_type, arg)
 	if( arg.arg.new_state == 'move_detect'){
 		console.info('make all icon disappears');
 		var plugin	= document.getElementById(plugin_htmlid)
-		plugin.embedui_update("embedui_id_winsizer", {
+		plugin.embedui_update("embedui_id_chansel", {
 						"action": 	"base_reset_state",
 						"arg":		{ "new_state": "disappearing" }
 					});
 	}
 };
+
+
+var embedui_recorder_pip_add	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	// build the "embedui_id_chansel"
+	var embedui_opt	= {	"embedui_class"	: "recorder_pip",
+				"embedui_id"	: "embedui_id_recorder_pip",
+				"userptr": {
+					"embedui_id"	: "embedui_id_recorder_pip"
+					},
+				"element_opt" : {
+					//"type"		: "vector",
+					//"location"	: "chansel"
+					},
+			 	"base_sprite" : {
+			 		"element_x"	: 1.0,
+			 		"element_y"	: 0.0,
+			 		"element_w"	: 0.08,
+			 		"element_h"	: 0.0,
+					"anchor_x"	: 0.0, 
+					"anchor_y"	: 0.0,
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000,					
+					}
+				};
+	plugin.embedui_create(embedui_opt);
+}
+var embedui__del	= function(){
+	var plugin	= document.getElementById(plugin_htmlid)
+	plugin.embedui_delete("embedui_id_recorder_pip");	
+}
 
 $(function(){
 	$("input[value=build_objembed]").click(function(){
@@ -157,17 +190,26 @@ $(function(){
 	$("input[value='playing_stop']").click(function(){
 		playing_stop();
 	});
-	$("input[value=embedui_winsizer_add]").click(function(){
-		embedui_winsizer_add();
-	});
-	$("input[value=embedui_winsizer_del]").click(function(){
-		embedui_winsizer_del();
-	});
+
 	$("input[value=embedui_root_stage_add]").click(function(){
 		embedui_root_stage_add();
 	});
 	$("input[value=embedui_root_stage_del]").click(function(){
 		embedui_root_stage_del();
+	});
+
+	$("input[value=embedui_chansel_add]").click(function(){
+		embedui_chansel_add();
+	});
+	$("input[value=embedui_chansel_del]").click(function(){
+		embedui_chansel_del();
+	});
+
+	$("input[value=embedui_recorder_pip_add]").click(function(){
+		embedui_chansel_add();
+	});
+	$("input[value=embedui_recorder_pip_del]").click(function(){
+		embedui_chansel_del();
 	});
 });
 </script>

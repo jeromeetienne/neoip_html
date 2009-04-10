@@ -110,6 +110,8 @@ public function	embedui_create_fromjs(embedui_opt:Object)	:void
 		embedui_obj	= new select_list_t	(m_stage, embedui_obj_cb, embedui_opt);
 	}else if( embedui_class == "select_dock" ){
 		embedui_obj	= new select_dock_t	(m_stage, embedui_obj_cb, embedui_opt);
+	}else if( embedui_class == "recorder_pip" ){
+		embedui_obj	= new recorder_pip_t	(m_stage, embedui_obj_cb, embedui_opt);
 	}else if( embedui_class == "root_stage" ){
 		embedui_obj	= new root_stage_t	(m_stage, embedui_obj_cb, embedui_opt);
 	}else{ console.assert(false)	}
