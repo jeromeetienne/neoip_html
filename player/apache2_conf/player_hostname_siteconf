@@ -1,8 +1,9 @@
-NameVirtualHost *
-<VirtualHost *>
-        DocumentRoot /var/www/player.urfastr.tv
+NameVirtualHost *:80
+<VirtualHost *:80>
         ServerName	player.urfastr.tv
-        <Directory /var/www/player.urfastr.tv>
+        DocumentRoot /home/jerome/public_html/neoip_html/player/apache2_conf/player_hostname_fake_docroot
+
+        <Directory /home/jerome/public_html/neoip_html/player/apache2_conf/player_hostname_fake_docroot>
         	# disable the ability to see file directory content
                 #Options -Indexes
 		AllowOverride All
