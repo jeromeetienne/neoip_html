@@ -11,7 +11,7 @@ ADL=adl
 ADT=adt
 
 REL_DIRNAME	= /tmp/adobe_air2_reldir.tmp
-REL_VERSION	= 0.9.9
+REL_VERSION	= 0.9.10
 # to put a \n in the description, do a \\n
 REL_DESCRIPTION	= New version with new stuff\\nEnjoy it hot!
 # attempt to make it automatic

@@ -18,8 +18,6 @@ function MainOnLoadCallback()
 	//return;
 
 
-
-
 	// launch the autoupdater
 	// - TODO calling this prevent the application to quit on macos (but work on linux/win32)
 	// - is it in relation with the 'quit != with dock' on macos too
@@ -118,5 +116,15 @@ function MainOnLoadCallback()
 	air.trace('availTop='+screen.availTop);
 }
 
-window.onload	= MainOnLoadCallback;
+window.onload	= function(){
+	if( guessOS() != "linux" ){
+		MainOnLoadCallback();
+	}else{
+		// WORKAROUND: on linux (ubuntu 8.10) there is a race during the login
+		// - if launched immediatly, the systray icon never appears
+		// - only at the first login after the boot
+		// - following login got the systray icon without trouble
+		setTimeout(MainOnLoadCallback, 10*1000);
+	}
+}
 
