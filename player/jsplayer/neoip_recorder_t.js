@@ -53,6 +53,7 @@ neoip.recorder_t.prototype.flash_param	= function(){ return this.m_flash_param;	
 
 /**
  * start the recording
+ * @returns {mixed} a error string or null if no error occured
  */
 neoip.recorder_t.prototype.record_start	= function()
 {
@@ -77,8 +78,7 @@ neoip.recorder_t.prototype.record_start	= function()
 		// extract a readable message from the exception
 		var result	= /.*\".*: (.*)\".*/.exec(e);
 		var except_str	= result[1];
-		console.info("failed due to " + except_str);
-		return;
+		return except_str;
 	}
 	console.info("post record_start");
 
@@ -91,6 +91,8 @@ neoip.recorder_t.prototype.record_start	= function()
 	this.m_casti_ctrl.scasti_mod		( this.m_casti_param['scasti_mod']	);
 	this.m_casti_ctrl.http_peersrc_uri	( this.m_casti_param['http_peersrc_uri']);
 	this.m_casti_ctrl.start_recording();
+	
+	return false;
 }
 
 /**

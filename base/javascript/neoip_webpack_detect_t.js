@@ -46,6 +46,9 @@ neoip.webpack_detect_t = function(p_callback)
 					"casti"	: {	"first_port"	: 4570,
 							"last_port"	: 4573,
 							"min_version"	: "0.0.1",
+							// NOTE: trick to get casti on dedixl.jetienne.com and not in localhost
+							// - thus this is always available even if webpack installed version is no good
+							//   or if not installed at all
 							"options"	: {'hostname': 'dedixl.jetienne.com'}
 						}
 				};

@@ -598,7 +598,6 @@ neoip.ezplayer_embedui_t.prototype._embedui_record_toggle_cb	= function(event_ty
 		// construct neoip_recorder_t
 		this._neoip_recorder_ctor();
 	}
-
 }
 
 /**
@@ -625,7 +624,9 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 	var plugin_htmlid	= this.m_ezplayer.m_subplayer_html_id;
 	this.m_recorder	= new neoip.recorder_t(callback, plugin_htmlid, flash_param, casti_param);
 	// neoip_recorder_t record start
-	this.m_recorder.record_start();
+	var error_str		= this.m_recorder.record_start();
+	// set the status_line if there is an error
+	if( error_str )		this._set_status_line("Broadcasting failed\ndue to "+error_str);
 }
 
 /**

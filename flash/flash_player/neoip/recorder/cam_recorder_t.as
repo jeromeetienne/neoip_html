@@ -133,7 +133,7 @@ public	function start(arg:Object)	:void
 	// attach the camera to m_video
 	m_camera	= Camera.getCamera();
 //	m_camera	= Camera.getCamera(m_cam_idx != null ? String(m_cam_idx) : null);
-	if( !m_camera )	throw new Error("No Camera Installed");
+	if( !m_camera )	throw new Error("No Camera is Available");
 
 	m_camera.setMode(m_video_w, m_video_h, m_video_fps);
 	m_camera.setQuality(m_video_bw, 0);	// TODO no audio_bw ?
