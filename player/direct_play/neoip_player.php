@@ -8,10 +8,11 @@
 <script src="../../jspackmin/data/neoip_jsplayer_packmin.js"></script>
 <style type="text/css">	
 	/* body style for the video fullpage mode - hardcoded for now */
-	body {	height	: 100%;
-		width	: 100%;
-		margin	: 0px;
-		overflow: hidden;
+	html, body {
+		height	:	100%;
+		width	:	100%;
+		margin	:	0px;
+		overflow:	hidden;
 		background-color: #000000;
 	}
 </style>

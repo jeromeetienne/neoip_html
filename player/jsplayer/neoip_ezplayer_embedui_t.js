@@ -124,6 +124,30 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 	if( this.m_ezplayer.m_plistarr ){
 		plugin.embedui_create(embedui_opt);
 	}
+
+
+	// build the "embedui_id_record_toggle"
+	var embedui_opt	= {	"embedui_class"	: "button_bitmap",
+				"embedui_id"	: "embedui_id_record_toggle",
+				"userptr": {
+					"embedui_id"	: "embedui_id_record_toggle"
+					},
+				"element_opt" : {
+					"type"		: "vector",
+					"location"	: "record"
+					},
+			 	"base_sprite" : {
+			 		"element_x"	: 1.0,
+			 		"element_y"	: 0.5,
+			 		"element_w"	: 0.08,
+			 		"element_h"	: 0.0,
+					"anchor_x"	: 0.5, 
+					"anchor_y"	: 0.5,
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000			
+					}
+				};
+	plugin.embedui_create(embedui_opt);	
 	
 	// create the "embedui_id_track_title"
 	var embedui_opt	= {	"embedui_class"	: "text_caption",
@@ -195,9 +219,11 @@ neoip.ezplayer_embedui_t.prototype.destructor	= function()
 	plugin.embedui_delete("embedui_id_volume");
 	plugin.embedui_delete("embedui_id_winsizer");
 	plugin.embedui_delete("embedui_id_playlist_toggle");
+	plugin.embedui_delete("embedui_id_record_toggle");
 	plugin.embedui_delete("embedui_id_track_title");
 	plugin.embedui_delete("embedui_id_status_line");
 	// delete all the 'moving' embedui element
+	this._embedui_delete_recorder_pip();
 	this._embedui_delete_playlist_select();
 	this._embedui_delete_nopack_button();
 	this._embedui_delete_play();
@@ -269,6 +295,8 @@ neoip.ezplayer_embedui_t.prototype.embedui_event_cb	= function(event_type, arg)
 		return this.m_ezplayer.playing_stop();
 	}else if( embedui_id == "embedui_id_playlist_toggle" ){
 		return this._embedui_playlist_toggle_cb		(event_type, arg);
+	}else if( embedui_id == "embedui_id_record_toggle" ){
+		return this._embedui_record_toggle_cb		(event_type, arg);
 	}else if( embedui_id == "embedui_id_playlist_select" ){
 		return this._embedui_playlist_select_cb		(event_type, arg);
 	}else if( embedui_id == "embedui_id_nopack_button" ){
@@ -394,7 +422,8 @@ neoip.ezplayer_embedui_t.prototype._embedui_root_stage_cb	= function(event_type,
 		// change the state of some embedui to make them visible on "idle_detect"
 		var embedui_id_arr	= [	"embedui_id_volume",
 						"embedui_id_winsizer",
-						"embedui_id_playlist_toggle"
+						"embedui_id_playlist_toggle",
+						"embedui_id_record_toggle"
 					];
 		// if this embedui_id_stop exists, add it to the list
 		if( plugin.embedui_exist(embedui_id) == true )
@@ -532,6 +561,144 @@ neoip.ezplayer_embedui_t.prototype._embedui_delete_playlist_select	= function()
 {
 	var plugin	= this._get_plugin()
 	var embedui_id	= "embedui_id_playlist_select";
+	// if this embedui_id doesnt exist, return now
+	if( plugin.embedui_exist(embedui_id) == false )	return;
+	// delete the embedui
+	plugin.embedui_delete(embedui_id);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//			record handling
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+/** \brief Callback for any embedui event from the "embedui_id_record_toggle"
+ */
+neoip.ezplayer_embedui_t.prototype._embedui_record_toggle_cb	= function(event_type, arg)
+{
+	var plugin	= this._get_plugin()
+	// log to debug
+	console.info("enter");
+
+	// if the event_type is not "click", do nothing
+	if( event_type != "click" )	return;
+
+	if( plugin.embedui_exist('embedui_id_recorder_pip') == true ){
+		console.info('stop recording');
+		// delete embedui_id_recoder_pip
+		this._embedui_delete_recorder_pip();
+		// destruct neoip_recorder_t
+		this._neoip_recorder_dtor();
+	}else{
+		console.info('start recording');
+		// create embedui_id_recoder_pip
+		this._embedui_create_recorder_pip();
+		// construct neoip_recorder_t
+		this._neoip_recorder_ctor();
+	}
+
+}
+
+/**
+ * construct neoip_recorder_t
+ */
+neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
+{
+	var flash_param	= {
+		audio_mute:	true,
+		video_bw:	48*1024,
+		audio_bw:	16*1024,
+		video_w:	320,
+		video_h:	240,
+		video_fps:	10
+	};
+	var casti_param	= {
+		cast_name:	" Webcam " + neoip.core.build_nonce_str(3),
+		cast_privtext:	neoip.core.build_nonce_str(8),
+		scasti_mod:	"flv",
+		mdata_srv_uri:	"http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi"
+	};
+	// start neoip_recorder
+	var callback		= new neoip.recorder_cb_t(this._neoip_recorder_cb, this);
+	var plugin_htmlid	= this.m_ezplayer.m_subplayer_html_id;
+	this.m_recorder	= new neoip.recorder_t(callback, plugin_htmlid, flash_param, casti_param);
+	// neoip_recorder_t record start
+	this.m_recorder.record_start();
+}
+
+/**
+ * destruct neoip_recorder_t
+ */
+neoip.ezplayer_embedui_t.prototype._neoip_recorder_dtor	= function()
+{
+	// if this.m_recorder is null, return now
+	if( this.m_recorder == null )	return;
+	// set the status_line
+	var cast_name	= this.m_recorder.casti_param()['cast_name'];
+	this._set_status_line(cast_name+"\nBroadcasting stopped");
+	// neoip_recorder_t record stop
+	this.m_recorder.record_stop();
+	// destroy neoip_recorder_t
+	this.m_recorder.destructor();
+	this.m_recorder	= null;	
+}
+/**
+ * neoip_recorder_t callback
+ */
+neoip.ezplayer_embedui_t.prototype._neoip_recorder_cb	= function(notifier_obj, userptr, event_type, arg)
+{
+	// log to debug
+	console.info("enter event_type="+event_type);
+	console.dir(arg);
+
+	// set the status_line
+	if( event_type == "changed_state" ){
+		var cast_name	= this.m_recorder.casti_param()['cast_name'];
+		var status_line	= cast_name + "\nBroadcasting " + arg.new_state;
+		this._set_status_line(status_line);
+	}
+}
+
+/** \brief create the embedui_id_play button
+ */
+neoip.ezplayer_embedui_t.prototype._embedui_create_recorder_pip	= function()
+{
+	var plugin	= this._get_plugin()
+	var embedui_id	= "embedui_id_recorder_pip";
+	// if this embedui_id alreadt exist, return now
+	if( plugin.embedui_exist(embedui_id) == true )	return;
+
+	// build the "embedui_id_recorder_pip"
+	var embedui_opt	= {	"embedui_class"	: "recorder_pip",
+				"embedui_id"	: "embedui_id_recorder_pip",
+				"userptr": {
+					"embedui_id"	: "embedui_id_recorder_pip"
+					},
+				"element_opt" : {
+					//"type"		: "vector",
+					//"location"	: "chansel"
+					},
+			 	"base_sprite" : {
+			 		"element_x"	: 0,
+			 		"element_y"	: 1.0,
+			 		"element_w"	: 0.33,
+			 		"element_h"	: 0.33,
+					"anchor_x"	: 0.0, 
+					"anchor_y"	: 0.0
+					}
+				};
+	// actually ask the plugin to create the element
+	plugin.embedui_create(embedui_opt);
+}
+
+/** \brief delete the embedui_id_play button
+ */
+neoip.ezplayer_embedui_t.prototype._embedui_delete_recorder_pip	= function()
+{
+	var plugin	= this._get_plugin()
+	var embedui_id	= "embedui_id_recorder_pip";
 	// if this embedui_id doesnt exist, return now
 	if( plugin.embedui_exist(embedui_id) == false )	return;
 	// delete the embedui

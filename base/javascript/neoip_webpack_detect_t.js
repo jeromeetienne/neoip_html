@@ -35,15 +35,18 @@ neoip.webpack_detect_t = function(p_callback)
 	// define the parameters for each neoip-apps inside neoip-webpack
 	this.m_apps_params	= { 	"oload"	: {	"first_port"	: 4550,
 							"last_port"	: 4553,
-							"min_version"	: "0.0.1"
+							"min_version"	: "0.0.1",
+							"options"	: null
 						},
 					"casto"	: {	"first_port"	: 4560,
 							"last_port"	: 4563,
-							"min_version"	: "0.0.1"
+							"min_version"	: "0.0.1",
+							"options"	: null
 						},
 					"casti"	: {	"first_port"	: 4570,
 							"last_port"	: 4573,
-							"min_version"	: "0.0.1"
+							"min_version"	: "0.0.1",
+							"options"	: {'hostname': 'dedixl.jetienne.com'}
 						}
 				};
 	// start probing neoip-apps
@@ -52,7 +55,8 @@ neoip.webpack_detect_t = function(p_callback)
 		var apps_param	= this.m_apps_params[suffix_name];
 		var apps_detect	= new neoip.apps_detect_t(suffix_name
 					, apps_param['first_port'], apps_param['last_port']
-					, neoip.apps_detect_cb_t(this._apps_detect_cb, this));
+					, neoip.apps_detect_cb_t(this._apps_detect_cb, this)
+					, apps_param['options']);
 		this.m_apps_detects.push( apps_detect );
 	}
 	// initial state is inprobing

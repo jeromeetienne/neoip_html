@@ -42,6 +42,8 @@ neoip.casti_ctrl_t = function(p_callback)
  */
 neoip.casti_ctrl_t.prototype.destructor = function()
 {
+	// log to debug
+	console.info('casti_ctrl_t: destructor');
 	// stop the refresh_xdomrpc if needed
 	if( this.m_refresh_xdomrpc ){
 		this.m_refresh_xdomrpc.destructor();

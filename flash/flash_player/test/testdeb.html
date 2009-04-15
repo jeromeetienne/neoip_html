@@ -161,9 +161,9 @@ var embedui_recorder_pip_add	= function(){
 					},
 			 	"base_sprite" : {
 			 		"element_x"	: 1.0,
-			 		"element_y"	: 0.0,
+			 		"element_y"	: 1.0,
 			 		"element_w"	: 0.08,
-			 		"element_h"	: 0.0,
+			 		"element_h"	: 0.08,
 					"anchor_x"	: 0.0, 
 					"anchor_y"	: 0.0,
 					"display_type"	: "timeout",
@@ -172,7 +172,7 @@ var embedui_recorder_pip_add	= function(){
 				};
 	plugin.embedui_create(embedui_opt);
 }
-var embedui__del	= function(){
+var embedui_recorder_pip_del	= function(){
 	var plugin	= document.getElementById(plugin_htmlid)
 	plugin.embedui_delete("embedui_id_recorder_pip");	
 }
@@ -206,10 +206,10 @@ $(function(){
 	});
 
 	$("input[value=embedui_recorder_pip_add]").click(function(){
-		embedui_chansel_add();
+		embedui_recorder_pip_add();
 	});
 	$("input[value=embedui_recorder_pip_del]").click(function(){
-		embedui_chansel_del();
+		embedui_recorder_pip_del();
 	});
 });
 </script>

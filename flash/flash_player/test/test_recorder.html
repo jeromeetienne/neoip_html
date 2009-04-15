@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>asplayer testbed</title>
+</head>
+
+<body>
+
+<script src="../../../base/javascript/neoip_casti_ctrl_t.js"></script> 
+<script src="../../../base/javascript/neoip_base64_safe.js"></script>
+<script src="../../../base/javascript/neoip_core.js"></script>
+<script src="../../../base/javascript/neoip_xdomrpc_t.js"></script>
+<script src="../../../base/javascript/neoip_apps_detect_t.js"></script>
+
+<script src="neoip_recorder_t.js"></script>
+
+<script src="lib/js/jquery/jquery-latest.js"></script>
+<script src="lib/js/swfobject.js"></script>
+
+<input type="button" value="build_objembed"/>
+<input type="button" value="track_add"/>
+<input type="button" value="playing_start"/>
+<input type="button" value="playing_stop"/>
+<br/>
+<input type="button" value="embedui_recorder_pip_add"/>
+<input type="button" value="embedui_recorder_pip_del"/>
+<br/>
+<input type="button" value="embedui_record_add"/>
+<input type="button" value="embedui_record_del"/>
+<br/>
+<input type="button" value="record_init"/>
+<input type="button" value="record_start"/>
+<input type="button" value="record_stop"/>
+<br/>
+<input type="button" value="big"	/>
+<input type="button" value="small"	/>
+
+
+<div id="container_htmlid"></div>
+
+<script>
+var objembed_htmlid	= "objembed_htmlid";
+var container_htmlid	= "container_htmlid";
+var build_objembed	= function(){
+	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
+	var so		= new SWFObject("../bin/flash_player-dbg.swf", objembed_htmlid
+					, "640", "480"
+					, "9", "#000000", true);
+	// put the parameter to the flash plugin itself
+	so.addParam("allowScriptAccess"	, "always");
+
+	// TODO to remove just an experimentation for wmode transparent - in relation with 
+	//so.addParam	("wmode"	, "transparent");
+
+	var allowfullscreen	= true;
+	so.addParam("allowfullscreen"	, allowfullscreen ? "true" : "false");
+	// mirror addParam "allowfullscreen" because unable to get addParam from as
+	so.addVariable("allowfullscreen", allowfullscreen ? "true" : "false");  
+	// put the variable for the flash program
+	so.addVariable("jscallback_str"	, "asplayer_plugin_cb");
+	so.addVariable("jscallback_key"	, "tag_"+objembed_htmlid);
+	// write the result in the html
+	var succeed	= so.write(container_htmlid);
+	console.assert(succeed);
+}
+var track_add	= function(){
+	var track_uri		= "http://localhost/~jerome/sample.flv";	
+	var plugin_track_arg	= {};
+	var cooked_uri_arg	= {};
+	// compute the track_arg to pass to the plugin
+	plugin_track_arg['content_url']	= track_uri;
+	//plugin_track_arg['video_aspect']	= playlist_track.video_aspect();
+	var plugin	= document.getElementById(objembed_htmlid)
+	// add this track to the plugin
+	plugin.track_add(plugin_track_arg, 0);
+	// start playing
+	//plugin.playing_start();	
+}
+var playing_start	= function(){
+	var plugin	= document.getElementById(objembed_htmlid)
+	// start playing
+	plugin.playing_start();	
+}
+var playing_stop	= function(){
+	var plugin	= document.getElementById(objembed_htmlid)
+	// start playing
+	plugin.playing_stop();	
+}
+var asplayer_plugin_cb	= function(key, event_type, arg)
+{
+	// log to debug
+	console.info("key="+ key + " event_type=" + event_type);
+	console.dir(arg);
+
+	if( event_type != 'embedui_event' )		return;
+	var embedui_id	= arg.arg.userptr.embedui_id;
+	if( embedui_id != "embedui_id_record" )		return;
+	if( arg.event_type != "click" )			return;
+	
+	var plugin	= document.getElementById(objembed_htmlid)
+	var recording	= plugin.embedui_exist('embedui_id_recorder_pip');
+	console.info('recoring='+recording);
+	if( recording == false ){
+		embedui_recorder_pip_add();
+		record_init();
+		record_start();
+	}else{
+		record_stop();
+		embedui_recorder_pip_del();
+	}
+};
+
+var embedui_record_add	= function(){
+	var plugin	= document.getElementById(objembed_htmlid)
+	// build the "embedui_id_record"
+	var embedui_opt	= {	"embedui_class"	: "button_bitmap",
+				"embedui_id"	: "embedui_id_record",
+				"userptr": {
+					"embedui_id"	: "embedui_id_record"
+					},
+				"element_opt" : {
+					"type"		: "vector",
+					"location"	: "record"
+					},
+			 	"base_sprite" : {
+			 		"element_x"	: 1.0,
+			 		"element_y"	: 0.5,
+			 		"element_w"	: 0.08,
+			 		"element_h"	: 0.0,
+					"anchor_x"	: 0.5, 
+					"anchor_y"	: 0.5,
+					"display_type"	: "timeout",
+					"timeout_delay"	: 999*1000,					
+					}
+				};
+	plugin.embedui_create(embedui_opt);
+}
+var embedui_record_del	= function(){
+	var plugin	= document.getElementById(objembed_htmlid)
+	plugin.embedui_delete("embedui_id_record");	
+}
+
+var embedui_recorder_pip_add	= function(){
+	var plugin	= document.getElementById(objembed_htmlid)
+	// build the "embedui_id_chansel"
+	var embedui_opt	= {	"embedui_class"	: "recorder_pip",
+				"embedui_id"	: "embedui_id_recorder_pip",
+				"userptr": {
+					"embedui_id"	: "embedui_id_recorder_pip"
+					},
+				"element_opt" : {
+					//"type"		: "vector",
+					//"location"	: "chansel"
+					},
+			 	"base_sprite" : {
+			 		"element_x"	: 1.0,
+			 		"element_y"	: 1.0,
+			 		"element_w"	: 0.33,
+			 		"element_h"	: 0.33,
+					"anchor_x"	: 0.0, 
+					"anchor_y"	: 0.0
+					}
+				};
+	plugin.embedui_create(embedui_opt);
+}
+var embedui_recorder_pip_del	= function(){
+	var plugin	= document.getElementById(objembed_htmlid)
+	plugin.embedui_delete("embedui_id_recorder_pip");	
+}
+
+
+var record_init		= function(){
+	var flash_param	= {
+		audio_mute:	true,
+		video_bw:	48*1024,
+		audio_bw:	16*1024,
+		video_w:	320,
+		video_h:	240,
+		video_fps:	10
+	};
+	var casti_param	= {
+		cast_name:	"superstream.flv",
+		cast_privtext:	neoip.core.build_nonce_str(8),
+		scasti_mod:	"flv",
+		mdata_srv_uri:	"http://jmehost2.local/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi"
+	};
+	var callback	= new neoip.recorder_cb_t(neoip_recorder_cb);
+	neoip_recorder	= new neoip.recorder_t(callback, objembed_htmlid, flash_param, casti_param);	
+}
+var record_start	= function(){
+	neoip_recorder.record_start();
+}
+var record_stop	= function(){
+	neoip_recorder.record_stop();
+}
+
+
+/** \brief Callback for all the neoip.apps_detect_t of this page
+ */
+function apps_detect_cb(apps_detect, userptr, result_str)
+{
+	var suffix_name	= apps_detect.suffix_name();
+	var hostname	= apps_detect.hostname();
+	// log the result
+	console.info("enter suffix_name=" + apps_detect.suffix_name() + " result_str=" + result_str);
+
+	// delete the apps_detect
+	apps_detect.destructor();
+
+	// special case: if it failed to be found on 127.0.0.1, test global server
+	// - this is to allow to record without casti installed
+	if( !neoip.apps_present(suffix_name) &&  hostname == "127.0.0.1" ){
+		var	casti_detect	= new neoip.apps_detect_t("casti", 4570, 4579
+				, neoip.apps_detect_cb_t(apps_detect_cb)
+				, {'hostname': 'jmehost2.local'});
+		return;
+	}
+}
+/**
+ * casti_ctrl_t callback
+ */
+neoip_recorder_cb	= function(notifier_obj, userptr, event_type, arg)
+{
+	// log to debug
+	console.info("enter event_type="+event_type);
+	console.dir(arg);
+}
+
+$(function(){
+	build_objembed();
+
+	// start probing neoip-apps
+	var casti_detect	= new neoip.apps_detect_t("casti", 4570, 4579
+					, neoip.apps_detect_cb_t(apps_detect_cb)
+					, {'hostname': 'jmehost2.local'});						
+//					, {'hostname': 'dedixl.jetienne.com'});						
+//					, {'hostname': '127.0.0.1'});						
+
+	$("input[value=track_add]").click(function(){
+		track_add();
+	});
+	$("input[value='playing_start']").click(function(){
+		playing_start();	
+	});
+	$("input[value='playing_stop']").click(function(){
+		playing_stop();
+	});
+
+
+
+	$("input[value=embedui_recorder_pip_add]").click(function(){
+		embedui_recorder_pip_add();
+	});
+	$("input[value=embedui_recorder_pip_del]").click(function(){
+		embedui_recorder_pip_del();
+	});
+	$("input[value=embedui_record_add]").click(function(){
+		embedui_record_add();
+	});
+	$("input[value=embedui_record_del]").click(function(){
+		embedui_record_del();
+	});
+	$("input[value=record_init]").click(function(){
+		record_init();
+	});
+	$("input[value=record_start]").click(function(){
+		record_start();
+	});
+	$("input[value=record_stop]").click(function(){
+		record_stop();
+	});
+	$("input[value=big]").click(function(){
+		$('#'+objembed_htmlid).attr({
+			width:	640,
+			height: 480
+		});
+	});
+	$("input[value=small]").click(function(){
+		$('#'+objembed_htmlid).attr({
+			width:	320,
+			height: 240
+		});
+	});
+});
+</script>
+
+
+</body>
+</html>
