@@ -30,7 +30,7 @@ function castGetPlistArr()
 	$fullname	= $dirname."/".$basename;
 	if( !file_exists($fullname) )	throw new Exception("PANIC cant find ".$basename);
 	$content	= file_get_contents($fullname);
-	return $content;	
+	return $content;
 }
 
 

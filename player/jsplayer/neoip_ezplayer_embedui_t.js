@@ -614,6 +614,8 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 		video_fps:	10
 	};
 	var casti_param	= {
+		// TODO this change the name at every start... no good
+		// - find a better way ? in anycase the recorder integration is no good for now
 		cast_name:	" Webcam " + neoip.core.build_nonce_str(3),
 		cast_privtext:	neoip.core.build_nonce_str(8),
 		scasti_mod:	"flv",
