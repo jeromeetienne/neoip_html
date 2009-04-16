@@ -18,7 +18,8 @@ var neoip_plistarr_qunit	= function(){
 		// init the playlist_loader for this playlist_uri
 		var plistarr_loader = new neoip.plistarr_loader_t({
 			callback:	neoip.plistarr_loader_cb_t(plistarr_loader_cb),
-			xdomrpc_url:	"../../cgi-bin/xdomrpc_dispatcher.php"
+			xdomrpc_url:	"../../cgi-bin/xdomrpc_dispatcher.php",
+			plistarr_id:	'plistarr_live'
 		});
 		
 		// delay qunit until result is known

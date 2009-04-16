@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<script src="jquery/jquery-latest.js"></script>
-	<link rel="stylesheet" href="jquery/qunit/testsuite.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="jquery/qunit/testrunner.js"></script>
+	<script src="../../lib/js/jquery/jquery-latest.js"></script>
+	<link rel="stylesheet" href="../../lib/js/jquery/qunit/testsuite.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="../../lib/js/jquery/qunit/testrunner.js"></script>
 	<script>
 		// silly patch because i dont like this "stop/start" in my code
 		QUnit.delayed_result	= stop;
