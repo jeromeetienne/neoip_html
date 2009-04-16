@@ -46,7 +46,7 @@ neoip.plistarr_loader_t.prototype.destructor	= function()
 	if( this.m_xdomrpc ){
 		this.m_xdomrpc.destructor();
 		this.m_xdomrpc	= null;
-	}	
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
