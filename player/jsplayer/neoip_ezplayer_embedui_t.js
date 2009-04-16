@@ -596,7 +596,15 @@ neoip.ezplayer_embedui_t.prototype._embedui_record_toggle_cb	= function(event_ty
 		// create embedui_id_recoder_pip
 		this._embedui_create_recorder_pip();
 		// construct neoip_recorder_t
-		this._neoip_recorder_ctor();
+		var error_str	= this._neoip_recorder_ctor();
+		// set the status_line if there is an error
+		if( error_str ){
+			this._set_status_line("Broadcasting failed:\n"+error_str);
+			// delete embedui_id_recoder_pip
+			this._embedui_delete_recorder_pip();
+			// destruct neoip_recorder_t
+			this._neoip_recorder_dtor();
+		}
 	}
 }
 
@@ -627,8 +635,8 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 	this.m_recorder	= new neoip.recorder_t(callback, plugin_htmlid, flash_param, casti_param);
 	// neoip_recorder_t record start
 	var error_str		= this.m_recorder.record_start();
-	// set the status_line if there is an error
-	if( error_str )		this._set_status_line("Broadcasting failed\ndue to "+error_str);
+	// return the error if any
+	return error_str;
 }
 
 /**
@@ -638,11 +646,16 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_dtor	= function()
 {
 	// if this.m_recorder is null, return now
 	if( this.m_recorder == null )	return;
-	// set the status_line
-	var cast_name	= this.m_recorder.casti_param()['cast_name'];
-	this._set_status_line(cast_name+"\nBroadcasting stopped");
-	// neoip_recorder_t record stop
-	this.m_recorder.record_stop();
+	// set the status_line if a record_inprogress
+	// NOTE: this function may be called if this._neoip_recorder_ctor
+	//       failed (e.g. no camera) so it is possible to have
+	//       no record_inprogress
+	if( this.m_recorder.record_inprogress() ){
+		var cast_name	= this.m_recorder.casti_param()['cast_name'];
+		this._set_status_line(cast_name+"\nBroadcasting stopped");
+		// neoip_recorder_t record stop
+		this.m_recorder.record_stop();
+	}
 	// destroy neoip_recorder_t
 	this.m_recorder.destructor();
 	this.m_recorder	= null;	
