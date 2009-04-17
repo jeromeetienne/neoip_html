@@ -17,23 +17,21 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 
 /** \brief constructor
  *
- * - opt.plistarr_id	: the id of the plistarr to load
+ * - opt.plistarr_uid	: the id of the plistarr to load
  * - opt.callback	: callback function to be notified
  * - opt.xdomrpc_url	: url for the underlying xdomrpc_t
  */
 neoip.plistarr_loader_t	= function(opt) 
 {
 	// sanity check - check that mandatory options are present
-	console.assert( opt.plistarr_id	);
+	console.assert( opt.plistarr_uid	);
 	console.assert( opt.callback	);
 	console.assert( opt.xdomrpc_url	);
 	// copy the parameter
-	this.m_plistarr_id	= opt.plistarr_id;
+	this.m_plistarr_uid	= opt.plistarr_uid;
 	this.m_callback		= opt.callback;
 	this.m_xdomrpc_url	= opt.xdomrpc_url;
 	this.m_xdomrpc		= null;
-	
-	
 	
 	// start the initial m_reload_timeout
 	this.m_reload_timeout	= setTimeout(neoip.basic_cb_t(this._reload_timeout_cb, this), 0);
@@ -76,7 +74,7 @@ neoip.plistarr_loader_t.prototype._reload_timeout_cb	= function()
 	this.m_xdomrpc	= new neoip.xdomrpc_t(this.m_xdomrpc_url
 				, neoip.xdomrpc_cb_t(this._xdomrpc_cb, this)
 				, "castGetPlistArr"
-				, this.m_plistarr_id);
+				, this.m_plistarr_uid);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
