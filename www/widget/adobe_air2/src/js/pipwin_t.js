@@ -389,7 +389,7 @@ var pipwin_t = function (){
 			// macos kludge to be beside the dock and not on top
 			screenCap.max_y	= air.Capabilities.screenResolutionY;
 			screenCap.h	= screenCap.max_y - screenCap.min_y;
-		}		
+		}
 		// return the just-built result
 		return screenCap;
 	}
@@ -624,7 +624,7 @@ var pipwin_t = function (){
 	 * @returns {jquery} a jquery object
 	*/
 	var playerCtor	= function(container){
-		var src_url	= 'http://player.urfastr.tv/live?neoip_var_widget_src=adobe_air_pbeta';
+		var src_url	= 'http://player.urfastr.net/live?neoip_var_widget_src=adobe_air_pbeta';
 		// TODO to remove, only to debug a flash init issue
 		// - make the mac on casti flv dev, and a webpack on jmehost2
 		// - all local easier to debug
@@ -636,6 +636,7 @@ var pipwin_t = function (){
 		iframe.setAttribute('frameborder'	, 'no');
 		//if( air.NativeWindow.supportsTransparency )
 		//	iframe.setAttribute('style'	, 'opacity: 0.8;');
+		
 		return $(container).empty().append(iframe);
 	}
 
