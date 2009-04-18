@@ -58,11 +58,11 @@
 	// if the uri contains a cast_name and cast_privhash variable, use it to load this playlist
 	// - additionnaly dont put a playlist_arr, so impossible to change channel
 	if( cast_name != "" && cast_privhash != "" ){
-		// set the playlist_url in the ezplayer_t
-		var playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";
-		ezplayer.change_playlist(playlist_url);
+		var playlist_uid	= "plistarr_live/"+cast_name +"_"+cast_privhash+".playlist_jspf";		
+		ezplayer.change_playlist(playlist_uid);
 	}else{
-		ezplayer.load_plistarr("../mdata_echo_server/data/ezplayer_playlist_arr.json");
+		var plistarr_uid	= "plistarr_live";
+		ezplayer.load_plistarr(plistarr_uid);
 	}
 	
 	// start the ezplayer_t

@@ -29,7 +29,7 @@ function castGetPlaylist($playlist_uid)
 		$dirname	= "/home/jerome/public_html/neoip_html/player/cache/playlist.jspf";
 		if( !file_exists($dirname."/".$basename) )	throw new Exception("PANIC basename ".$basename." does not exists");
 		$fullname	= $dirname."/".$basename;		
-	}else {
+	}else{
 		throw new Exception("PANIC plistarr_id ".$playlist_uid." is unknown");
 	}
 	$content	= file_get_contents($fullname);
@@ -51,7 +51,7 @@ function castGetPlistArr($plistarr_uid)
 		$dirname	= "/home/jerome/public_html/neoip_html/player/cache";
 		$basename	= "ezplayer_playlist_arr.json";
 		$fullname	= $dirname."/".$basename;
-	}else {
+	}else{
 		throw new Exception("PANIC plistarr_id ".$plistarr_uid." is unknown");
 	}
 	if( !file_exists($fullname) )	throw new Exception("PANIC cant find ".$basename);

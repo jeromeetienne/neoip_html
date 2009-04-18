@@ -23,7 +23,7 @@ ExpiresByType application/x-shockwave-flash	"access plus 1 day"
 
 # experiementation to allow neoip_var in the URL path
 # - this was needed for facebook app
-RewriteRule (.*)(neoip_var_[^/]*)/([^/]*)(.*)$  http://player.urfastr.tv$1$4?$2=$3 [L,R=301,QSA]
+RewriteRule (.*)(neoip_var_[^/]*)/([^/]*)(.*)$  http://player.urfastr.net$1$4?$2=$3 [L,R=301,QSA]
 
 # IIF no path in the url, then do a http redir to /play
 RewriteRule ^$ /live [R]
@@ -76,4 +76,5 @@ RewriteRule	^(crossframe_proxy.html)$		lib/crossframe/crossframe_proxy.html	[L]
 RewriteRule	^(cgi-bin/cast_get_playlist.fcgi)$	$1		[L]
 RewriteRule	^(cgi-bin/get_playlist.fcgi)$		$1		[L]
 RewriteRule	^(cgi-bin/server_date.php)$		$1		[L]
+RewriteRule	^(cgi-bin/xdomrpc_dispatcher.php)$	$1		[L]
 

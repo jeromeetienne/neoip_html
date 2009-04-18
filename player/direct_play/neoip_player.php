@@ -58,7 +58,7 @@
 		var	playlist_url	= "../../cgi-bin/get_playlist.fcgi?playlist_id=" + playlist_id;
 		ezplayer.change_playlist(playlist_url);
 	}else{
-		ezplayer.load_plistarr("../cache/ezplayer_playlist_arr.json");
+		ezplayer.load_plistarr("plistarr_play");
 	}
 	// start the ezplayer_t	
 	ezplayer.start();

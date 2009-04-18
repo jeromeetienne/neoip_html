@@ -16,13 +16,12 @@ var neoip_playlist_qunit	= function(){
 		}
 		var cast_name		= " Jerome Coding"
 		var cast_privhash	= "1f71e0f4";
-		var playlist_uid	= cast_name +"_"+cast_privhash+".playlist_jspf";
+		var playlist_uid	= "plistarr_live/"+cast_name +"_"+cast_privhash+".playlist_jspf";
 		var playlist_loader	= new neoip.playlist_loader_t({
 			callback:	neoip.playlist_loader_cb_t(playlist_loader_cb),
 			xdomrpc_url:	"../../cgi-bin/xdomrpc_dispatcher.php",
-			playlist_uid:	"plistarr_live/"+playlist_uid
+			playlist_uid:	playlist_uid
 		});
-console.info('blabla');
 		// delay qunit until result is known
 		QUnit.delayed_result();
 	});

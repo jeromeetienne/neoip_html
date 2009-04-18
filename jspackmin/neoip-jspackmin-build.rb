@@ -81,8 +81,8 @@ jsfname_arr	= []
 File.read(html_fname).split(/\n/).each do |line|
 	line.chomp
 	# if this line contain the duration, extract it
-	if line =~ /<script src=/
-		jsfname	= line.scan(/<script src=\"(.*)\"/)[0][0].to_s
+	if line =~ /<script.*src=/
+		jsfname	= line.scan(/<script.*src=\"(.*)\"/)[0][0].to_s
 		jsfname_arr	<< jsfname
 	end
 end
