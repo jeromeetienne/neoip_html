@@ -40,6 +40,10 @@
 <body>
 
 <?php
+/**
+ * Get all the *_qunit.js in $dirname
+ * @return array array of objects {fct_name: ..., file_name: ...}
+*/
 function getQunitJs($dirname){
 	$result	= array();
 	$dirh	= opendir($dirname);
@@ -72,6 +76,9 @@ $qunit_fnames	+= getQunitJs("../../player/jsplayer");
 
 <script>
 $(function(){
+	neoip_plistarr_qunit();
+	return;
+	
 	// go thru the whole qunit_fnames
 	for(var i in qunit_fnames){
 		var qunit_fname	= qunit_fnames[i];
