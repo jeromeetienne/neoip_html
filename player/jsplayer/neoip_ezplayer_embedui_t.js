@@ -489,7 +489,7 @@ neoip.ezplayer_embedui_t.prototype._embedui_playlist_select_cb	= function(event_
 
 	// change the playlist
 	this.m_ezplayer.play_post_playlist(true);
-	this.m_ezplayer.change_playlist(item_userptr['playlist_uri']);
+	this.m_ezplayer.change_playlist(item_userptr['playlist_uid']);
 	// TODO if not playing, it should start playing
 	// - but to start playing now, would not play the new playlist
 	// - but the current one
@@ -532,7 +532,7 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_playlist_select	= function()
 		item_arr.push({	"display_text" 	: plistarr_item.playlist_title(),
 				"color"		: plistarr_item.is_playable() ? 0xFFFFFF: 0x808080,
 				"item_userptr"	: {
-					"playlist_uri"	: plistarr_item.playlist_uri()
+					"playlist_uid"	: plistarr_item.playlist_uid()
 				}
 			});
 	}
@@ -544,8 +544,8 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_playlist_select	= function()
 		var plistarr_item	= this.m_ezplayer.m_plistarr.item_arr()[i];
 		// if this plistarr_item.is_not_playable(), goto the next 
 		if( plistarr_item.is_not_playable() )	continue;
-		// if this plistarr_item.playlist_uri() matches current playlist_uri, select it 
-		if( plistarr_item.playlist_uri() == this.m_ezplayer.m_playlist_uri ){
+		// if this plistarr_item.playlist_uid() matches current playlist_uid, select it 
+		if( plistarr_item.playlist_uid() == this.m_ezplayer.m_playlist_uid ){
 			embedui_opt['element_opt']['selected_idx']	= i;
 			break;
 		}

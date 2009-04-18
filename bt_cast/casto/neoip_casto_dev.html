@@ -99,11 +99,10 @@
 	if( cast_name != "" && cast_privhash != "" ){
 		// set the playlist_url in the ezplayer_t
 		var	playlist_url	= "../../cgi-bin/cast_get_playlist.fcgi?basename="+ cast_name +"_"+cast_privhash+".playlist_jspf";
-		ezplayer.change_playlist(playlist_url);
+		ezplayer.change_playlist(playlist_uid);
 	}else{
-		var plistarr_url	= "../mdata_echo_server/data/ezplayer_playlist_arr.json";
-		//var plistarr_url	= "testrpc.php/castiRecordWebSrv/GetPlistArr";
-		ezplayer.load_plistarr(plistarr_url);
+		var plistarr_uid	= "plistarr_live";
+		ezplayer.load_plistarr(plistarr_uid);
 	}
 	// start the ezplayer_t
 	ezplayer.start();

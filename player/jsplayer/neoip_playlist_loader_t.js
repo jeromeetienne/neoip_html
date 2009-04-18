@@ -5,21 +5,6 @@
 This object implement the mechanism to periodically reload playlist. this 
 is part of the 'infinitly long playlist'.
 
-\par implementation of playlist download
-- there is 2 mechanisms to download: insync and async
-- insync: with neoip.core.download_file_insync
-  - this is an remain of experimentation
-  - it has a same domain policy stuff
-  - this is useless and harmfull
-- async: with xdomrpc (only when playlist_uri start with 'xdomrpc:')
-  - use this one
-
-\par Note Implementation
-- caching workaround
-  - it seems that the result of XMLHttpRequest got cached by firefox
-  - so add a fake uri variable with a random number in it to workaround the cache
-
-
 */
 
 // defined the namespace if not yet done
@@ -31,14 +16,22 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief constructor 
+/** \brief constructor
+ * 
+ * - opt.playlist_uid	: the id of the playlist to load
+ * - opt.callback	: callback function to be notified
+ * - opt.xdomrpc_url	: url for the underlying xdomrpc_t
  */
-neoip.playlist_loader_t	= function(p_playlist_uri, p_callback, p_xdomrpc_uri) 
+neoip.playlist_loader_t	= function(opt) 
 {
+	// sanity check - check that mandatory options are present
+	console.assert( opt.playlist_uid	);
+	console.assert( opt.callback		);
+	console.assert( opt.xdomrpc_url		);
 	// copy the parameter
-	this.m_playlist_uri	= p_playlist_uri;
-	this.m_callback		= p_callback;
-	this.m_xdomrpc_uri	= p_xdomrpc_uri;
+	this.m_playlist_uid	= opt.playlist_uid;
+	this.m_callback		= opt.callback;
+	this.m_xdomrpc_url	= opt.xdomrpc_url;	
 	this.m_xdomrpc		= null;
 	
 	// start the initial m_reload_timeout
@@ -60,7 +53,7 @@ neoip.playlist_loader_t.prototype.destructor	= function()
 	if( this.m_xdomrpc ){
 		this.m_xdomrpc.destructor();
 		this.m_xdomrpc	= null;
-	}	
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,84 +66,17 @@ neoip.playlist_loader_t.prototype.destructor	= function()
  */
 neoip.playlist_loader_t.prototype._reload_timeout_cb	= function()
 {
-	// simply forward to load_playlist_now
-	this._load_playlist_now();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-//			internal function
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Load the playlist from the m_playlist_uri
- */
-neoip.playlist_loader_t.prototype._load_playlist_now	= function()
-{
 	// log to debug
-	console.info("load playlist " + this.m_playlist_uri);
-	// delete the timeout if needed
-	if( this.m_reload_timeout ){
-		clearTimeout(this.m_reload_timeout);
-		this.m_reload_timeout	= null;
-	}
+	console.info("load playlist " + this.m_playlist_uid);
+	// delete the timeout
+	clearTimeout(this.m_reload_timeout);
+	this.m_reload_timeout	= null;
 
-	// if m_playlist_uri starts by "xdomrpc:", then handle it as a xdomrpc_t
-	// TODO to remove
-	// - currently just a kludge as xdomrpc_t is clearly the proper way to handle it
-	// - i keep the old download_file_insync to be compatible. this is old code if this is used.
-	if(this.m_playlist_uri.match(/^xdomrpc:/) ){
-		var basename	= this.m_playlist_uri.match(/^xdomrpc:(.*)$/)[1];
-		this.m_xdomrpc	= new neoip.xdomrpc_t(this.m_xdomrpc_uri
-						, neoip.xdomrpc_cb_t(this._xdomrpc_cb, this)
-						, "castGetPlaylist", basename);
-		return;
-	}
-	
-	/*
-	 * obsolete part start here
-	*/
-
-	// load the data
-	var playlist_str	= neoip.core.download_file_insync(this.m_playlist_uri, true);
-	if( playlist_str == null ){
-		this._load_playlist_error();
-		return;
-	}
-	// handle the success case
-	this._load_playlist_success(playlist_str);
-}
-
-
-/**
- * handle the case of failure while loading the playlist
- * - this is common to xdomrpc and download_file_insync tech
-*/
-neoip.playlist_loader_t.prototype._load_playlist_failure	= function()
-{
-	var retry_delay	= 10*1000;	// TODO make this tunable
-	console.info("unable to load playlist at " + this.m_playlist_uri + ". will retry in " + retry_delay + "-sec");
-	this.m_reload_timeout	= setTimeout(neoip.basic_cb_t(this._reload_timeout_cb, this), retry_delay);
-}
-
-/**
- * handle the case of success while loading the playlist
- * - this is common to xdomrpc and download_file_insync tech
-*/
-neoip.playlist_loader_t.prototype._load_playlist_success	= function(playlist_str)
-{
-	// build the playlist_t
-	var playlist	= new neoip.playlist_t(playlist_str);
-	// init the reload timeout if needed
-	if( playlist.reload_delay() ){
-		this.m_reload_timeout	= setTimeout(neoip.basic_cb_t(this._reload_timeout_cb, this)
-						, playlist.reload_delay());
-	}
-	// update the playlist in the player 
-	// - NOTE: this MUST be the last thing done in this function
-	//   - it allows the callback to destroy this object
-	this._notify_callback("new_playlist", { "playlist" : playlist });			
+	// Launch the xdomrpc
+	this.m_xdomrpc	= new neoip.xdomrpc_t(this.m_xdomrpc_url
+					, neoip.xdomrpc_cb_t(this._xdomrpc_cb, this)
+					, "castGetPlaylist"
+					, this.m_playlist_uid);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +92,7 @@ neoip.playlist_loader_t.prototype._xdomrpc_cb = function(notifier_obj, userptr, 
 {
 	// log to debug
 	console.info("enter fault=" + fault + " returned_val=" + returned_val);
+	console.dir(fault);
 
 	// destructor for the m_probe_xdomrpc
 	this.m_xdomrpc.destructor();
@@ -173,11 +100,28 @@ neoip.playlist_loader_t.prototype._xdomrpc_cb = function(notifier_obj, userptr, 
 
 	// if there is a fault, handle it
 	if( fault ){
-		this._load_playlist_failure();
+		var retry_delay	= 10*1000;	// TODO make this tunable
+		console.info("unable to load playlist at " + this.m_playlist_uid + ". will retry in " + retry_delay + "-msec");
+		this.m_reload_timeout	= setTimeout(neoip.basic_cb_t(this._reload_timeout_cb, this), retry_delay);
 		return;
 	}
-		
-	this._load_playlist_success(returned_val);
+
+	//
+	// at this point, the playlist has been successfully loaded
+	//
+
+	// build the playlist_t
+	var playlist_str= returned_val;
+	var playlist	= new neoip.playlist_t(playlist_str);
+	// init the reload timeout if needed
+	if( playlist.reload_delay() ){
+		this.m_reload_timeout	= setTimeout(neoip.basic_cb_t(this._reload_timeout_cb, this)
+						, playlist.reload_delay());
+	}
+	// update the playlist in the player 
+	// - NOTE: this MUST be the last thing done in this function
+	//   - it allows the callback to destroy this object
+	this._notify_callback("new_playlist", { "playlist" : playlist });			
 }
 
 ////////////////////////////////////////////////////////////////////////////////

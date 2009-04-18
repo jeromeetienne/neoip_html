@@ -15,7 +15,7 @@ var neoip_plistarr_qunit	= function(){
 			// notify qunit that result is now given and may go to the next test
 			QUnit.result_given();
 		}
-		// init the playlist_loader for this playlist_uri
+		// init the plistarr_loader
 		var plistarr_loader = new neoip.plistarr_loader_t({
 			callback:	neoip.plistarr_loader_cb_t(plistarr_loader_cb),
 			xdomrpc_url:	"../../cgi-bin/xdomrpc_dispatcher.php",
