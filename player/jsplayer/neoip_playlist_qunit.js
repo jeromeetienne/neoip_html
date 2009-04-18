@@ -6,6 +6,8 @@ var neoip_playlist_qunit	= function(){
 	module("tests for neoip_playlist_t classes");
 
 	test("playlist_loader with xdomrpc", function(){
+		return;
+		
 		var playlist_loader_cb	= function(notified_obj, userptr, event_type, arg){
 			console.info("event_type="+event_type);
 			//console.dir(arg);

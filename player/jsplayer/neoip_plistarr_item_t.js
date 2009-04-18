@@ -39,7 +39,7 @@ neoip.plistarr_t.prototype.item_t.prototype._from_json = function(json_data)
 neoip.plistarr_t.prototype.item_t.prototype.check = function()
 {
 	if( typeof(this.m_json_data['playlist_title']) != "string" )	throw("playlist_title is NOT a string");
-	if( typeof(this.m_json_data['playlist_uri']) != "string" )	throw("playlist_uri is NOT a string");
+	if( typeof(this.m_json_data['playlist_uid']) != "string" )	throw("playlist_uid is NOT a string");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,8 +51,8 @@ neoip.plistarr_t.prototype.item_t.prototype.check = function()
 // declare all the methods to read the variables
 neoip.plistarr_t.prototype.item_t.prototype.playlist_title	= function()
 				{ return this.m_json_data['playlist_title'];	}
-neoip.plistarr_t.prototype.item_t.prototype.playlist_uri	= function()
-				{ return this.m_json_data['playlist_uri'];	}
+neoip.plistarr_t.prototype.item_t.prototype.playlist_uid	= function()
+				{ return this.m_json_data['playlist_uid'];	}
 neoip.plistarr_t.prototype.item_t.prototype.external_dep	= function()
 				{ return this.m_json_data['external_dep'];	}
 

@@ -58,15 +58,15 @@ neoip.plistarr_t.prototype.reload_delay	= function()	{ return 20*1000;		}
 
 
 /**
- * Return true if this playlist_uri is in contained, false otherwise
+ * Return true if this playlist_uid is in contained, false otherwise
 */
-neoip.plistarr_t.prototype.has_playlist_uri	= function(playlist_uri)
+neoip.plistarr_t.prototype.has_playlist_uid	= function(playlist_uid)
 {
 	// go thru all item
 	for(var i = 0; i < this.item_arr().length; i++ ){
 		var	item	= this.item_arr()[i];
-		// if this item has the same playlist_uri, return true
-		if(item.playlist_uri() == playlist_uri)	return true;
+		// if this item has the same playlist_uid, return true
+		if(item.playlist_uid() == playlist_uid)	return true;
 	}
 	// if all items got scanned, return false
 	return false;	

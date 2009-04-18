@@ -50,7 +50,7 @@ def to_file(dest_fname)
 		# build the item to add
 		arr_item	= {};
 		arr_item['playlist_title']	= playlist_title;
-		arr_item['playlist_uri']	= item['uri'];
+		arr_item['playlist_uid']	= item['uid'];
 		arr_item['external_dep']	= external_dep || {};
 	
 		# add this item in the playlist_arr

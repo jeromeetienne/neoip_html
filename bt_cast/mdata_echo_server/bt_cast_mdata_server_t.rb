@@ -419,17 +419,17 @@ def self.plistarr_file_put()
 		 			 nil : fname}.compact!
 	end
 	# convert it to the proper url
-	uri_arr		= fname_arr.collect{ |fname|
+	uid_arr		= fname_arr.collect{ |fname|
 					basename	= File.basename(fname);
-					"../../cgi-bin/cast_get_playlist.fcgi?basename=#{basename}"
+					"plistarr_live/#{basename}"
 				}
 
 	# build the Neoip::Plistarr_builder_t
 	plistarr_builder	= Neoip::Plistarr_builder_t.new
-	# populate plistarr_builder.list_arr with fname_arr/uri_arr
-	for i in (0..uri_arr.length-1)
+	# populate plistarr_builder.list_arr with fname_arr/uid_arr
+	for i in (0..uid_arr.length-1)
 		plistarr_builder.list_arr << { 	"filename"	=> fname_arr[i],
-						"uri"		=> uri_arr[i]	}
+						"uid"		=> uid_arr[i]	}
 	end
 	# save the plistarr file
 	plistarr_builder.to_file(self.plist_arr_filename);
