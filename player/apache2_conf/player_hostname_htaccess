@@ -25,8 +25,13 @@ ExpiresByType application/x-shockwave-flash	"access plus 1 day"
 # - this was needed for facebook app
 RewriteRule (.*)(neoip_var_[^/]*)/([^/]*)(.*)$  http://player.urfastr.net$1$4?$2=$3 [L,R=301,QSA]
 
+
+# redirect any *.urfastr.tv to urfastr.net
+RewriteCond	%{HTTP_HOST}	^(.*\.)*urfastr\.tv
+RewriteRule	.*		http://player.urfastr.net%{REQUEST_URI} [R=permanent,L]
+
 # IIF no path in the url, then do a http redir to /play
-RewriteRule ^$ /live [R]
+RewriteRule	^$		/live [R]
 
 # create url rewrite rule at the root of the player hostname http://player.example.com/play
 RewriteEngine on
