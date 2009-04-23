@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>UrFastR.tv player (beta)</title>
+	<title>UrFastR Live (beta)</title>
 	<meta name="description" content="UrFastR video player for live and prerecorded video">
 	<meta name="keywords" content="video, web2.0, p2p, stream, live, player">
 
