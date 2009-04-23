@@ -60,8 +60,8 @@ neoip.ezplayer_t	= function(p_cfgvar_arr)
 
 	// init this.m_xdom_url
 	this.m_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
-	this.m_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
-	this.m_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+	//this.m_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
+	//this.m_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
 
 
 	// initilize the playlist_uid
