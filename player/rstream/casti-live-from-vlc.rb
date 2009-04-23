@@ -103,7 +103,8 @@ cmdline	+= "./neoip-casti-recording.rb";
 cmdline += " --cast_name '#{cast_name}'";
 cmdline += " --cast_privtext '#{cast_privtext}'";
 cmdline += " --httpi_mod flv";
-cmdline += " --mdata_srv_uri http://#{cast_mdata_server_host}/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+#cmdline += " --mdata_srv_uri http://#{cast_mdata_server_host}/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+cmdline += " --mdata_srv_uri http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/RPC2";
 cmdline += " --httpi_uri http://#{httpi_uri_ipaddr}:#{httpi_uri_port}/stream.flv";
 
 # log to debug
