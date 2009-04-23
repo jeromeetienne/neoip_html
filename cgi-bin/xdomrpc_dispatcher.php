@@ -19,18 +19,18 @@
 function castGetPlaylist($playlist_uid)
 {
 	$tmp		= explode("/", $playlist_uid, 2);
-	$playlist_uid	= $tmp[0];
+	$plistarr_uid	= $tmp[0];
 	$basename	= $tmp[1];
-	if( $playlist_uid == "plistarr_live" ){
+	if( $plistarr_uid == "plistarr_live" ){
 		$dirname	= "/tmp/.neoip_cast_mdata_server_data/playlist_jspf";
 		if( !file_exists($dirname."/".$basename) )	$basename = "none_not_found_cast_privhash.playlist_jspf";
 		$fullname	= $dirname."/".$basename;
-	}else if( $playlist_uid == "plistarr_play" ){
+	}else if( $plistarr_uid == "plistarr_play" ){
 		$dirname	= "/home/jerome/public_html/neoip_html/player/cache/playlist.jspf";
 		if( !file_exists($dirname."/".$basename) )	throw new Exception("PANIC basename ".$basename." does not exists");
 		$fullname	= $dirname."/".$basename;		
 	}else{
-		throw new Exception("PANIC plistarr_id ".$playlist_uid." is unknown");
+		throw new Exception("PANIC plistarr_id ".$plistarr_uid." is unknown");
 	}
 	$content	= file_get_contents($fullname);
 	return $content;
@@ -52,7 +52,7 @@ function castGetPlistArr($plistarr_uid)
 		$basename	= "ezplayer_playlist_arr.json";
 		$fullname	= $dirname."/".$basename;
 	}else{
-		throw new Exception("PANIC plistarr_id ".$plistarr_uid." is unknown");
+		throw new Exception("PANIC plistarr_uid ".$plistarr_uid." is unknown");
 	}
 	if( !file_exists($fullname) )	throw new Exception("PANIC cant find ".$basename);
 	$content	= file_get_contents($fullname);
