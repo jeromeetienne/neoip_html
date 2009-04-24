@@ -36,6 +36,9 @@
 <script src="../../player/jsplayer/neoip_ezplayer_t.js"></script>
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
 
+
+<script src="../../base/javascript/neoip_geolocalize.js"></script>
+
 </head>
 <body>
 
@@ -61,6 +64,7 @@ function getQunitJs($dirname){
 	return $result;
 }
 $qunit_fnames	= array();
+$qunit_fnames	+= getQunitJs("../../base/javascript");
 $qunit_fnames	+= getQunitJs("../../player/jsplayer");
 ?>
 <?php
