@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
 <ModulePrefs
-title="UrFastR Player (beta)" 
+title="UrFastR Live (beta)" 
 title_url="http://urfastr.net/video/player" 
 width="320"
 height="240"
-description="UrFastR Player - your tv just a click away!"
+description="UrFastR Live - your tv just a click away!"
 thumbnail="http://urfastr.net/static/player/widget/igoogle_gadget/thumbnail.png"
 screenshot="http://urfastr.net/static/player/widget/igoogle_gadget/screenshot.jpg"
 author="Jerome Etienne"
@@ -14,7 +14,7 @@ author_link="http://urfastr.net"
 />
 <Content 
 type="url"
-href="http://player.urfastr.tv/live?neoip_var_widget_src=igoogle_gadget&neoip_var_onload_force_mute=1" />
+href="http://player.urfastr.net/live?neoip_var_widget_src=igoogle_gadget&neoip_var_onload_force_mute=1" />
 </Module>
 
   
