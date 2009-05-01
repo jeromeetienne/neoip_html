@@ -31,6 +31,7 @@ private var m_stage		:Stage;
 private var m_callback		:Function;
 private var m_userptr		:Object;
 private var m_base_opt		:Object;
+private var m_element_opt	:Object;
 
 private var m_video		:Video;
 private var m_cam_recorder	:cam_recorder_t;
@@ -52,6 +53,7 @@ public function recorder_pip_t(p_stage:Stage, p_callback:Function, p_embedui_opt
 	m_stage		= p_stage;
 	m_callback	= p_callback
 	m_userptr	= p_embedui_opt['userptr'];
+	m_element_opt	= p_embedui_opt['element_opt'];
 	m_base_opt	= p_embedui_opt['base_sprite'];
 
 	// create cam_recorder_t
@@ -138,18 +140,20 @@ private function recpu_sizepos()	:void
 	var anchor_x:Number	= m_base_opt['anchor_x'];
 	var anchor_y:Number	= m_base_opt['anchor_y'];
 
-	if( element_w > 0 )	m_video.width	= stage_w * element_w;
-	if( element_h > 0 )	m_video.height	= stage_h * element_h;
 
-	// if either element_w or element_h is undefined, deduce it from the other
-	var aspect_ratio:Number	= 4/3;
-	if( element_h == 0 ){
-		console.assert(elemen_w > 0);
-		m_bitmap.height	= m_video.width / aspect_ratio;
-	}
-	if( element_w == 0 ){
-		console.assert(elemen_h > 0);
-		m_bitmap.width	= m_video.height * aspect_ratio;
+	// compute the initial width/height depending on element_w/element_h
+	console.assert(element_w > 0);
+	console.assert(element_h > 0);
+	m_video.width	= stage_w * element_w;
+	m_video.height	= stage_h * element_h;
+
+	// honor m_element_opt['force_aspect_ratio'] if needed
+	var force_aspect_ratio:Number	= m_element_opt['force_aspect_ratio'];
+	if( force_aspect_ratio ){
+		var max_w:Number	= m_video.height * force_aspect_ratio;
+		if( m_video.width > max_w )	m_video.width	= max_w;
+		var max_h:Number	= m_video.width / force_aspect_ratio;
+		if( m_video.height > max_h )	m_video.height	= max_h;
 	}
 	
 	// log to debug

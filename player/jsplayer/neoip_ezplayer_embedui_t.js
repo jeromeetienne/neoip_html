@@ -694,8 +694,7 @@ neoip.ezplayer_embedui_t.prototype._embedui_create_recorder_pip	= function()
 					"embedui_id"	: "embedui_id_recorder_pip"
 					},
 				"element_opt" : {
-					//"type"		: "vector",
-					//"location"	: "chansel"
+					'force_aspect_ratio'	: 4/3
 					},
 			 	"base_sprite" : {
 			 		"element_x"	: 0,
