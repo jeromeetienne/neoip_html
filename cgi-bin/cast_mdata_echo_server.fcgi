@@ -40,18 +40,18 @@ require File.join(File.dirname(__FILE__), '../bt_cast/mdata_echo_server/bt_cast_
 #   - see http://www.ntecs.de/projects/xmlrpc4r/server.html#label-19
 
 # create the directory needed for Neoip::Cast_mdata_server_t
-Neoip::Cast_mdata_server_t.create_dir_ifneeded();
+#Neoip::Cast_mdata_server_t.create_dir_ifneeded();
 
 # init the cgi_server
 cgi_server	= XMLRPC::CGIServer.new     
 # register all the xmlrpc function
-cgi_server.add_handler("set_cast_mdata_pull") do |cast_name, cast_privtext, cast_id, 
+cgi_server.add_handler("set_cast_mdata_pull") do |web2srv_str, cast_name, cast_privtext, cast_id, 
 						port_lview, port_pview, uri_pathquery|
-	Neoip::Cast_mdata_server_t.set_cast_mdata_pull(cast_name, cast_privtext, cast_id,
-				port_lview, port_pview, uri_pathquery, ENV['REMOTE_ADDR']);
+	Neoip::Cast_mdata_server_t.set_cast_mdata_pull(web2srv_str, cast_name, cast_privtext, cast_id,
+						port_lview, port_pview, uri_pathquery, ENV['REMOTE_ADDR']);
 end 
-cgi_server.add_handler("set_cast_mdata_push") do |cast_name, cast_privtext, cast_mdata|
-	Neoip::Cast_mdata_server_t.set_cast_mdata_push(cast_name, cast_privtext, cast_mdata);
+cgi_server.add_handler("set_cast_mdata_push") do |web2srv_str, cast_name, cast_privtext, cast_mdata|
+	Neoip::Cast_mdata_server_t.set_cast_mdata_push(web2srv_str, cast_name, cast_privtext, cast_mdata);
 end 
 cgi_server.add_handler("get_cast_mdata") do |cast_name, cast_privhash|
 	Neoip::Cast_mdata_server_t.get_cast_mdata(cast_name, cast_privhash);
@@ -62,7 +62,6 @@ end
 
 # handle the unknown/bad formered calls
 cgi_server.set_default_handler do |name, *args|
-	log_error("arg=#{args.inspect}")
 	raise XMLRPC::FaultException.new(-99, "Method #{name} missing" +
                                    " or wrong number of parameters!")
 end

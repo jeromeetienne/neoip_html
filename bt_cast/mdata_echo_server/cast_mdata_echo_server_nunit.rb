@@ -8,7 +8,7 @@
 require 'xmlrpc/client'
 
 # init the xmlrpc client
-server = XMLRPC::Client.new2("http://jmehost2/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi")
+server = XMLRPC::Client.new2("http://jmehost2.local/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi")
 
 
 # set some variables
@@ -20,7 +20,7 @@ cast_mdata	= { :slota => 'bip', :casti_date => 4242 }
 ################################################################################
 # do a publish
 begin
-	cast_privhash	= server.call("set_cast_mdata_push", cast_name, cast_privtext, cast_mdata)
+	cast_privhash	= server.call("set_cast_mdata_push", "", cast_name, cast_privtext, cast_mdata)
 	puts "set_cast_mdata_push return #{cast_privhash}"
 rescue => e
 	puts "set_cast_mdata_push failed with #{e.faultCode} String #{e.faultString}" 

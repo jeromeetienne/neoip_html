@@ -154,6 +154,7 @@ neoip.casti_ctrl_t.prototype._refresh_timeout_cb	= function()
 					, this.m_scasti_uri	? this.m_scasti_uri	: ''
 					, this.m_scasti_mod	? this.m_scasti_mod	: ''
 					, this.m_http_peersrc_uri? this.m_http_peersrc_uri: ''
+					, this.m_web2srv_str	? this.m_web2srv_str	: '{cast_name:dummy,localised:somewhere}'
 					);
 }
 
