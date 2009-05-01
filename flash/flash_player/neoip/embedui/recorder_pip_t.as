@@ -140,6 +140,17 @@ private function recpu_sizepos()	:void
 
 	if( element_w > 0 )	m_video.width	= stage_w * element_w;
 	if( element_h > 0 )	m_video.height	= stage_h * element_h;
+
+	// if either element_w or element_h is undefined, deduce it from the other
+	var aspect_ratio:Number	= 4/3;
+	if( element_h == 0 ){
+		console.assert(elemen_w > 0);
+		m_bitmap.height	= m_video.width / aspect_ratio;
+	}
+	if( element_w == 0 ){
+		console.assert(elemen_h > 0);
+		m_bitmap.width	= m_video.height * aspect_ratio;
+	}
 	
 	// log to debug
 	console.info("width="	+ m_video.width	);	
@@ -150,7 +161,7 @@ private function recpu_sizepos()	:void
 	m_video.x	= Math.max(m_video.x, 0 );
 	m_video.x	= Math.min(m_video.x, stage_w - m_video.width );
 
-	// compute the W coordinate fo the bitmap
+	// compute the Y coordinate fo the bitmap
 	m_video.y	= stage_h * element_y - anchor_y * m_video.height;
 	m_video.y	= Math.max(m_video.y, 0 );
 	m_video.y	= Math.min(m_video.y, stage_h - m_video.height );
