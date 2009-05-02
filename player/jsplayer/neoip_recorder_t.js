@@ -25,6 +25,13 @@ neoip.recorder_t = function(p_callback, p_objembed_htmlid, p_flash_param, p_cast
 	// init casti_ctrl_t
 	var casti_ctrl_cb	= neoip.casti_ctrl_cb_t(this._casti_ctrl_cb, this);
 	this.m_casti_ctrl	= new neoip.casti_ctrl_t(casti_ctrl_cb);
+	
+	// launch geolocalizer_t to get client location
+	var web2srv_obj		= this.m_casti_ctrl.web2srv_obj();
+	this.m_geolocalizer	= new neoip.geolocalizer_t(function(clientLocation){
+		// set clientLocation to casti_ctrl_t.web2srv_obj to be passed to cast_mdata_srv
+		web2srv_obj['clientLocation']	= clientLocation;
+	});
 }
 
 /**
@@ -34,6 +41,13 @@ neoip.recorder_t.prototype.destructor	= function()
 {
 	// log to debug
 	//console.info('recorder_t: destructor');
+
+	// delete geolocalizer_t if needed
+	if( this.m_geolocalizer ){
+		this.m_geolocalizer.destructor();
+		this.m_geolocalizer	= null;
+	}
+
 	// delete the casti_ctrl_t if needed
 	if( this.m_casti_ctrl ){
 		this.m_casti_ctrl.destructor();

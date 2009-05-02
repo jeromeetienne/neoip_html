@@ -110,7 +110,7 @@ neoip.subplayer_asplayer_t.prototype.start_time	= function(){ return this.m_star
 neoip.subplayer_asplayer_t.prototype.build_objembed = function(p_container_id, p_width, p_height)
 {
 	// TODO this require only the flash7... while it is rather advanced AS3... unlikely to be correct :)w
-	var so		= new SWFObject("neoip_asplayer.swf", this.m_plugin_htmlid
+	var so		= new SWFObject(neoip.globalCfg.subplayer_asplayer_swf_url, this.m_plugin_htmlid
 					, p_width.toString(), p_height.toString()
 					, "9", "#000000", true);
 	// put the parameter to the flash plugin itself

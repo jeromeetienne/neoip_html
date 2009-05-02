@@ -4,6 +4,7 @@
 	<meta name="description" content="UrFastR video player for live and prerecorded video">
 	<meta name="keywords" content="video, web2.0, p2p, stream, live, player">
 <script src="../../base/firebug/firebug.js"></script> 
+<script src="../../base/javascript/json2.js"></script> 
 <script src="../../base/javascript/neoip_core.js"></script>
 <script src="../../base/javascript/neoip_objembed_initmon_t.js"></script>
 <script src="../../base/javascript/neoip_base64_safe.js"></script>
@@ -14,6 +15,7 @@
 <script src="../../base/javascript/neoip_apps_detect_wikidbg_t.js"></script> 
 <script src="../../base/javascript/neoip_webpack_detect_t.js"></script> 
 <script src="../../base/javascript/neoip_wikidbg_t.js"></script>
+<script src="../../base/javascript/neoip_geolocalizer_t.js"></script> 
 <script src="../../base/javascript/neoip_casti_ctrl_t.js"></script> 
 <script src="../../player/jsplayer/neoip_playlist_t.js"></script>
 <script src="../../player/jsplayer/neoip_playlist_track_t.js"></script>
@@ -63,6 +65,41 @@
 
 </script>
 <script>
+neoip.globalCfg	= {}
+/**
+ * neoip.globalCfg.dfl_plistarr_uid is the default plistarr_uid used when nothing is specified
+*/
+//neoip.globalCfg.dfl_plistarr_uid	= "plistarr_play";
+neoip.globalCfg.dfl_plistarr_uid	= "plistarr_live";
+
+/**
+ * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.plistarr_loader_t
+*/
+neoip.globalCfg.plistarr_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
+neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
+//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
+
+/**
+ * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.playlist_loader_t
+*/
+neoip.globalCfg.playlist_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
+neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
+//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
+
+/**
+ * neoip.globalCfg.recorder_mdata_srv_uri is the url used by neoip.recorder_t for cast_mdata_srv
+*/
+neoip.globalCfg.recorder_mdata_srv_uri		= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+//neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.urfastr.net/castiRecordWebSrv/RPC2";
+
+/**
+ * neoip.globalCfg.subplayer_asplayer_swf_url is the url used 
+*/
+neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer.swf";
+</script>
+<script>
 //	var cast_name		= "LCP an"
 //	var cast_privhash	= "e334e91c";
 	var cast_name		= "";
@@ -97,10 +134,11 @@
 	// if the uri contains a cast_name and cast_privhash variable, use it to load this playlist
 	// - additionnaly dont put a playlist_arr, so impossible to change channel
 	if( cast_name != "" && cast_privhash != "" ){
-		var playlist_uid	= "plistarr_live/"+cast_name +"_"+cast_privhash+".playlist_jspf";
+		var plistarr_uid	= neoip.globalCfg.dfl_plistarr_uid;
+		var playlist_uid	= plistarr_uid+"/"+cast_name +"_"+cast_privhash+".playlist_jspf";
 		ezplayer.change_playlist(playlist_uid);
 	}else{
-		var plistarr_uid	= "plistarr_live";
+		var plistarr_uid	= neoip.globalCfg.dfl_plistarr_uid;
 		ezplayer.load_plistarr(plistarr_uid);
 	}
 	// start the ezplayer_t

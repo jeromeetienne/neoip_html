@@ -159,11 +159,11 @@ end
 # \brief xmlrpc function to publish a cast_mdata in push mode
 #
 def self.set_cast_mdata_push(web2srv_str, cast_name, cast_privtext, cast_mdata)
-	#log_error "function=set_cast_mdata_push"
-	#log_error "cast_name=#{cast_name} cast_privtext=#{cast_privtext}."
-	#log_error "web2srv_str=#{web2srv_str}"
-	#log_error "cast_mdata=#{cast_mdata.inspect}."	
-	#log_error	File.join(File.dirname(__FILE__), 'bt_cast_mdata_server_t')
+	log_error "function=set_cast_mdata_push"
+	log_error "cast_name=#{cast_name} cast_privtext=#{cast_privtext}."
+	log_error "web2srv_str=#{web2srv_str}"
+	log_error "cast_mdata=#{cast_mdata.inspect}."	
+	log_error	File.join(File.dirname(__FILE__), 'bt_cast_mdata_server_t')
 
 	# compute the cast_privhash from the cast_privtext
 	cast_privhash	= self.cast_privtext2hash(cast_privtext);

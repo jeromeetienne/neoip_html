@@ -57,13 +57,6 @@ neoip.ezplayer_t	= function(p_cfgvar_arr)
 	// set the default clisrv_diffdate - aka the difference between client and server date
 	this.m_clisrv_diffdate		= 0;
 
-
-	// init this.m_xdom_url
-	this.m_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
-	//this.m_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
-	//this.m_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
-
-
 	// initilize the playlist_uid
 	this.m_playlist_uid	= "plistarr_play/sample_static.playlist.jspf";
 //	this.m_playlist_uid	= "plistarr_play/sample_stream.playlist.jspf";
@@ -390,7 +383,7 @@ neoip.ezplayer_t.prototype._plistarr_loader_ctor = function(plistarr_uid)
 	// init the plistarr_loader
 	this.m_plistarr_loader = new neoip.plistarr_loader_t({
 		callback:	neoip.plistarr_loader_cb_t(this._neoip_plistarr_loader_cb, this),
-		xdomrpc_url:	this.m_xdomrpc_url,
+		xdomrpc_url:	neoip.globalCfg.plistarr_loader_xdomrpc_url,
 		plistarr_uid:	plistarr_uid
 	});
 }
@@ -471,7 +464,7 @@ neoip.ezplayer_t.prototype._playlist_loader_ctor = function()
 	// init the playlist_loader for this playlist_uid
 	this.m_playlist_loader = new neoip.playlist_loader_t({
 		callback:	neoip.playlist_loader_cb_t(this._neoip_playlist_loader_cb, this),
-		xdomrpc_url:	this.m_xdomrpc_url,		
+		xdomrpc_url:	neoip.globalCfg.playlist_loader_xdomrpc_url,
 		playlist_uid:	this.m_playlist_uid
 	});	
 }

@@ -627,8 +627,7 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 		cast_name:	" Webcam " + neoip.core.build_nonce_str(3),
 		cast_privtext:	neoip.core.build_nonce_str(8),
 		scasti_mod:	"flv",
-		mdata_srv_uri:	"http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi"
-		//mdata_srv_uri:	"http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/RPC2"
+		mdata_srv_uri:	neoip.globalCfg.recorder_mdata_srv_uri
 	};
 	// start neoip_recorder
 	var callback		= new neoip.recorder_cb_t(this._neoip_recorder_cb, this);
