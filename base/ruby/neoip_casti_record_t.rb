@@ -29,7 +29,7 @@ def initialize(apps_detect_uri, cast_name, cast_privtext, mdata_srv_uri = nil,
 	@httpi_uri		= httpi_uri		|| "";
 	@httpi_mod		= httpi_mod		|| "";
 	@http_peersrc_uri	= http_peersrc_uri	|| "";
-	@web2srv_str		= web2srv_str		|| "";
+	@web2srv_str		= web2srv_str		|| "{source: \"internal ruby\"}";
 end
 
 
