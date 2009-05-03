@@ -638,8 +638,7 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 		scasti_mod:	"flv",
 		mdata_srv_uri:	neoip.globalCfg.recorder_mdata_srv_uri
 	};
-console.info('casti_param:');
-console.dir(casti_param);
+
 	// determine the flash_param for neoip_recorder_t
 	var flash_param	= {
 		audio_mute:	true,
