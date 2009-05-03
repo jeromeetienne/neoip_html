@@ -613,6 +613,34 @@ neoip.ezplayer_embedui_t.prototype._embedui_record_toggle_cb	= function(event_ty
  */
 neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 {
+	// determine cast_name/cast_privtext for neoip_recorder_t
+	// - if there is cookie 'cast_default' (from www.urfastr.net), it is
+	//   a registered user, use those values
+	// - else generate one on the fly
+	var cast_name		= null;
+	var cast_privtext	= null;
+	var cookie_cast_default	= neoip.core.cookie_read("cast_default");
+	if( cookie_cast_default ){
+		// parse the content of 'cast_default' which is a escaped(json)
+		var json_str	= unescape(cookie_cast_default);
+		var json_data	= JSON.parse(json_str);
+		// copy the data
+		cast_name	= json_data['cast_name'];
+		cast_privtext	= json_data['cast_privtext'];
+	}else{
+		cast_name	= " Webcam " + neoip.core.build_nonce_str(3);
+		cast_privtext	= neoip.core.build_nonce_str(8);
+	}
+	// determine the casti_param for neoip_recorder_t
+	var casti_param	= {
+		cast_name:	cast_name,
+		cast_privtext:	cast_privtext,
+		scasti_mod:	"flv",
+		mdata_srv_uri:	neoip.globalCfg.recorder_mdata_srv_uri
+	};
+console.info('casti_param:');
+console.dir(casti_param);
+	// determine the flash_param for neoip_recorder_t
 	var flash_param	= {
 		audio_mute:	true,
 		video_bw:	48*1024,
@@ -621,18 +649,10 @@ neoip.ezplayer_embedui_t.prototype._neoip_recorder_ctor	= function()
 		video_h:	240,
 		video_fps:	10
 	};
-	var casti_param	= {
-		// TODO this change the name at every start... no good
-		// - find a better way ? in anycase the recorder integration is no good for now
-		cast_name:	" Webcam " + neoip.core.build_nonce_str(3),
-		cast_privtext:	neoip.core.build_nonce_str(8),
-		scasti_mod:	"flv",
-		mdata_srv_uri:	neoip.globalCfg.recorder_mdata_srv_uri
-	};
 	// start neoip_recorder
 	var callback		= new neoip.recorder_cb_t(this._neoip_recorder_cb, this);
 	var plugin_htmlid	= this.m_ezplayer.m_subplayer_html_id;
-	this.m_recorder	= new neoip.recorder_t(callback, plugin_htmlid, flash_param, casti_param);
+	this.m_recorder		= new neoip.recorder_t(callback, plugin_htmlid, flash_param, casti_param);
 	// neoip_recorder_t record start
 	var error_str		= this.m_recorder.record_start();
 	// return the error if any

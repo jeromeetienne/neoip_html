@@ -32,12 +32,15 @@ neoip.recorder_t = function(p_callback, p_objembed_htmlid, p_flash_param, p_cast
 		// set clientLocation to casti_ctrl_t.web2srv_obj to be passed to cast_mdata_srv
 		web2srv_obj['clientLocation']	= clientLocation;
 	});
-	
+
+// TODO to check the following syntax which could be nicer
+// - web2srv_obj['cookie']	= web2srv_obj['cookie'] || {}
+// - web2srv_obj['cookie']	= web2srv_obj['cookie'] ? web2srv_obj['cookie'] : {}
+	// create web2srv_obj['cookie'] if needed
+	if( typeof web2srv_obj['cookie'] == 'undefined' )	web2srv_obj['cookie']	= {};
 	// if a cookie from http://urfastr.net website is present, pass it to m_casti_ctrl.web2srv_obj
-	var cookie_symfony	= neoip.core.cookie_read("symfony");
-	if( cookie_symfony ){
-		this.m_casti_ctrl.web2srv_obj()['cookie_symfony']	= cookie_symfony;
-	}
+	var cookie_sfRemember	= neoip.core.cookie_read("sfRemember");
+	if( cookie_sfRemember )	web2srv_obj['cookie']['sfRemember']	= cookie_sfRemember;
 }
 
 /**

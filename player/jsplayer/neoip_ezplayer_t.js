@@ -570,7 +570,7 @@ neoip.ezplayer_t.prototype._webpack_detect_start	= function()
 {
 	// start probing neoip-apps
 	var cb_fct		= neoip.webpack_detect_cb_t(this._webpack_detect_cb, this);
-	this.m_webpack_detect	= new neoip.webpack_detect_t(cb_fct);
+	this.m_webpack_detect	= new neoip.webpack_detect_t(cb_fct, neoip.globalCfg.webpack_detect_apps_params);
 }
 
 /** \brief Callback for all the neoip.webpack_detect_t of this page
