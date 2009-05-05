@@ -25,13 +25,12 @@ neoip.recorder_t = function(p_callback, p_objembed_htmlid, p_flash_param, p_cast
 	// init casti_ctrl_t
 	var casti_ctrl_cb	= neoip.casti_ctrl_cb_t(this._casti_ctrl_cb, this);
 	this.m_casti_ctrl	= new neoip.casti_ctrl_t(casti_ctrl_cb);
-	
-	// launch geolocalizer_t to get client location
+
+	// just an alias to ease readability
 	var web2srv_obj		= this.m_casti_ctrl.web2srv_obj();
-	this.m_geolocalizer	= new neoip.geolocalizer_t(function(clientLocation){
-		// set clientLocation to casti_ctrl_t.web2srv_obj to be passed to cast_mdata_srv
-		web2srv_obj['clientLocation']	= clientLocation;
-	});
+
+	// set playerLocation in web2srv_obj, if possible
+	if( neoip.globalCfg.playerLocation )	web2srv_obj['playerLocation'] = neoip.globalCfg.playerLocation;
 
 // TODO to check the following syntax which could be nicer
 // - web2srv_obj['cookie']	= web2srv_obj['cookie'] || {}

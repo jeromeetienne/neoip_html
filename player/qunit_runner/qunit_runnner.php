@@ -38,7 +38,7 @@
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
 
 
-<script src="../../base/javascript/neoip_geolocalizer_t.js"></script>
+<script src="../../base/javascript/neoip_geolocalize.js"></script>
 
 </head>
 <body>
