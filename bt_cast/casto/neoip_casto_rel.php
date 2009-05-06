@@ -54,6 +54,30 @@ neoip.globalCfg.recorder_mdata_srv_uri		= "http://dedixl.jetienne.com/~jerome/ne
  * neoip.globalCfg.subplayer_asplayer_swf_url is the url used 
 */
 neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer.swf";
+
+/**
+ * neoip.globalCfg.webpack_detect_apps_params determines where/what neoip.webpack_detect_t will look for/in webpack
+*/
+neoip.globalCfg.webpack_detect_apps_params	= {
+					"oload"	: {	"first_port"	: 4550,
+							"last_port"	: 4553,
+							"min_version"	: "0.0.1",
+							"options"	: null
+						},
+					"casto"	: {	"first_port"	: 4560,
+							"last_port"	: 4563,
+							"min_version"	: "0.0.1",
+							"options"	: null
+						},
+					"casti"	: {	"first_port"	: 4570,
+							"last_port"	: 4573,
+							"min_version"	: "0.0.1",
+							// NOTE: trick to get casti on dedixl.jetienne.com and not in localhost
+							// - thus this is always available even if webpack installed version is no good
+							//   or if not installed at all
+							"options"	: {'hostname': 'dedixl.jetienne.com'}
+						}
+				};
 </script>
 <script>
 	var 	cast_name	= "<?php echo $_GET['cast_name']; ?>";
