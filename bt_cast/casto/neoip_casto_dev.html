@@ -78,7 +78,7 @@ neoip.globalCfg.dfl_plistarr_uid	= "plistarr_live";
 neoip.globalCfg.plistarr_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
 neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
 //neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
-neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.dev.urfastr.net/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.dev.urfastr.net/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
 
 /**
  * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.playlist_loader_t
@@ -86,13 +86,13 @@ neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.dev.urfastr.net/fronte
 neoip.globalCfg.playlist_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
 neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
 //neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
-neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.dev.urfastr.net/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.dev.urfastr.net/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
 
 /**
  * neoip.globalCfg.recorder_mdata_srv_uri is the url used by neoip.recorder_t for cast_mdata_srv
 */
 neoip.globalCfg.recorder_mdata_srv_uri		= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
-neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.dev.urfastr.net/frontend_dev.php/castiRecordWebSrv/RPC2";
+//neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.dev.urfastr.net/frontend_dev.php/castiRecordWebSrv/RPC2";
 
 /**
  * neoip.globalCfg.subplayer_asplayer_swf_url is the url used 
@@ -119,8 +119,8 @@ neoip.globalCfg.webpack_detect_apps_params	= {
 							// NOTE: trick to get casti on dedixl.jetienne.com and not in localhost
 							// - thus this is always available even if webpack installed version is no good
 							//   or if not installed at all
-							//"options"	: {'hostname': 'dedixl.jetienne.com'}
-							"options"	: {'hostname': 'jmehost2.local'}
+							"options"	: {'hostname': 'dedixl.jetienne.com'}
+							//"options"	: {'hostname': 'jmehost2.local'}
 						}
 				};
 				
@@ -133,10 +133,30 @@ neoip.geoLocalize(function(clientLocation){
 });
 </script>
 <script>
-//	var cast_name		= "LCP an"
-//	var cast_privhash	= "e334e91c";
-	var cast_name		= "";
-	var cast_privhash	= "";
+	var cast_name		= "LCP an"
+	var cast_privhash	= "e334e91c";
+//	var playlist_id		= "001.ruby_conf";
+//	var cast_name		= "";
+//	var cast_privhash	= "";
+	var playlist_id		= "";
+	var server_date		= neoip.core.download_file_insync("../../cgi-bin/server_date.php", true);
+	
+	
+	//var cast_name		= "<?php echo $_GET['cast_name'];	?>";
+	//var cast_privhash	= "<?php echo $_GET['cast_privhash'];	?>";
+	//var playlist_id	= "<?php echo $_GET['playlist_id'];	?>";
+	//var server_date	=  <?php printf("%f",microtime(true) );	?>
+
+	
+	// determine the playlist_uid (if any)
+	var playlist_uid	= "";
+	// if the uri contains cast_name/cast_privhash variable and dfl_plistarr_uid == live, use it to load this playlist
+	if( neoip.globalCfg.dfl_plistarr_uid == "plistarr_live" && cast_name != "" && cast_privhash != "" ){
+		playlist_uid	= neoip.globalCfg.dfl_plistarr_uid+"/"+cast_name +"_"+cast_privhash+".playlist_jspf";
+	// if the uri contains playlist_id and dfl_plistarr_uid == play, use it to load this playlist
+	}else if( neoip.globalCfg.dfl_plistarr_uid == "plistarr_play" && playlist_id != "" ){
+		playlist_uid	= neoip.globalCfg.dfl_plistarr_uid+"/"+playlist_id+".playlist.jspf";		
+	}
 
 	// extract all configuration options from the document URI
 	// - this is ok as it is suppposed to be used as iframe
@@ -158,17 +178,12 @@ neoip.geoLocalize(function(clientLocation){
 
 	// build the neoip.ezplayer_t
 	var ezplayer	= new neoip.ezplayer_t(cfgvar_arr);
-	// commented out - been replace by a more generic cfgvar_arr, settable from url var
-	//	ezplayer.play_post_playlist(true);
-	//	ezplayer.fullpage_state("maximized");	
 	// set the server_date in ezplayer
-	ezplayer.set_server_date( parseFloat(neoip.core.download_file_insync("../../cgi-bin/server_date.php", true))*1000 );
+	ezplayer.set_server_date( server_date*1000 );
 
-	// if the uri contains a cast_name and cast_privhash variable, use it to load this playlist
+	// if there is a playlist_uid , use it to load this playlist
 	// - additionnaly dont put a playlist_arr, so impossible to change channel
-	if( cast_name != "" && cast_privhash != "" ){
-		var plistarr_uid	= neoip.globalCfg.dfl_plistarr_uid;
-		var playlist_uid	= plistarr_uid+"/"+cast_name +"_"+cast_privhash+".playlist_jspf";
+	if( playlist_uid != "" ){
 		ezplayer.change_playlist(playlist_uid);
 	}else{
 		var plistarr_uid	= neoip.globalCfg.dfl_plistarr_uid;
