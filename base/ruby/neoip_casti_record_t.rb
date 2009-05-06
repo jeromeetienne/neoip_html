@@ -19,7 +19,8 @@ attr_reader	:cast_name
 ################################################################################
 
 def initialize(apps_detect_uri, cast_name, cast_privtext, mdata_srv_uri = nil,
-				httpi_uri = nil, httpi_mod = nil,http_peersrc_uri = nil)
+				httpi_uri = nil, httpi_mod = nil,http_peersrc_uri = nil,
+				web2srv_str = nil)
 	# copy the parameter
 	@apps_detect_uri	= apps_detect_uri;
 	@cast_name		= cast_name;
@@ -28,6 +29,7 @@ def initialize(apps_detect_uri, cast_name, cast_privtext, mdata_srv_uri = nil,
 	@httpi_uri		= httpi_uri		|| "";
 	@httpi_mod		= httpi_mod		|| "";
 	@http_peersrc_uri	= http_peersrc_uri	|| "";
+	@web2srv_str		= web2srv_str		|| "{source: \"internal ruby\"}";
 end
 
 
@@ -47,7 +49,8 @@ def request_stream()
 	begin
 		@cast_privhash	= server.call("request_stream", @mdata_srv_uri, @cast_name,
 						@cast_privtext, @httpi_uri,
-						@httpi_mod, @http_peersrc_uri);
+						@httpi_mod, @http_peersrc_uri,
+						@web2srv_str);
 		# determine the cur_state depending on the returned @cast_privhash
 		cur_state	= @cast_privhash == "" ? "starting" : "started"
 	rescue => e

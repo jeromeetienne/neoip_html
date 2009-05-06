@@ -11,6 +11,7 @@
 	</script>
 
 <script src="../../base/firebug/firebug.js"></script> 
+<script src="../../base/javascript/json2.js"></script> 
 <script src="../../base/javascript/neoip_core.js"></script>
 <script src="../../base/javascript/neoip_objembed_initmon_t.js"></script>
 <script src="../../base/javascript/neoip_base64_safe.js"></script>

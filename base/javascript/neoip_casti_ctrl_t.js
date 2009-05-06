@@ -30,6 +30,7 @@ neoip.casti_ctrl_t = function(p_callback)
 	this.m_scasti_mod	= null;
 	this.m_mdata_srv_uri	= null;
 	this.m_http_peersrc_uri	= null;
+	this.m_web2srv_obj	= {};
 	
 	this.m_swarm_state	= "stopped";
 
@@ -90,6 +91,12 @@ neoip.casti_ctrl_t.prototype.is_recording = function()
 // declare all the methods to read the variables
 neoip.casti_ctrl_t.prototype.swarm_state	= function(){ return this.m_swarm_state;	}
 neoip.casti_ctrl_t.prototype.cast_privhash	= function(){ return this.m_cast_privhash;	}
+/**
+ * accessort on web2srv_obj
+ * - web2srv_obj are converted to json and passed directly to the
+ *   cast_mdata_srv
+*/
+neoip.casti_ctrl_t.prototype.web2srv_obj	= function(){ return this.m_web2srv_obj;	}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -143,6 +150,7 @@ neoip.casti_ctrl_t.prototype._refresh_timeout_cb	= function()
 {
 	// sanity check - this.m_refresh_xdomrpc MUST be null at this point
 	console.assert( this.m_refresh_xdomrpc == null );
+	
 	// launch the request_stream
 	var	rpc_uri	= this.m_webdetect_uri + "/neoip_casti_ctrl_wpage_jsrest.js";
 	this.m_refresh_xdomrpc	= new neoip.xdomrpc_t(rpc_uri
@@ -154,6 +162,7 @@ neoip.casti_ctrl_t.prototype._refresh_timeout_cb	= function()
 					, this.m_scasti_uri	? this.m_scasti_uri	: ''
 					, this.m_scasti_mod	? this.m_scasti_mod	: ''
 					, this.m_http_peersrc_uri? this.m_http_peersrc_uri: ''
+					, JSON.stringify(this.m_web2srv_obj)
 					);
 }
 

@@ -1,7 +1,6 @@
 // defined the namespace if not yet done
 if( typeof neoip == 'undefined' )	var neoip	= {};
 
-
 /**
  * get the geolocalisation of the client
  * - it is using google geolocalisation in jsapi http://code.google.com/apis/ajaxlibs/
@@ -11,7 +10,6 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
  * @returns {object}	the object describing the localisation
 */
 neoip.geoLocalize	= function(callback){
-
 	// build the script element
 	var script	= document.createElement("script");
 	script.src	= "http://www.google.com/jsapi";
@@ -28,7 +26,7 @@ neoip.geoLocalize	= function(callback){
 			done = true;
 			
 			// notify the user now
-			callback(google.loader.ClientLocation);
+			if( callback )	callback(google.loader.ClientLocation);
 			
 			// Handle memory leak in IE
 			script.onload = script.onreadystatechange = null;

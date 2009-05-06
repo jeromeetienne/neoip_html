@@ -548,7 +548,7 @@ private function recpu_sizepos()	:void
 	m_bitmap.x	= Math.max(m_bitmap.x, 0 );
 	m_bitmap.x	= Math.min(m_bitmap.x, stage_w - m_bitmap.width );
 
-	// compute the W coordinate fo the bitmap
+	// compute the Y coordinate fo the bitmap
 	m_bitmap.y	= stage_h * element_y - anchor_y * m_bitmap.height;
 	m_bitmap.y	= Math.max(m_bitmap.y, 0 );
 	m_bitmap.y	= Math.min(m_bitmap.y, stage_h - m_bitmap.height );

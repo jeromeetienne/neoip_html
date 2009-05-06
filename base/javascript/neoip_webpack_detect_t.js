@@ -27,12 +27,12 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 
 /** \brief Constructor
  */
-neoip.webpack_detect_t = function(p_callback)
+neoip.webpack_detect_t = function(p_callback, p_apps_params)
 {
 	// copy the parameter
 	this.m_callback		= p_callback;
-	
-	// define the parameters for each neoip-apps inside neoip-webpack
+
+	// set the DEFAULT apps_params
 	this.m_apps_params	= { 	"oload"	: {	"first_port"	: 4550,
 							"last_port"	: 4553,
 							"min_version"	: "0.0.1",
@@ -49,9 +49,14 @@ neoip.webpack_detect_t = function(p_callback)
 							// NOTE: trick to get casti on dedixl.jetienne.com and not in localhost
 							// - thus this is always available even if webpack installed version is no good
 							//   or if not installed at all
+							// TODO this seems like a poor way to handle it here ...
+							// - what about using p_apps_param instead
 							"options"	: {'hostname': 'dedixl.jetienne.com'}
 						}
 				};
+	// if there is a p_apps_params, use it instead of default
+	if( p_apps_params )	this.m_apps_params	= p_apps_params;
+
 	// start probing neoip-apps
 	this.m_apps_detects	= new Array();
 	for(var suffix_name in this.m_apps_params){

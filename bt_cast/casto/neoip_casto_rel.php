@@ -20,7 +20,41 @@
 
 <body>
 <div id="neoip_player_container_id">Place to put player container</div>
+<script>
+neoip.globalCfg	= {}
+/**
+ * neoip.globalCfg.dfl_plistarr_uid is the default plistarr_uid used when nothing is specified
+*/
+//neoip.globalCfg.dfl_plistarr_uid	= "plistarr_play";
+neoip.globalCfg.dfl_plistarr_uid	= "plistarr_live";
 
+/**
+ * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.plistarr_loader_t
+*/
+neoip.globalCfg.plistarr_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
+neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
+//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
+
+/**
+ * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.playlist_loader_t
+*/
+neoip.globalCfg.playlist_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
+neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
+//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/castiRecordWebSrv/xdomrpcDispatcher";
+//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/castiRecordWebSrv/xdomrpcDispatcher";
+
+/**
+ * neoip.globalCfg.recorder_mdata_srv_uri is the url used by neoip.recorder_t for cast_mdata_srv
+*/
+neoip.globalCfg.recorder_mdata_srv_uri		= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+//neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.urfastr.net/castiRecordWebSrv/RPC2";
+
+/**
+ * neoip.globalCfg.subplayer_asplayer_swf_url is the url used 
+*/
+neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer.swf";
+</script>
 <script>
 	var 	cast_name	= "<?php echo $_GET['cast_name']; ?>";
 	var 	cast_privhash	= "<?php echo $_GET['cast_privhash']; ?>";

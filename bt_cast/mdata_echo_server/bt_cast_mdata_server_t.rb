@@ -109,10 +109,11 @@ end
 
 # \brief xmlrpc function to publish a cast_mdata in pull mode
 #
-def self.set_cast_mdata_pull(cast_name, cast_privtext, cast_id, port_lview, port_pview,
+def self.set_cast_mdata_pull(web2srv_str, cast_name, cast_privtext, cast_id, port_lview, port_pview,
 						uri_pathquery, remote_addr_str)
 	log_error "function=set_cast_mdata_pull"
 	log_error "cast_name=#{cast_name} cast_privtext=#{cast_privtext}."
+	log_error "web2srv_str=#{web2srv_str}"
 	log_error "port_lview=#{port_lview} port_pview=#{port_pview} uri_pathquery=#{uri_pathquery}"
 
 	# compute the cast_privhash from the cast_privtext
@@ -157,11 +158,11 @@ end
 
 # \brief xmlrpc function to publish a cast_mdata in push mode
 #
-def self.set_cast_mdata_push(cast_name, cast_privtext, cast_mdata)
+def self.set_cast_mdata_push(web2srv_str, cast_name, cast_privtext, cast_mdata)
 	log_error "function=set_cast_mdata_push"
 	log_error "cast_name=#{cast_name} cast_privtext=#{cast_privtext}."
-	log_error "cast_mdata=#{cast_mdata.inspect}."
-	
+	log_error "web2srv_str=#{web2srv_str}"
+	log_error "cast_mdata=#{cast_mdata.inspect}."	
 	log_error	File.join(File.dirname(__FILE__), 'bt_cast_mdata_server_t')
 
 	# compute the cast_privhash from the cast_privtext

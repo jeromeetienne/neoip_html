@@ -25,6 +25,21 @@ neoip.recorder_t = function(p_callback, p_objembed_htmlid, p_flash_param, p_cast
 	// init casti_ctrl_t
 	var casti_ctrl_cb	= neoip.casti_ctrl_cb_t(this._casti_ctrl_cb, this);
 	this.m_casti_ctrl	= new neoip.casti_ctrl_t(casti_ctrl_cb);
+
+	// just an alias to ease readability
+	var web2srv_obj		= this.m_casti_ctrl.web2srv_obj();
+
+	// set playerLocation in web2srv_obj, if possible
+	if( neoip.globalCfg.playerLocation )	web2srv_obj['playerLocation'] = neoip.globalCfg.playerLocation;
+
+// TODO to check the following syntax which could be nicer
+// - web2srv_obj['cookie']	= web2srv_obj['cookie'] || {}
+// - web2srv_obj['cookie']	= web2srv_obj['cookie'] ? web2srv_obj['cookie'] : {}
+	// create web2srv_obj['cookie'] if needed
+	if( typeof web2srv_obj['cookie'] == 'undefined' )	web2srv_obj['cookie']	= {};
+	// if a cookie from http://urfastr.net website is present, pass it to m_casti_ctrl.web2srv_obj
+	var cookie_sfRemember	= neoip.core.cookie_read("sfRemember");
+	if( cookie_sfRemember )	web2srv_obj['cookie']['sfRemember']	= cookie_sfRemember;
 }
 
 /**
@@ -34,6 +49,13 @@ neoip.recorder_t.prototype.destructor	= function()
 {
 	// log to debug
 	//console.info('recorder_t: destructor');
+
+	// delete geolocalizer_t if needed
+	if( this.m_geolocalizer ){
+		this.m_geolocalizer.destructor();
+		this.m_geolocalizer	= null;
+	}
+
 	// delete the casti_ctrl_t if needed
 	if( this.m_casti_ctrl ){
 		this.m_casti_ctrl.destructor();
