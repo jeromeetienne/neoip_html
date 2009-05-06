@@ -7,9 +7,12 @@
 //echo time();
 
 
-// version using microtime to be precise to the millisecond
-list($usec, $sec) = explode(' ', microtime());
-$usec_str	= substr( $usec, 1 );
-echo $sec.$usec_str;
+// - version using microtime to be precise to the millisecond
+//   - old version
+// list($usec, $sec) = explode(' ', microtime());
+// $usec_str	= substr( $usec, 1 );
+// echo $sec.$usec_str;
+
+printf("%f",microtime(true) );
 
 ?>
