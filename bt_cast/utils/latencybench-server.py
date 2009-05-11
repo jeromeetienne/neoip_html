@@ -8,7 +8,7 @@
 #    - ./latencybench-server.py
 # 2. have casti to read this stream (in type raw)
 #    $ cd ~/workspace/yavipin/html/player/rstream
-#    $ ./neoip-casti-recording.rb --cast_name "latencybench" --cast_privtext hello --httpi_mod raw --mdata_srv_uri http://rstream.urfastr.net/frontend_dev.php/castiRecordWebSrv/RPC2 --httpi_uri http://localhost:1234
+#    $ ./neoip-casti-recording.rb --cast_name "latencybench" --cast_privtext hello --httpi_mod raw --mdata_srv_uri http://rstream.urfastr.net/frontend_dev.php/CastMdataSrv/RPC2 --httpi_uri http://localhost:1234
 # 3. have casto to read this stream
 # 4. have latencybench-client.py to read from casto
 #    - this script parse the ascii timestamp from the stream

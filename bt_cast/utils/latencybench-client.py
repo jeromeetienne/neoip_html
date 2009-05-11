@@ -61,11 +61,11 @@ optparser    = optparse.OptionParser()
 
 # possible mdata_src_uri:
 # - http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi
-# - http://rstream.urfastr.net/frontend_dev.php/castiRecordWebSrv/RPC2
+# - http://rstream.urfastr.net/frontend_dev.php/CastMdataSrv/RPC2
 
 
 # set default values
-url_str = "http://127.0.0.1:4560/aaf4c61d/latencybench?mdata_srv_uri=http%3A//localhost/%7Ejerome/neoip_html/bt_cast/casto/testrpc.php/castiRecordWebSrv/RPC2"
+url_str = "http://127.0.0.1:4560/aaf4c61d/latencybench?mdata_srv_uri=http%3A//localhost/%7Ejerome/neoip_html/bt_cast/casto/testrpc.php/CastMdataSrv/RPC2"
 #url_str = "http://localhost:1234"
 
 # overwrite default args if available
