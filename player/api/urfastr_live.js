@@ -16,7 +16,7 @@ var urfastr_live = function(opt){
 					'onload_start_play':	'disabled'
 				}
 		};
-	var frame_id	= "frame_urfastr_live_" + Math.floor(Math.random()*100000);
+	var frame_id	= "urfastr_live_frame_" + Math.floor(Math.random()*100000);
 	var rpc_client	= null;
 	
 	var ctor	= function(){
