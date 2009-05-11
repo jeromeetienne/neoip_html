@@ -435,7 +435,7 @@ neoip.ezplayer_t.prototype._neoip_plistarr_loader_cb = function(notified_obj, us
 	this.m_plistarr		= arg.plistarr;
 
 	// if this.m_player.is_playing(), do nothing
-	if( this.m_player.is_playing() )	return;
+	if( this.m_player && this.m_player.is_playing() )	return;
 
 	// change the playlist
 	// - if there is a "ezplayer_playlist_uid" cookie, use this one
