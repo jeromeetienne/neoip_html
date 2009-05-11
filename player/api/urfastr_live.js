@@ -22,6 +22,7 @@ var urfastr_live = function(opt){
 			opt[key]	= opt_dfl[key];
 		}
 		// init the rpc_client
+		if( typeof crossframe === "undefined" )	return;
 		rpc_client	= new crossframe.rpc_client_t({
 			dest_addr: {
 				proxyUrl:	"http://player.urfastr.tv/crossframe_proxy.html",
@@ -51,7 +52,6 @@ var urfastr_live = function(opt){
 			var_str	+= 'neoip_var_'+ escape(key) + '=' + escape(opt.neoip_var_arr[key]);
 		}
 		if(var_str.length)	iframe_src	+= '?' + var_str;
-		
 		
 		// build the body
 		var iframeEl	= document.createElement('iframe');

@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<script src="../qunit_runner/jquery/jquery-latest.js"></script>
-	<link 	href="../qunit_runner/jquery/qunit/testsuite.css" rel="stylesheet" type="text/css" media="screen" />
-	<script src="../qunit_runner/jquery/qunit/testrunner.js" type="text/javascript"></script>
+	<script src="../../lib/js/jquery/jquery-latest.js"></script>
+	<link  href="../../lib/js/jquery/qunit/testsuite.css" rel="stylesheet" type="text/css" media="screen" />
+	<script src="../../lib/js/jquery/qunit/testrunner.js" type="text/javascript"></script>
 	<script>
 		// silly patch because i dont like this "stop/start" in my code
 		QUnit.delayed_result	= stop;
@@ -66,7 +66,7 @@ $(function(){
 		setTimeout(function(){
 			QUnit.ok(true, "1sec expired");
 			QUnit.result_given();			
-		}, 1*1000);
+		}, 5*1000);
 	});	
 });
 </script>
@@ -75,7 +75,7 @@ $(function(){
 <h1>QUnit Runner for UrFastR Player API</h1>
 <h2 id="banner"></h2>
 <h2 id="userAgent"></h2>
-<div id="container_urfastr" width="240px" height="320px" style="float: right"></div>
+<div id="container_urfastr" width="320px" height="240px" style="float: right"></div>
 <ol id="tests"></ol>
 <div id="main"></div>
 
