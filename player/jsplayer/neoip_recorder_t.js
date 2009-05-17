@@ -35,11 +35,12 @@ neoip.recorder_t = function(p_callback, p_objembed_htmlid, p_flash_param, p_cast
 // TODO to check the following syntax which could be nicer
 // - web2srv_obj['cookie']	= web2srv_obj['cookie'] || {}
 // - web2srv_obj['cookie']	= web2srv_obj['cookie'] ? web2srv_obj['cookie'] : {}
+
 	// create web2srv_obj['cookie'] if needed
 	if( typeof web2srv_obj['cookie'] == 'undefined' )	web2srv_obj['cookie']	= {};
 	// if a cookie from http://urfastr.net website is present, pass it to m_casti_ctrl.web2srv_obj
-	var cookie_sfRemember	= neoip.core.cookie_read("sfRemember");
-	if( cookie_sfRemember )	web2srv_obj['cookie']['sfRemember']	= cookie_sfRemember;
+	var cookie_rememberkey	= neoip.core.cookie_read("urfastr_rememberkey");
+	if( cookie_rememberkey)	web2srv_obj['cookie']['urfastr_rememberkey']	= cookie_rememberkey;
 }
 
 /**
