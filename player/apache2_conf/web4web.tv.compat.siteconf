@@ -11,8 +11,8 @@ NameVirtualHost *
 
 	RewriteEngine On
 	RewriteCond	%{HTTP_HOST}	^player\.web4web\.tv
-	RewriteRule	^(.*)$		http://player.urfastr.tv/$1 [R,L]	
+	RewriteRule	^(.*)$		http://player.urfastr.net/$1 [R,L]	
 
 	RewriteCond	%{HTTP_HOST}	^www\.web4web\.tv
-	RewriteRule	^(.*)$		http://www.urfastr.tv/$1 [R,L]	
+	RewriteRule	^(.*)$		http://urfastr.net/$1 [R,L]	
 </VirtualHost>

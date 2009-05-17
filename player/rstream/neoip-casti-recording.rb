@@ -136,7 +136,7 @@ while not sigint_recved
 	if( cur_state != old_state )
 		puts "State changed from #{old_state} to #{cur_state} at #{Time.now} (cast_privhash=#{casti_record.cast_privhash})"
 		if( cur_state == "started" )
-			direct_uri	= "http://player.urfastr.tv/#{casti_record.cast_privhash}/live/#{casti_record.cast_name}"
+			direct_uri	= "http://player.urfastr.net/#{casti_record.cast_privhash}/live/#{casti_record.cast_name}"
 			direct_uri	= URI.encode(direct_uri)
 			puts "url for player on this specific stream #{direct_uri}"
 		end
