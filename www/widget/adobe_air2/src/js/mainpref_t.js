@@ -4,7 +4,9 @@
 var mainpref_t	= function(){
 	var filecookie		= new filecookie_t("filecookie_mainpref.store.json");
 	var PrefsDefault	= {
-		'start_at_login':	true
+                // workaround: macos air is unable to distinguish between launch and click in the dockbar
+                // - so start_at_login is false by default on macos to avoid the pip window to open at every login
+		'start_at_login':	guessOS() != 'macos' ? true : false
 	}
 	// ensure all the preferences are set in filecookie
 	for(var key in PrefsDefault){
