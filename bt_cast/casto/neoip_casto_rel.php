@@ -35,6 +35,7 @@ neoip.globalCfg.plistarr_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.
 neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
 //neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/CastMdataSrv/xdomrpcDispatcher";
 //neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/CastMdataSrv/xdomrpcDispatcher";
+neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
 
 /**
  * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.playlist_loader_t
@@ -43,13 +44,15 @@ neoip.globalCfg.playlist_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.
 neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
 //neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/casti_mdata_srv/web/frontend_dev.php/CastMdataSrv/xdomrpcDispatcher";
 //neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://casti_mdata_srv.urfastr.net/CastMdataSrv/xdomrpcDispatcher";
+neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
 
 /**
  * neoip.globalCfg.recorder_mdata_srv_uri is the url used by neoip.recorder_t for cast_mdata_srv
 */
-neoip.globalCfg.recorder_mdata_srv_uri		= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
+//neoip.globalCfg.recorder_mdata_srv_uri		= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
 //neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.urfastr.net/CastMdataSrv/RPC2";
-
+//neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.dev.urfastr.net/frontend_dev.php/CastMdataSrv2/RPC2";
+neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.urfastr.net/CastMdataSrv2/RPC2";
 /**
  * neoip.globalCfg.subplayer_asplayer_swf_url is the url used 
 */
