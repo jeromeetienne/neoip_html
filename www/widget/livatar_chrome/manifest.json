@@ -1,0 +1,23 @@
+{
+  "content_scripts": [
+    {
+      "js": [
+        "urfastr_livatar_chrome.js"
+      ], 
+      "matches": [
+        "http://*.urfastr.net/*", 
+        "http://urfastr.net/*", 
+        "http://*.twitter.com/*", 
+        "http://twitter.com/*", 
+        "http://*.facebook.com/*", 
+        "http://facebook.com/*", 
+        "http://*.identi.ca/*", 
+        "http://identi.ca/*"
+      ]
+    }
+  ], 
+  "description": "UrFastR Livatar support for Google Chrome", 
+  "id": "D434ABD479ACC61C421AA3DEBB49A927643A35A9", 
+  "name": "UrFastR Livatar for Chrome", 
+  "version": "1.0"
+}
