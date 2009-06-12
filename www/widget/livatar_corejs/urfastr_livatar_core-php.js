@@ -48,12 +48,84 @@
  *     - so impossible for now 
 */
 
-/*
-<?php if(in_array("--rel", $argv))	$output_env	= "rel";	?>
-<?php if(in_array("--dev", $argv))	$output_env	= "dev";	?>
+<?php $in_rel	= in_array("--rel", $argv);	?>
+<?php $in_dev	= in_array("--dev", $argv);	?>
 
-<?php echo "output_env=".$output_env; ?>
 
+<?php if($in_dev):	?>
+var urfastr_page_name	= "not parsed";
+var urfastr_queries	= [];
+
+function page_name_collect(page_name){
+	console.info('POURT');
+	urfastr_page_name	= page_name
+}
+function page_name_display(page_name){
+	// log to debug
+	console.info('page_name='+page_name);
+	// remove previous display if needed
+	page_name_undisplay();
+	// set the html id	
+	htmlid	= "htmlid_page_process";
+	// create the element
+	$('<div>').css({
+		'position'		: 'fixed',
+		'top'			: '0px',
+		'left'			: '0px',
+		'background-color'	: 'red',
+	}).attr({
+		'id'	: htmlid
+	}).text('UrFastR Livatar Page: '+page_name)
+	.appendTo("body");
+}
+function page_name_undisplay(){
+	// set the html id	
+	htmlid	= "htmlid_page_process";
+	// remove the element if it exists
+	$('#'+htmlid).remove();
+}
+
+function query_display(container, imageEl, query_str, iframe_url)
+{
+	// create the element
+	var element	= $('<div>').css({
+		'font-size'		: '9px',
+		'background-color'	: 'red',
+	})
+	.attr({
+		'class'	: 'urfastr_query_element'	
+	})
+	.text('query: '+query_str);
+	
+	
+	//iframe_url	= "http://google.com";
+	
+	if( iframe_url ){
+		element.css({
+			'background-color'	: 'green'
+		});
+		$('<a>').attr({
+				'href':	iframe_url
+			})
+			.text('Found!')
+			.appendTo(element);
+	}
+
+	$(container).append(element);	
+}
+function queries_undisplay()
+{
+	$('div.urfastr_query_element').remove();
+}
+
+function display_stats(){
+	page_name_display(urfastr_page_name);
+}
+function undisplay_stats(){
+	page_name_undisplay();
+	queries_undisplay();
+}
+<?php endif;		?>
 
 /**
  * \par TODO
@@ -89,11 +161,20 @@ function post_jquery($){
 		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
-			if( iframe_url == "" )	return;
+			// debug code
+			<?php if($in_dev):	?>
+				query_display(container, imageEl, query_str, iframe_url);
+				return;
+			<?php endif;		?>
+			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		}, "jsonp");		
 	}
-	var twitter_process_profile	= function(){		
+	var twitter_process_profile	= function(){
+		// debug code
+		<?php if($in_dev):	?>
+			page_name_collect("twitter profile");
+		<?php endif;		?>
 		var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
 		var container	= imageEl.parents('a');		
 		// get the username
@@ -103,6 +184,10 @@ function post_jquery($){
 		return twitter_replace_username(container, imageEl, username);
 	}
 	var twitter_process_home	= function(){
+		// debug code
+		<?php if($in_dev):	?>
+			page_name_collect("twitter home");
+		<?php endif;		?>
 		// collect all the username
 		var usernames	= {};
 		$('ol#timeline li').each(function(){
@@ -126,6 +211,10 @@ function post_jquery($){
 		}
 	}
 	var twitter_process_followers	= function(){
+		// debug code
+		<?php if($in_dev):	?>
+			page_name_collect("twitter followers");
+		<?php endif;		?>
 		// collect all the username
 		$('table.followers-table tr.vcard td.thumb a[rel=contact]').each(function(){
 			var container	= this;
@@ -156,6 +245,10 @@ function post_jquery($){
 	/*		Handle identi.ca						*/	
 	/********************************************************************************/
 	var identica_process	= function(){
+		// debug code
+		<?php if($in_dev):	?>
+			page_name_collect("identica");
+		<?php endif;		?>		
 		var imageEl	= $("div.author img.photo.avatar");
 		var container	= imageEl.parents('dd');
 	
@@ -171,6 +264,10 @@ function post_jquery($){
 	/*		Handle urfastr.net						*/	
 	/********************************************************************************/
 	var urfastr_process	= function(){
+		// debug code
+		<?php if($in_dev):	?>
+			page_name_collect("urfastr");
+		<?php endif;		?>
 		// just to notify urfastr_livatar userscript presence to the webpage
 		if( window.urfastr_livatar_userscript_listener )
 			window.urfastr_livatar_userscript_listener("installed");
@@ -191,11 +288,20 @@ function post_jquery($){
 		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
+			// debug code
+			<?php if($in_dev):	?>
+				query_display(container, imageEl, query_str, iframe_url);
+				return;
+			<?php endif;		?>
 			if( iframe_url == "" )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		}, "jsonp");
 	}
 	var facebook_process_profile	= function(){
+		// debug code
+		<?php if($in_dev):	?>
+			page_name_collect("facebook profile");
+		<?php endif;		?>
 		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
@@ -236,6 +342,8 @@ function post_jquery($){
 	window.document.body.appendChild(element);
 	
 	var mytxt	= 'jQuery.noConflict(); post_jquery(jQuery);';
+	// debug code
+	<?php if($in_dev):?>mytxt += 'undisplay_stats();display_stats();'<?php endif;		?>	
 	var textEl	= document.createTextNode(mytxt);
 	var element	= document.createElement("script");
 	element.appendChild(textEl);

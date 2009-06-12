@@ -1,11 +1,11 @@
 # very raw Makefile to preprocess the php
 
 
-SRC_JS=urfastr_livatar-core-php.js
-DEV_JS=urfastr_livatar-core-dev.js
-REL_JS=urfastr_livatar-core-rel.js
-DEV_MIN_JS=urfastr_livatar-core-dev-min.js
-REL_MIN_JS=urfastr_livatar-core-rel-min.js
+SRC_JS=urfastr_livatar_core-php.js
+DEV_JS=urfastr_livatar_core-dev.js
+REL_JS=urfastr_livatar_core-rel.js
+DEV_MIN_JS=urfastr_livatar_core-dev-min.js
+REL_MIN_JS=urfastr_livatar_core-rel-min.js
 
 JS_COMPRESSOR=yui-compressor
 
@@ -30,7 +30,7 @@ build_rel: $(REL_MIN_JS)
 
 build_all: build_dev build_rel
 
-watch:
+watch:	build_all
 	@echo "Start Watching (every second)"
 	while true; do sleep 1; [ -z "`find . -name $(SRC_JS)  -newer $(DEV_JS)`" ] && continue; echo "Recompilation at `date`"; make; done
 

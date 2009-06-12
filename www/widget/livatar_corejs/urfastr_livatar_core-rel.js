@@ -48,9 +48,8 @@
  *     - so impossible for now 
 */
 
-/*
 
-output_env=rel
+
 
 /**
  * \par TODO
@@ -86,12 +85,14 @@ function post_jquery($){
 		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
-			if( iframe_url == "" )	return;
+			// debug code
+						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		}, "jsonp");		
 	}
-	var twitter_process_profile	= function(){		
-		var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
+	var twitter_process_profile	= function(){
+		// debug code
+				var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
 		var container	= imageEl.parents('a');		
 		// get the username
 		var href	= $(container).attr('href');
@@ -100,7 +101,8 @@ function post_jquery($){
 		return twitter_replace_username(container, imageEl, username);
 	}
 	var twitter_process_home	= function(){
-		// collect all the username
+		// debug code
+				// collect all the username
 		var usernames	= {};
 		$('ol#timeline li').each(function(){
 			var element	= this;
@@ -123,7 +125,8 @@ function post_jquery($){
 		}
 	}
 	var twitter_process_followers	= function(){
-		// collect all the username
+		// debug code
+				// collect all the username
 		$('table.followers-table tr.vcard td.thumb a[rel=contact]').each(function(){
 			var container	= this;
 			var imageEl	= $(container).find('img');
@@ -153,6 +156,8 @@ function post_jquery($){
 	/*		Handle identi.ca						*/	
 	/********************************************************************************/
 	var identica_process	= function(){
+		// debug code
+				
 		var imageEl	= $("div.author img.photo.avatar");
 		var container	= imageEl.parents('dd');
 	
@@ -168,7 +173,8 @@ function post_jquery($){
 	/*		Handle urfastr.net						*/	
 	/********************************************************************************/
 	var urfastr_process	= function(){
-		// just to notify urfastr_livatar userscript presence to the webpage
+		// debug code
+				// just to notify urfastr_livatar userscript presence to the webpage
 		if( window.urfastr_livatar_userscript_listener )
 			window.urfastr_livatar_userscript_listener("installed");
 	}
@@ -188,12 +194,14 @@ function post_jquery($){
 		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
-			if( iframe_url == "" )	return;
+			// debug code
+						if( iframe_url == "" )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		}, "jsonp");
 	}
 	var facebook_process_profile	= function(){
-		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
+		// debug code
+				// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
 		// get facebook uid
@@ -233,6 +241,8 @@ function post_jquery($){
 	window.document.body.appendChild(element);
 	
 	var mytxt	= 'jQuery.noConflict(); post_jquery(jQuery);';
+	// debug code
+		
 	var textEl	= document.createTextNode(mytxt);
 	var element	= document.createElement("script");
 	element.appendChild(textEl);
