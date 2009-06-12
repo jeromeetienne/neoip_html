@@ -138,12 +138,34 @@ function undisplay_stats($){
 <?php endif;		?>
 
 
-/**
- * \par TODO
- * - make it return the number of replaced images
-*/
-
 function post_jquery($){
+	/********************************************************************************/
+	/*		query_queue stuff						*/
+	/********************************************************************************/
+	var query_queue_arr	= [];
+	
+	var query_queue_add		= function(query_str, callback)
+	{
+		query_queue_arr.push({
+			query_str	: query_str,
+			callback	: callback
+		});
+	}
+	var query_queue_process	= function()
+	{
+		for(var i = 0; i < query_queue_arr.length; i++){
+			var query_str	= query_queue_arr[i]['query_str'];
+			var callback	= query_queue_arr[i]['callback'];
+			// build the query_url
+			var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+			// fetch the iframe_url
+			$.get(query_url, {}, callback, "jsonp");
+		}
+	}
+	
+	/********************************************************************************/
+	/*										*/
+	/********************************************************************************/
 	var replace_by_iframe	= function(container, iframe_url, iframe_w, iframe_h){	
 		// build the iframe element
 		var iframeEl = document.createElement("iframe");
@@ -169,10 +191,8 @@ function post_jquery($){
 		
 		// build livaterAPI call
 		var query_str	= "twitter/username/"+username;
-
-		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
-		// fetch the iframe_url
-		$.get(query_url, {}, function(iframe_url){
+		// queue this query
+		query_queue_add(query_str, function(iframe_url){
 			// debug code
 			<?php if($in_dev):	?>
 				query_display($, container, imageEl, query_str, iframe_url);
@@ -180,7 +200,7 @@ function post_jquery($){
 			<?php endif;		?>
 			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
-		}, "jsonp");		
+		});
 	}
 	var twitter_process_profile	= function(){
 		// debug code
@@ -243,8 +263,10 @@ function post_jquery($){
 		var pathname	= location.pathname;
 		if( pathname == '/' )
 			return twitter_process_home();
-		
+	
 		var tmp		= pathname.split('/');
+		if( tmp.length == 2 && tmp[0] == "" && tmp[1] == "followers" )		
+			return twitter_process_followers();
 		if( tmp.length == 2 && tmp[0] == "" && tmp[1] != "" )
 			return twitter_process_profile();
 		if( tmp.length == 3 && tmp[2] == "followers" )
@@ -261,12 +283,10 @@ function post_jquery($){
 		// get iframe_w/iframe_h
 		var iframe_w	= $(imageEl).attr('width');
 		var iframe_h	= $(imageEl).attr('height');
-		
 		// build livaterAPI call
 		var query_str	= "identica/username/"+username;
-		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
-		// fetch the iframe_url
-		$.get(query_url, {}, function(iframe_url){
+		// queue this query
+		query_queue_add(query_str, function(iframe_url){
 			// debug code
 			<?php if($in_dev):	?>
 				query_display($, container, imageEl, query_str, iframe_url);
@@ -274,7 +294,7 @@ function post_jquery($){
 			<?php endif;		?>
 			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
-		}, "jsonp");
+		});
 	}
 	var identica_process_profile	= function(){
 		// debug code
@@ -320,17 +340,16 @@ function post_jquery($){
 
 		// build livaterAPI call
 		var query_str	= "facebook/uid/"+uid;
-		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
-		// fetch the iframe_url
-		$.get(query_url, {}, function(iframe_url){
+		// queue this query
+		query_queue_add(query_str, function(iframe_url){
 			// debug code
 			<?php if($in_dev):	?>
 				query_display($, container, imageEl, query_str, iframe_url);
 				return;
 			<?php endif;		?>
-			if( iframe_url == "" )	return;
+			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
-		}, "jsonp");
+		});
 	}
 	var facebook_process_profile	= function(){
 		// debug code
@@ -350,23 +369,27 @@ function post_jquery($){
 	var facebook_process	= function(){
 		var pathname	= location.pathname;
 
+		// convert the location.hash into pathname (used by facebook for ajax+bookmark trick)
+		if( location.hash.substr(0, 2) == '#/' ){
+			pathname	= location.hash.substr(1);
+			qmark_indexof	= pathname.indexOf('?');
+			if( qmark_indexof != -1 )	pathname = pathname.substr(0, qmark_indexof);
+		}
+
 		// detect the profile page
 		if( pathname == '/profile.php' )	return facebook_process_profile();
-		
-		return null;
 	}
 
-	var container	= null;
-	// http://twitter.com/jerome_etienne
-	if( location.host == "twitter.com" )		return twitter_process();	
-	// http://identi.ca/jetienne
-	if( location.host == "identi.ca" )		return identica_process();
-	// http://urfastr.net
-	if( location.host == "urfastr.net" )		return urfastr_process();
-	// http://identi.ca/jetienne
-	if( location.host == "www.facebook.com" )	return facebook_process();
-	
-	return null;
+	/********************************************************************************/
+	/*		Main code							*/	
+	/********************************************************************************/
+	// do the processing according to location.host
+	if( location.host == "twitter.com" )		twitter_process();	
+	else if( location.host == "identi.ca" )		identica_process();
+	else if( location.host == "urfastr.net" )	urfastr_process();
+	else if( location.host == "www.facebook.com" )	facebook_process();
+	// process the just-built query_queue
+	query_queue_process();
 }
 
 (function(){
