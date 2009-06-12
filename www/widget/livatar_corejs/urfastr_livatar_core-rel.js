@@ -81,8 +81,9 @@ function post_jquery($){
 		var iframe_h	= $(imageEl).attr('height');
 		
 		// build livaterAPI call
-		query_str	= "twitter/username/"+username;
-		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+		var query_str	= "twitter/username/"+username;
+
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
 			// debug code
@@ -104,7 +105,7 @@ function post_jquery($){
 		// debug code
 				// collect all the username
 		var usernames	= {};
-		$('ol#timeline li').each(function(){
+		$('ol#timeline li.hentry.status').each(function(){
 			var element	= this;
 			var matches	= $(element).attr('class').match(/u-([\w+]+)/);
 			var username	= matches[1];
@@ -155,18 +156,37 @@ function post_jquery($){
 	/********************************************************************************/
 	/*		Handle identi.ca						*/	
 	/********************************************************************************/
-	var identica_process	= function(){
-		// debug code
-				
-		var imageEl	= $("div.author img.photo.avatar");
-		var container	= imageEl.parents('dd');
-	
+	var identica_replace_username	= function(container, imageEl, username)
+	{
+		// get iframe_w/iframe_h
 		var iframe_w	= $(imageEl).attr('width');
 		var iframe_h	= $(imageEl).attr('height');
-	
-		var iframe_url	= "http://player.urfastr.net/live";
-	
-		replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
+		
+		// build livaterAPI call
+		var query_str	= "identica/username/"+username;
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+		// fetch the iframe_url
+		$.get(query_url, {}, function(iframe_url){
+			// debug code
+						if( !iframe_url )	return;
+			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
+		}, "jsonp");
+	}
+	var identica_process_profile	= function(){
+		// debug code
+				
+
+		var imageEl	= $("div.author img.photo.avatar");
+		var username	= imageEl.attr('alt');
+		var container	= imageEl.parents('dd');
+		return identica_replace_username(container, imageEl, username);
+	}
+	var identica_process	= function(){
+		var pathname	= location.pathname;
+
+		var tmp		= pathname.split('/');
+		if( tmp.length == 2 && tmp[0] == "" && tmp[1] != "" )
+			return identica_process_profile();
 	}
 
 	/********************************************************************************/
@@ -190,8 +210,8 @@ function post_jquery($){
 		var iframe_h	= $(imageEl).attr('height');
 
 		// build livaterAPI call
-		query_str	= "facebook/uid/"+uid;
-		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+		var query_str	= "facebook/uid/"+uid;
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
 			// debug code
@@ -201,7 +221,8 @@ function post_jquery($){
 	}
 	var facebook_process_profile	= function(){
 		// debug code
-				// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
+		
+		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
 		// get facebook uid

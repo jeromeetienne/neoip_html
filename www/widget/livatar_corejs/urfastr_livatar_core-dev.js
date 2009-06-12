@@ -49,19 +49,17 @@
 */
 
 
-
 var urfastr_page_name	= "not parsed";
 var urfastr_queries	= [];
 
-function page_name_collect(page_name){
-	console.info('POURT');
+function page_name_collect($, page_name){
 	urfastr_page_name	= page_name
 }
-function page_name_display(page_name){
+function page_name_display($, page_name){
 	// log to debug
 	console.info('page_name='+page_name);
 	// remove previous display if needed
-	page_name_undisplay();
+	page_name_undisplay($);
 	// set the html id	
 	htmlid	= "htmlid_page_process";
 	// create the element
@@ -69,33 +67,44 @@ function page_name_display(page_name){
 		'position'		: 'fixed',
 		'top'			: '0px',
 		'left'			: '0px',
-		'background-color'	: 'red',
+		'background-color'	: 'red'
 	}).attr({
 		'id'	: htmlid
-	}).text('UrFastR Livatar Page: '+page_name)
+	}).html('Livatar Page: <strong>'+page_name+'</strong>')
 	.appendTo("body");
 }
-function page_name_undisplay(){
+function page_name_undisplay($){
 	// set the html id	
 	htmlid	= "htmlid_page_process";
 	// remove the element if it exists
 	$('#'+htmlid).remove();
 }
 
-function query_display(container, imageEl, query_str, iframe_url)
+function query_display($, container, imageEl, query_str, iframe_url)
 {
+console.info('query_str='+query_str);
 	// create the element
 	var element	= $('<div>').css({
 		'font-size'		: '9px',
 		'background-color'	: 'red',
+		'line-height'		: '10px',
 	})
 	.attr({
-		'class'	: 'urfastr_query_element'	
-	})
-	.text('query: '+query_str);
+		'class'	: 'urfastr_query_element'
+	});
 	
-	
-	//iframe_url	= "http://google.com";
+	//$(container).css({
+	//	'position'		: 'relative',		
+	//})
+	//element.css({
+	//	'position'		: 'absolute',
+	//	'top'			: 0,
+	//	'left'			: 0,
+	//});
+
+	$('<span>')
+		.text('query: '+query_str)
+		.appendTo(element);
 	
 	if( iframe_url ){
 		element.css({
@@ -108,20 +117,22 @@ function query_display(container, imageEl, query_str, iframe_url)
 			.appendTo(element);
 	}
 
-	$(container).append(element);	
-}
-function queries_undisplay()
-{
-	$('div.urfastr_query_element').remove();
+	$(container).prepend(element);	
 }
 
-function display_stats(){
-	page_name_display(urfastr_page_name);
+function queries_undisplay($)
+{
+	$('.urfastr_query_element').remove();
 }
-function undisplay_stats(){
-	page_name_undisplay();
-	queries_undisplay();
+
+function display_stats($){
+	page_name_display($, urfastr_page_name);
 }
+function undisplay_stats($){
+	page_name_undisplay($);
+	queries_undisplay($);
+}
+
 
 /**
  * \par TODO
@@ -153,12 +164,13 @@ function post_jquery($){
 		var iframe_h	= $(imageEl).attr('height');
 		
 		// build livaterAPI call
-		query_str	= "twitter/username/"+username;
-		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+		var query_str	= "twitter/username/"+username;
+
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
 			// debug code
-							query_display(container, imageEl, query_str, iframe_url);
+							query_display($, container, imageEl, query_str, iframe_url);
 				return;
 						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
@@ -166,7 +178,7 @@ function post_jquery($){
 	}
 	var twitter_process_profile	= function(){
 		// debug code
-					page_name_collect("twitter profile");
+					page_name_collect($, "twitter profile");
 				var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
 		var container	= imageEl.parents('a');		
 		// get the username
@@ -177,10 +189,10 @@ function post_jquery($){
 	}
 	var twitter_process_home	= function(){
 		// debug code
-					page_name_collect("twitter home");
+					page_name_collect($, "twitter home");
 				// collect all the username
 		var usernames	= {};
-		$('ol#timeline li').each(function(){
+		$('ol#timeline li.hentry.status').each(function(){
 			var element	= this;
 			var matches	= $(element).attr('class').match(/u-([\w+]+)/);
 			var username	= matches[1];
@@ -202,7 +214,7 @@ function post_jquery($){
 	}
 	var twitter_process_followers	= function(){
 		// debug code
-					page_name_collect("twitter followers");
+					page_name_collect($, "twitter followers");
 				// collect all the username
 		$('table.followers-table tr.vcard td.thumb a[rel=contact]').each(function(){
 			var container	= this;
@@ -232,19 +244,40 @@ function post_jquery($){
 	/********************************************************************************/
 	/*		Handle identi.ca						*/	
 	/********************************************************************************/
-	var identica_process	= function(){
-		// debug code
-					page_name_collect("identica");
-				
-		var imageEl	= $("div.author img.photo.avatar");
-		var container	= imageEl.parents('dd');
-	
+	var identica_replace_username	= function(container, imageEl, username)
+	{
+		// get iframe_w/iframe_h
 		var iframe_w	= $(imageEl).attr('width');
 		var iframe_h	= $(imageEl).attr('height');
-	
-		var iframe_url	= "http://player.urfastr.net/live";
-	
-		replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
+		
+		// build livaterAPI call
+		var query_str	= "identica/username/"+username;
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+		// fetch the iframe_url
+		$.get(query_url, {}, function(iframe_url){
+			// debug code
+							query_display($, container, imageEl, query_str, iframe_url);
+				return;
+						if( !iframe_url )	return;
+			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
+		}, "jsonp");
+	}
+	var identica_process_profile	= function(){
+		// debug code
+					page_name_collect($, "identica profile");
+				
+
+		var imageEl	= $("div.author img.photo.avatar");
+		var username	= imageEl.attr('alt');
+		var container	= imageEl.parents('dd');
+		return identica_replace_username(container, imageEl, username);
+	}
+	var identica_process	= function(){
+		var pathname	= location.pathname;
+
+		var tmp		= pathname.split('/');
+		if( tmp.length == 2 && tmp[0] == "" && tmp[1] != "" )
+			return identica_process_profile();
 	}
 
 	/********************************************************************************/
@@ -252,7 +285,7 @@ function post_jquery($){
 	/********************************************************************************/
 	var urfastr_process	= function(){
 		// debug code
-					page_name_collect("urfastr");
+					page_name_collect($, "urfastr");
 				// just to notify urfastr_livatar userscript presence to the webpage
 		if( window.urfastr_livatar_userscript_listener )
 			window.urfastr_livatar_userscript_listener("installed");
@@ -269,12 +302,12 @@ function post_jquery($){
 		var iframe_h	= $(imageEl).attr('height');
 
 		// build livaterAPI call
-		query_str	= "facebook/uid/"+uid;
-		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+		var query_str	= "facebook/uid/"+uid;
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
 		// fetch the iframe_url
 		$.get(query_url, {}, function(iframe_url){
 			// debug code
-							query_display(container, imageEl, query_str, iframe_url);
+							query_display($, container, imageEl, query_str, iframe_url);
 				return;
 						if( iframe_url == "" )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
@@ -282,8 +315,9 @@ function post_jquery($){
 	}
 	var facebook_process_profile	= function(){
 		// debug code
-					page_name_collect("facebook profile");
-				// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
+					page_name_collect($, "facebook profile");
+		
+		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
 		// get facebook uid
@@ -324,7 +358,7 @@ function post_jquery($){
 	
 	var mytxt	= 'jQuery.noConflict(); post_jquery(jQuery);';
 	// debug code
-	mytxt += 'undisplay_stats();display_stats();'	
+	mytxt += 'undisplay_stats(jQuery);display_stats(jQuery);'			
 	var textEl	= document.createTextNode(mytxt);
 	var element	= document.createElement("script");
 	element.appendChild(textEl);
