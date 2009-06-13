@@ -1,0 +1,1 @@
+jetpack.tabs.onReady(function(e){var a=["twitter.com","identi.ca","urfastr.net","www.facebook.com"];var d=0;for(;d<a.length;d++){var c=a[d];if(e.location.host==c){break}}if(d==a.length){return}var b=e.createElement("script");var f="http://urfastr.net/static/player/widget/livatar_core/urfastr_livatar_core-rel-min.js";b.setAttribute("src",f);e.body.appendChild(b)});

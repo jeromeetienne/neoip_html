@@ -23,7 +23,7 @@
  * - to limit the number of pages and/or image is a way to limit server load
  * - the server load of livatar webservice may be negligible compared to video streaming
  * - make it easy to determine which image/page trigger a query
- * - livatar corejs: group all the images query into on server query
+ * - livatar core: group all the images query into on server query
  *   - build an global array of query
  *     query_str: function(result){}
  *   - then process this in a global fashion
@@ -348,6 +348,8 @@ function post_jquery($){
 	var facebook_process	= function(){
 		var pathname	= location.pathname;
 
+// TODO: change to adapt to their new url scheme
+
 		// convert the location.hash into pathname (used by facebook for ajax+bookmark trick)
 		if( location.hash.substr(0, 2) == '#/' ){
 			pathname	= location.hash.substr(1);
@@ -372,17 +374,31 @@ function post_jquery($){
 }
 
 (function(){
-	// TODO what is jquery is already loaded ?
-	// TODO make jquery loadable on google ?
-	// - http://code.google.com/apis/ajaxlibs/
+	// if jquery is already loaded
+	if(jQuery){
+		post_jquery(jQuery);
+					undisplay_stats(jQuery);
+			display_stats(jQuery);
+				return;
+	}
+	
+	
+	// get jquery from google
+	// - see http://code.google.com/apis/ajaxlibs/
+	// - use directly the url as twitter does
 	var element = document.createElement("script");
-	element.setAttribute("src", "http://urfastr.net/js/jquery/jquery.js");
+	element.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js");
 	window.document.body.appendChild(element);
 	
-	var mytxt	= 'jQuery.noConflict(); post_jquery(jQuery);';
+	// build the js_str to run once it is loaded
+	var js_str	= 'jQuery.noConflict();'
+	js_str		+= 'post_jquery(jQuery);';
 	// debug code
-	mytxt += 'undisplay_stats(jQuery);display_stats(jQuery);'			
-	var textEl	= document.createTextNode(mytxt);
+			js_str 	+= 'undisplay_stats(jQuery);'
+		js_str	+= 'display_stats(jQuery);'
+		
+	// append another <script> containing js_str 
+	var textEl	= document.createTextNode(js_str);
 	var element	= document.createElement("script");
 	element.appendChild(textEl);
 	window.document.body.appendChild(element);

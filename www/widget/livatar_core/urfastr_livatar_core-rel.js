@@ -23,7 +23,7 @@
  * - to limit the number of pages and/or image is a way to limit server load
  * - the server load of livatar webservice may be negligible compared to video streaming
  * - make it easy to determine which image/page trigger a query
- * - livatar corejs: group all the images query into on server query
+ * - livatar core: group all the images query into on server query
  *   - build an global array of query
  *     query_str: function(result){}
  *   - then process this in a global fashion
@@ -41,18 +41,44 @@
  *   - widget/livatar_greasemonkey
  * - what are the good names for it
  * - currenlty there is already stuff close to this script
- *   - pipjs/firefox extension/greasemonkey
+ *   - pipjs/firefox extension/greasemonkey 
  *   - do i make this completly distinct from livatar script or not ?
  *   - To bundle them would increase the value by providing more features per install
  *   - i dont know how to do those bundles and what to bundle
- *     - so impossible for now
-*/
-/**
- * \par TODO
- * - make it return the number of replaced images
+ *     - so impossible for now 
 */
 
+
+
+
 function post_jquery($){
+	/********************************************************************************/
+	/*		query_queue stuff						*/
+	/********************************************************************************/
+	var query_queue_arr	= [];
+	
+	var query_queue_add		= function(query_str, callback)
+	{
+		query_queue_arr.push({
+			query_str	: query_str,
+			callback	: callback
+		});
+	}
+	var query_queue_process	= function()
+	{
+		for(var i = 0; i < query_queue_arr.length; i++){
+			var query_str	= query_queue_arr[i]['query_str'];
+			var callback	= query_queue_arr[i]['callback'];
+			// build the query_url
+			var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
+			// fetch the iframe_url
+			$.get(query_url, {}, callback, "jsonp");
+		}
+	}
+	
+	/********************************************************************************/
+	/*										*/
+	/********************************************************************************/
 	var replace_by_iframe	= function(container, iframe_url, iframe_w, iframe_h){	
 		// build the iframe element
 		var iframeEl = document.createElement("iframe");
@@ -77,16 +103,17 @@ function post_jquery($){
 		var iframe_h	= $(imageEl).attr('height');
 		
 		// build livaterAPI call
-		query_str	= "twitter/username/"+username;
-		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
-		// fetch the iframe_url
-		$.get(query_url, {}, function(iframe_url){
-			if( iframe_url == "" )	return;
+		var query_str	= "twitter/username/"+username;
+		// queue this query
+		query_queue_add(query_str, function(iframe_url){
+			// debug code
+						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
-		}, "jsonp");		
+		});
 	}
-	var twitter_process_profile	= function(){		
-		var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
+	var twitter_process_profile	= function(){
+		// debug code
+				var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
 		var container	= imageEl.parents('a');		
 		// get the username
 		var href	= $(container).attr('href');
@@ -95,9 +122,10 @@ function post_jquery($){
 		return twitter_replace_username(container, imageEl, username);
 	}
 	var twitter_process_home	= function(){
-		// collect all the username
+		// debug code
+				// collect all the username
 		var usernames	= {};
-		$('ol#timeline li').each(function(){
+		$('ol#timeline li.hentry.status').each(function(){
 			var element	= this;
 			var matches	= $(element).attr('class').match(/u-([\w+]+)/);
 			var username	= matches[1];
@@ -118,7 +146,8 @@ function post_jquery($){
 		}
 	}
 	var twitter_process_followers	= function(){
-		// collect all the username
+		// debug code
+				// collect all the username
 		$('table.followers-table tr.vcard td.thumb a[rel=contact]').each(function(){
 			var container	= this;
 			var imageEl	= $(container).find('img');
@@ -134,8 +163,10 @@ function post_jquery($){
 		var pathname	= location.pathname;
 		if( pathname == '/' )
 			return twitter_process_home();
-		
+	
 		var tmp		= pathname.split('/');
+		if( tmp.length == 2 && tmp[0] == "" && tmp[1] == "followers" )		
+			return twitter_process_followers();
 		if( tmp.length == 2 && tmp[0] == "" && tmp[1] != "" )
 			return twitter_process_profile();
 		if( tmp.length == 3 && tmp[2] == "followers" )
@@ -147,23 +178,43 @@ function post_jquery($){
 	/********************************************************************************/
 	/*		Handle identi.ca						*/	
 	/********************************************************************************/
-	var identica_process	= function(){
-		var imageEl	= $("div.author img.photo.avatar");
-		var container	= imageEl.parents('dd');
-	
+	var identica_replace_username	= function(container, imageEl, username)
+	{
+		// get iframe_w/iframe_h
 		var iframe_w	= $(imageEl).attr('width');
 		var iframe_h	= $(imageEl).attr('height');
-	
-		var iframe_url	= "http://player.urfastr.net/live";
-	
-		replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
+		// build livaterAPI call
+		var query_str	= "identica/username/"+username;
+		// queue this query
+		query_queue_add(query_str, function(iframe_url){
+			// debug code
+						if( !iframe_url )	return;
+			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
+		});
+	}
+	var identica_process_profile	= function(){
+		// debug code
+				
+
+		var imageEl	= $("div.author img.photo.avatar");
+		var username	= imageEl.attr('alt');
+		var container	= imageEl.parents('dd');
+		return identica_replace_username(container, imageEl, username);
+	}
+	var identica_process	= function(){
+		var pathname	= location.pathname;
+
+		var tmp		= pathname.split('/');
+		if( tmp.length == 2 && tmp[0] == "" && tmp[1] != "" )
+			return identica_process_profile();
 	}
 
 	/********************************************************************************/
 	/*		Handle urfastr.net						*/	
 	/********************************************************************************/
 	var urfastr_process	= function(){
-		// just to notify urfastr_livatar userscript presence to the webpage
+		// debug code
+				// just to notify urfastr_livatar userscript presence to the webpage
 		if( window.urfastr_livatar_userscript_listener )
 			window.urfastr_livatar_userscript_listener("installed");
 	}
@@ -179,15 +230,17 @@ function post_jquery($){
 		var iframe_h	= $(imageEl).attr('height');
 
 		// build livaterAPI call
-		query_str	= "facebook/uid/"+uid;
-		query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&q="+escape(query_str);
-		// fetch the iframe_url
-		$.get(query_url, {}, function(iframe_url){
-			if( iframe_url == "" )	return;
+		var query_str	= "facebook/uid/"+uid;
+		// queue this query
+		query_queue_add(query_str, function(iframe_url){
+			// debug code
+						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
-		}, "jsonp");
+		});
 	}
 	var facebook_process_profile	= function(){
+		// debug code
+		
 		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
@@ -200,37 +253,55 @@ function post_jquery($){
 	var facebook_process	= function(){
 		var pathname	= location.pathname;
 
+// TODO: change to adapt to their new url scheme
+
+		// convert the location.hash into pathname (used by facebook for ajax+bookmark trick)
+		if( location.hash.substr(0, 2) == '#/' ){
+			pathname	= location.hash.substr(1);
+			qmark_indexof	= pathname.indexOf('?');
+			if( qmark_indexof != -1 )	pathname = pathname.substr(0, qmark_indexof);
+		}
+
 		// detect the profile page
 		if( pathname == '/profile.php' )	return facebook_process_profile();
-		
-		return null;
 	}
 
-	var container	= null;
-	// http://twitter.com/jerome_etienne
-	if( location.host == "twitter.com" )		return twitter_process();	
-	// http://identi.ca/jetienne
-	if( location.host == "identi.ca" )		return identica_process();
-	// http://urfastr.net
-	if( location.host == "urfastr.net" )		return urfastr_process();
-	// http://identi.ca/jetienne
-	if( location.host == "www.facebook.com" )	return facebook_process();
-	
-	return null;
+	/********************************************************************************/
+	/*		Main code							*/	
+	/********************************************************************************/
+	// do the processing according to location.host
+	if( location.host == "twitter.com" )		twitter_process();	
+	else if( location.host == "identi.ca" )		identica_process();
+	else if( location.host == "urfastr.net" )	urfastr_process();
+	else if( location.host == "www.facebook.com" )	facebook_process();
+	// process the just-built query_queue
+	query_queue_process();
 }
 
 (function(){
-	// TODO what is jquery is already loaded ?
-	// TODO make jquery loadable on google ?
-	// - http://code.google.com/apis/ajaxlibs/
+	// if jquery is already loaded
+	if(jQuery){
+		post_jquery(jQuery);
+				return;
+	}
+	
+	
+	// get jquery from google
+	// - see http://code.google.com/apis/ajaxlibs/
+	// - use directly the url as twitter does
 	var element = document.createElement("script");
-	element.setAttribute("src", "http://urfastr.net/js/jquery/jquery.js");
+	element.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js");
 	window.document.body.appendChild(element);
 	
-	var mytxt	= 'jQuery.noConflict(); post_jquery(jQuery);';
-	var textEl	= document.createTextNode(mytxt);
+	// build the js_str to run once it is loaded
+	var js_str	= 'jQuery.noConflict();'
+	js_str		+= 'post_jquery(jQuery);';
+	// debug code
+		
+	// append another <script> containing js_str 
+	var textEl	= document.createTextNode(js_str);
 	var element	= document.createElement("script");
 	element.appendChild(textEl);
 	window.document.body.appendChild(element);
 })();
-<?php echo "prout"; ?>
+

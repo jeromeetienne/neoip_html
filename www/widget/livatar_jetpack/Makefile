@@ -1,11 +1,11 @@
 # very raw Makefile to preprocess the php
 
-
-SRC_JS=urfastr_livatar_core-php.js
-DEV_JS=urfastr_livatar_core-dev.js
-REL_JS=urfastr_livatar_core-rel.js
-DEV_MIN_JS=urfastr_livatar_core-dev-min.js
-REL_MIN_JS=urfastr_livatar_core-rel-min.js
+PREFIX=urfastr_livatar_jetpack
+SRC_JS=$(PREFIX)-php.js
+DEV_JS=$(PREFIX)-dev.js
+REL_JS=$(PREFIX)-rel.js
+DEV_MIN_JS=$(PREFIX)-dev-min.js
+REL_MIN_JS=$(PREFIX)-rel-min.js
 
 JS_COMPRESSOR=yui-compressor
 
