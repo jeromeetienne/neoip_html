@@ -82,7 +82,7 @@ neoip.webpack_badge_t.prototype.destructor = function()
 */
 neoip.webpack_badge_t.prototype.build_element	= function(size_str, state)
 {
-	var url_img	= "http://www.web4web.tv/player/widget/webpack_badge/cache/neoip_webpack_badge_" + state + "_" + size_str + ".png";
+	var url_img	= "http://urfastr.net/static/player/widget/webpack_badge/cache/neoip_webpack_badge_" + state + "_" + size_str + ".png";
 	var url_link	= "http://urfastr.net/webpack/download";
 	if( state == "installed" )	url_link	= "http://urfastr.net/webpack";
 	// build the image inside

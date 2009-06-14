@@ -344,21 +344,34 @@ function post_jquery($){
 		var uid		= matches[1];
 		// replace the profile picture
 		facebook_replace_uid(container, imageEl, uid);
-	}	
+	}
+
 	var facebook_process	= function(){
-		var pathname	= location.pathname;
 
 // TODO: change to adapt to their new url scheme
+		// post 2009/06/13 a new url scheme is adopted to allow username
+		
 
+		var pathname_str	= location.pathname;
+		var search_str		= location.search;
 		// convert the location.hash into pathname (used by facebook for ajax+bookmark trick)
 		if( location.hash.substr(0, 2) == '#/' ){
 			pathname	= location.hash.substr(1);
-			qmark_indexof	= pathname.indexOf('?');
-			if( qmark_indexof != -1 )	pathname = pathname.substr(0, qmark_indexof);
+			qmark_indexof	= location.hash.indexOf('?');
+			if( qmark_indexof != -1 ){
+				pathname_str	= location.hash.substr(1, qmark_indexof-1);
+				search_str	= location.hash.substr(qmark_indexof);
+			}else{
+				pathname_str	= location.hash;
+				search_str	= '';				
+			}
 		}
 
-		// detect the profile page
-		if( pathname == '/profile.php' )	return facebook_process_profile();
+		// detect profile - post-username url
+		if( /ref=name/.test(search_str) )	return facebook_process_profile();
+
+		// detect the profile page - pre-username url
+		if( pathname_str == '/profile.php' )	return facebook_process_profile();
 	}
 
 	/********************************************************************************/
@@ -374,15 +387,17 @@ function post_jquery($){
 }
 
 (function(){
+console.info('enter');
 	// if jquery is already loaded
-	if(jQuery){
+	if(typeof jQuery != "undefined"){
+console.info('jquery already loaded');
 		post_jquery(jQuery);
 					undisplay_stats(jQuery);
 			display_stats(jQuery);
 				return;
 	}
 	
-	
+console.info('load jquery');
 	// get jquery from google
 	// - see http://code.google.com/apis/ajaxlibs/
 	// - use directly the url as twitter does
