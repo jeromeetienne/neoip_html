@@ -11,22 +11,19 @@ JS_COMPRESSOR=yui-compressor
 
 all: build_all
 
-$(DEV_JS): $(SRC_JS)
-	php -f $(SRC_JS) -- --dev > $(DEV_JS);
+# inference rules to build dev/rel/min version from php one
+%-dev.js : %-php.js
+	php -f $< -- --dev > $@;
 
-$(DEV_MIN_JS): $(DEV_JS)
-	$(JS_COMPRESSOR) $(REL_JS) > $(DEV_MIN_JS)
-
-$(REL_JS): $(SRC_JS)
-	php -f $(SRC_JS) -- --rel > $(REL_JS);
-
-$(REL_MIN_JS): $(REL_JS)
-	$(JS_COMPRESSOR) $(REL_JS) > $(REL_MIN_JS)
+%-rel.js : %-php.js
+	php -f $< -- --rel > $@;
+	
+%-min.js : %.js
+	$(JS_COMPRESSOR) $< > $@
 
 build_dev: $(DEV_JS)
 
 build_rel: $(REL_MIN_JS)
-
 
 build_all: build_dev build_rel
 
