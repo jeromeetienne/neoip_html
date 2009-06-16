@@ -1,0 +1,13 @@
+# set the order for mod_access
+Order Deny,Allow
+
+# deny to all by default
+Deny from all
+
+# allow everything if from localhost
+Allow from 127.0.0.1
+
+# allow all the public files here
+<FilesMatch "\.crx$">
+	Allow from all 	
+</FilesMatch>

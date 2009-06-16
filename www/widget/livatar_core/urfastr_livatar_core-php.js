@@ -153,6 +153,32 @@ function post_jquery($){
 	}
 	var query_queue_process	= function()
 	{
+		// if query_queue_arr is empty, return now
+		if( query_queue_arr.length == 0 )	return;
+		
+		// the 'all by one' version
+		<?php if(true): ?>
+		// build the query_arr
+		query_arr	= [];
+		for(var i = 0; i < query_queue_arr.length; i++){
+			query_arr.push(query_queue_arr[i]['query_str']);
+		}
+		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&qs="+escape(query_arr.join(','));
+		// fetch the iframe_url
+		$.get(query_url, {}, function(player_urls){
+			console.dir(player_urls);
+			// loop over player_urls responses
+			for(var i = 0; i < player_urls.length; i++){
+				var callback	= query_queue_arr[i]['callback'];
+				var player_url	= player_urls[i];
+				// call the callback with the response
+				callback(player_url);
+			}
+		}, "jsonp");
+		<?php endif;	?>
+		
+		// the 'one by one' version
+		<?php if(false): ?>
 		for(var i = 0; i < query_queue_arr.length; i++){
 			var query_str	= query_queue_arr[i]['query_str'];
 			var callback	= query_queue_arr[i]['callback'];
@@ -161,6 +187,10 @@ function post_jquery($){
 			// fetch the iframe_url
 			$.get(query_url, {}, callback, "jsonp");
 		}
+		<?php endif;	?>
+
+		// free the array
+		query_queue_arr	= [];
 	}
 	
 	/********************************************************************************/
