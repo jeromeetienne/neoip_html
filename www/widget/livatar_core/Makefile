@@ -16,7 +16,7 @@ all: build_all
 	php -f $< -- --dev > $@;
 
 %-rel.js : %-php.js
-	php -f $< -- --rel > $@;
+	php -f $< -- --rel | sed -e 's/console\..*(.*);//m' > $@;
 	
 %-min.js : %.js
 	$(JS_COMPRESSOR) $< > $@

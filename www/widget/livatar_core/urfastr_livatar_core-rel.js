@@ -149,7 +149,7 @@ function post_jquery($){
 			usernames[username]	= element;
 		});
 		// log to debug
-		console.dir(usernames);
+		
 		
 		// got thru each username		
 		for(username in usernames){
@@ -168,7 +168,7 @@ function post_jquery($){
 			var href	= $(container).attr('href');
 			var tmp		= href.split('/');
 			var username	= tmp[tmp.length-1];
-			//console.dir(container);
+			//
 			twitter_replace_username(container, imageEl, username);
 		});
 	}
@@ -266,7 +266,31 @@ function post_jquery($){
 	}
 	var facebook_process_home	= function(){
 		// debug code
-			}
+				// grab all the uid of the page
+		var uids	= {};
+		$('div.UIStream a.UIIntentionalStory_Pic img.UIRoundedImage_Image').each(function(){
+			var element	= this;
+			var matches	= $(element).attr('src').match(/\q([\w]+)_/);
+			var uid		= matches[1];
+			
+			// if uid already is in uids, return now
+			if( uids[uid] )	return;
+			// add this element in usernames
+			uids[uid]	= element;
+		});
+
+		// log to debug
+		
+		
+		// got thru each uid
+		for(uid in uids){
+			var element	= uids[uid];
+			var container	= $(element).parents("span.UIRoundedImage");
+			var imageEl	= $(element);
+			
+			facebook_replace_uid(container, imageEl, uid);
+		}
+	}
 
 	var facebook_process	= function(){
 
@@ -313,7 +337,7 @@ function post_jquery($){
 }
 
 (function(){
-console.info('enter');
+
 	// if jquery is already loaded
 	if(typeof jQuery != "undefined"){
 				

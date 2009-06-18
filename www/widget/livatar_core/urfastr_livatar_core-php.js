@@ -96,15 +96,18 @@ console.info('query_str='+query_str);
 		'class'	: 'urfastr_query_element'
 	});
 	
-	//$(container).css({
-	//	'position'		: 'relative',		
-	//})
-	//element.css({
-	//	'position'		: 'absolute',
-	//	'top'			: 0,
-	//	'left'			: 0,
-	//});
+	if( location.host == "www.facebook.com" ){
+		$(element).css({
+			'left'			: '0',
+			'top'			: '0',
+			'position'		: 'absolute',
+			'display'		: 'block',
+			'z-index'		: '99999'
+		});
+	}
 
+
+	// add the test itself
 	$('<span>')
 		.text('query: '+query_str)
 		.appendTo(element);
@@ -394,6 +397,30 @@ function post_jquery($){
 		<?php if($in_dev):	?>
 			page_name_collect($, "facebook home");
 		<?php endif;		?>
+		// grab all the uid of the page
+		var uids	= {};
+		$('div.UIStream a.UIIntentionalStory_Pic img.UIRoundedImage_Image').each(function(){
+			var element	= this;
+			var matches	= $(element).attr('src').match(/\q([\w]+)_/);
+			var uid		= matches[1];
+			console.info('uid='+uid);
+			// if uid already is in uids, return now
+			if( uids[uid] )	return;
+			// add this element in usernames
+			uids[uid]	= element;
+		});
+
+		// log to debug
+		console.dir(uids);
+		
+		// got thru each uid
+		for(uid in uids){
+			var element	= uids[uid];
+			var container	= $(element).parents("span.UIRoundedImage");
+			var imageEl	= $(element);
+			
+			facebook_replace_uid(container, imageEl, uid);
+		}
 	}
 
 	var facebook_process	= function(){
