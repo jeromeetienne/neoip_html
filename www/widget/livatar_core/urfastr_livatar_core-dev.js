@@ -49,6 +49,18 @@
 */
 
 
+/** \brief function to disable firebug calls - firebug_noop.js
+ */
+(function(){
+	// list of all the firebug calls
+	var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
+				"group", "groupEnd", "time", "timeEnd", "count", "trace",
+				"profile", "profileEnd"];
+	// put an empty function for all firebug calls
+	window.console = {};
+	for(var i = 0; i < names.length; ++i)	window.console[names[i]] = function() {}
+})();
+
 var urfastr_page_name	= "not parsed";
 var urfastr_queries	= [];
 
