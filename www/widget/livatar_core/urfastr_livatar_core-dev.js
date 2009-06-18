@@ -55,7 +55,7 @@ var urfastr_queries	= [];
 function page_name_collect($, page_name){
 	urfastr_page_name	= page_name
 }
-function page_name_display($, page_name){
+function page_name_display($, page_name, nb_query, nb_found){
 	// log to debug
 	console.info('page_name='+page_name);
 	// remove previous display if needed
@@ -70,7 +70,7 @@ function page_name_display($, page_name){
 		'background-color'	: 'red'
 	}).attr({
 		'id'	: htmlid
-	}).html('Livatar Page: <strong>'+page_name+'</strong>')
+	}).html('Livatar Page: <strong>'+page_name+'</strong> Found '+nb_found+" of "+nb_query+" queries")
 	.appendTo("body");
 }
 function page_name_undisplay($){
@@ -125,8 +125,16 @@ function queries_undisplay($)
 	$('.urfastr_query_element').remove();
 }
 
-function display_stats($){
-	page_name_display($, urfastr_page_name);
+function display_stats($, query_arr, player_urls){
+	var nb_query	= query_arr.length;
+	console.assert( query_arr.length == player_urls.length );
+	var nb_found	= 0;
+	for(var i = 0; i < player_urls.length; i++){
+		var player_url	= player_urls[i];
+		if( player_url )	nb_found++
+	}
+	
+	page_name_display($, urfastr_page_name, nb_query, nb_found);
 }
 function undisplay_stats($){
 	page_name_undisplay($);
@@ -152,8 +160,7 @@ function post_jquery($){
 		// if query_queue_arr is empty, return now
 		if( query_queue_arr.length == 0 )	return;
 		
-		// the 'all by one' version
-				// build the query_arr
+		// build the query_arr
 		query_arr	= [];
 		for(var i = 0; i < query_queue_arr.length; i++){
 			query_arr.push(query_queue_arr[i]['query_str']);
@@ -161,7 +168,6 @@ function post_jquery($){
 		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&qs="+escape(query_arr.join(','));
 		// fetch the iframe_url
 		$.get(query_url, {}, function(player_urls){
-			console.dir(player_urls);
 			// loop over player_urls responses
 			for(var i = 0; i < player_urls.length; i++){
 				var callback	= query_queue_arr[i]['callback'];
@@ -169,12 +175,10 @@ function post_jquery($){
 				// call the callback with the response
 				callback(player_url);
 			}
+			// display the statistic
+				display_stats($, query_arr, player_urls);				// free the array
+			query_queue_arr	= [];	
 		}, "jsonp");
-				
-		// the 'one by one' version
-		
-		// free the array
-		query_queue_arr	= [];
 	}
 	
 	/********************************************************************************/
@@ -363,6 +367,10 @@ function post_jquery($){
 		// replace the profile picture
 		facebook_replace_uid(container, imageEl, uid);
 	}
+	var facebook_process_home	= function(){
+		// debug code
+					page_name_collect($, "facebook home");
+			}
 
 	var facebook_process	= function(){
 
@@ -387,9 +395,13 @@ function post_jquery($){
 
 		// detect profile - post-username url
 		if( /ref=name/.test(search_str) )	return facebook_process_profile();
-
 		// detect the profile page - pre-username url
 		if( pathname_str == '/profile.php' )	return facebook_process_profile();
+
+		// detect profile - post-username url
+		if( /ref=home/.test(search_str) )	return facebook_process_home();
+		// detect the profile page - pre-username url
+		if( pathname_str == '/home.php' )	return facebook_process_home();
 	}
 
 	/********************************************************************************/
@@ -408,14 +420,11 @@ function post_jquery($){
 console.info('enter');
 	// if jquery is already loaded
 	if(typeof jQuery != "undefined"){
-console.info('jquery already loaded');
+			undisplay_stats(jQuery);			
 		post_jquery(jQuery);
-					undisplay_stats(jQuery);
-			display_stats(jQuery);
-				return;
+		return;
 	}
 	
-console.info('load jquery');
 	// get jquery from google
 	// - see http://code.google.com/apis/ajaxlibs/
 	// - use directly the url as twitter does
@@ -425,11 +434,8 @@ console.info('load jquery');
 	
 	// build the js_str to run once it is loaded
 	var js_str	= 'jQuery.noConflict();'
-	js_str		+= 'post_jquery(jQuery);';
-	// debug code
-			js_str 	+= 'undisplay_stats(jQuery);'
-		js_str	+= 'display_stats(jQuery);'
-		
+		js_str 	+= 'undisplay_stats(jQuery);';		js_str		+= 'post_jquery(jQuery);';
+	
 	// append another <script> containing js_str 
 	var textEl	= document.createTextNode(js_str);
 	var element	= document.createElement("script");

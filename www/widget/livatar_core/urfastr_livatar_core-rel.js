@@ -69,8 +69,7 @@ function post_jquery($){
 		// if query_queue_arr is empty, return now
 		if( query_queue_arr.length == 0 )	return;
 		
-		// the 'all by one' version
-				// build the query_arr
+		// build the query_arr
 		query_arr	= [];
 		for(var i = 0; i < query_queue_arr.length; i++){
 			query_arr.push(query_queue_arr[i]['query_str']);
@@ -78,7 +77,6 @@ function post_jquery($){
 		var query_url	= "http://api.urfastr.net/livatarAPI?format=jsonp&qs="+escape(query_arr.join(','));
 		// fetch the iframe_url
 		$.get(query_url, {}, function(player_urls){
-			console.dir(player_urls);
 			// loop over player_urls responses
 			for(var i = 0; i < player_urls.length; i++){
 				var callback	= query_queue_arr[i]['callback'];
@@ -86,12 +84,10 @@ function post_jquery($){
 				// call the callback with the response
 				callback(player_url);
 			}
+			// display the statistic
+						// free the array
+			query_queue_arr	= [];	
 		}, "jsonp");
-				
-		// the 'one by one' version
-		
-		// free the array
-		query_queue_arr	= [];
 	}
 	
 	/********************************************************************************/
@@ -268,6 +264,9 @@ function post_jquery($){
 		// replace the profile picture
 		facebook_replace_uid(container, imageEl, uid);
 	}
+	var facebook_process_home	= function(){
+		// debug code
+			}
 
 	var facebook_process	= function(){
 
@@ -292,9 +291,13 @@ function post_jquery($){
 
 		// detect profile - post-username url
 		if( /ref=name/.test(search_str) )	return facebook_process_profile();
-
 		// detect the profile page - pre-username url
 		if( pathname_str == '/profile.php' )	return facebook_process_profile();
+
+		// detect profile - post-username url
+		if( /ref=home/.test(search_str) )	return facebook_process_home();
+		// detect the profile page - pre-username url
+		if( pathname_str == '/home.php' )	return facebook_process_home();
 	}
 
 	/********************************************************************************/
@@ -313,12 +316,11 @@ function post_jquery($){
 console.info('enter');
 	// if jquery is already loaded
 	if(typeof jQuery != "undefined"){
-console.info('jquery already loaded');
+				
 		post_jquery(jQuery);
-				return;
+		return;
 	}
 	
-console.info('load jquery');
 	// get jquery from google
 	// - see http://code.google.com/apis/ajaxlibs/
 	// - use directly the url as twitter does
@@ -328,9 +330,8 @@ console.info('load jquery');
 	
 	// build the js_str to run once it is loaded
 	var js_str	= 'jQuery.noConflict();'
-	js_str		+= 'post_jquery(jQuery);';
-	// debug code
-		
+		js_str		+= 'post_jquery(jQuery);';
+	
 	// append another <script> containing js_str 
 	var textEl	= document.createTextNode(js_str);
 	var element	= document.createElement("script");
