@@ -2,6 +2,10 @@
 <?php $in_dev	= in_array("--dev", $argv);	?>
 
 jetpack.tabs.onReady(function(doc){
+	// define the urfastr_livatar_userscript_src
+	// TODO to enable - how to set a global variable in the doc
+	//doc.urfastr_livatar_userscript_src	= "chrome-1.0.0";
+	
 	// determine the list of allowed_hosts	
 	var allowed_hosts	= [
 		'twitter.com',

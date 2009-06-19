@@ -115,7 +115,6 @@ console.info('query_str='+query_str);
 		});
 	}
 
-
 	// add the test itself
 	$('<span>')
 		.text('query: '+query_str)
