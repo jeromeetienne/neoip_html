@@ -50,10 +50,10 @@
 
 
 
-var livatar_dbg	= null;
 
-function post_jquery($, livatar_dbg){
-	/********************************************************************************/
+function livatar_post_jquery($){
+			var livatar_dbg		= null;
+		/********************************************************************************/
 	/*		query_queue stuff						*/
 	/********************************************************************************/
 	var query_queue_arr	= [];
@@ -329,8 +329,7 @@ function post_jquery($, livatar_dbg){
 (function(){
 	// if jquery is already loaded, run directly post jquery
 	if(typeof jQuery != "undefined"){
-		var livatar_dbg	= new livatar_dbg_t(jQuery);
-		post_jquery(jQuery, livatar_dbg);
+		livatar_post_jquery(jQuery);
 		return;
 	}
 	
@@ -343,8 +342,7 @@ function post_jquery($, livatar_dbg){
 	
 	// build the js_str to run once it is loaded
 	var js_str	= 'jQuery.noConflict();'
-	js_str		+= 'livatar_dbg	= new livatar_dbg_t(jQuery);';
-	js_str		+= 'post_jquery(jQuery, livatar_dbg);';
+	js_str		+= 'livatar_post_jquery(jQuery);';
 	
 	// append another <script> containing js_str 
 	var textEl	= document.createTextNode(js_str);
