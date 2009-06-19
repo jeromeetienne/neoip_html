@@ -50,13 +50,13 @@
 
 
 
+var livatar_dbg	= null;
 
-function post_jquery($){
+function post_jquery($, livatar_dbg){
 	/********************************************************************************/
 	/*		query_queue stuff						*/
 	/********************************************************************************/
 	var query_queue_arr	= [];
-	
 	var query_queue_add		= function(query_str, callback)
 	{
 		query_queue_arr.push({
@@ -84,7 +84,6 @@ function post_jquery($){
 				// call the callback with the response
 				callback(player_url);
 			}
-			// display the statistic
 						// free the array
 			query_queue_arr	= [];	
 		}, "jsonp");
@@ -118,9 +117,9 @@ function post_jquery($){
 		
 		// build livaterAPI call
 		var query_str	= "twitter/username/"+username;
+
 		// queue this query
 		query_queue_add(query_str, function(iframe_url){
-			// debug code
 						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		});
@@ -135,6 +134,7 @@ function post_jquery($){
 		
 		return twitter_replace_username(container, imageEl, username);
 	}
+
 	var twitter_process_home	= function(){
 		// debug code
 				// collect all the username
@@ -160,7 +160,6 @@ function post_jquery($){
 		}
 	}
 	var twitter_process_followers	= function(){
-		// debug code
 				// collect all the username
 		$('table.followers-table tr.vcard td.thumb a[rel=contact]').each(function(){
 			var container	= this;
@@ -201,16 +200,12 @@ function post_jquery($){
 		var query_str	= "identica/username/"+username;
 		// queue this query
 		query_queue_add(query_str, function(iframe_url){
-			// debug code
 						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		});
 	}
 	var identica_process_profile	= function(){
-		// debug code
-				
-
-		var imageEl	= $("div.author img.photo.avatar");
+				var imageEl	= $("div.author img.photo.avatar");
 		var username	= imageEl.attr('alt');
 		var container	= imageEl.parents('dd');
 		return identica_replace_username(container, imageEl, username);
@@ -227,10 +222,9 @@ function post_jquery($){
 	/*		Handle urfastr.net						*/	
 	/********************************************************************************/
 	var urfastr_process	= function(){
-		// debug code
 				// just to notify urfastr_livatar userscript presence to the webpage
 		if( window.urfastr_livatar_userscript_listener )
-			window.urfastr_livatar_userscript_listener("installed");
+			window.urfastr_livatar_userscript_listener();
 	}
 
 
@@ -247,15 +241,12 @@ function post_jquery($){
 		var query_str	= "facebook/uid/"+uid;
 		// queue this query
 		query_queue_add(query_str, function(iframe_url){
-			// debug code
 						if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		});
 	}
 	var facebook_process_profile	= function(){
-		// debug code
-		
-		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
+				// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
 		// get facebook uid
@@ -265,7 +256,6 @@ function post_jquery($){
 		facebook_replace_uid(container, imageEl, uid);
 	}
 	var facebook_process_home	= function(){
-		// debug code
 				// grab all the uid of the page
 		var uids	= {};
 		$('div.UIStream a.UIIntentionalStory_Pic img.UIRoundedImage_Image').each(function(){
@@ -337,11 +327,10 @@ function post_jquery($){
 }
 
 (function(){
-
-	// if jquery is already loaded
+	// if jquery is already loaded, run directly post jquery
 	if(typeof jQuery != "undefined"){
-				
-		post_jquery(jQuery);
+		var livatar_dbg	= new livatar_dbg_t(jQuery);
+		post_jquery(jQuery, livatar_dbg);
 		return;
 	}
 	
@@ -354,7 +343,8 @@ function post_jquery($){
 	
 	// build the js_str to run once it is loaded
 	var js_str	= 'jQuery.noConflict();'
-		js_str		+= 'post_jquery(jQuery);';
+	js_str		+= 'livatar_dbg	= new livatar_dbg_t(jQuery);';
+	js_str		+= 'post_jquery(jQuery, livatar_dbg);';
 	
 	// append another <script> containing js_str 
 	var textEl	= document.createTextNode(js_str);

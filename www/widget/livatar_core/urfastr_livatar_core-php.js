@@ -55,6 +55,7 @@
 /** \brief function to disable firebug calls - firebug_noop.js
  */
 (function(){
+	if( window.console )	return;
 	// list of all the firebug calls
 	var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
 				"group", "groupEnd", "time", "timeEnd", "count", "trace",
@@ -64,108 +65,131 @@
 	for(var i = 0; i < names.length; ++i)	window.console[names[i]] = function() {}
 })();
 
-var urfastr_page_name	= "not parsed";
-var urfastr_queries	= [];
+var livatar_dbg_t	= function($){
+	// define the private variables
+	var page_name_val	= null;
+	var timestamp_beg	= new Date().getTime();
 
-function page_name_collect($, page_name){
-	urfastr_page_name	= page_name
-}
-function page_name_display($, page_name, nb_query, nb_found){
-	// log to debug
-	console.info('page_name='+page_name);
-	// remove previous display if needed
-	page_name_undisplay($);
-	// set the html id	
-	htmlid	= "htmlid_page_process";
-	// create the element
-	$('<div>').css({
-		'position'		: 'fixed',
-		'top'			: '0px',
-		'left'			: '0px',
-		'background-color'	: 'red'
-	}).attr({
-		'id'	: htmlid
-	}).html('Livatar Page: <strong>'+page_name+'</strong> Found '+nb_found+" of "+nb_query+" queries")
-	.appendTo("body");
-}
-function page_name_undisplay($){
-	// set the html id	
-	htmlid	= "htmlid_page_process";
-	// remove the element if it exists
-	$('#'+htmlid).remove();
-}
 
-function query_display($, container, imageEl, query_str, iframe_url)
-{
-console.info('query_str='+query_str);
-	// create the element
-	var element	= $('<div>').css({
-		'font-size'		: '9px',
-		'background-color'	: 'red',
-		'line-height'		: '10px',
-	})
-	.attr({
-		'class'	: 'urfastr_query_element'
-	});
-	
-	if( location.host == "www.facebook.com" ){
-		$(element).css({
-			'left'			: '0',
-			'top'			: '0',
-			'position'		: 'absolute',
-			'display'		: 'block',
-			'z-index'		: '99999'
-		});
+	/********************************************************************************/
+	/*		ctor/dtor							*/
+	/********************************************************************************/
+	var ctor	= function(){
+		page_clean();
 	}
-
-	// add the test itself
-	$('<span>')
-		.text('query: '+query_str)
-		.appendTo(element);
 	
-	if( iframe_url ){
-		element.css({
-			'background-color'	: 'green'
+	/**
+	 * Remove all elements inserted by livatar_dbg_t
+	*/
+	var page_clean		= function(){
+		$('.urfastr_query_element').remove();
+		$('#urfastr_livartar_page_name').remove();
+	}
+	/**
+	 * Set the page name
+	*/
+	var page_name_set	= function(value){
+		page_name_val	= value;
+	}
+	
+	/**
+	 * Hook called when a query got a reply
+	*/
+	var query_post_hook	= function(container, imageEl, query_str, iframe_url){
+		console.info('query_str='+query_str);
+		// create the element
+		var element	= $('<div>').css({
+			'font-size'		: '9px',
+			'background-color'	: 'red',
+			'line-height'		: '10px',
+		})
+		.attr({
+			'class'	: 'urfastr_query_element'
 		});
-		$('<a>').attr({
-				'href':	iframe_url
-			})
-			.text('Found!')
+		
+		if( location.host == "www.facebook.com" ){
+			$(element).css({
+				'left'			: '0',
+				'top'			: '0',
+				'position'		: 'absolute',
+				'display'		: 'block',
+				'z-index'		: '99999'
+			});
+		}
+	
+		// add the test itself
+		$('<span>')
+			.text('query: '+query_str)
 			.appendTo(element);
-	}
-
-	$(container).prepend(element);	
-}
-
-function queries_undisplay($)
-{
-	$('.urfastr_query_element').remove();
-}
-
-function display_stats($, query_arr, player_urls){
-	var nb_query	= query_arr.length;
-	console.assert( query_arr.length == player_urls.length );
-	var nb_found	= 0;
-	for(var i = 0; i < player_urls.length; i++){
-		var player_url	= player_urls[i];
-		if( player_url )	nb_found++
+		
+		if( iframe_url ){
+			element.css({
+				'background-color'	: 'green'
+			});
+			$('<a>').attr({
+					'href':	iframe_url
+				})
+				.text('Found!')
+				.appendTo(element);
+		}
+	
+		$(container).prepend(element);			
 	}
 	
-	page_name_display($, urfastr_page_name, nb_query, nb_found);
-}
-function undisplay_stats($){
-	page_name_undisplay($);
-	queries_undisplay($);
-}
-<?php endif;		?>
+	var queries_completed_hook	= function(query_arr, player_urls){
+		// get the 
+		var timestamp_end	= new Date().getTime();
+		var delay_str	= Math.floor((timestamp_end - timestamp_beg)/1000*100)/100;
 
+		var nb_query	= query_arr.length;
+		console.assert( query_arr.length == player_urls.length );
+		var nb_found	= 0;
+		for(var i = 0; i < player_urls.length; i++){
+			var player_url	= player_urls[i];
+			if( player_url )	nb_found++
+		}
+		
+		// log to debug
+		console.info('page_name='+page_name_val);
 
-function post_jquery($){
+		var html_str	= 'Livatar Page: <strong>'+page_name_val+'</strong>';
+		html_str	+= ' Found '+nb_found+' of '+nb_query+' queries';
+		html_str	+= ' in '+delay_str+'-sec';
+		// set the html id	
+		// create the element
+		$('<div>').css({
+			'position'		: 'fixed',
+			'top'			: '0px',
+			'left'			: '0px',
+			'background-color'	: 'red',
+			'z-index'		: '9999'
+		}).attr({
+			'id'			: 'urfastr_livartar_page_name'
+		}).html(html_str)
+		.appendTo("body");
+	}
+	
+
+	// call the constructor
+	ctor();
+	
+	// return the public method/variable
+	return {
+		page_clean:		page_clean,
+		page_name_set:		page_name_set,
+		query_post_hook:	query_post_hook,
+		queries_completed_hook:	queries_completed_hook
+	};
+}
+<?php endif;	?>
+
+var livatar_dbg	= null;
+
+function post_jquery($, livatar_dbg){
 	/********************************************************************************/
 	/*		query_queue stuff						*/
 	/********************************************************************************/
 	var query_queue_arr	= [];
-	
 	var query_queue_add		= function(query_str, callback)
 	{
 		query_queue_arr.push({
@@ -193,8 +217,7 @@ function post_jquery($){
 				// call the callback with the response
 				callback(player_url);
 			}
-			// display the statistic
-			<?php if($in_dev): ?>	display_stats($, query_arr, player_urls);	<?php endif;	?>
+			<?php if($in_dev): ?>	livatar_dbg.queries_completed_hook(query_arr, player_urls);	<?php endif;	?>
 			// free the array
 			query_queue_arr	= [];	
 		}, "jsonp");
@@ -228,22 +251,17 @@ function post_jquery($){
 		
 		// build livaterAPI call
 		var query_str	= "twitter/username/"+username;
+
 		// queue this query
 		query_queue_add(query_str, function(iframe_url){
-			// debug code
-			<?php if($in_dev):	?>
-				query_display($, container, imageEl, query_str, iframe_url);
-				return;
-			<?php endif;		?>
+			<?php if($in_dev): ?>	return livatar_dbg.query_post_hook(container, imageEl, query_str, iframe_url);	<?php endif;	?>
 			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		});
 	}
 	var twitter_process_profile	= function(){
 		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "twitter profile");
-		<?php endif;		?>
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("twitter profile");	<?php endif;		?>
 		var imageEl	= $("img#profile-image");	// http://twitter.com/jerome_etienne		
 		var container	= imageEl.parents('a');		
 		// get the username
@@ -252,11 +270,10 @@ function post_jquery($){
 		
 		return twitter_replace_username(container, imageEl, username);
 	}
+
 	var twitter_process_home	= function(){
 		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "twitter home");
-		<?php endif;		?>
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("twitter home");	<?php endif;		?>
 		// collect all the username
 		var usernames	= {};
 		$('ol#timeline li.hentry.status').each(function(){
@@ -280,10 +297,7 @@ function post_jquery($){
 		}
 	}
 	var twitter_process_followers	= function(){
-		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "twitter followers");
-		<?php endif;		?>
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("twitter followers");	<?php endif;		?>
 		// collect all the username
 		$('table.followers-table tr.vcard td.thumb a[rel=contact]').each(function(){
 			var container	= this;
@@ -324,21 +338,13 @@ function post_jquery($){
 		var query_str	= "identica/username/"+username;
 		// queue this query
 		query_queue_add(query_str, function(iframe_url){
-			// debug code
-			<?php if($in_dev):	?>
-				query_display($, container, imageEl, query_str, iframe_url);
-				return;
-			<?php endif;		?>
+			<?php if($in_dev): ?>	return livatar_dbg.query_post_hook(container, imageEl, query_str, iframe_url);	<?php endif;	?>
 			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		});
 	}
 	var identica_process_profile	= function(){
-		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "identica profile");
-		<?php endif;		?>		
-
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("identica profile");	<?php endif;		?>
 		var imageEl	= $("div.author img.photo.avatar");
 		var username	= imageEl.attr('alt');
 		var container	= imageEl.parents('dd');
@@ -356,13 +362,10 @@ function post_jquery($){
 	/*		Handle urfastr.net						*/	
 	/********************************************************************************/
 	var urfastr_process	= function(){
-		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "urfastr");
-		<?php endif;		?>
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("urfastr");	<?php endif;		?>
 		// just to notify urfastr_livatar userscript presence to the webpage
 		if( window.urfastr_livatar_userscript_listener )
-			window.urfastr_livatar_userscript_listener("installed");
+			window.urfastr_livatar_userscript_listener();
 	}
 
 
@@ -379,21 +382,13 @@ function post_jquery($){
 		var query_str	= "facebook/uid/"+uid;
 		// queue this query
 		query_queue_add(query_str, function(iframe_url){
-			// debug code
-			<?php if($in_dev):	?>
-				query_display($, container, imageEl, query_str, iframe_url);
-				return;
-			<?php endif;		?>
+			<?php if($in_dev): ?>	return livatar_dbg.query_post_hook(container, imageEl, query_str, iframe_url);	<?php endif;	?>
 			if( !iframe_url )	return;
 			replace_by_iframe(container, iframe_url, iframe_w, iframe_h);
 		});
 	}
 	var facebook_process_profile	= function(){
-		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "facebook profile");
-		<?php endif;		?>
-
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("facebook profile");	<?php endif;		?>
 		// http://www.facebook.com/home.php#/profile.php?id=1382401184&ref=name
 		var imageEl	= $("img#profile_pic");
 		container	= imageEl.parents('a');
@@ -404,10 +399,7 @@ function post_jquery($){
 		facebook_replace_uid(container, imageEl, uid);
 	}
 	var facebook_process_home	= function(){
-		// debug code
-		<?php if($in_dev):	?>
-			page_name_collect($, "facebook home");
-		<?php endif;		?>
+		<?php if($in_dev):?>	livatar_dbg.page_name_set("facebook home");	<?php endif;		?>
 		// grab all the uid of the page
 		var uids	= {};
 		$('div.UIStream a.UIIntentionalStory_Pic img.UIRoundedImage_Image').each(function(){
@@ -479,11 +471,10 @@ function post_jquery($){
 }
 
 (function(){
-console.info('enter');
-	// if jquery is already loaded
+	// if jquery is already loaded, run directly post jquery
 	if(typeof jQuery != "undefined"){
-		<?php if($in_dev):?>	undisplay_stats(jQuery);	<?php endif;	?>		
-		post_jquery(jQuery);
+		var livatar_dbg	= new livatar_dbg_t(jQuery);
+		post_jquery(jQuery, livatar_dbg);
 		return;
 	}
 	
@@ -496,8 +487,8 @@ console.info('enter');
 	
 	// build the js_str to run once it is loaded
 	var js_str	= 'jQuery.noConflict();'
-	<?php if($in_dev):?>	js_str 	+= 'undisplay_stats(jQuery);';	<?php endif;	?>
-	js_str		+= 'post_jquery(jQuery);';
+	js_str		+= 'livatar_dbg	= new livatar_dbg_t(jQuery);';
+	js_str		+= 'post_jquery(jQuery, livatar_dbg);';
 	
 	// append another <script> containing js_str 
 	var textEl	= document.createTextNode(js_str);
