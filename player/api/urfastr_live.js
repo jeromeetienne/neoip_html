@@ -1,5 +1,5 @@
 /**
- * this object is part of the javascript API for UrFastR Live
+ * this object is part of the javascript client API for UrFastR Live Widget
  * - opt.container: the html id of the container
  *
  * NOTE: it MUST not depends on other libraries
@@ -26,7 +26,7 @@ var urfastr_live = function(opt){
 			opt[key]	= opt_dfl[key];
 		}
 		// if crossframe library is not available, return now
-		if( typeof crossframe === "undefined" )	return;
+		if( typeof crossframe === "undefined" ) return;
 		// init the rpc_client
 		rpc_client	= new crossframe.rpc_client_t({
 			dest_addr: {
