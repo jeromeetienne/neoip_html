@@ -74,7 +74,9 @@ neoip.ezplayer_t	= function(p_cfgvar_arr)
 	//   firefox got a special cache for forward/backward which play funky with .js
 	// - as a consequence the initialization of ezplayer doesnt work
 	// - BUT if 'unload' event is listened on, it is not cached by the
-	//   'forward/backward' firefox cache 
+	//   'forward/backward' firefox cache
+	// - NOTE: doesnt seem to work anymore - tested on ff3.0 and ff3.5
+	//   - may be ff iframe issues
 	neoip.core.dom_event_listener(window,"unload", function(){});
 
 	// act on this.m_cfgvar_arr values
