@@ -30,10 +30,13 @@ var urfastr_live = function(opt){
 			resp_addr: {
 				//proxyUrl:	"http://player.urfastr.net/crossframe_proxy.html",
 				proxyUrl:	"http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
-				listener_obj:	"crossframe_msg_rpc_server_page2",
+				listener_obj:	"crossframe_msg_event_listener_page",	// <- TODO to change this make a global var in
+											// the player iframe, not acceptable
+											// change this
 				iframe_dst:	"frames['"+frame_id+"']"
 			}
 		};
+		
 	var ctor	= function(){
 		// in opt, set default if not explicitly set
 		for(key in opt_dfl){
@@ -68,7 +71,7 @@ var urfastr_live = function(opt){
 		// if it is already initialized, return now
 		if( rpc_server )	return;
 		// init the object itself
-		rpc_server	= crossframe.rpc_server_t({
+		rpc_server	= new crossframe.rpc_server_t({
 			listener_obj:	"crossframe_msg_rpc_server_"+frame_id
 		});
 		// register the callback
@@ -132,19 +135,7 @@ var urfastr_live = function(opt){
 		// initialize rpc_server if not yet done
 		_rpc_server_init()
 		// notify the iframe of the callback
-		rpc_client.call("addEventListener", {
-			dest_addr: {
-				proxyUrl:	opt.crossframe_proxyUrl,
-				listener_obj:	"crossframe_msg_rpc_server_"+frame_id,
-				iframe_dst:	"parent"
-			},
-			resp_addr: {
-				//proxyUrl:	"http://player.urfastr.net/crossframe_proxy.html",
-				proxyUrl:	"http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
-				listener_obj:	"crossframe_msg_rpc_server_page",
-				iframe_dst:	"frames['"+frame_id+"']"
-			}
-		});
+		rpc_client.call("addEventListener", addEventListener_args);
 	}
 	
 	// launch the constructor

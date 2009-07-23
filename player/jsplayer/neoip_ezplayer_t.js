@@ -447,8 +447,8 @@ neoip.ezplayer_t.prototype._neoip_plistarr_loader_cb = function(notified_obj, us
 	if( prev_playlist_uid && !this.m_plistarr.has_playlist_uid(prev_playlist_uid) )
 		prev_playlist_uid = null;
 	// TODO what if there is no item in this.m_plistarr... there is a bug ?
-	if( prev_playlist_uid )	ezplayer.change_playlist(prev_playlist_uid);
-	else			ezplayer.change_playlist(this.m_plistarr.item_arr()[0].playlist_uid());
+	if( prev_playlist_uid )	this.change_playlist(prev_playlist_uid);
+	else			this.change_playlist(this.m_plistarr.item_arr()[0].playlist_uid());
 	
 }
 
