@@ -28,9 +28,12 @@ neoip.objembed_initmon_t = function()
 	this.m_cur_delay	= 0.1*1000;
 	this.m_end_delay	= 5.0*1000;
 
-// TODO temporary while i fix the adobe_air2 loading delay	
-	this.m_cur_delay	= 3*1000;
-	this.m_end_delay	= 15.0*1000;
+// TODO temporary while i fix the adobe_air2 loading delay
+// - make it such as it is used only for air
+// - or fix air
+// - is it webkit ?
+	//this.m_cur_delay	= 3*1000;
+	//this.m_end_delay	= 15.0*1000;
 }
 
 /** \brief destructor of the object
