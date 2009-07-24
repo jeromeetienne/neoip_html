@@ -8,19 +8,20 @@
 var urfastr_live = function(opt){
 	// set the default options
 	var opt_dfl 	= {
-			'player_url'		: 'http://player.urfastr.net/live',
-			'width'			: "320",
-			'height'		: "240",
-			'event_listener_onboot'	: false,
-			'neoip_var_arr'		:{
-					'widget_src':		'api_js',
-					'onload_start_play':	'disabled'
+			player_url	: 'http://player.urfastr.net/live',
+			width		: "320",
+			height		: "240",
+			callback	: null,
+			neoip_var_arr	:{
+					widget_src:		'api_js',
+					onload_start_play:	'disabled'
 				}
 		};
 
 	var frame_id	= "urfastr_live_frame_" + Math.floor(Math.random()*100000);
 	var rpc_client	= null;
 	var rpc_server	= null;
+	var callback	= null;
 	var addEventListener_args	= {
 			dest_addr: {
 				proxyUrl:	opt.crossframe_proxyUrl,
@@ -43,6 +44,10 @@ var urfastr_live = function(opt){
 			if( opt[key] !== undefined )	continue;
 			opt[key]	= opt_dfl[key];
 		}
+		
+		// copy some options to local variables
+		if( opt.callback )	callback	= opt.callback;
+		
 		// if crossframe library is not available, return now
 		if( typeof crossframe === "undefined" )	return;
 		// init the rpc_client
@@ -61,7 +66,7 @@ var urfastr_live = function(opt){
 		});
 		
 		// initialize the addEventListener immediatly in the URL
-		if( opt.event_listener_onboot ){
+		if( callback ){
 			_rpc_server_init()
 			opt.neoip_var_arr['api_addEventListener']	= JSON.stringify(addEventListener_args);
 		}
@@ -76,11 +81,15 @@ var urfastr_live = function(opt){
 		});
 		// register the callback
 		rpc_server.register("event_notification", function(event_type, event_args){
-			console.info("event notified event_type="+event_type);
+			console.info("99999999999event notified event_type="+event_type);
 			console.dir(event_args);
+			// callback MUST be initialized
+			console.assert(callback);
+			// notify the callback
+			callback(event_type, event_args)
 		});
 	}
-	
+		
 	/**
 	 * Build the dom element for UrFastR Player inside opt.container_id
 	*/
@@ -131,11 +140,15 @@ var urfastr_live = function(opt){
 	/**
 	 * Add a event listener for iframe events
 	*/
-	var add_event_listener	= function(user_callback){
+	var add_event_listener	= function(p_callback){
+		// copy the parameter
+		opt.callback	= p_callback;
 		// initialize rpc_server if not yet done
-		_rpc_server_init()
-		// notify the iframe of the callback
-		rpc_client.call("addEventListener", addEventListener_args);
+		if( ! rpc_server ){
+			_rpc_server_init()
+			// notify the iframe of the callback
+			rpc_client.call("addEventListener", addEventListener_args);
+		}
 	}
 	
 	// launch the constructor

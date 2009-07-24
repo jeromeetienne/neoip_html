@@ -46,7 +46,18 @@ var opt		= {
 	crossframe_proxyUrl:	"http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
 //	crossframe_proxyUrl:	"http://urfastr.net/neoip_html/lib/crossframe/crossframe_proxy.html",
 	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html",
-	event_listener_onboot	: true
+	callback		: function(event_type, event_args){
+		console.info("******************************");
+		console.info("******************************");
+		console.info("event notified event_type="+event_type);
+		
+		console.dir(event_args);
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
+	}
 }
 var urfastr	= new urfastr_live(opt);
 $('.button_build').click(function(){
@@ -60,8 +71,18 @@ $('.button_playing_stop').click(function(){
 });
 $('.button_add_event_listener').click(function(){
 	urfastr.add_event_listener(function(event_type, event_args){
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
 		console.info("event notified event_type="+event_type);
+		
 		console.dir(event_args);
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
+		console.info("******************************");
 	});
 });
 </script>

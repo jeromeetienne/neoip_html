@@ -580,7 +580,7 @@ neoip.player_t.prototype.playing_stop = function()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/** \brief constructor for a player_ctrl_cb_t
+/** \brief constructor for a player_cb_t
  *
  * - see http://www.dustindiaz.com/javascript-curry/ for principle description 
  */

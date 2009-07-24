@@ -4,14 +4,6 @@
 \par Brief Description
 A bunch of function on top of neoip.player_t to really simplify the usage of it
 
-\par List of cfgvar_arr
-- onload_force_mute=boolean
-  - if true force mute when loaded, no matter what previously saved preferences
-  - if false, dont do anything
-  - typical usage: this avoid to get a loud webpage when being loaded.
-    - especially when the user doesnt explicitly asks for a player
-    - typically when the player is included in a larger page
-
 */
 
 // defined the namespace if not yet done
@@ -37,12 +29,13 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
  *     - default to 'maximized'
  *
  * @param p_cfgvar_arr	array of all the configuration variable for this ezplayer_t
+ * @param p_callback	callback to notify events from ezplayer_t objects
  */
-neoip.ezplayer_t	= function(p_cfgvar_arr)
+neoip.ezplayer_t	= function(p_cfgvar_arr, p_callback)
 {
 	// copy the parameters
 	this.m_cfgvar_arr		= p_cfgvar_arr;
-	
+	this.m_callback			= p_callback;
 	// determine the html_id where to put the subplayer
 	this.m_subplayer_html_id	= "subplayer_plugin_html_id";
 	// determine the type of subplayer to init. "vlc"|"asplayer" are the valid one
@@ -267,7 +260,6 @@ neoip.ezplayer_t.prototype._window_onload_cb	= function()
 					"track_get",
 					"track_count"
 				];
-		
 		this.m_subplayer	= new neoip.subplayer_asplayer_t(this.m_subplayer_html_id, this.m_clisrv_diffdate);
 	}else{	console.assert(false);	}
 
@@ -351,8 +343,12 @@ neoip.ezplayer_t.prototype._player_post_init	= function()
 	// if there is still a webpack_detect_t running, return now
 	if( this.webpack_detect_running() )	return;
 	
+	// notify the caller
+	if( this.m_callback )			this.m_callback("player_initialized");
+
 	// if there is no playlist, return now
 	if( this.m_player.playlist() == null )	return;
+	
 	// if this.m_play_post_playlist is disabled, return now
 	if( this.m_play_post_playlist == false)	return;
 	
@@ -418,7 +414,6 @@ neoip.ezplayer_t.prototype._plistarr_loader_running = function()
 neoip.ezplayer_t.prototype._neoip_plistarr_loader_cb = function(notified_obj, userptr
 							, event_type, arg)
 {
-
 	// TODO this is super unclear what to do
 	// - it should do the usual post plistarr stuff
 	// - and what do to if it changed
@@ -664,6 +659,8 @@ neoip.ezplayer_t.prototype.playing_start	= function()
 	if( !this._playlist_loader_running() )	this._playlist_loader_ctor();
 	// notify the embedui if supported
 	if( this.m_embedui )			this.m_embedui.playing_start();
+	// notify the caller
+	if( this.m_callback )			this.m_callback("play_starting", { playlist_uid: this.m_playlist_uid });
 }
 
 /** \brief To stop playing
@@ -677,5 +674,25 @@ neoip.ezplayer_t.prototype.playing_stop	= function()
 		this._playlist_loader_dtor();
 	// notify the embedui if supported
 	if( this.m_embedui )	this.m_embedui.playing_stop();
+	// notify the caller
+	if( this.m_callback )	this.m_callback("play_stopping", { playlist_uid: this.m_playlist_uid });
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//			ezplayer_cb_t
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+/** \brief constructor for a ezplayer_cb_t
+ *
+ * - see http://www.dustindiaz.com/javascript-curry/ for principle description 
+ */
+neoip.ezplayer_cb_t	= function(fct, p_scope, userptr) 
+{
+	var	scope	= p_scope || window;
+	return	function(event_type, arg) {
+			fct.call(scope, this, userptr, event_type, arg);
+		};
 }
 
