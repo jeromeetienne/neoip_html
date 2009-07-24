@@ -46,11 +46,12 @@ var opt		= {
 	crossframe_proxyUrl:	"http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
 //	crossframe_proxyUrl:	"http://urfastr.net/neoip_html/lib/crossframe/crossframe_proxy.html",
 	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html",
+
+// apparently giving a callback here produce a bug which remove the UI for channel selector... no clue why
 	callback		: function(event_type, event_args){
 		console.info("******************************");
 		console.info("******************************");
 		console.info("event notified event_type="+event_type);
-		
 		console.dir(event_args);
 		console.info("******************************");
 		console.info("******************************");
