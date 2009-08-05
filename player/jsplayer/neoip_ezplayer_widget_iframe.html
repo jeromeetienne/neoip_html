@@ -18,6 +18,7 @@ this is just to debug the case of player live in iframe
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
+
 <h1>UrFastR Live API demo</h1>
 This is a very early demonstration of UrFastR Live API. 
 <table width="100%"><tr valign="top">
@@ -38,17 +39,27 @@ This is a very early demonstration of UrFastR Live API.
 		<div id="container_urfastr"></div>
 	</td>
 </tr></table>
+<div id="container_recved_event">
+	List of received events
+	<ul></ul>
+</div>
+
 
 <script>
 var opt		= {
 	container_id		: "container_urfastr",
-//	crossframe_proxyUrl:	"<?= url_for("testxdomiframe/proxy") ?>",
-	crossframe_proxyUrl:	"http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
-//	crossframe_proxyUrl:	"http://urfastr.net/neoip_html/lib/crossframe/crossframe_proxy.html",
+//	crossframe_proxyUrl	: "<?= url_for("testxdomiframe/proxy") ?>",
+	crossframe_proxyUrl	: "http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
+//	crossframe_proxyUrl	: "http://urfastr.net/neoip_html/lib/crossframe/crossframe_proxy.html",
 	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html",
 
 // apparently giving a callback here produce a bug which remove the UI for channel selector... no clue why
 	callback		: function(event_type, event_args){
+		$('<li>')
+			.append('<strong>'+event_type+'<strong>')
+			.append(': '+JSON.stringify(event_args))
+			.appendTo('#container_recved_event ul');
+
 		console.info("******************************");
 		console.info("******************************");
 		console.info("event notified event_type="+event_type);
