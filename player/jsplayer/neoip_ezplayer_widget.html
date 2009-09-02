@@ -144,3 +144,39 @@ neoip.geoLocalize(function(clientLocation){
 
 </body>
 </html>
+<!--
+- not a generic algorithm, just one adapted for my own html files
+- read the html file
+- collect all the js
+  - all the <script> tag
+  - if there is a src= on the same line as <script, this is a file inclusion
+    - read the file and append it to all the js
+    - remove this line
+  - if there is no src=, this is a direct inclusion
+    - read until the </script>
+    - appends all you got in between to the js
+- just before the </body>, add the collected js
+  - how ? put it in a file and put a script src ?
+  - put it directly in the html file ? NO
+**************************************
+- what to do with css ?
+- what to do with the js to compress it
+  - remove the firebug
+  - compress with yui compressor
+- redo jspackmin in python
+  - use the one made for air
+- the purpose is to have a single version for all
+  - currently there are many without need
+- version are differented by a configuration file in js
+  - how to handle this ? during the compression processing
+  - using the preprocessor ? look at your blog
+- how many other version you got ?
+  - the pure casti one
+  - the pure casto
+  - which one should be removed ?
+**************************************
+- what to do with the API
+  - put a the minimal in there, aka notification of play_starting, play_stopping
+  - update the unit test to see if the api is working properly
+  - update the web page to display the notified event
+-->
