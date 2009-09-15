@@ -1,11 +1,11 @@
 {
   "name": "UrFastR Extension",
   "version": "0.1",
-  "description": "Extension for UrFastR Live",
+  "description": "UrFastR Live toolbar for Chrome",
   "toolstrips": [
     "my_toolstrip.html"
   ],
   "permissions": [
-    //"http://api.flickr.com/"
+    "http://api.flickr.com/"
   ]
 }
