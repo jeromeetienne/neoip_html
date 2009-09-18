@@ -1,8 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<title>UrFastR Live (beta)</title>
-	<meta name="description" content="UrFastR video player for live and prerecorded video">
-	<meta name="keywords" content="video, web2.0, p2p, stream, live, player">
+<title>UrFastR Live (beta)</title>
+<meta name="description" content="UrFastR video player for live and prerecorded video">
+<meta name="keywords" content="video, web2.0, p2p, stream, live, player">
+<style type="text/css">	
+	/* body style for the video fullpage mode - hardcoded for now */
+	html, body {
+		height	: 100%;
+		width	: 100%;
+		margin	: 0px;
+		overflow: hidden;
+		background-color: transparent;
+	}
+</style>
+
 <script src="../../base/firebug/firebug.js"></script> 
 <script src="../../base/javascript/json2.js"></script> 
 <script src="../../base/javascript/neoip_core.js"></script>
@@ -32,19 +43,8 @@
 <script src="../../player/jsplayer/neoip_prefetcher_t.js"></script>
 <script src="../../player/jsplayer/neoip_ezplayer_t.js"></script>
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
-<style type="text/css">	
-	/* body style for the video fullpage mode - hardcoded for now */
-	html, body {
-		height	: 100%;
-		width	: 100%;
-		margin	: 0px;
-		overflow: hidden;
-		background-color: transparent;
-	}
-</style>
 
 <body>
-
 <div id="neoip_player_container_id">Place to put player container</div>
 
 
@@ -61,9 +61,6 @@
 <div id="debug_info_container_id"></div>
 -->
 
-
-
-</script>
 <script>
 neoip.globalCfg	= {}
 /**
