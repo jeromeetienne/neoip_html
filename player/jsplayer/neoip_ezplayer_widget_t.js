@@ -103,8 +103,8 @@ neoip.ezplayer_widget_t.prototype._parse_cfgvar_arr	= function()
 {
 	var urivar_arr	= neoip.core.doc_urivar_arr();
 	var cfgvar_arr	= {
-		//'onload_start_play'	: "enabled",
-		fullpage_state	: 'maximized'
+		//onload_start_play	: "enabled",
+		fullpage_state		: 'maximized'
 	};
 	for(var key in urivar_arr){
 		// goto the next if not prefixed by "neoip_var_"

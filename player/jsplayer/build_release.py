@@ -48,15 +48,27 @@ def extract_javascript_from_html(html_data):
 
 def append_javascript_on_bottom_page(html_data, js_data):
     """append the js just before the end of the html body"""
-    print "blbl11"
-    #html_data   = re.compile(r'</body>').sub(tmp, html_data)
     tmp         = re.split("</body>", html_data)
-    print "tmp=%s" % tmp
     html_data   = tmp[0] + "<script>" + js_data + "</script></body>" + tmp[1]
-    print "blbl22"
     return html_data
 
-def process_html_file(src_fname, dst_fname):
+def remove_firebug_calls(js_data):
+    """remove all firebug calls from js_data"""
+    js_data = re.compile('console\.[^(]*?\([^()]*?\);').sub("", js_data)
+    return js_data
+
+def preprocess_javascript(js_data, args):
+    # build the cmdline
+    cmdline_arr = ["php", "--"]
+    for arg in args:
+        cmdline_arr.append("--%s" % arg)
+    # preprocess the javascript with php
+    js_data     = subprocess.Popen(cmdline_arr, stdin=subprocess.PIPE, stdout=subprocess.PIPE).communicate(js_data)[0]
+    # return the result
+    return js_data
+    
+
+def process_html_file(src_fname, dst_fname, preprocess_args):
     """process the html file"""
     html_path   = src_fname
     # read the html file
@@ -65,10 +77,16 @@ def process_html_file(src_fname, dst_fname):
     html_data   = remove_html_comment(html_data)
     # extract all the js data
     js_data     = extract_javascript_from_html(html_data)
+    # remove firebug calls
+    js_data     = remove_firebug_calls(js_data)
+    # preprocess the javascript
+    js_data     = preprocess_javascript(js_data, preprocess_args)
+
     # remove all the js
     html_data   = remove_javascript_tags(html_data)
-    
     print("lenght uncompressed=%d" % len(js_data))
+    # somehow wrapping the whole js into a anonymous function make the result a LOT worst
+    # - ANYHOW i use globals in the page (globalcfg) so it is not ok to get anonymous function
     #js_data = wrap_javascript_in_anonfct(js_data)
     js_data = compress_javascript_data(js_data)
     print("lenght compressed=%d" % len(js_data))
@@ -81,4 +99,5 @@ def process_html_file(src_fname, dst_fname):
     # write the result in the dst_file
     open(dst_fname, "w").write(html_data)
 
-process_html_file("neoip_ezplayer_widget.html", "slota.html")
+process_html_file("neoip_ezplayer_widget.html", "slota.html", ["rel", "playlist_live"])
+

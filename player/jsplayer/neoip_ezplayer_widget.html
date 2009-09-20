@@ -10,7 +10,8 @@
 		width	: 100%;
 		margin	: 0px;
 		overflow: hidden;
-		background-color: transparent;
+		/*background-color: transparent;*/
+		background-color: black;
 	}
 </style>
 
@@ -51,80 +52,15 @@
 <script src="../../player/jsplayer/neoip_prefetcher_t.js"></script>
 <script src="../../player/jsplayer/neoip_ezplayer_t.js"></script>
 <script src="../../player/jsplayer/neoip_ezplayer_embedui_t.js"></script>
-<script>
-neoip.globalCfg	= {}
-/**
- * neoip.globalCfg.dfl_plistarr_uid is the default plistarr_uid used when nothing is specified
-*/
-//neoip.globalCfg.dfl_plistarr_uid	= "plistarr_play";
-neoip.globalCfg.dfl_plistarr_uid	= "plistarr_live";
 
-/**
- * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.plistarr_loader_t
-*/
-neoip.globalCfg.plistarr_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
-neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
-neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
-//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/XDOMRPC";
-neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
 
-/**
- * neoip.globalCfg.playlist_loader_xdomrpc_url is the xdomrpc_t url used by neoip.playlist_loader_t
-*/
-neoip.globalCfg.playlist_loader_xdomrpc_url	= "../../cgi-bin/xdomrpc_dispatcher.php";
-//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/xdomrpc_dispatcher.php";
-neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
-//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/XDOMRPC";
-neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
 
-/**
- * neoip.globalCfg.recorder_mdata_srv_uri is the url used by neoip.recorder_t for cast_mdata_srv
-*/
-//neoip.globalCfg.recorder_mdata_srv_uri	= "http://dedixl.jetienne.com/~jerome/neoip_html/cgi-bin/cast_mdata_echo_server.fcgi";
-neoip.globalCfg.recorder_mdata_srv_uri		= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/RPC2";
-//neoip.globalCfg.recorder_mdata_srv_uri	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/RPC2";
-neoip.globalCfg.recorder_mdata_srv_uri	= "http://api.urfastr.net/CastMdataSrv2/RPC2";
+<script src="../../player/jsplayer/neoip_ezplayer_globalcfg.js"></script>
 
-/**
- * neoip.globalCfg.subplayer_asplayer_swf_url is the url used 
-*/
-neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer.swf";
-
-/**
- * neoip.globalCfg.webpack_detect_apps_params determines where/what neoip.webpack_detect_t will look for/in webpack
-*/
-neoip.globalCfg.webpack_detect_apps_params	= {
-					"oload"	: {	"first_port"	: 4550,
-							"last_port"	: 4553,
-							"min_version"	: "0.0.1",
-							"options"	: null
-						},
-					"casto"	: {	"first_port"	: 4560,
-							"last_port"	: 4563,
-							"min_version"	: "0.0.1",
-							"options"	: null
-						},
-					"casti"	: {	"first_port"	: 4570,
-							"last_port"	: 4573,
-							"min_version"	: "0.0.1",
-							// NOTE: trick to get casti on dedixl.jetienne.com and not in localhost
-							// - thus this is always available even if webpack installed version is no good
-							//   or if not installed at all
-							//"options"	: {'hostname': 'dedixl.jetienne.com'}
-							"options"	: {'hostname': 'jmehost2.local'}
-						}
-				};
-				
-/**
- * neoip.globalCfgWebpack.clientLocation stores the player location (in a google format)
-*/
-neoip.globalCfg.playerLocation	= null;
-neoip.geoLocalize(function(clientLocation){
-	neoip.globalCfg.playerLocation	= clientLocation;
-});
-</script>
-<script src="../../lib/crossframe/crossframe_rpc_server.standalone-min.js"></script>
-<script src="../../lib/crossframe/crossframe_rpc_client.standalone-min.js"></script>
+<!-- TODO im sure there are redundancy in those, fix that -->
+<script src="../../lib/crossframe/crossframe.js"></script>
+<script src="../../lib/crossframe/crossframe_rpc_client.js"></script>
+<script src="../../lib/crossframe/crossframe_rpc_server.js"></script>
 <script src="neoip_ezplayer_widget_t.js"></script>
 <script>new neoip.ezplayer_widget_t();</script>
 
