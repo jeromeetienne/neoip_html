@@ -26,7 +26,9 @@ This is a very early demonstration of UrFastR Live API.
 		<input type="button" class="button_build"		value="build()"			/>
 		To build the player widget in the container
 		<br>
-		<input type="button" class="button_playing_start"	value="playing_start()" 	/>
+		<input type="button" class="button_destroy"		value="destroy()"		/>
+		To destroy the player widget in the container
+		<br>		<input type="button" class="button_playing_start"	value="playing_start()" 	/>
 		To start playing
 		<br>
 		<input type="button" class="button_playing_stop"	value="playing_stop()"		/>	
@@ -74,6 +76,9 @@ var opt		= {
 var urfastr	= new urfastr_live(opt);
 $('.button_build').click(function(){
 	urfastr.build();
+});
+$('.button_destroy').click(function(){
+	urfastr.destroy();
 });
 $('.button_playing_start').click(function(){
 	urfastr.playing_start();

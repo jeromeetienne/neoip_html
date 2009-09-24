@@ -29,6 +29,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
+	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 // <?php endif;		?> 	//
 
 /**
@@ -42,6 +43,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
+	neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 // <?php endif;		?> 	//
 
 /**
@@ -54,6 +56,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.recorder_mdata_srv_uri		= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/RPC2";
 	//neoip.globalCfg.recorder_mdata_srv_uri	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/RPC2";
 	neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.urfastr.net/CastMdataSrv2/RPC2";
+	neoip.globalCfg.recorder_mdata_srv_uri		= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/RPC2";
 // <?php endif;		?> 	//
 
 /**
@@ -108,7 +111,8 @@ neoip.globalCfg	= {}
 							// - thus this is always available even if webpack installed version is no good
 							//   or if not installed at all
 							//"options"	: {'hostname': 'dedixl.jetienne.com'}
-							"options"	: {'hostname': 'jmehost2.local'}
+							//"options"	: {'hostname': 'jmehost2.local'}
+							"options"	: {}
 						}
 				};
 // <?php endif;		?> 	//
@@ -120,3 +124,5 @@ neoip.globalCfg.playerLocation	= null;
 neoip.geoLocalize(function(clientLocation){
 	neoip.globalCfg.playerLocation	= clientLocation;
 });
+
+console.dir(neoip.globalCfg);
