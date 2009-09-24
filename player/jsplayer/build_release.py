@@ -73,7 +73,7 @@ def process_html_file(src_fname, dst_fname, preprocess_args):
     html_path   = src_fname
     # read the html file
     html_data   = open(html_path).read()    
-    # remove all the comments
+    # remove all html comments
     html_data   = remove_html_comment(html_data)
     # extract all the js data
     js_data     = extract_javascript_from_html(html_data)
@@ -99,5 +99,6 @@ def process_html_file(src_fname, dst_fname, preprocess_args):
     # write the result in the dst_file
     open(dst_fname, "w").write(html_data)
 
-process_html_file("neoip_ezplayer_widget.html", "slota.html", ["rel", "playlist_live"])
+process_html_file("neoip_ezplayer_widget.html", "slota_rel_live.html", ["rel", "playlist_live"])
+process_html_file("neoip_ezplayer_widget.html", "slota_rel_play.html", ["rel", "playlist_play"])
 

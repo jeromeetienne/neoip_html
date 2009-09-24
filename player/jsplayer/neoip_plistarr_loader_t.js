@@ -90,9 +90,7 @@ neoip.plistarr_loader_t.prototype._xdomrpc_cb = function(notifier_obj, userptr, 
 {
 	// log to debug
 	console.info("enter fault=" + fault + " returned_val=" + returned_val);
-	console.info("slotaa");
-	console.dir(JSON.parse(returned_val));
-	console.info("slotaaOO");
+	console.info("slotaa");	console.dir(JSON.parse(returned_val));	console.info("slotaaOO");
 	// destructor for the m_probe_xdomrpc
 	this.m_xdomrpc.destructor();
 	this.m_xdomrpc	= null;
