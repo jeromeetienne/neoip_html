@@ -120,10 +120,8 @@ neoip.ezplayer_embedui_t	= function(p_ezplayer)
 					"timeout_delay"	: 999*1000				
 					}
 				};
-	// create the embedui_id_playlist_toggle IIF there is this.m_ezplayer.m_plistarr 
-	if( this.m_ezplayer.m_plistarr ){
-		plugin.embedui_create(embedui_opt);
-	}
+	// create the embedui_id_playlist_toggle
+	plugin.embedui_create(embedui_opt);
 
 
 	// build the "embedui_id_record_toggle"
@@ -455,7 +453,10 @@ neoip.ezplayer_embedui_t.prototype._embedui_playlist_toggle_cb	= function(event_
 	//console.info("enter");
 
 	// if the event_type is not "click", do nothing
-	if( event_type != "click" )	return;
+	if( event_type != "click" )		return;
+
+	// if there is no this.m_ezplayer.m_plistarr return now 
+	if( !this.m_ezplayer.m_plistarr )	return;
 
 	// toggle the playlist_select element
 	if( !plugin.embedui_exist(embedui_id) )	this._embedui_create_playlist_select();
