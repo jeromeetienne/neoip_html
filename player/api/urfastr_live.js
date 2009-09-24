@@ -94,6 +94,9 @@ var urfastr_live = function(opt){
 	 * Build the dom element for UrFastR Player inside opt.container_id
 	*/
 	var build	= function(){
+		// destroy all opt.container_id children
+		destroy();
+
 		// convert opt.neoip_var_arr into a list of url variable
 		var var_str	= ""
 		for(key in opt.neoip_var_arr){
@@ -120,6 +123,16 @@ var urfastr_live = function(opt){
 		// append the iframe to the body
 		var containerEl	= document.getElementById(opt.container_id);
 		containerEl.appendChild(iframeEl);
+	}
+	
+	/**
+	 * destroy all children elements inside opt.container_id
+	*/
+	var destroy		= function(){
+		var containerEl	= document.getElementById(opt.container_id);
+		while( containerEl.hasChildNodes() ){
+			containerEl.removeChild( containerEl.lastChild );
+		}		
 	}
 
 	/**
@@ -156,6 +169,7 @@ var urfastr_live = function(opt){
 	// return public functions and variables
 	return {
 		build			: build,
+		destroy			: destroy,
 		playing_start		: playing_start,
 		playing_stop		: playing_stop,
 		add_event_listener	: add_event_listener
