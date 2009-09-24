@@ -32,6 +32,7 @@ neoip.objembed_initmon_t = function()
 // - make it such as it is used only for air
 // - or fix air
 // - is it webkit ?
+// - MORE RECENT: failed to make it fails again. so i removed it (hope flash player has been fixed)
 	//this.m_cur_delay	= 3*1000;
 	//this.m_end_delay	= 15.0*1000;
 }

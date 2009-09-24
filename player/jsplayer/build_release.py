@@ -67,7 +67,6 @@ def preprocess_javascript(js_data, args):
     # return the result
     return js_data
     
-
 def process_html_file(src_fname, dst_fname, preprocess_args):
     """process the html file"""
     html_path   = src_fname
