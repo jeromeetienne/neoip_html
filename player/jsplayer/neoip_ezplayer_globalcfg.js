@@ -124,5 +124,3 @@ neoip.globalCfg.playerLocation	= null;
 neoip.geoLocalize(function(clientLocation){
 	neoip.globalCfg.playerLocation	= clientLocation;
 });
-
-console.dir(neoip.globalCfg);
