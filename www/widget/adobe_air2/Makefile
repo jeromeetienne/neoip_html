@@ -5,8 +5,7 @@
 APPS_FNAME=urfastr-player.air
 APPS_ID=com.urfastr.player
 
-# TODO put adt in a more regular path
-AIR_SDK=~/opt/air_1.5_sdk
+# put adt/adl in the shell path (e.g. ~/bin)
 ADL=adl
 ADT=adt
 

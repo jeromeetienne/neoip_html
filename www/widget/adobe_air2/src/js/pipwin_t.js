@@ -625,6 +625,7 @@ var pipwin_t = function (){
 	*/
 	var playerCtor	= function(container){
 		var src_url	= 'http://player.urfastr.net/live?neoip_var_widget_src=adobe_air_pbeta';
+		//var src_url	= 'http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html?neoip_var_widget_src=adobe_air_pbeta';
 		// TODO to remove, only to debug a flash init issue
 		// - make the mac on casti flv dev, and a webpack on jmehost2
 		// - all local easier to debug
