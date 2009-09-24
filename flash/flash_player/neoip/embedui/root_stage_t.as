@@ -294,9 +294,20 @@ private function move_detect_stop()	:void
 	m_stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove	, false);
 }
 
-/** \brief handle the MouseEvent.MOUSE_MOVE
- */
-private function onMouseMove(mouse_event	:MouseEvent)	:void
+/** \brief return true if move_detect is running, false otherwise  
+*/
+private function move_detect_running()	:Boolean
+{
+	// if m_stage listen to MOUSE_MOVE, then move_detect is running
+	if( m_stage.hasEventListener(MouseEvent.MOUSE_MOVE) )
+		return true;
+	// in all other cases, return false
+	return false;
+}
+
+/** \brief trigger the move during a move_detect periode 
+*/
+private function move_detect_trigger()	:void
 {
 	// log to debug
 	console.debug("enter MOUSE MOVING");
@@ -305,7 +316,15 @@ private function onMouseMove(mouse_event	:MouseEvent)	:void
 	// start the idle_detect
 	idle_detect_start();
 	// notify the caller
-	notify_callback("changed_state", { "new_state": "idle_detect"	} );
+	notify_callback("changed_state", { "new_state": "idle_detect"	} );	
+}
+
+/** \brief handle the MouseEvent.MOUSE_MOVE
+ */
+private function onMouseMove(mouse_event	:MouseEvent)	:void
+{
+	// a mouse move will trigger a move_detect
+	move_detect_trigger();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -326,6 +345,9 @@ private function onMouseWheel(mouse_event	:MouseEvent)	:void
 private function onMouseClick(mouse_event	:MouseEvent)	:void
 {
 	notify_mouse_event(mouse_event);
+	// if we are in a move_detect period, consider this click as a move_detect
+	// - TODO to test. i cant now as i dont have the compiler installed
+	//if( move_detect_running() )	move_detect_trigger();
 }
 
 /** \brief handle the MouseEvent.DOUBLE_CLICK
