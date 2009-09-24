@@ -345,9 +345,6 @@ private function onMouseWheel(mouse_event	:MouseEvent)	:void
 private function onMouseClick(mouse_event	:MouseEvent)	:void
 {
 	notify_mouse_event(mouse_event);
-	// if we are in a move_detect period, consider this click as a move_detect
-	// - TODO to test. i cant now as i dont have the compiler installed
-	//if( move_detect_running() )	move_detect_trigger();
 }
 
 /** \brief handle the MouseEvent.DOUBLE_CLICK
