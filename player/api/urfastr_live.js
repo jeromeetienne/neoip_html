@@ -129,10 +129,12 @@ var urfastr_live = function(opt){
 	 * destroy all children elements inside opt.container_id
 	*/
 	var destroy		= function(){
+		// get the container element
 		var containerEl	= document.getElementById(opt.container_id);
+		// iterate until there is no more child
 		while( containerEl.hasChildNodes() ){
 			containerEl.removeChild( containerEl.lastChild );
-		}		
+		}	
 	}
 
 	/**
