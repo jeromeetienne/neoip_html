@@ -172,7 +172,7 @@ neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uid)
 	// log to debug
 	console.info("enter uri=" + plistarr_uid);
 
-	// delete previous this.m_plistarr_loader if needed
+	// delete previous _loader if needed
 	this._plistarr_loader_dtor();
 	// start the new one
 	this._plistarr_loader_ctor(plistarr_uid);
@@ -369,6 +369,9 @@ neoip.ezplayer_t.prototype._player_post_init	= function()
 //			neoip.plistarr_loader_t callback
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+// query function
+neoip.ezplayer_t.prototype.plistarr_get	= function()	{ return this.m_plistarr;	}
 
 /** \brief Construct neoip.plistarr_loader_t
  */
@@ -681,6 +684,15 @@ neoip.ezplayer_t.prototype.playing_stop	= function()
 	// notify the caller
 	if( this.m_callback )	this.m_callback("play_stopping", { playlist_uid: this.m_playlist_uid });
 }
+
+/** \brief Return true if the player is currently playing, false otherwise
+ */
+neoip.ezplayer_t.prototype.is_playing	= function()
+{
+	// ask the player_t
+	return this.m_player.is_playing();
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

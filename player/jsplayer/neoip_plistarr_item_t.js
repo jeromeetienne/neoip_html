@@ -55,7 +55,8 @@ neoip.plistarr_t.prototype.item_t.prototype.playlist_uid	= function()
 				{ return this.m_json_data['playlist_uid'];	}
 neoip.plistarr_t.prototype.item_t.prototype.external_dep	= function()
 				{ return this.m_json_data['external_dep'];	}
-
+neoip.plistarr_t.prototype.item_t.prototype.raw_data		= function()
+				{ return this.m_json_data;			}
 
 /** \brief Return true if this item_t is playable, false otherwise
  *

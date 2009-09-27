@@ -171,6 +171,11 @@ neoip.ezplayer_widget_t.prototype._rpc_server_ctor	= function(){
 		listener_obj:	"crossframe_msg_rpc_server_page"
 	});
 var ezplayer= this.m_ezplayer;
+	this.m_rpc_server.register("addEventListener", function(rpc_client_args){
+		console.info("rpc_server addEventListener");
+		// build the rpc_client
+		this._rpc_client_ctor(rpc_client_args)
+	});
 	this.m_rpc_server.register("playing_start", function(){
 		console.info("rpc_server playing start");
 		ezplayer.playing_start();
@@ -183,10 +188,17 @@ var ezplayer= this.m_ezplayer;
 		console.info("rpc_server playing stop");
 		ezplayer.playing_stop();
 	});
-	
-	this.m_rpc_server.register("addEventListener", function(rpc_client_args){
-		console.info("rpc_server addEventListener");
-		// build the rpc_client
-		this._rpc_client_ctor(rpc_client_args)
+	this.m_rpc_server.register("is_playing", function(){
+		console.info("rpc_server is_playing");
+		return ezplayer.is_playing();
+	});
+	this.m_rpc_server.register("plistarr_get", function(){
+		console.info("rpc_server plistarr_get");
+		var plistarr	= ezplayer.plistarr_get();
+		return plistarr.raw_data();
+	});
+	this.m_rpc_server.register("webpack_status", function(){
+		console.info("rpc_server webpack_status");
+		return ezplayer.webpack_detect_result();
 	});
 }

@@ -138,6 +138,20 @@ var urfastr_live = function(opt){
 	}
 
 	/**
+	 * Add a event listener for iframe events
+	*/
+	var add_event_listener	= function(p_callback){
+		// copy the parameter
+		opt.callback	= p_callback;
+		// initialize rpc_server if not yet done
+		if( ! rpc_server ){
+			_rpc_server_init()
+			// notify the iframe of the callback
+			rpc_client.call("addEventListener", addEventListener_args);
+		}
+	}
+	
+	/**
 	 * Start playing 
 	*/
 	var playing_start	= function(){
@@ -152,18 +166,35 @@ var urfastr_live = function(opt){
 		console.assert(rpc_client);
 		rpc_client.call("playing_stop");
 	}
+	
 	/**
-	 * Add a event listener for iframe events
+	 * is playing 
 	*/
-	var add_event_listener	= function(p_callback){
-		// copy the parameter
-		opt.callback	= p_callback;
-		// initialize rpc_server if not yet done
-		if( ! rpc_server ){
-			_rpc_server_init()
-			// notify the iframe of the callback
-			rpc_client.call("addEventListener", addEventListener_args);
-		}
+	var is_playing	= function(callback){
+		console.assert(rpc_client);
+		rpc_client.call("is_playing", function(resp_ctx){
+			callback(resp_ctx);
+		});
+	}
+
+	/**
+	 * return the plistarr
+	*/
+	var plistarr_get	= function(callback){
+		console.assert(rpc_client);
+		rpc_client.call("plistarr_get", function(resp_ctx){
+			callback(resp_ctx);
+		});
+	}
+
+	/**
+	 * return the webpack's status
+	*/
+	var webpack_status	= function(callback){
+		console.assert(rpc_client);
+		rpc_client.call("webpack_status", function(resp_ctx){
+			callback(resp_ctx);
+		});
 	}
 	
 	// launch the constructor
@@ -172,8 +203,11 @@ var urfastr_live = function(opt){
 	return {
 		build			: build,
 		destroy			: destroy,
+		add_event_listener	: add_event_listener,
 		playing_start		: playing_start,
 		playing_stop		: playing_stop,
-		add_event_listener	: add_event_listener
+		is_playing		: is_playing,
+		plistarr_get		: plistarr_get,
+		webpack_status		: webpack_status
 	};
 };

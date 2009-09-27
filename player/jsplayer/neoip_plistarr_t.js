@@ -56,6 +56,17 @@ neoip.plistarr_t.prototype._from_json = function(json_str)
 neoip.plistarr_t.prototype.item_arr	= function()	{ return this.m_item_arr;	}
 neoip.plistarr_t.prototype.reload_delay	= function()	{ return 20*1000;		}
 
+/**
+ * Return the plistarr_t as raw data
+*/
+neoip.plistarr_t.prototype.raw_data	= function(){
+	var data	= []
+	for(var i = 0; i < this.m_item_arr.length; i++ ){
+		var plistarr_item	= this.m_item_arr[i]
+		data.push( plistarr_item.raw_data() )
+	}
+	return data;
+}
 
 /**
  * Return true if this playlist_uid is in contained, false otherwise

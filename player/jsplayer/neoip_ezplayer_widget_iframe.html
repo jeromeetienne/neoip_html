@@ -7,10 +7,7 @@
 
 this is just to debug the case of player live in iframe
 <p>
-<!--<iframe src="http://jmehost2.local/~jerome/neoip_htdml/bt_cast/casto/neoip_casto_dev.html"  width="320" height="240">-->
-<!--	bla-->
-<!--</iframe>-->
-<!---->
+
 <!-- include js for UrFastR Live API 	-->
 <script src="../../lib/crossframe/crossframe_rpc_client.standalone-min.js" type="text/javascript"></script>
 <script src="../../lib/crossframe/crossframe_rpc_server.standalone-min.js"></script>
@@ -31,14 +28,24 @@ This is a very early demonstration of UrFastR Live API.
 		<br>
 		<input type="button" class="button_destroy"		value="destroy()"		/>
 		To destroy the player widget in the container
-		<br>		<input type="button" class="button_playing_start"	value="playing_start()" 	/>
+		<br>
+		<input type="button" class="button_add_event_listener"	value="add_event_listener()"	/>	
+		To add event listenser
+		<br>
+		<input type="button" class="button_playing_start"	value="playing_start()" 	/>
 		To start playing
 		<br>
 		<input type="button" class="button_playing_stop"	value="playing_stop()"		/>	
 		To stop playing
 		<br>
-		<input type="button" class="button_add_event_listener"	value="add_event_listener()"	/>	
-		To add event listenser
+		<input type="button" class="button_is_playing"		value="is_playing()"		/>	
+		is_playing
+		<br>
+		<input type="button" class="button_plistarr_get"	value="plistarr_get()" 		/>
+		To get plistarr
+		<br>
+		<input type="button" class="button_webpack_status"	value="webpack_status()"	/>
+		To get webpack status
 	</td>
 	<td width="50%">
 		<div id="container_urfastr"></div>
@@ -56,7 +63,7 @@ var opt		= {
 	crossframe_proxyUrl	: "http://localhost/~jerome/neoip_html/lib/crossframe/crossframe_proxy.html",
 //	crossframe_proxyUrl	: "http://urfastr.net/neoip_html/lib/crossframe/crossframe_proxy.html",
 	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html",
-//	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/slota.html",
+//	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/slota_rel_live.html",
 
 // apparently giving a callback here produce a bug which remove the UI for channel selector... no clue why
 	callback		: function(event_type, event_args){
@@ -83,12 +90,6 @@ $('.button_build').click(function(){
 $('.button_destroy').click(function(){
 	urfastr.destroy();
 });
-$('.button_playing_start').click(function(){
-	urfastr.playing_start();
-});
-$('.button_playing_stop').click(function(){
-	urfastr.playing_stop();
-});
 $('.button_add_event_listener').click(function(){
 	urfastr.add_event_listener(function(event_type, event_args){
 		console.info("******************************");
@@ -103,6 +104,34 @@ $('.button_add_event_listener').click(function(){
 		console.info("******************************");
 		console.info("******************************");
 		console.info("******************************");
+	});
+});
+$('.button_playing_start').click(function(){
+	urfastr.playing_start();
+});
+$('.button_playing_stop').click(function(){
+	urfastr.playing_stop();
+});
+$('.button_is_playing').click(function(){
+	urfastr.is_playing(function(resp_ctx){
+		if( resp_ctx.result == true ){
+			alert('ok this is playing')
+		}else{
+			alert('not playing')
+		}
+	});
+});
+$('.button_plistarr_get').click(function(){
+	urfastr.plistarr_get(function(resp_ctx){
+		console.info("plistarr is ");
+		console.dir(resp_ctx.result);
+	});
+});
+$('.button_webpack_status').click(function(){
+	urfastr.webpack_status(function(resp_ctx){
+		console.info("webpack status is ");
+		console.dir(resp_ctx.result);
+		window.alert("webpack status is " + resp_ctx.result);
 	});
 });
 </script>

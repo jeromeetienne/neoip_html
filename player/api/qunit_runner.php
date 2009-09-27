@@ -13,6 +13,7 @@
 <body>
 
 <script src="../../lib/crossframe/crossframe_rpc_client.standalone-min.js" type="text/javascript"></script>
+<script src="../../lib/crossframe/crossframe_rpc_server.standalone-min.js"></script>
 <script src="urfastr_live.js" type="text/javascript"></script>
 <script>
 $(function(){
@@ -22,15 +23,29 @@ $(function(){
 	// init the global object first
 	var dirname	= location.href.replace(/[^/]*$/, '');
 	var opt		= {
-		container_id:		"container_urfastr",
-		crossframe_proxyUrl:	dirname + "../../lib/crossframe/crossframe_proxy.html",
+		container_id		: "container_urfastr",
+		crossframe_proxyUrl	: dirname + "../../lib/crossframe/crossframe_proxy.html",
+		player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/slota_rel_live.html",		
+		callback		: function(event_type, event_args){
+			console.info("******************************");
+			console.info("******************************");
+			console.info("event notified event_type="+event_type);
+			console.dir(event_args);
+			console.info("******************************");
+			console.info("******************************");
+			console.info("******************************");
+			console.info("******************************");
+			console.info("******************************");
+		}
 	}
+	console.dir(opt);
 	var urfastr	= new urfastr_live(opt);
 
 	// call the build() function
 	test("build()", function(){
 		// do the call
 		urfastr.build();
+// wait until player_initialized is received or 5sec
 		
 		// delay qunit until result is known
 		QUnit.delayed_result();
@@ -45,6 +60,7 @@ $(function(){
 	test("playing_start()", function(){
 		// do the call
 		urfastr.playing_start();
+// wait 10sec or playing_start
 		
 		// delay qunit until result is known
 		QUnit.delayed_result();
@@ -59,6 +75,7 @@ $(function(){
 	test("playing_stop()", function(){
 		// do the call
 		urfastr.playing_stop();
+// wait 10sec or playing_stop
 		
 		// delay qunit until result is known
 		QUnit.delayed_result();
