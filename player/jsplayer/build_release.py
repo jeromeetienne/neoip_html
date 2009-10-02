@@ -77,7 +77,8 @@ def process_html_file(src_fname, dst_fname, preprocess_args):
     # extract all the js data
     js_data     = extract_javascript_from_html(html_data)
     # remove firebug calls
-    js_data     = remove_firebug_calls(js_data)
+    # TODO this one create trouble sometime
+    #js_data     = remove_firebug_calls(js_data)
     # preprocess the javascript
     js_data     = preprocess_javascript(js_data, preprocess_args)
 
@@ -99,5 +100,5 @@ def process_html_file(src_fname, dst_fname, preprocess_args):
     open(dst_fname, "w").write(html_data)
 
 process_html_file("neoip_ezplayer_widget.html", "slota_rel_live.html", ["rel", "playlist_live"])
-process_html_file("neoip_ezplayer_widget.html", "slota_rel_play.html", ["rel", "playlist_play"])
+#process_html_file("neoip_ezplayer_widget.html", "slota_rel_play.html", ["rel", "playlist_play"])
 

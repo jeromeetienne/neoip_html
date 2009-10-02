@@ -29,7 +29,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
-	neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
+	//neoip.globalCfg.plistarr_loader_xdomrpc_url	= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 // <?php endif;		?> 	//
 
 /**
@@ -43,7 +43,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 	neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://api.urfastr.net/CastMdataSrv2/XDOMRPC";
-	neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
+	//neoip.globalCfg.playlist_loader_xdomrpc_url	= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/XDOMRPC";
 // <?php endif;		?> 	//
 
 /**
@@ -56,7 +56,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.recorder_mdata_srv_uri		= "http://jmehost2.local/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/RPC2";
 	//neoip.globalCfg.recorder_mdata_srv_uri	= "http://api.urfastr.net/frontend_dev.php/CastMdataSrv2/RPC2";
 	neoip.globalCfg.recorder_mdata_srv_uri		= "http://api.urfastr.net/CastMdataSrv2/RPC2";
-	neoip.globalCfg.recorder_mdata_srv_uri		= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/RPC2";
+	//neoip.globalCfg.recorder_mdata_srv_uri		= "http://127.0.0.1/~jerome/webwork/api.urfastr.net/web/frontend_dev.php/CastMdataSrv2/RPC2";
 // <?php endif;		?> 	//
 
 /**

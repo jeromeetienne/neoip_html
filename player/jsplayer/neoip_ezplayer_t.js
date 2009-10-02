@@ -172,7 +172,7 @@ neoip.ezplayer_t.prototype.load_plistarr = function(plistarr_uid)
 	// log to debug
 	console.info("enter uri=" + plistarr_uid);
 
-	// delete previous this.m_plistarr_loader if needed
+	// delete previous _loader if needed
 	this._plistarr_loader_dtor();
 	// start the new one
 	this._plistarr_loader_ctor(plistarr_uid);
@@ -338,7 +338,7 @@ neoip.ezplayer_t.prototype._player_post_init	= function()
 
 	// if this.m_autobuffer is enabled, notify this.m_player
 	// - TODO neoip.player_t._prefetch_initial is a VERY bad name for it. change it	
-	if( this.m_autobuffer )		this.m_player._prefetch_initial();
+	if( this.m_autobuffer )			this.m_player._prefetch_initial();
 	
 	// if there is still a webpack_detect_t running, return now
 	if( this.webpack_detect_running() )	return;
@@ -369,6 +369,9 @@ neoip.ezplayer_t.prototype._player_post_init	= function()
 //			neoip.plistarr_loader_t callback
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+// query function
+neoip.ezplayer_t.prototype.plistarr_get	= function()	{ return this.m_plistarr;	}
 
 /** \brief Construct neoip.plistarr_loader_t
  */
@@ -510,7 +513,11 @@ neoip.ezplayer_t.prototype._neoip_playlist_loader_cb = function(notified_obj, us
 	this.m_player.playlist( arg['playlist'] );
 	
 	// if this.m_play_post_playlist is enable, see if it is possible to run it now
-	if( this.m_play_post_playlist )	this._player_post_init();
+	// - NOTE: calling _player_post_init() seems strange here. and was causing trouble
+	//   with the 
+	//if( this.m_play_post_playlist )	this._player_post_init();
+	if( this.m_play_post_playlist )	this.playing_start();
+	
 	// if _embedui_supported, fwd neoip.playlist_loader_t event, update embedui accordingly
 	if( this.m_embedui )		this.m_embedui.playlist_loader_cb(event_type, arg);
 	
@@ -677,6 +684,15 @@ neoip.ezplayer_t.prototype.playing_stop	= function()
 	// notify the caller
 	if( this.m_callback )	this.m_callback("play_stopping", { playlist_uid: this.m_playlist_uid });
 }
+
+/** \brief Return true if the player is currently playing, false otherwise
+ */
+neoip.ezplayer_t.prototype.is_playing	= function()
+{
+	// ask the player_t
+	return this.m_player.is_playing();
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
