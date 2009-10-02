@@ -92,7 +92,6 @@ neoip.playlist_loader_t.prototype._xdomrpc_cb = function(notifier_obj, userptr, 
 {
 	// log to debug
 	console.info("enter fault=" + fault + " returned_val=" + returned_val);
-	console.dir(fault);
 
 	// destructor for the m_probe_xdomrpc
 	this.m_xdomrpc.destructor();
