@@ -14,7 +14,7 @@ var urfastr_live = function(opt){
 			callback	: null,
 			neoip_var_arr	:{
 					widget_src:		'api_js',
-					onload_start_play:	'disabled'
+					onload_start_play:	'enabled'
 				}
 		};
 
