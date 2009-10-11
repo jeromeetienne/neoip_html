@@ -11,7 +11,7 @@ var urfastr_live = function(opt){
 			player_url	: 'http://player.urfastr.net/live',
 			width		: "320",
 			height		: "240",
-			callback	: null,
+			event_cb	: null,
 			neoip_var_arr	:{
 					widget_src:		'api_js',
 					onload_start_play:	'enabled'
@@ -21,7 +21,6 @@ var urfastr_live = function(opt){
 	var frame_id	= "urfastr_live_frame_" + Math.floor(Math.random()*100000);
 	var rpc_client	= null;
 	var rpc_server	= null;
-	var callback	= null;
 	var addEventListener_args	= {
 			dest_addr: {
 				proxyUrl:	opt.crossframe_proxyUrl,
@@ -45,9 +44,6 @@ var urfastr_live = function(opt){
 			opt[key]	= opt_dfl[key];
 		}
 		
-		// copy some options to local variables
-		if( opt.callback )	callback	= opt.callback;
-		
 		// if crossframe library is not available, return now
 		if( typeof crossframe === "undefined" )	return;
 		// init the rpc_client
@@ -66,10 +62,18 @@ var urfastr_live = function(opt){
 		});
 		
 		// initialize the addEventListener immediatly in the URL
-		if( callback ){
+		if( opt.event_cb ){
 			_rpc_server_init()
 			opt.neoip_var_arr['api_addEventListener']	= JSON.stringify(addEventListener_args);
 		}
+	}
+	
+	var _rpc_server_callback= function(event_type, event_args){
+		// log to debug
+		console.info("99999999999event notified event_type="+event_type);
+		console.dir(event_args);
+		// notify the event_cb if present
+		if( opt.event_cb )	opt.event_cb(event_type, event_args)
 	}
 	
 	var _rpc_server_init	= function(){
@@ -80,14 +84,7 @@ var urfastr_live = function(opt){
 			listener_obj:	"crossframe_msg_rpc_server_"+frame_id
 		});
 		// register the callback
-		rpc_server.register("event_notification", function(event_type, event_args){
-			console.info("99999999999event notified event_type="+event_type);
-			console.dir(event_args);
-			// callback MUST be initialized
-			console.assert(callback);
-			// notify the callback
-			callback(event_type, event_args)
-		});
+		rpc_server.register("event_notification", _rpc_server_callback);
 	}
 		
 	/**
@@ -139,10 +136,11 @@ var urfastr_live = function(opt){
 
 	/**
 	 * Add a event listener for iframe events
+	 * - TODO change this to set_callback? S
 	*/
-	var add_event_listener	= function(p_callback){
+	var event_cb_set	= function(p_callback){
 		// copy the parameter
-		opt.callback	= p_callback;
+		opt.event_cb	= p_callback;
 		// initialize rpc_server if not yet done
 		if( ! rpc_server ){
 			_rpc_server_init()
@@ -201,13 +199,13 @@ var urfastr_live = function(opt){
 	ctor();
 	// return public functions and variables
 	return {
-		build			: build,
-		destroy			: destroy,
-		add_event_listener	: add_event_listener,
-		playing_start		: playing_start,
-		playing_stop		: playing_stop,
-		is_playing		: is_playing,
-		plistarr_get		: plistarr_get,
-		webpack_status		: webpack_status
+		build		: build,
+		destroy		: destroy,
+		event_cb_set	: event_cb_set,
+		playing_start	: playing_start,
+		playing_stop	: playing_stop,
+		is_playing	: is_playing,
+		plistarr_get	: plistarr_get,
+		webpack_status	: webpack_status
 	};
 };

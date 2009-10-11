@@ -29,8 +29,8 @@ This is a very early demonstration of UrFastR Live API.
 		<input type="button" class="button_destroy"		value="destroy()"		/>
 		To destroy the player widget in the container
 		<br>
-		<input type="button" class="button_add_event_listener"	value="add_event_listener()"	/>	
-		To add event listenser
+		<input type="button" class="button_event_cb_set"	value="event_cb_set()"		/>	
+		To set callback
 		<br>
 		<input type="button" class="button_playing_start"	value="playing_start()" 	/>
 		To start playing
@@ -64,9 +64,11 @@ var opt		= {
 //	crossframe_proxyUrl	: "http://urfastr.net/neoip_html/lib/crossframe/crossframe_proxy.html",
 	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html",
 //	player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/slota_rel_live.html",
-
+	neoip_var_arr		:{
+					onload_start_play:	'disabled'
+			},
 // apparently giving a callback here produce a bug which remove the UI for channel selector... no clue why
-	callback		: function(event_type, event_args){
+	event_cb	: function(event_type, event_args){
 		$('<li>')
 			.append('<strong>'+event_type+'<strong>')
 			.append(': '+JSON.stringify(event_args))
@@ -90,8 +92,8 @@ $('.button_build').click(function(){
 $('.button_destroy').click(function(){
 	urfastr.destroy();
 });
-$('.button_add_event_listener').click(function(){
-	urfastr.add_event_listener(function(event_type, event_args){
+$('.button_event_cb_set').click(function(){
+	urfastr.event_cb_set(function(event_type, event_args){
 		console.info("******************************");
 		console.info("******************************");
 		console.info("******************************");
@@ -99,7 +101,7 @@ $('.button_add_event_listener').click(function(){
 		console.info("event notified event_type="+event_type);
 		
 		console.dir(event_args);
-		console.info("******************************");
+		console.info("))))))))))))))))))))))))))");
 		console.info("******************************");
 		console.info("******************************");
 		console.info("******************************");
