@@ -62,11 +62,7 @@ $(function(){
 	});
 	
 	// call the playing_start() function
-	test("play_starting event after .playing_start()", 1, function(){
-		// urfastr playing start
-		urfastr.playing_start();
-		// delay qunit until result is known - timeout 10sec
-		QUnit.delayed_result(10*1000);
+	test("play_starting event after .playing_start()", 2, function(){
 		// set the proper event
 		var expected_event	= "play_starting";	
 		// set the event_cb
@@ -77,16 +73,36 @@ $(function(){
 			QUnit.ok(true, "event "+expected_event+" notified as expected");
 			QUnit.result_given();	
 		});
-		
 
+		// urfastr playing start
+		urfastr.playing_start();
+		// delay qunit until result is known - timeout 10sec
+		QUnit.delayed_result(10*1000);
 	});
 
-	// call the playing_stop() function
-	test("play_stopping event after calling .playing_stop()", 1, function(){
-		// urfastr playing start
-		urfastr.playing_stop();
-		// delay qunit until result is known - timeout 5sec
+	// call the playing_start() function
+	test(".is_playing() after .playing_start()", 1, function(){
+		// delay qunit until result is known - timeout 10sec
 		QUnit.delayed_result(10*1000);
+		// check .is_playing() API result
+		urfastr.is_playing(function(resp_ctx){
+			QUnit.ok(resp_ctx.result == true, "api .is_playing() is true as expected");
+			QUnit.result_given();	
+		});
+	});
+	
+	// call the playing_start() function
+	test("Wait 5-sec to show video stream after .playing_start() call", 1, function(){
+		// delay qunit until result is known 
+		QUnit.delayed_result();
+		setTimeout(function(){
+			QUnit.ok(true, "delay expired as expected");
+			QUnit.result_given();			
+		}, 5*1000);
+	});
+	
+	// call the playing_stop() function
+	test("play_stopping event after calling .playing_stop()", 2, function(){
 		// set the proper event
 		var expected_event	= "play_stopping";
 		// set the event_cb
@@ -96,6 +112,21 @@ $(function(){
 			// mark this test as succeeded
 			QUnit.ok(true, "event "+expected_event+" notified as expected");
 			QUnit.result_given();
+		});
+		// urfastr playing start
+		urfastr.playing_stop();
+		// delay qunit until result is known - timeout 5sec
+		QUnit.delayed_result(10*1000);
+	});
+
+	// call the playing_start() function
+	test(".is_playing() after .playing_stop()", 1, function(){
+		// delay qunit until result is known - timeout 10sec
+		QUnit.delayed_result(10*1000);
+		// check .is_playing() API result
+		urfastr.is_playing(function(resp_ctx){
+			QUnit.ok(resp_ctx.result == false, "api .is_playing() is false as expected");
+			QUnit.result_given();	
 		});
 	});
 
