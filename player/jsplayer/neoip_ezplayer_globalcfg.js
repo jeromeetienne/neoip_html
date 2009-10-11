@@ -66,6 +66,7 @@ neoip.globalCfg	= {}
 	neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer.swf";
 // <?php elseif($in_dev): ?>	//
 	neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer.swf";
+	//neoip.globalCfg.subplayer_asplayer_swf_url	= "neoip_asplayer_dev.swf";
 // <?php endif;		?> 	//
 
 /**
