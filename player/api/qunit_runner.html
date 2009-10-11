@@ -92,6 +92,18 @@ $(function(){
 	});
 	
 	// call the playing_start() function
+	test("call .webpack_status()", 1, function(){
+		// delay qunit until result is known - timeout 10sec
+		QUnit.delayed_result(10*1000);
+		// check .is_playing() API result
+		urfastr.webpack_status(function(resp_ctx){
+			var expected	= "installed";
+			QUnit.ok(resp_ctx.result == expected, "webpack is "+expected+" as expected");
+			QUnit.result_given();	
+		});
+	});
+	
+	// call the playing_start() function
 	test("Wait 5-sec to show video stream after .playing_start() call", 1, function(){
 		// delay qunit until result is known 
 		QUnit.delayed_result();
