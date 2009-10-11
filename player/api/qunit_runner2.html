@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<script src="../../lib/js/jquery/jquery-latest.js"></script>
+	<link  href="../../lib/js/jquery/qunit/qunit.css" rel="stylesheet" type="text/css" media="screen" />
+	<script src="../../lib/js/jquery/qunit/qunit.js" type="text/javascript"></script>
+	<script>
+		// silly patch because i dont like this "stop/start" in my code
+		QUnit.delayed_result	= stop;
+		QUnit.result_given	= start;
+	</script>
+</head>
+<body>
+
+<!-- to be able to run event without firebug -->
+<script src="../../base/firebug/firebugx.js"></script>
+
+
+<script src="../../lib/crossframe/crossframe_rpc_clientserver.standalone-min.js"></script>
+<script src="urfastr_live.js" type="text/javascript"></script>
+<script>
+$(function(){
+	// define the name of the module
+	module("jsplayer API");
+
+	// init the global object first
+	var dirname	= location.href.replace(/[^/]*$/, '');
+	var opt		= {
+		container_id		: "container_urfastr",
+		crossframe_proxyUrl	: dirname + "../../lib/crossframe/crossframe_proxy.html",
+		player_url		: "http://localhost/~jerome/neoip_html/player/jsplayer/slota_rel_live.html",		
+		event_cb		: function(event_type, event_args){},
+		neoip_var_arr	:{
+				onload_start_play:	'disabled'
+			}
+	}
+	console.dir(opt);
+
+	// build the object
+	var urfastr	= new urfastr_live(opt);
+
+	// call the build() function
+	test("player_initialized event after .build()", 1, function(){
+		// build the player
+		urfastr.build();
+		// delay qunit until result is known
+		QUnit.delayed_result();
+		// set the event_cb
+		// TODO bug here, if event_cb_set() is called before .build(), it fails
+		urfastr.event_cb_set(function(event_type, event_args){
+			if( event_type != "player_initialized" )	return;
+			
+			// destroy this test
+			QUnit.ok(true, "event "+event_type+" notified as expected");
+			// TODO if result_given() is called here, the test fails often
+			// - most likely a race in player_initialized notification
+			//   where it is not ok to call .playing_start()
+		});
+		setTimeout(function(){
+			QUnit.result_given();			
+		}, 5*1000);
+	});
+	
+	// call the playing_start() function
+	test("play_starting event after .playing_start()", 1, function(){
+		// urfastr playing start
+		urfastr.playing_start();
+		// delay qunit until result is known - timeout 10sec
+		QUnit.delayed_result(10*1000);
+		// set the proper event
+		var expected_event	= "play_starting";	
+		// set the event_cb
+		urfastr.event_cb_set(function(event_type, event_args){
+			// if it is not the proper event, return
+			if( event_type != expected_event )	return;
+			// mark this test as succeeded
+			QUnit.ok(true, "event "+expected_event+" notified as expected");
+			QUnit.result_given();	
+		});
+		
+
+	});
+
+	// call the playing_stop() function
+	test("play_stopping event after calling .playing_stop()", 1, function(){
+		// urfastr playing start
+		urfastr.playing_stop();
+		// delay qunit until result is known - timeout 5sec
+		QUnit.delayed_result(10*1000);
+		// set the proper event
+		var expected_event	= "play_stopping";
+		// set the event_cb
+		urfastr.event_cb_set(function(event_type, event_args){
+			// if it is not the proper event, return
+			if( event_type != expected_event )	return;
+			// mark this test as succeeded
+			QUnit.ok(true, "event "+expected_event+" notified as expected");
+			QUnit.result_given();
+		});
+	});
+
+	// call the playing_stop() function
+	test("calling destroy", 1, function(){
+		// urfastr destroy
+		urfastr.destroy();
+		// log
+		QUnit.ok(true, "player widget destroyed");
+	});
+});
+</script>
+ 
+
+<div id="qunit-testrunner-toolbar">&nbsp;</div>
+<h1 id="qunit-header">QUnit Runner for UrFastR Player API</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<div id="container_urfastr" width="320px" height="240px" style="float: right"></div>
+<ol id="qunit-tests"></ol>
+
+
+</body>
+</html>
