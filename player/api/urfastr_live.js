@@ -1,5 +1,5 @@
 /**
- * this object is part of the javascript API for UrFastR Live
+ * this object is part of the javascript API for UrFastR Player
  * - opt.container: the html id of the container
  *
  * NOTE: it MUST not depends on other libraries
@@ -136,7 +136,6 @@ var urfastr_live = function(opt){
 
 	/**
 	 * Add a event listener for iframe events
-	 * - TODO change this to set_callback? S
 	*/
 	var event_cb_set	= function(p_callback){
 		// copy the parameter
