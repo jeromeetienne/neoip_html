@@ -14,16 +14,23 @@ def compress_javascript_data(data):
     os.remove(tmp_fname)    
     return compressed_data
 
+def remove_firebug_calls(js_data):
+    """remove all firebug calls from js_data"""
+    js_data = re.compile('console\.[^(]*?\([^()]*?\);').sub("", js_data)
+    return js_data
+
 print 'reading js files...'
 orig_data   = open('urfastr_live.js').read()
 xfrm_data   = open('../../lib/crossframe/crossframe_rpc_clientserver.standalone-min.js').read()
 
 filename    = "urfastr_player_jsapi-min.js"
 print 'producing %s ...' % filename
-pack_data   = compress_javascript_data(orig_data)
+pack_data   = remove_firebug_calls(orig_data)
+pack_data   = compress_javascript_data(pack_data)
 open(filename, "w").write(pack_data)
 
 filename    = "urfastr_player_jsapi-xfrm-min.js"
 print 'producing %s ...' % filename
-pack_data   = compress_javascript_data(xfrm_data+orig_data)
+pack_data   = remove_firebug_calls(xfrm_data+orig_data)
+pack_data   = compress_javascript_data(pack_data)
 open(filename, "w").write(pack_data)
