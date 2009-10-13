@@ -5,7 +5,7 @@
  * NOTE: it MUST not depends on other libraries
  * - it has an optionnal dependancy on crossframe library
 */
-var urfastr_live = function(opt){
+var urfastr_player_jsapi = function(opt){
 	// set the default options
 	var opt_dfl 	= {
 			player_url	: 'http://player.urfastr.net/live',
@@ -193,6 +193,14 @@ var urfastr_live = function(opt){
 			callback(resp_ctx);
 		});
 	}
+
+	/**
+	 * Change the current playlist
+	*/
+	var change_playlist	= function(playlist_uid, callback){
+		console.assert(rpc_client);
+		rpc_client.call("change_playlist", playlist_uid, callback);		
+	}
 	
 	// launch the constructor
 	ctor();
@@ -205,6 +213,7 @@ var urfastr_live = function(opt){
 		playing_stop	: playing_stop,
 		is_playing	: is_playing,
 		plistarr_get	: plistarr_get,
-		webpack_status	: webpack_status
+		webpack_status	: webpack_status,
+		change_playlist	: change_playlist
 	};
 };

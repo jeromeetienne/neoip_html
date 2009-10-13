@@ -20,7 +20,7 @@ def remove_firebug_calls(js_data):
     return js_data
 
 print 'reading js files...'
-orig_data   = open('urfastr_live.js').read()
+orig_data   = open('urfastr_player_jsapi.js').read()
 xfrm_data   = open('../../lib/crossframe/crossframe_rpc_clientserver.standalone-min.js').read()
 
 filename    = "urfastr_player_jsapi-min.js"
