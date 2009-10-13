@@ -17,7 +17,7 @@
 
 
 <script src="../../lib/crossframe/crossframe_rpc_clientserver.standalone-min.js"></script>
-<script src="urfastr_live.js" type="text/javascript"></script>
+<script src="urfastr_player_jsapi.js" type="text/javascript"></script>
 <script>
 $(function(){
 	// define the name of the module
@@ -37,7 +37,7 @@ $(function(){
 	console.dir(opt);
 
 	// build the object
-	var urfastr	= new urfastr_live(opt);
+	var urfastr	= new urfastr_player_jsapi(opt);
 
 	// call the build() function
 	test("player_initialized event after .build()", 1, function(){
