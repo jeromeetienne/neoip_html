@@ -184,10 +184,6 @@ var ezplayer= this.m_ezplayer;
 		console.info("rpc_server playing stop");
 		ezplayer.playing_stop();
 	});
-	this.m_rpc_server.register("playing_stop", function(){
-		console.info("rpc_server playing stop");
-		ezplayer.playing_stop();
-	});
 	this.m_rpc_server.register("is_playing", function(){
 		console.info("rpc_server is_playing");
 		return ezplayer.is_playing();
@@ -200,5 +196,9 @@ var ezplayer= this.m_ezplayer;
 	this.m_rpc_server.register("webpack_status", function(){
 		console.info("rpc_server webpack_status");
 		return ezplayer.webpack_detect_result();
+	});
+	this.m_rpc_server.register("change_playlist", function(playlist_uid){
+		console.info("rpc_server change_playlist");
+		ezplayer.change_playlist(playlist_uid);
 	});
 }
