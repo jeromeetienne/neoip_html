@@ -18,7 +18,6 @@ var neoip_geolocalize_qunit	= function(){
 		var playlist_loader_cb	= function(notified_obj, userptr, event_type, arg){
 			console.info("event_type="+event_type);
 			//console.dir(arg);
-
 		}
 		// delay qunit until result is known
 		QUnit.delayed_result();

@@ -14,12 +14,12 @@ var neoip_playlist_qunit	= function(){
 			// notify qunit that result is now given and may go to the next test
 			QUnit.result_given();
 		}
-		var cast_name		= " Jerome Coding"
-		var cast_privhash	= "1f71e0f4";
+		var cast_name		= "Public Senat"
+		var cast_privhash	= "e334e91c";
 		var playlist_uid	= "plistarr_live/"+cast_name +"_"+cast_privhash+".playlist_jspf";
 		var playlist_loader	= new neoip.playlist_loader_t({
 			callback:	neoip.playlist_loader_cb_t(playlist_loader_cb),
-			xdomrpc_url:	"../../cgi-bin/xdomrpc_dispatcher.php",
+			xdomrpc_url:	"http://api.urfastr.net/CastMdataSrv2/XDOMRPC",
 			playlist_uid:	playlist_uid
 		});
 		// delay qunit until result is known

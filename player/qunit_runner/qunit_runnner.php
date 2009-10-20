@@ -65,8 +65,8 @@ function getQunitJs($dirname){
 	return $result;
 }
 $qunit_fnames	= array();
-$qunit_fnames	+= getQunitJs("../../base/javascript");
-$qunit_fnames	+= getQunitJs("../../player/jsplayer");
+$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../base/javascript")	);
+$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../player/jsplayer")	);
 ?>
 <?php
 	// output the <script> to load all *_qunit.js
@@ -81,6 +81,8 @@ $qunit_fnames	+= getQunitJs("../../player/jsplayer");
 
 <script>
 $(function(){
+	console.info('qunit fnames:');
+	console.dir(qunit_fnames);
 	// go thru the whole qunit_fnames
 	for(var i in qunit_fnames){
 		var qunit_fname	= qunit_fnames[i];
