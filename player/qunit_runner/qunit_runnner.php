@@ -66,8 +66,12 @@ function getQunitJs($dirname){
 	return $result;
 }
 $qunit_fnames	= array();
-$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../base/javascript")	);
-$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../player/jsplayer")	);
+#$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../base/javascript")	);
+#$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../player/jsplayer")	);
+$qunit_fnames[]	= array(
+	'fct_name'	=> "neoip_nested_uri2_qunit",
+	'file_name'	=> "../../base/javascript/neoip_nested_uri2_qunit.js"
+);
 ?>
 <?php
 	// output the <script> to load all *_qunit.js
@@ -82,8 +86,8 @@ $qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../player/jsplayer")	
 
 <script>
 $(function(){
-	console.info('qunit fnames:');
-	console.dir(qunit_fnames);
+	// log to debug
+	console.info('qunit fnames: %o', qunit_fnames);
 	// go thru the whole qunit_fnames
 	for(var i in qunit_fnames){
 		var qunit_fname	= qunit_fnames[i];

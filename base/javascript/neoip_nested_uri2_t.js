@@ -27,7 +27,7 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 neoip.nested_uri2_t = function()
 {
 	// zero some values
-	this.m_data	= {};
+	this.m_map	= {};
 }
 
 /** \brief Destructor
@@ -42,38 +42,39 @@ neoip.nested_uri2_t.prototype.destructor	= function()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-
+neoip.nested_uri2_t.prototype._parse_key	= function(key, non_exist_callback)
+{
+	// parse the key into parts
+	var key_parts	= key.split("/");
+	// goto the proper submap (and create it if needed)
+	var submap	= this.m_map;
+	var subkey	= key_parts[0]
+	for(var i = 0; i < key_parts.length - 1; i++){
+		// if this subkey is not present in submap, notify an exception
+		if( typeof submap[subkey] == 'undefined' )	non_exist_callback(submap, subkey);
+		// goto the next submap
+		submap	= submap[subkey];
+		subkey	= key_parts[i+1];
+	}
+	// return the result
+	return {
+		'submap': submap,
+		'subkey': subkey
+	};
+}
 
 /**
  * Set the variable namespace/key to the value val
  */
 neoip.nested_uri2_t.prototype.set	= function(key, val)
 {
-	var kparts	= key.split("/");
-	
-	var temp_data	= this.m_data;
-	for(var i = 0; i < kparts.length; curs_data++){
-		var kpart	= kparts[curs_data];
-		if( kpart in temp_data )	continue;
-		temp_data[kpart]	= {}
-	}
-	tmp_data[kparts.length-1]
-	console.dir(kparts);
-	console.dir(kparts.slice(1));
-	console.info('subkey=', kparts.slice(1).join('/'));
-
-
-	// outter_var/http_slota= 34
-	// inner_uri=kjdfkjdf
-	var _set	= function(key, val){
-		var kparts	= key.split("/");
-		if( kparts.length > 1 ){
-			var subkey	= kparts.slice(1).join('/');
-// TODO TODO
-		}		
-	}
-	return _set(key, val);
-	console.dir(kparts);
+	// parse the key
+	var parsed_key	= this._parse_key(key, function(submap, subkey){
+		// if this subkey is not present in submap, create an empty object
+		submap[subkey]	= {}
+	});
+	// set this value in the last submap
+	parsed_key.submap[parsed_key.subkey]	= val;
 }
 
 /**
@@ -81,6 +82,35 @@ neoip.nested_uri2_t.prototype.set	= function(key, val)
 */
 neoip.nested_uri2_t.prototype.get	= function(key)
 {
+	// sanity check - the key MUST be present
+	console.assert( this.has(key) );
+	// parse the key
+	var parsed_key	= this._parse_key(key, function(submap, subkey){
+		// if this subkey is not present in submap, notify an exception
+		throw new Error('subkey '+subkey+' (from key '+key+') doesnt exist');
+	});
+	// get this value in the last submap
+	var val	= parsed_key.submap[parsed_key.subkey];
+	// return this val
+	return val;
+}
+
+/**
+ * delete this key (note: it MUST be defined)
+*/
+neoip.nested_uri2_t.prototype.del	= function(key)
+{
+	// sanity check - the key MUST be present
+	console.assert( this.has(key) );
+	// parse the key
+	var parsed_key	= this._parse_key(key, function(submap, subkey){	
+		// if this subkey is not present in submap, notify an exception
+		throw new Error('subkey '+subkey+' (from key '+key+') doesnt exist');
+	});
+	// get this value in the last submap
+	var val	= parsed_key.submap[parsed_key.subkey];
+	// delete in the last submap
+	delete parsed_key.submap[parsed_key.subkey];
 }
 
 /**
@@ -88,11 +118,29 @@ neoip.nested_uri2_t.prototype.get	= function(key)
 */
 neoip.nested_uri2_t.prototype.has	= function(key)
 {
+	// parse the key
+	var parsed_key	= null;
+	try {
+		parsed_key	= this._parse_key(key, function(submap, subkey){
+			// if this subkey is not present in submap, notify an exception
+			throw new Error('subkey '+subkey+' (from key '+key+') doesnt exist');
+		});
+	}catch(error) {
+		// return false now, if the key cant be parsed
+		return	false;		
+	}
+	// if this subkey is not present in submap, notify an exception
+	if( typeof parsed_key.submap[parsed_key.subkey] == 'undefined' ) return false;
+	// if all previous tests passed, return true
+	return true;
 }
 
+neoip.nested_uri2_t.prototype.get_default	= function(key, dfl){ return this.has(key) ? this.get(key) : dfl; }
+
 // shortcuts
-neoip.nested_uri2_t.prototype.outter_uri	= function(val){ this.set('main/outter_uri'	, val); }
-neoip.nested_uri2_t.prototype.inner_uri		= function(val){ this.set('main/inner_uri'	, val); }
+neoip.nested_uri2_t.prototype.outter_uri	= function(val){ this.set('outter_uri'	, val); }
+neoip.nested_uri2_t.prototype.inner_uri		= function(val){ this.set('inner_uri'	, val); }
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,10 +151,10 @@ neoip.nested_uri2_t.prototype.inner_uri		= function(val){ this.set('main/inner_u
 
 /** \brief throw an exception is this object is not considered sane 
  */
-neoip.nested_uri_builder_t.prototype._is_sane_internal	= function()
+neoip.nested_uri2_t.prototype._is_sane_internal	= function()
 {
-	if( !this.has("main/outter_uri") )	throw new Error("No outter_uri");
-	if( !this.has("main/inner_uri") )	throw new Error("No inner_uri");
+	if( !this.has("outter_uri") )	throw new Error("No outter_uri");
+	if( !this.has("inner_uri") )	throw new Error("No inner_uri");
 	
 	// TODO do all the sanity check here
 	// - if subfile_level exist, a subfile_path MUST too
@@ -146,57 +194,62 @@ neoip.nested_uri2_t.prototype.to_string	= function()
 	console.assert( this.is_sane() );
 
 	// start building the nested_uri
-	result	+= this.m_data['main']['inner_uri'] + "/";
+	result	+= this.get('outter_uri') + "/";
 	
 	// put the 'mod' variable first
-	if( this.m_data['main']['mod'] )	result += this.get('main','mod') + "/";
-	
+	if( this.has('outter_var/mod') )	result += this.get('outter_var/mod') + "/";
+
 	// put all the outter variables
-	for(var key in this.m_data['outter_var']){
+	for(var key in this.get_default('outter_var', {}) ){
 		// skip key equal to dupuri/subfile_path, they are handled separatly
 		if( key == 'dupuri' )		continue;
 		if( key == 'subfile_path' )	continue;
+		if( key == 'mod' )		continue;
 		// put the key of the variable
 		result	+= "*" + key + "*";
 		// get the value
-		var val	= this.m_data['outter_var'][key];
+		var val	= this.get('outter_var/'+key);
 		// http_peersrc_uri is specific - values are encoded in base64-urlsafe
 		if( key == "http_peersrc_uri" )	val = neoip_base64.encode_safe(val)
 		// put the values according to the keys
-		result	+= this.m_data['outter_var'][key];
+		result	+= val;
 		// add the separator
 		result	+= "/";
 	}
 	
-// TODO how to handle dupuri stuff ?
-// - not here !
-// - here dupuri is a outter_var like any other
-// - this is handled in the setter with a special setter
-
+	// handle outter_var/subfile_path, aka insert the dynamic outter_var subfile_level
+	if( this.has('outter_var/subfile_path') ){
+		var subfile_path	= this.get('outter_var/subfile_path');
+		var subfile_level	= subfile_path.split("/").length - 1;		// put the key of the variable
+		// add the subfile_level as outter_var in result
+		result	+= "*subfile_level*"+subfile_level+'/';
+	}
+	
 	// put all the dupuri with value in base64-urlsafe encoding
-	for(var dupuri_idx in this.m_data['outter_var']['dupuri']){
+	for(var dupuri_idx in this.get_default('outter_var/dupuri', {})){
 		result	+= "*dupuri*";
-		result	+= neoip_base64.encode_safe(this.m_data['outter_var']['dupuri'][dupuri_idx]);
+		result	+= neoip_base64.encode_safe(this.get('outter_var/dupuri/'+dupuri_idx));
 		result	+= "/";
 	}
 
-
-// TODO how to port this subfile_path stuff 
 	// put the inner_uri at the end
 	// - made complex by the need to put the m_subfile_path between the 
 	//   path and the query part of the inner_uri
-	var	query_pos		 = this.m_inner_uri.indexOf("?");
-	if( query_pos != -1 )	result	+= this.m_inner_uri.substr(0, query_pos);
-	else			result	+= this.m_inner_uri;
-	if(this.m_subfile_path)	result	+= this.m_subfile_path
-	if( query_pos != -1 )	result	+= this.m_inner_uri.substr(query_pos, this.m_inner_uri.length);
-	
+	var inner_uri	= this.get('inner_uri');
+	var has_subfile	= this.has('outter_var/subfile_path')
+	var subfile_path= this.get_default("outter_var/subfile_path", null);
+	var	query_pos		 = inner_uri.indexOf("?");
+	if( query_pos != -1 )	result	+= inner_uri.substr(0, query_pos);
+	else			result	+= inner_uri;
+	if( subfile_path )	result	+= subfile_path
+	if( query_pos != -1 )	result	+= inner_uri.substr(query_pos, inner_uri.length);
+
 	// put all the inner variables aka "neoip_metavar_"
-	for(var key in this.m_data['minner_var']){
+	for(var key in this.get_default('minner_var', {}) ){
 		// put the variable separator
 		result	+= result.indexOf('?') == -1 ? "?" : "&";
 		// put the key of the variable
-		result	+= key + "=" + escape(this.m_data['minner_var'][key]);
+		result	+= key + "=" + escape(this.get('minner_var/'+key));
 	}
 	
 	// scramble the result
