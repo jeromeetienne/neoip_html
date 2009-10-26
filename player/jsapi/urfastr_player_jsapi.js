@@ -8,7 +8,8 @@
 var urfastr_player_jsapi = function(opt){
 	// set the default options
 	var opt_dfl 	= {
-			player_url	: 'http://player.urfastr.net/live',
+			//player_url	: 'http://player.urfastr.net/live',
+			player_url	: "http://localhost/~jerome/neoip_html/player/jsplayer/neoip_ezplayer_widget.html",
 			width		: "320",
 			height		: "240",
 			event_cb	: null,

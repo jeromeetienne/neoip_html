@@ -16,6 +16,7 @@
 <script src="../../base/javascript/neoip_objembed_initmon_t.js"></script>
 <script src="../../base/javascript/neoip_base64_safe.js"></script>
 <script src="../../base/javascript/neoip_nested_uri_builder_t.js"></script> 
+<script src="../../base/javascript/neoip_nested_uri2_t.js"></script> 
 <script src="../../base/javascript/swfobject.js"></script>
 <script src="../../base/javascript/neoip_xdomrpc_t.js"></script>
 <script src="../../base/javascript/neoip_apps_detect_t.js"></script> 

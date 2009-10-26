@@ -9,11 +9,12 @@ this is just to debug the case of player live in iframe
 <p>
 
 <!-- include js for UrFastR Live API 	-->
-<script src="../../lib/crossframe/crossframe_rpc_clientserver.standalone-min.js"></script>
-<script src="../../player/jsapi/urfastr_player_jsapi.js" type="text/javascript"></script>
 <!--
-<script src="../../player/jsapi/urfastr_player_jsapi-xfrm-min.js" type="text/javascript"></script>
+	<script src="../../lib/crossframe/crossframe_rpc_clientserver.standalone-min.js"></script>
+	<script src="../../player/jsapi/urfastr_player_jsapi.js" type="text/javascript"></script>
 -->
+<script src="../../player/jsapi/urfastr_player_jsapi-xfrm-min.js" type="text/javascript"></script>
+
 
 <!--
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
@@ -81,7 +82,7 @@ var opt		= {
 			.append('<strong>'+event_type+'<strong>')
 			.append(': '+JSON.stringify(event_args))
 			.appendTo('#container_recved_event ul');
-
+			
 		console.info("******************************");
 		console.info("******************************");
 		console.info("event notified event_type="+event_type);
