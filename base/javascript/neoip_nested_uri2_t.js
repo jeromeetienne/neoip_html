@@ -4,12 +4,6 @@
 \par Brief Description
 nested_uri2_t is a class to help build neoip-oload nested uri.
 
-\par Implementation notes
-- this object exist in javascript and actionscript. it is very similar in both
-  - neoip_nested_uri2_t.js and neoip_nested_uri2_t.as
-  - this is a straight forward porting
-  - any modification made in one, must be done in the other
-
 */
 
 // defined the namespace if not yet done
@@ -23,11 +17,15 @@ if( typeof neoip == 'undefined' )	var neoip	= {};
 ////////////////////////////////////////////////////////////////////////////////
 
 /** \brief Constructor
+ * 
+ * @param nested_uri_str {string} nested uri string to parse
  */
-neoip.nested_uri2_t = function()
+neoip.nested_uri2_t = function(nested_uri_str)
 {
 	// zero some values
 	this.m_map	= {};
+	// if nested_uri_str is defined, use it for building the uri
+	if( typeof nested_uri_str != "undefined" )	this.from_string(nested_uri_str);
 }
 
 /** \brief Destructor
@@ -141,6 +139,9 @@ neoip.nested_uri2_t.prototype.get_default	= function(key, dfl){ return this.has(
 neoip.nested_uri2_t.prototype.outter_uri	= function(val){ this.set('outter_uri'	, val); }
 neoip.nested_uri2_t.prototype.inner_uri		= function(val){ this.set('inner_uri'	, val); }
 
+neoip.nested_uri2_t.prototype.outter_var	= function(key, val){ return this.set('outter_var/'+key, val);	}
+neoip.nested_uri2_t.prototype.minner_var	= function(key, val){ return this.set('minner_var/'+key, val);	}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -249,7 +250,7 @@ neoip.nested_uri2_t.prototype.to_string	= function()
 		// put the variable separator
 		result	+= result.indexOf('?') == -1 ? "?" : "&";
 		// put the key of the variable
-		result	+= key + "=" + escape(this.get('minner_var/'+key));
+		result	+= 'neoip_metavar_' + key + "=" + escape(this.get('minner_var/'+key));
 	}
 	
 	// scramble the result
@@ -266,9 +267,76 @@ neoip.nested_uri2_t.prototype.to_string	= function()
 
 /** \brief return a string of the nested_uri
  */
-neoip.nested_uri2_t.prototype.from_string	= function(from_str)
+neoip.nested_uri2_t.prototype.from_string	= function(/* string */from_str)
 {
-	// return the just built nested_uri
-	return result;
-}
+	//var str	= new String();
+	//str.l
+	
+	// initialisation of nleft_str/nright_str from nested_str
+	var nested_str	= from_str;
+	var nleft_str	= nested_str.substr(0, from_str.indexOf('/http:/'));
+	var nright_str	= nested_str.substr(from_str.indexOf('/http:/')+1);
 
+	// log to debug
+	console.log("from_str=%s", from_str);
+	console.log("indexof="+from_str.indexOf('/http:/'));
+	console.info('nleft_str=%s', nleft_str);
+	console.info('nright_str=%s', nright_str);
+	
+	// Process outter_var: consume all the outter_var in nleft_str (outter_var/mod included)
+	while( true ){
+		// extract last_level from nleft_str
+		var last_level	= nleft_str.substr(nleft_str.lastIndexOf('/')+1);
+		// if last_level is a normally encoded outter_var
+		if( last_level.substr(0, 1) == '*' ){
+			var matches	= last_level.match(/\*(.+)\*(.+)$/);
+			var key		= matches[1];
+			var val		= matches[2];
+			this.set('outter_var/'+key, val);
+		}else if( last_level == "raw" || last_level == "flv" ){
+			// if last_level is a outter_var/mod
+			this.set('outter_var/mod', last_level)
+		}else {
+			// if last_level is not recognized, leave the loop
+			break;
+		}
+		// consume in nleft_str
+		nleft_str	= nleft_str.substr(0, nleft_str.lastIndexOf('/'));
+	}
+	// set "outter_uri" - what remains in nleft_str is 'outter_uri'
+	this.set("outter_uri", nleft_str);
+	
+	
+	this.set('inner_uri'	, nright_str);
+	if( nright_str.lastIndexOf('?') ){
+		var search_str	= nright_str.substr(nright_str.lastIndexOf('?')+1);
+		var keyval_arr	= search_str.split("&");
+		var actual_vars	= [];
+		// go thru each variable
+		for(var i = 0; i < keyval_arr.length; i++ ){
+			var keyval	= keyval_arr[i].split("=");
+			var key		= keyval[0];
+			var val		= keyval[1];
+			// if this key is not a minner_var, simply copy it in actual_vars
+			if( key.indexOf("neoip_metavar_") != 0 ){
+				actual_vars.push(keyval_arr[i]);
+				continue
+			}
+			var minner_key	= key.substr("neoip_metavar_".length);
+			this.set("minner_var/"+minner_key, val);
+		}
+		console.info('actual_var=%o', actual_vars);
+		console.info('str=', '?'+actual_vars.join('&'));
+		// consume the query part of the nright_str
+		nright_str	= nright_str.substr(0, nright_str.lastIndexOf('?'));
+		console.info('nirhgt_str='+nright_str);
+	}
+	
+	// TODO handle the subpath_path/subpath_level if any
+	// - reassemble the uri variable for inner_uri
+	// - cleanup this code
+	// - write some unit test for parser
+
+
+	console.dir(this.m_map);
+}

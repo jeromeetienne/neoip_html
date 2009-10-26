@@ -8,9 +8,18 @@ var neoip_nested_uri2_qunit	= function(){
 /**
  * TODO:
  * - put this get/set/has/del in a collection.js tool ?
- * - add a del function
 */
-	
+
+	/**
+	 * JS Object assignment MUST be done by reference
+	*/
+	test('parse', function(){
+		var expected	= "http://localhost:4550/flv/*subfile_level*2/http://example.com/file.flv?bla=gou&neoip_metavar_prou=bla&foo=bar";
+		var nested_uri	= new neoip.nested_uri2_t(expected);
+		equals(true, true, "superbla");
+	});
+	return;
+
 	/**
 	 * JS Object assignment MUST be done by reference
 	*/
