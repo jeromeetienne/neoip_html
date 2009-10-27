@@ -11,12 +11,23 @@ var neoip_nested_uri2_qunit	= function(){
 */
 
 	/**
-	 * JS Object assignment MUST be done by reference
+	 * testJS Object assignment MUST be done by reference
 	*/
-	test('parse', function(){
-		var expected	= "http://localhost:4550/flv/*subfile_level*2/http://example.com/file.flv?bla=gou&neoip_metavar_prou=bla&foo=bar";
-		var nested_uri	= new neoip.nested_uri2_t(expected);
-		equals(true, true, "superbla");
+	test('parse/build consistency', function(){
+		// define all the values to test
+		var testvals	= [
+			"http://localhost:4550/flv/*subfile_level*2/http://example.com/file.flv/test/file?bla=gou",
+			"http://localhost:4550/http://example.com/file.flv?bla=gou",
+		];
+		for(var i = 0; i < testvals.length; i ++){
+			var expected	= testvals[i];
+			var nested_uri	= new neoip.nested_uri2_t(expected);
+			var result	= nested_uri.to_string();
+			
+			console.info('expected='+expected);
+			console.info('result  ='+result);
+			equals(result, expected, "self consistant nested uri "+expected);			
+		}
 	});
 	return;
 
