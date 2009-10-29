@@ -118,6 +118,7 @@ neoip.nested_uri2_t.prototype.has	= function(key)
 {
 	// parse the key
 	var parsed_key	= null;
+	// TODO i could avoid the exception by doing closure on parsed_key ?
 	try {
 		parsed_key	= this._parse_key(key, function(submap, subkey){
 			// if this subkey is not present in submap, notify an exception
@@ -141,6 +142,14 @@ neoip.nested_uri2_t.prototype.inner_uri		= function(val){ this.set('inner_uri'	,
 
 neoip.nested_uri2_t.prototype.outter_var	= function(key, val){ return this.set('outter_var/'+key, val);	}
 neoip.nested_uri2_t.prototype.minner_var	= function(key, val){ return this.set('minner_var/'+key, val);	}
+neoip.nested_uri2_t.prototype.dupuri		= function(val){
+							for(var i = 0; ; i++){
+								var key	= "outter_var/dupuri/"+i;
+								if( this.has(key) ) continue;
+								this.set(key, val);
+								break;
+							}
+						}
 
 
 
@@ -269,20 +278,10 @@ neoip.nested_uri2_t.prototype.to_string	= function()
  */
 neoip.nested_uri2_t.prototype.from_string	= function(/* string */from_str)
 {
-	//var str	= new String();
-	//str.l
-	
 	// initialisation of nleft_str/nright_str from nested_str
 	var nested_str	= from_str;
 	var nleft_str	= nested_str.substr(0, from_str.indexOf('/http:/'));
 	var nright_str	= nested_str.substr(from_str.indexOf('/http:/')+1);
-
-	// log to debug
-	console.log("from_str=%s", from_str);
-	console.log("indexof="+from_str.indexOf('/http:/'));
-	console.info('nleft_str=%s', nleft_str);
-	console.info('nright_str=%s', nright_str);
-	
 	// Process outter_var: consume all the outter_var in nleft_str (outter_var/mod included)
 	while( true ){
 		// extract last_level from nleft_str
@@ -292,7 +291,8 @@ neoip.nested_uri2_t.prototype.from_string	= function(/* string */from_str)
 			var matches	= last_level.match(/\*(.+)\*(.+)$/);
 			var key		= matches[1];
 			var val		= matches[2];
-			this.set('outter_var/'+key, val);
+			if( key != "dupuri" )	this.set('outter_var/'+key, val);
+			else			this.dupuri(neoip_base64.decode_safe(val));
 		}else if( last_level == "raw" || last_level == "flv" ){
 			// if last_level is a outter_var/mod
 			this.set('outter_var/mod', last_level)
@@ -305,9 +305,10 @@ neoip.nested_uri2_t.prototype.from_string	= function(/* string */from_str)
 	}
 	// set "outter_uri" - what remains in nleft_str is 'outter_uri'
 	this.set("outter_uri", nleft_str);
-	
-	var ainner_vars	= [];	
-	if( nright_str.lastIndexOf('?') ){
+	// declare the 'actual inner uri variables' array
+	var ainner_vars	= [];
+	// if the right part contains variables, process them to extract minner_vars
+	if( nright_str.lastIndexOf('?') != -1 ){
 		var search_str	= nright_str.substr(nright_str.lastIndexOf('?')+1);
 		var keyval_arr	= search_str.split("&");
 		// go thru each variable
@@ -323,45 +324,30 @@ neoip.nested_uri2_t.prototype.from_string	= function(/* string */from_str)
 			var minner_key	= key.substr("neoip_metavar_".length);
 			this.set("minner_var/"+minner_key, val);
 		}
-		console.info('actual_var=%o', ainner_vars);
-		console.info('str=', '?'+ainner_vars.join('&'));
 		// consume the query part of the nright_str
 		nright_str	= nright_str.substr(0, nright_str.lastIndexOf('?'));
-		console.info('nirhgt_str='+nright_str);
-		console.info('actual_var='+ainner_vars.join('&'));
 	}
-	
-	console.log('right='+nright_str);
-	
-	// TODO handle the subpath_path/subpath_level if any
-	// - reassemble the uri variable for inner_uri
-	// - cleanup this code
-	// - write some unit test for parser
-
-	if( this.has('outter_var/subfile_level') ){		
-		var tmp	= nright_str;
-		var str = new String();
-		var idx	= nright_str.lastIndexOf('/');
-		console.info('idx='+idx);
-		var idx	= nright_str.lastIndexOf('/', idx-1);
-		console.info('idx='+idx);
+	// if outter_var/subfile_level is present, handle it here
+	if( this.has('outter_var/subfile_level') ){
+		var subfile_level	= this.get('outter_var/subfile_level');
+		// find the begining of the subfile_path
+		var pos 		= null;
+		for(var i = 0; i < subfile_level; i++){
+			if( pos )	pos = nright_str.lastIndexOf('/', pos-1);
+			else		pos = nright_str.lastIndexOf('/');
+		}
 		// extract the subfile_path
-		var subfile_path	= nright_str.substr(idx);
+		var subfile_path	= nright_str.substr(pos);
 		this.set("outter_var/subfile_path"	, subfile_path);
 		// delete outter_var/subfile_level
 		this.del("outter_var/subfile_level");
-		console.info('subfile_path='+subfile_path);
 		// consume the subfile_path
-		nright_str	= nright_str.substr(0, idx);
+		nright_str	= nright_str.substr(0, pos);
 	}
-	
-	// generate the inner_uri and set it
+	// generate the inner_uri
 	var inner_uri	= nright_str;
-	if( ainner_vars.length > 0 )
-		inner_uri	+= '?' + ainner_vars.join('?');
+	// append actual inner variables, if there is any
+	if( ainner_vars.length > 0 )	inner_uri	+= '?' + ainner_vars.join('&');
+	// set inner_uri
 	this.set('inner_uri'	, inner_uri);
-	
-
-
-	console.dir(this.m_map);
 }
