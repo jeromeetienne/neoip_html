@@ -69,8 +69,10 @@ $qunit_fnames	= array();
 #$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../base/javascript")	);
 #$qunit_fnames	= array_merge( $qunit_fnames, getQunitJs("../../player/jsplayer")	);
 $qunit_fnames[]	= array(
-	'fct_name'	=> "neoip_nested_uri2_qunit",
-	'file_name'	=> "../../base/javascript/neoip_nested_uri2_qunit.js"
+	//'fct_name'	=> "neoip_nested_uri2_qunit",
+	//'file_name'	=> "../../base/javascript/neoip_nested_uri2_qunit.js",
+	'fct_name'	=> "neoip_webpack_detect_qunit",
+	'file_name'	=> "../../base/javascript/neoip_webpack_detect_qunit.js"
 );
 ?>
 <?php
