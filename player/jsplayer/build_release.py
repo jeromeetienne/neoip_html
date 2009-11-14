@@ -6,9 +6,18 @@ import re
 
 def compress_javascript_data(data):
     """Compress the javascript data"""
-    tmp_fname   = tempfile.mktemp("urfastr-player-air-min.js")
+    tmp_fname   = tempfile.mktemp("urfastr-player-min.js")
     open(tmp_fname, "w+").write(data)
     cmdline = ["yui-compressor", tmp_fname]
+    compressed_data   = subprocess.Popen(cmdline, stdout=subprocess.PIPE).communicate()[0]
+    os.remove(tmp_fname)    
+    return compressed_data
+
+def compress_javascript_data_closure(data):
+    """Compress the javascript data"""
+    tmp_fname   = tempfile.mktemp("urfastr-player-min.js")
+    open(tmp_fname, "w+").write(data)
+    cmdline = ["closure-compiler", "--js", tmp_fname]
     compressed_data   = subprocess.Popen(cmdline, stdout=subprocess.PIPE).communicate()[0]
     os.remove(tmp_fname)    
     return compressed_data
@@ -81,17 +90,39 @@ def process_html_file(src_fname, dst_fname, preprocess_args):
     #js_data     = remove_firebug_calls(js_data)
     # preprocess the javascript
     js_data     = preprocess_javascript(js_data, preprocess_args)
+    
 
     # remove all the js
     html_data   = remove_javascript_tags(html_data)
     print("lenght uncompressed=%d" % len(js_data))
     # somehow wrapping the whole js into a anonymous function make the result a LOT worst
+    # - this happen with yui-compressor *and* closure compiler... so i likely miss something
     # - ANYHOW i use globals in the page (globalcfg) so it is not ok to get anonymous function
     #js_data = wrap_javascript_in_anonfct(js_data)
-    js_data = compress_javascript_data(js_data)
-    print("lenght compressed=%d" % len(js_data))
-    js_data = compress_javascript_data(js_data)
-    print("lenght compressed=%d" % len(js_data))
+
+    if True :
+        # to compress using yui
+        js_data = compress_javascript_data(js_data)
+        print("lenght compressed=%d" % len(js_data))
+        js_data = compress_javascript_data(js_data)
+        print("lenght compressed=%d" % len(js_data))
+    else:
+        # to compress using closure-compiler
+        lines   = js_data.split("\n")
+        output  = []
+        ndecl_neoip = 0
+        ndecl_xfram = 0
+        for line in lines:
+            if re.compile(".*typeof neoip == 'undefined'.*").match(line):
+                ndecl_neoip += 1
+                if ndecl_neoip > 1:    continue
+            if re.compile(".*crossframe = {}.*").match(line) :
+                ndecl_xfram += 1
+                if ndecl_xfram > 1:    continue
+            output.append(line)
+        js_data = "\n".join(output)
+        js_data = compress_javascript_data_closure(js_data)
+        print("lenght compressed=%d" % len(js_data))
     
     # append js at the bottom of the page
     html_data   = append_javascript_on_bottom_page(html_data, js_data)
