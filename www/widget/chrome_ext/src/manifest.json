@@ -1,0 +1,10 @@
+{
+	"name"		: "UrFastR Chrome Extension",
+	"version"	: "1.0",
+	"description"	: "UrFastR features in chrome",
+	"browser_action"	: {
+		"default_icon"	: "icon19x19.png",
+		"popup"		: "popup2.html",
+		"default_title"	: "UrFastR, Your TV just a click away"
+	}
+}

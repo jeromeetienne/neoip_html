@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="5928084b-ff0b-4f93-81e6-a7126ef67600" kpf_version="4" name="chrome_ext.kpf">
+<preference-set idref="5928084b-ff0b-4f93-81e6-a7126ef67600">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>
