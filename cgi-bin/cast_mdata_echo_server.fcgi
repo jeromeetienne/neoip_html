@@ -21,6 +21,9 @@
 #   - Time.now - Time.at(server.call("get_cast_mdata", "superstream", "1f71e0f4")['casti_date'])
 #   - works if done with echo_server and casti clock are insync. like on the same box
 #   - usefull to test the casti_date compensation
+# -----------------------------
+# - ubuntu package libapache2-mod-fcgid is needed in appache
+# - ubuntu package libfcgi-ruby1.8 is needed for ruby
 ########################################
 require "xmlrpc/server"
 
@@ -40,7 +43,7 @@ require File.join(File.dirname(__FILE__), '../bt_cast/mdata_echo_server/bt_cast_
 #   - see http://www.ntecs.de/projects/xmlrpc4r/server.html#label-19
 
 # create the directory needed for Neoip::Cast_mdata_server_t
-#Neoip::Cast_mdata_server_t.create_dir_ifneeded();
+Neoip::Cast_mdata_server_t.create_dir_ifneeded();
 
 # init the cgi_server
 cgi_server	= XMLRPC::CGIServer.new     
